@@ -1,0 +1,39 @@
+name: Daily job scrape
+
+on:
+  schedule:
+    # 06:00 Europe/Berlin. GitHub Actions cron is always UTC, and
+    # doesn't shift for daylight saving, so this runs at 06:00 CET /
+    # 07:00 CEST. Close enough for a morning check — adjust the "5"
+    # below if you want it earlier/later.
+    - cron: "0 5 * * *"
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write   # needed so the workflow can commit the updated Excel file back
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python -m src.main
+
+      - name: Commit updated tracker
+        run: |
+          git config user.name "job-scraper-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/job_tracker.xlsx
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Daily job scrape update"
+          git push
