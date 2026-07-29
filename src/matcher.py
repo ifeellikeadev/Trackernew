@@ -2,6 +2,14 @@
 Filters and scores scraped jobs against config/cv_profile.yaml.
 
 - A job is KEPT only if its title matches one of `title_must_match`.
+- A job is then checked against the company's expected city (Munich or
+  Zurich): if the scraped location text clearly names a DIFFERENT
+  place, the job is dropped. This matters because several platforms
+  (Lever, Greenhouse, SmartRecruiters, Workday) return a company's
+  ENTIRE global job board in one call — e.g. Palantir Zurich's Lever
+  board includes New York, London, DC, etc. alongside Zurich. Without
+  this check, every one of those non-local postings would pass through
+  just because the title matched "Project Manager."
 - Kept jobs get a `relevance_score` on a 1-10 scale (10 = best match to
   your CV) and a `german_required` flag, both used in the Excel output.
 """
@@ -23,10 +31,54 @@ from typing import Any
 #   too high or too low once you've seen real results.
 DEFAULT_SCORE_CEILING = 15
 
+# Keywords that count as "this location IS Munich" / "this location IS
+# Zurich." Kept separate from the city-stripping list in ats_scrapers.py
+# since this one runs against job location text, not company names.
+CITY_KEYWORDS = {
+    "Munich": ["munich", "münchen", "muenchen"],
+    "Zurich": ["zurich", "zürich", "zuerich"],
+}
+
+# Keywords that count as "this location is clearly somewhere else" even
+# when it happens to also mention the right country in passing (e.g. a
+# location string like "Germany (Remote)" without a specific city is
+# treated as unconfirmed, not excluded - only a NAMED other city/region
+# triggers exclusion).
+OTHER_MAJOR_LOCATIONS = [
+    "new york", "san francisco", "london", "paris", "warsaw", "krakow",
+    "dublin", "amsterdam", "madrid", "barcelona", "lisbon", "milan",
+    "vienna", "prague", "budapest", "singapore", "tokyo", "bangalore",
+    "hyderabad", "delhi", "mumbai", "toronto", "seattle", "austin",
+    "boston", "chicago", "los angeles", "washington", "atlanta",
+    "berlin", "hamburg", "frankfurt", "cologne", "köln", "stuttgart",
+    "düsseldorf", "duesseldorf", "leipzig", "dresden", "nuremberg",
+    "geneva", "genève", "basel", "bern", "lausanne", "lucerne",
+]
+
 
 def title_matches(title: str, must_match: list[str]) -> bool:
     t = title.lower()
     return any(term.lower() in t for term in must_match)
+
+
+def location_status(location: str, expected_city: str) -> str:
+    """
+    Returns "confirmed" (location text names the expected city),
+    "mismatch" (location text clearly names a different city), or
+    "unconfirmed" (no location text available, or it's too generic
+    to tell - e.g. just "Germany" or "Remote"). Callers drop
+    "mismatch" and keep the other two, flagging "unconfirmed" in the
+    tracker so you know it wasn't location-verified.
+    """
+    if not location:
+        return "unconfirmed"
+    loc = location.lower()
+    expected_keywords = CITY_KEYWORDS.get(expected_city, [expected_city.lower()])
+    if any(kw in loc for kw in expected_keywords):
+        return "confirmed"
+    if any(other in loc for other in OTHER_MAJOR_LOCATIONS):
+        return "mismatch"
+    return "unconfirmed"
 
 
 def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:
@@ -49,7 +101,9 @@ def flag_german_requirement(description: str, title: str, markers: list[str]) ->
     return any(marker.lower() in text for marker in markers)
 
 
-def filter_and_score(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
+def filter_and_score(
+    jobs: list[dict[str, Any]], cv_profile: dict[str, Any], expected_city: str = ""
+) -> list[dict[str, Any]]:
     must_match = cv_profile.get("title_must_match", [])
     keywords = cv_profile.get("scoring_keywords", [])
     markers = cv_profile.get("german_requirement_markers", [])
@@ -60,8 +114,14 @@ def filter_and_score(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> 
         title = job.get("title", "")
         if not title or not title_matches(title, must_match):
             continue
+
+        loc_status = location_status(job.get("location", ""), expected_city)
+        if loc_status == "mismatch":
+            continue
+
         description = job.get("description", "")
         job["relevance_score"] = score_job_1_to_10(description, title, keywords, ceiling)
         job["german_required"] = flag_german_requirement(description, title, markers)
+        job["location_status"] = loc_status  # "confirmed" or "unconfirmed"
         kept.append(job)
     return kept

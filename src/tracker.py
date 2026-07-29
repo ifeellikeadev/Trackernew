@@ -36,6 +36,7 @@ COLUMNS = [
     "Relevance Score (1-10)",
     "German Required",
     "Location",
+    "Location Confirmed",
     "URL",
 ]
 
@@ -54,7 +55,7 @@ def _new_workbook() -> Workbook:
         cell.fill = HEADER_FILL
         cell.font = HEADER_FONT
     ws.freeze_panes = "A2"
-    widths = [12, 12, 14, 22, 9, 40, 12, 8, 22, 60]
+    widths = [12, 12, 14, 22, 9, 40, 12, 8, 22, 16, 60]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[get_column_letter(i)].width = w
     return wb
@@ -71,20 +72,33 @@ def load_or_create(path: Path) -> Workbook:
 
 def _migrate_if_needed(ws: Worksheet) -> None:
     """
-    If this file was created by an older version of the script (before
-    the "Job Posted" / 1-10 score columns existed), add the missing
-    header so old trackers keep working instead of erroring out. New
-    rows going forward will populate it; old rows just show it blank.
+    If this file was created by an older version of the script (missing
+    the "Job Posted" and/or "Location Confirmed" columns added later),
+    insert whichever are missing at the right position so old trackers
+    keep working instead of erroring out. New rows going forward will
+    populate them; old rows just show them blank.
     """
     existing_headers = [c.value for c in ws[1]]
     if existing_headers == COLUMNS:
         return  # already current
+
     if "Job Posted" not in existing_headers:
         ws.insert_cols(3)
         cell = ws.cell(row=1, column=3, value="Job Posted")
         cell.fill = HEADER_FILL
         cell.font = HEADER_FONT
         ws.column_dimensions[get_column_letter(3)].width = 14
+        existing_headers = [c.value for c in ws[1]]
+
+    if "Location Confirmed" not in existing_headers:
+        # Insert right before URL (or at the end if URL is somehow missing).
+        insert_at = (existing_headers.index("URL") + 1) if "URL" in existing_headers else len(existing_headers) + 1
+        ws.insert_cols(insert_at)
+        cell = ws.cell(row=1, column=insert_at, value="Location Confirmed")
+        cell.fill = HEADER_FILL
+        cell.font = HEADER_FONT
+        ws.column_dimensions[get_column_letter(insert_at)].width = 16
+
     # Rename the old score header in place so its meaning is clear, without
     # touching the numbers already in that column (still a 1-10-ish score
     # under the old scheme; new rows going forward use the real 1-10 scale).
@@ -140,6 +154,7 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]]) -> dict[str, int]
             job.get("relevance_score", 1),
             "Yes" if job.get("german_required") else "",
             job.get("location", ""),
+            "Yes" if job.get("location_status") == "confirmed" else "Unconfirmed",
             url,
         ]
         ws.append(row_values)

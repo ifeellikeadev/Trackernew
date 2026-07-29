@@ -63,7 +63,7 @@ def run() -> None:
             empty_count += 1
             continue
 
-        relevant = filter_and_score(raw_jobs, cv_profile)
+        relevant = filter_and_score(raw_jobs, cv_profile, expected_city=company.get("city", ""))
         for job in relevant:
             job["company"] = name
             job["city"] = company.get("city", "")
