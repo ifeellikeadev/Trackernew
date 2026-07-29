@@ -324,11 +324,6 @@ companies:
     careers_url: https://www.celonis.com/careers/
     ats: greenhouse
     board_token: ""
-  - name: Helsing
-    city: Munich
-    careers_url: https://helsing.ai/careers
-    ats: greenhouse
-    board_token: ""
   - name: Quantum Systems
     city: Munich
     careers_url: https://quantum-systems.com/careers/
