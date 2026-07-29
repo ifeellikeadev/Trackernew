@@ -1,0 +1,64 @@
+# Derived from Giorgio Nudi's CV. Edit freely as the CV evolves —
+# nothing here is fetched automatically, you keep it in sync by hand.
+#
+# title_must_match:
+#   A job's TITLE must contain at least one of these (case-insensitive)
+#   to be picked up at all. This is what keeps the tracker to
+#   "PM / Program Manager roles only" as requested. English + German
+#   variants included since some postings are German-only.
+title_must_match:
+  - "project manager"
+  - "programme manager"
+  - "program manager"
+  - "projektmanager"
+  - "projektleiter"
+  - "senior project manager"
+  - "technical project manager"
+  - "it project manager"
+  - "delivery manager"
+
+# scoring_keywords:
+#   Each match inside the job description adds "weight" points.
+#   Used to rank/sort results, not to filter them out.
+scoring_keywords:
+  - {term: "aerospace", weight: 3}
+  - {term: "defence", weight: 3}
+  - {term: "defense", weight: 3}
+  - {term: "energy", weight: 2}
+  - {term: "electricity market", weight: 3}
+  - {term: "grid", weight: 2}
+  - {term: "EU regulatory", weight: 3}
+  - {term: "regulatory compliance", weight: 3}
+  - {term: "PMP", weight: 2}
+  - {term: "CAPM", weight: 1}
+  - {term: "PMI", weight: 1}
+  - {term: "risk management", weight: 2}
+  - {term: "stakeholder management", weight: 2}
+  - {term: "supply chain", weight: 2}
+  - {term: "procurement", weight: 2}
+  - {term: "agile", weight: 1}
+  - {term: "waterfall", weight: 1}
+  - {term: "IT project", weight: 2}
+  - {term: "IT solutions", weight: 1}
+  - {term: "process improvement", weight: 1}
+  - {term: "governance", weight: 1}
+  - {term: "SAP", weight: 1}
+  - {term: "Jira", weight: 1}
+  - {term: "cross-functional", weight: 1}
+  - {term: "tender", weight: 1}
+  - {term: "audit", weight: 1}
+
+# language_flags:
+#   If any of these appear in the description, the tracker adds a
+#   "German required" flag in its own column (roles are NOT excluded,
+#   just flagged, since some postings overstate the requirement).
+german_requirement_markers:
+  - "verhandlungssicheres Deutsch"
+  - "fließende Deutschkenntnisse"
+  - "fliessende Deutschkenntnisse"
+  - "Deutsch C1"
+  - "Deutsch C2"
+  - "German C1"
+  - "German C2"
+  - "native German"
+  - "muttersprachliches Deutsch"
