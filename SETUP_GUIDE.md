@@ -228,6 +228,37 @@ designed.
 
 ---
 
+## Part 10 — Enabling the public webpage view
+
+Instead of opening `data/job_tracker.xlsx` (which needs Excel or a
+similar app), the workflow now also builds a plain webpage at
+`docs/index.html` every time it runs — same data, sorted by
+relevance, opens instantly in any browser, phone included.
+
+**Important privacy note before you turn this on:** GitHub Pages
+sites are public to anyone who has the link, even though your
+repository itself stays private. This page will show your tracked
+companies and job titles to anyone who finds the URL (GitHub doesn't
+index these in search engines by default, and the URL isn't
+guessable, but it also isn't access-controlled). If that's fine with
+you, here's how to switch it on — this is a one-time setting:
+
+1. Go to your repository's **Settings** tab.
+2. In the left sidebar, click **Pages**.
+3. Under **"Build and deployment" → Source**, select **"Deploy from
+   a branch."**
+4. Under **Branch**, pick **main** and **/docs**, then click **Save**.
+5. Wait about a minute, then refresh the page — GitHub will show you
+   the live URL near the top (something like
+   `https://yourusername.github.io/job-tracker/`).
+6. Bookmark that URL. It updates automatically every time the daily
+   scrape (or monthly reset) runs — nothing to download, ever.
+
+If you ever want to turn this off, go back to the same Settings →
+Pages screen and set Source back to "None."
+
+---
+
 ## Troubleshooting
 
 **"Run workflow" button doesn't appear on the Actions tab**

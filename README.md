@@ -38,11 +38,26 @@ instead of this file** — it walks through every click.
 
 ## Tracker columns
 
-`data/job_tracker.xlsx` has: First Seen, Last Seen, Job Posted (when
-the platform provides it — blank for companies where it isn't
-available), Company, City, Job Title, Relevance Score (1-10, 10 =
-best match to your CV), German Required (flagged, not filtered),
-Location, and URL.
+`data/job_tracker.xlsx` has: Job Posted (when the platform provides
+it — blank for companies where it isn't available), Company, City,
+Job Title, Relevance Score (1-10, 10 = best match to your CV),
+German Required (flagged, not filtered), Location, Location
+Confirmed, and URL. The sheet is sorted by Relevance Score,
+highest first, every run.
+
+**Location Confirmed** exists because some platforms (Lever,
+Greenhouse, SmartRecruiters, Workday) return a company's entire
+global job board in one call, not just its Munich/Zurich postings.
+Rows are dropped entirely if their location text names a place
+outside the Munich or Zurich metro area (a real other city — "New
+York," "London," "Nuremberg," "Basel," etc.). Metro area means the
+city plus its immediate satellite towns (Ottobrunn, Freising, Zug,
+Winterthur, and similar — the full list is in `src/matcher.py`,
+`CITY_KEYWORDS`), not the whole surrounding state/canton. Rows are
+kept but marked "Unconfirmed" if the location text is missing or too
+generic to verify (e.g. blank, or just "Germany (Remote)") — worth a
+quick manual glance, since it's genuinely unclear whether those are
+local.
 
 ## Running it yourself, locally (optional)
 
