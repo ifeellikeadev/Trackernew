@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Tracker</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 16px; background: #f9fafb; color: #111827; }
+  h1 { font-size: 1.3rem; margin-bottom: 4px; }
+  .meta { color: #6b7280; font-size: 0.85rem; margin-bottom: 16px; }
+  .legend { display: inline-block; width: 12px; height: 12px; background: #D1FAE5; border: 1px solid #a7f3d0; margin-right: 6px; vertical-align: middle; }
+  table { border-collapse: collapse; width: 100%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 0.85rem; vertical-align: top; }
+  th { background: #1F2937; color: white; position: sticky; top: 0; white-space: nowrap; }
+  tr.new-row { background: #D1FAE5; }
+  tr:hover { background: #f3f4f6; }
+  tr.new-row:hover { background: #bbf7d0; }
+  a { color: #2563eb; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .scroll-wrap { overflow-x: auto; }
+  @media (max-width: 700px) {
+    th, td { font-size: 0.75rem; padding: 6px; }
+    body { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+<h1>Job Tracker — Munich &amp; Zurich</h1>
+<div class="meta">
+  0 tracked postings &middot; last updated 2026-07-30 11:02 UTC &middot;
+  <span class="legend"></span>added since your last check
+</div>
+<div class="scroll-wrap">
+<table>
+<thead><tr><th>Job Posted</th><th>Company</th><th>City</th><th>Job Title</th><th>Relevance Score (1-10)</th><th>German Required</th><th>Location</th><th>Location Confirmed</th></tr></thead>
+<tbody>
+<tr><td colspan='9'>No matching jobs yet.</td></tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
