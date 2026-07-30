@@ -2,13 +2,15 @@
 Filters and scores scraped jobs against config/cv_profile.yaml.
 
 - A job is KEPT only if its title matches one of `title_must_match`.
-- A job is then checked against the company's expected city (Munich or
-  Zurich): if the scraped location text clearly names a DIFFERENT
-  place, the job is dropped. This matters because several platforms
-  (Lever, Greenhouse, SmartRecruiters, Workday) return a company's
-  ENTIRE global job board in one call — e.g. Palantir Zurich's Lever
-  board includes New York, London, DC, etc. alongside Zurich. Without
-  this check, every one of those non-local postings would pass through
+- A job is then checked against the company's expected metro area
+  (Munich or Zurich, including their surrounding satellite towns —
+  Ottobrunn, Taufkirchen, Freising, Zug, Winterthur, etc.): if the
+  scraped location text clearly names a place OUTSIDE that area, the
+  job is dropped. This matters because several platforms (Lever,
+  Greenhouse, SmartRecruiters, Workday) return a company's ENTIRE
+  global job board in one call — e.g. Palantir Zurich's Lever board
+  includes New York, London, DC, etc. alongside Zurich. Without this
+  check, every one of those non-local postings would pass through
   just because the title matched "Project Manager."
 - Kept jobs get a `relevance_score` on a 1-10 scale (10 = best match to
   your CV) and a `german_required` flag, both used in the Excel output.
@@ -31,12 +33,36 @@ from typing import Any
 #   too high or too low once you've seen real results.
 DEFAULT_SCORE_CEILING = 15
 
-# Keywords that count as "this location IS Munich" / "this location IS
-# Zurich." Kept separate from the city-stripping list in ats_scrapers.py
-# since this one runs against job location text, not company names.
+# Keywords that count as "this location IS in the Munich metro area" /
+# "this location IS in the Zurich metro area" — i.e. the city itself
+# plus its commuter-belt satellite towns, since a job in Ottobrunn or
+# Freising is just as reachable/relevant as one in Munich proper.
+#
+# Deliberately does NOT extend to all of Bavaria or all of Switzerland
+# — Nuremberg, Augsburg, Regensburg, Geneva, Basel, Bern, etc. are
+# real cities in their own right, ~1.5-3h away, not "the Munich/Zurich
+# area." If you want a specific town added or removed, edit the lists
+# below (see SETUP_GUIDE.md for how to make and upload this kind of
+# change).
 CITY_KEYWORDS = {
-    "Munich": ["munich", "münchen", "muenchen"],
-    "Zurich": ["zurich", "zürich", "zuerich"],
+    "Munich": [
+        "munich", "münchen", "muenchen",
+        "ottobrunn", "taufkirchen", "manching", "garching",
+        "oberpfaffenhofen", "unterschleissheim", "unterschleißheim",
+        "ismaning", "unterföhring", "unterfoehring", "neubiberg",
+        "poing", "feldkirchen", "holzkirchen", "dachau", "freising",
+        "erding", "fürstenfeldbruck", "fuerstenfeldbruck", "starnberg",
+        "germering", "gräfelfing", "graefelfing", "planegg", "gilching",
+        "puchheim", "vaterstetten", "haar", "aschheim", "kirchheim",
+    ],
+    "Zurich": [
+        "zurich", "zürich", "zuerich",
+        "zug", "winterthur", "baden", "dietikon", "wallisellen",
+        "dübendorf", "duebendorf", "opfikon", "kloten", "adliswil",
+        "horgen", "meilen", "rüschlikon", "rueschlikon", "uster",
+        "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
+        "wädenswil", "waedenswil",
+    ],
 }
 
 # Keywords that count as "this location is clearly somewhere else" even
@@ -52,7 +78,9 @@ OTHER_MAJOR_LOCATIONS = [
     "boston", "chicago", "los angeles", "washington", "atlanta",
     "berlin", "hamburg", "frankfurt", "cologne", "köln", "stuttgart",
     "düsseldorf", "duesseldorf", "leipzig", "dresden", "nuremberg",
+    "augsburg", "regensburg", "würzburg", "wuerzburg", "ingolstadt",
     "geneva", "genève", "basel", "bern", "lausanne", "lucerne",
+    "st. gallen", "st gallen", "chur", "lugano", "biel", "fribourg",
 ]
 
 
