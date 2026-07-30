@@ -11,6 +11,7 @@ import logging
 from pathlib import Path
 
 from src.tracker import archive_and_reset
+from src.generate_html import generate as generate_html
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("job_scraper.reset")
@@ -26,6 +27,7 @@ def run() -> None:
         logger.info("Archived previous tracker to %s", archived)
     else:
         logger.info("No existing tracker to archive; created a fresh one at %s", TRACKER_FILE)
+    generate_html()
 
 
 if __name__ == "__main__":

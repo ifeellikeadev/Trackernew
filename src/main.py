@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.ats_scrapers import scrape_company
 from src.matcher import filter_and_score
 from src.tracker import update_tracker
+from src.generate_html import generate as generate_html
 
 logging.basicConfig(
     level=logging.INFO,
@@ -79,6 +80,7 @@ def run() -> None:
         time.sleep(0.3)  # be polite to career-page servers
 
     summary = update_tracker(TRACKER_FILE, all_relevant)
+    generate_html()
 
     logger.info("-" * 60)
     logger.info(
