@@ -89,9 +89,9 @@ def run() -> None:
         len(companies),
     )
     logger.info(
-        "Tracker: %d new rows added, %d existing rows refreshed, %d total rows",
+        "Tracker: %d new rows added, %d already tracked, %d total rows",
         summary["added"],
-        summary["refreshed"],
+        summary["already_tracked"],
         summary["total_rows"],
     )
     logger.info("Saved to %s", TRACKER_FILE)
