@@ -259,6 +259,34 @@ Pages screen and set Source back to "None."
 
 ---
 
+## Part 11 — The Dream Cities list
+
+Alongside Munich/Zurich, the tracker also runs a second, smaller pass
+against `config/dream_cities.yaml` — Copenhagen, Oslo, Helsinki,
+Vienna, Basel, Bern, Geneva, Lausanne, Lucerne, Vancouver, Perth,
+Melbourne, Sydney, and Singapore. These were chosen specifically
+because they're places with a realistic, established visa path (EU/EEA
+free movement, Switzerland's bilateral agreement, or a proper skilled-
+migration program) rather than a lottery — the US was deliberately
+left out for exactly that reason.
+
+Only postings scoring **7 or higher** (out of the same 1-10 relevance
+scale used everywhere else) make it into this list — it's meant to
+surface your strongest matches only, not general coverage. You'll see
+it as its own clearly separate section, both in the Excel file (a
+second sheet, tab labeled "Dream Cities" at the bottom of the
+spreadsheet) and on the webpage (its own section below Munich/Zurich,
+blue-highlighted new rows instead of green).
+
+Adding, removing, or fixing a company in this list works exactly like
+Part 7 — same file format, just in `config/dream_cities.yaml` instead
+of `config/companies.yaml`, with one extra field: `country`.
+
+If you want to change the score threshold, adjust
+`dream_city_min_score` in `config/cv_profile.yaml`.
+
+---
+
 ## Troubleshooting
 
 **"Run workflow" button doesn't appear on the Actions tab**
