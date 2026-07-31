@@ -1,34 +1,47 @@
 """
-Manages the persistent Excel tracker file.
+Manages the persistent Excel tracker file, which holds TWO sheets:
 
-Behaviour, matching what Giorgio described:
+  - "Jobs": the main Munich/Zurich tracker (all PM-relevant, in-area
+    postings, any score).
+  - "Dream Cities": a separate, smaller list — only postings scoring
+    7+ (see cv_profile.yaml, dream_city_min_score) from the wider
+    visa-feasible city list (Copenhagen, Oslo, Helsinki, Vienna,
+    several Swiss cities beyond Zurich, Vancouver, Perth/Melbourne/
+    Sydney, Singapore). Kept deliberately separate rather than mixed
+    into the main sheet, per how this was asked for.
+
+Both sheets share the same behaviour:
   - Each run, only genuinely NEW postings (by URL) are added.
-  - Postings already in the sheet are left alone (deduped by URL).
-  - The whole sheet is re-sorted by Relevance Score (highest first)
-    every run, so the best matches are always at the top.
-  - A separate script (reset_tracker.py) archives the file and starts
-    a fresh one; that's the "clears once a month" behaviour, run on
-    its own schedule so it stays independent of the daily scrape. It
-    can also be triggered manually any time — see SETUP_GUIDE.md,
-    "How to reset the tracker manually."
+  - Postings already in a sheet are left alone (deduped by URL,
+    per-sheet — a URL only needs to be unique within its own sheet).
+  - Each sheet is re-sorted by Relevance Score (highest first) every
+    run, so the best matches are always at the top.
+  - archive_and_reset() (called from reset_tracker.py) archives BOTH
+    sheets together as one file and starts fresh — same monthly
+    cadence, same manual-trigger option, for both.
 
-Column history (kept here so future-you understands old files):
+Column history for the "Jobs" sheet (kept here so future-you
+understands old files):
   v1: First Seen, Last Seen, Company, City, Job Title, Relevance Score,
       German Required, Location, URL
   v2: added Job Posted; renamed score column to "Relevance Score (1-10)"
   v3: added Location Confirmed
-  v4 (current): dropped First Seen and Last Seen (no longer shown —
-      dedupe still happens internally by URL, it's just not displayed);
-      sheet is sorted by relevance instead of being append-only.
-Migration below reads whatever columns an existing file has by NAME,
-not position, and rebuilds the sheet against the current COLUMNS list —
-so it doesn't matter which older version your file is on.
+  v4: dropped First Seen and Last Seen; sheet sorted by relevance
+      instead of being append-only
+  v5 (current): added the separate "Dream Cities" sheet (no column
+      changes to "Jobs" itself)
+Migration reads whatever columns an existing "Jobs" sheet has by
+NAME, not position, and rebuilds it against the current COLUMNS list —
+so it doesn't matter which older version your file is on. The "Dream
+Cities" sheet is new, so it's simply created if missing, no migration
+needed for it yet.
 """
 
 from __future__ import annotations
 
+import datetime as dt
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
@@ -48,6 +61,21 @@ COLUMNS = [
 ]
 COLUMN_WIDTHS = [14, 22, 9, 40, 12, 8, 22, 16, 60]
 
+DREAM_SHEET_NAME = "Dream Cities"
+DREAM_COLUMNS = [
+    "Job Posted",
+    "Company",
+    "City",
+    "Country",
+    "Job Title",
+    "Relevance Score (1-10)",
+    "German Required",
+    "Location",
+    "Location Confirmed",
+    "URL",
+]
+DREAM_COLUMN_WIDTHS = [14, 22, 11, 12, 40, 12, 8, 22, 16, 60]
+
 # Old header names that should map onto a current column, so a rename
 # (like "Relevance Score" -> "Relevance Score (1-10)") doesn't strand
 # existing data. Names not listed here and not in COLUMNS are dropped
@@ -58,42 +86,40 @@ HEADER_ALIASES = {
 
 HEADER_FILL = PatternFill(start_color="1F2937", end_color="1F2937", fill_type="solid")
 HEADER_FONT = Font(color="FFFFFF", bold=True)
-NEW_ROW_FILL = PatternFill(start_color="D1FAE5", end_color="D1FAE5", fill_type="solid")
+NEW_ROW_FILL = PatternFill(start_color="D1FAE5", end_color="D1FAE5", fill_type="solid")  # green
+DREAM_NEW_ROW_FILL = PatternFill(start_color="DBEAFE", end_color="DBEAFE", fill_type="solid")  # blue
 
 
-def _style_header(ws: Worksheet) -> None:
-    for col_idx in range(1, len(COLUMNS) + 1):
+def _style_header(ws: Worksheet, columns: list[str], widths: list[int]) -> None:
+    for col_idx in range(1, len(columns) + 1):
         cell = ws.cell(row=1, column=col_idx)
         cell.fill = HEADER_FILL
         cell.font = HEADER_FONT
     ws.freeze_panes = "A2"
-    for i, w in enumerate(COLUMN_WIDTHS, start=1):
+    for i, w in enumerate(widths, start=1):
         ws.column_dimensions[get_column_letter(i)].width = w
 
 
 def _new_workbook() -> Workbook:
+    """Creates a fresh workbook with BOTH sheets, correctly headered."""
     wb = Workbook()
     ws = wb.active
     ws.title = "Jobs"
     ws.append(COLUMNS)
-    _style_header(ws)
+    _style_header(ws, COLUMNS, COLUMN_WIDTHS)
+
+    dream_ws = wb.create_sheet(DREAM_SHEET_NAME)
+    dream_ws.append(DREAM_COLUMNS)
+    _style_header(dream_ws, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS)
     return wb
 
 
-def load_or_create(path: Path) -> Workbook:
-    if not path.exists():
-        return _new_workbook()
-
-    wb = load_workbook(path)
+def _migrate_jobs_sheet(wb: Workbook) -> None:
     ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
     existing_headers = [c.value for c in ws[1]]
     if existing_headers == COLUMNS:
-        return wb
+        return
 
-    # Migration: read every row into a dict keyed by (aliased) header
-    # name, then rebuild the sheet from scratch against current COLUMNS.
-    # Anything not in COLUMNS (First Seen, Last Seen, ...) is dropped;
-    # anything in COLUMNS but missing from the old file is left blank.
     mapped_headers = [HEADER_ALIASES.get(h, h) for h in existing_headers]
     rows = []
     for row_idx in range(2, ws.max_row + 1):
@@ -104,18 +130,34 @@ def load_or_create(path: Path) -> Workbook:
         if row_dict:
             rows.append(row_dict)
 
-    new_wb = Workbook()
-    new_ws = new_wb.active
-    new_ws.title = "Jobs"
+    # Rebuild this sheet in place: clear it, re-add the current header,
+    # then the recovered rows — preserves sheet position/order in the
+    # workbook rather than creating a whole new workbook as before.
+    wb.remove(ws)
+    new_ws = wb.create_sheet("Jobs", 0)
     new_ws.append(COLUMNS)
     for row_dict in rows:
         new_ws.append([row_dict.get(col, "") for col in COLUMNS])
-    _style_header(new_ws)
-    return new_wb
+    _style_header(new_ws, COLUMNS, COLUMN_WIDTHS)
 
 
-def _existing_urls(ws: Worksheet) -> set[str]:
-    url_col = COLUMNS.index("URL") + 1
+def load_or_create(path: Path) -> Workbook:
+    if not path.exists():
+        return _new_workbook()
+
+    wb = load_workbook(path)
+    _migrate_jobs_sheet(wb)
+
+    if DREAM_SHEET_NAME not in wb.sheetnames:
+        dream_ws = wb.create_sheet(DREAM_SHEET_NAME)
+        dream_ws.append(DREAM_COLUMNS)
+        _style_header(dream_ws, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS)
+
+    return wb
+
+
+def _existing_urls(ws: Worksheet, columns: list[str]) -> set[str]:
+    url_col = columns.index("URL") + 1
     return {
         ws.cell(row=row, column=url_col).value
         for row in range(2, ws.max_row + 1)
@@ -123,23 +165,24 @@ def _existing_urls(ws: Worksheet) -> set[str]:
     }
 
 
-def _sort_by_relevance(ws: Worksheet, newly_added_urls: set[str]) -> None:
+def _sort_by_relevance(
+    ws: Worksheet, columns: list[str], fill: PatternFill, newly_added_urls: set[str]
+) -> None:
     """Re-sorts all data rows by Relevance Score (highest first), then
     re-applies the "new" highlight to whichever URLs were added this
     run (their row position may have moved during the sort)."""
-    score_col = COLUMNS.index("Relevance Score (1-10)")
-    url_col = COLUMNS.index("URL")
+    score_col = columns.index("Relevance Score (1-10)")
+    url_col = columns.index("URL")
 
     rows = []
     for row in range(2, ws.max_row + 1):
-        values = [ws.cell(row=row, column=c).value for c in range(1, len(COLUMNS) + 1)]
+        values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         rows.append(values)
 
     rows.sort(key=lambda v: (v[score_col] if isinstance(v[score_col], (int, float)) else 0), reverse=True)
 
-    # Clear existing data rows, then rewrite in sorted order.
     for row in range(2, ws.max_row + 1):
-        for col in range(1, len(COLUMNS) + 1):
+        for col in range(1, len(columns) + 1):
             ws.cell(row=row, column=col).value = None
             ws.cell(row=row, column=col).fill = PatternFill(fill_type=None)
 
@@ -148,21 +191,20 @@ def _sort_by_relevance(ws: Worksheet, newly_added_urls: set[str]) -> None:
         for col_idx, value in enumerate(values, start=1):
             ws.cell(row=row_idx, column=col_idx).value = value
         if values[url_col] in newly_added_urls:
-            for col_idx in range(1, len(COLUMNS) + 1):
-                ws.cell(row=row_idx, column=col_idx).fill = NEW_ROW_FILL
+            for col_idx in range(1, len(columns) + 1):
+                ws.cell(row=row_idx, column=col_idx).fill = fill
 
 
-def update_tracker(path: Path, new_jobs: list[dict[str, Any]]) -> dict[str, int]:
-    """
-    new_jobs: list of dicts with keys matching filter_and_score() output
-              plus "company" and "city" added by the caller.
-    Returns a small summary dict for logging (added / already-tracked
-    counts). The sheet ends up sorted by relevance score, highest first.
-    """
-    wb = load_or_create(path)
-    ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
-
-    existing_urls = _existing_urls(ws)
+def _update_sheet(
+    wb: Workbook,
+    sheet_name: str,
+    columns: list[str],
+    fill: PatternFill,
+    new_jobs: list[dict[str, Any]],
+    row_builder: Callable[[dict[str, Any], str], list],
+) -> dict[str, int]:
+    ws = wb[sheet_name]
+    existing_urls = _existing_urls(ws, columns)
 
     added = 0
     already_tracked = 0
@@ -174,42 +216,77 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]]) -> dict[str, int]
         if url in existing_urls:
             already_tracked += 1
             continue
-        row_values = [
-            job.get("posted_date", ""),
-            job.get("company", ""),
-            job.get("city", ""),
-            job.get("title", ""),
-            job.get("relevance_score", 1),
-            "Yes" if job.get("german_required") else "",
-            job.get("location", ""),
-            "Yes" if job.get("location_status") == "confirmed" else "Unconfirmed",
-            url,
-        ]
-        ws.append(row_values)
+        ws.append(row_builder(job, url))
         newly_added_urls.add(url)
         existing_urls.add(url)
         added += 1
 
-    _sort_by_relevance(ws, newly_added_urls)
+    _sort_by_relevance(ws, columns, fill, newly_added_urls)
+    return {"added": added, "already_tracked": already_tracked, "total_rows": ws.max_row - 1}
 
+
+def _build_jobs_row(job: dict[str, Any], url: str) -> list:
+    return [
+        job.get("posted_date", ""),
+        job.get("company", ""),
+        job.get("city", ""),
+        job.get("title", ""),
+        job.get("relevance_score", 1),
+        "Yes" if job.get("german_required") else "",
+        job.get("location", ""),
+        "Yes" if job.get("location_status") == "confirmed" else "Unconfirmed",
+        url,
+    ]
+
+
+def _build_dream_row(job: dict[str, Any], url: str) -> list:
+    return [
+        job.get("posted_date", ""),
+        job.get("company", ""),
+        job.get("city", ""),
+        job.get("country", ""),
+        job.get("title", ""),
+        job.get("relevance_score", 1),
+        "Yes" if job.get("german_required") else "",
+        job.get("location", ""),
+        "Yes" if job.get("location_status") == "confirmed" else "Unconfirmed",
+        url,
+    ]
+
+
+def update_tracker(path: Path, new_jobs: list[dict[str, Any]]) -> dict[str, int]:
+    """Updates the main "Jobs" sheet (Munich/Zurich). Saves the file."""
+    wb = load_or_create(path)
+    summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row)
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
-    return {"added": added, "already_tracked": already_tracked, "total_rows": ws.max_row - 1}
+    return summary
+
+
+def update_dream_tracker(path: Path, new_jobs: list[dict[str, Any]]) -> dict[str, int]:
+    """Updates the "Dream Cities" sheet. Saves the file. Call this
+    separately from update_tracker() — each opens, updates its own
+    sheet, and saves; calling both in the same run (as main.py does)
+    just means the file gets saved twice, which is harmless."""
+    wb = load_or_create(path)
+    summary = _update_sheet(wb, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_NEW_ROW_FILL, new_jobs, _build_dream_row)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return summary
 
 
 def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:
     """
-    Moves the current tracker to archive/job_tracker_YYYY-MM.xlsx and
-    creates a fresh empty tracker at `path`. Returns the archive path,
-    or None if there was nothing to archive.
+    Moves the current tracker (both sheets) to
+    archive/job_tracker_YYYY-MM.xlsx and creates a fresh empty tracker
+    (both sheets, empty) at `path`. Returns the archive path, or None
+    if there was nothing to archive.
     """
     if not path.exists():
         _new_workbook().save(path)
         return None
 
     archive_dir.mkdir(parents=True, exist_ok=True)
-    import datetime as dt
-
     month_tag = dt.date.today().strftime("%Y-%m")
     archive_path = archive_dir / f"job_tracker_{month_tag}.xlsx"
 

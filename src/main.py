@@ -5,6 +5,11 @@ Entry point for the daily scrape. Run manually with:
 Or via the GitHub Actions workflow (.github/workflows/daily_scrape.yml),
 which runs this automatically on a schedule and commits the updated
 data/job_tracker.xlsx back to the repo.
+
+Runs TWO passes:
+  1. Munich/Zurich (config/companies.yaml) -> "Jobs" sheet, any score.
+  2. Dream cities (config/dream_cities.yaml) -> "Dream Cities" sheet,
+     only postings scoring >= cv_profile.yaml's dream_city_min_score.
 """
 
 from __future__ import annotations
@@ -20,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.ats_scrapers import scrape_company
 from src.matcher import filter_and_score
-from src.tracker import update_tracker
+from src.tracker import update_tracker, update_dream_tracker
 from src.generate_html import generate as generate_html
 
 logging.basicConfig(
@@ -32,8 +37,11 @@ logger = logging.getLogger("job_scraper.main")
 
 ROOT = Path(__file__).resolve().parent.parent
 COMPANIES_FILE = ROOT / "config" / "companies.yaml"
+DREAM_CITIES_FILE = ROOT / "config" / "dream_cities.yaml"
 CV_PROFILE_FILE = ROOT / "config" / "cv_profile.yaml"
 TRACKER_FILE = ROOT / "data" / "job_tracker.xlsx"
+
+DEFAULT_DREAM_MIN_SCORE = 7
 
 
 def load_yaml(path: Path) -> dict:
@@ -41,10 +49,12 @@ def load_yaml(path: Path) -> dict:
         return yaml.safe_load(f)
 
 
-def run() -> None:
-    companies = load_yaml(COMPANIES_FILE)["companies"]
-    cv_profile = load_yaml(CV_PROFILE_FILE)
-
+def scrape_all(companies: list[dict], cv_profile: dict, min_score: int, label: str) -> tuple[list[dict], dict]:
+    """
+    Scrapes every company in `companies`, filters/scores each result,
+    optionally drops anything below `min_score` (pass 0 for no floor),
+    and logs progress per company. Returns (all_relevant_jobs, counts).
+    """
     all_relevant = []
     ok_count = 0
     empty_count = 0
@@ -65,37 +75,66 @@ def run() -> None:
             continue
 
         relevant = filter_and_score(raw_jobs, cv_profile, expected_city=company.get("city", ""))
+        if min_score:
+            relevant = [j for j in relevant if j.get("relevance_score", 0) >= min_score]
         for job in relevant:
             job["company"] = name
             job["city"] = company.get("city", "")
+            if "country" in company:
+                job["country"] = company["country"]
         all_relevant.extend(relevant)
 
         logger.info(
-            "OK      %-35s %3d postings found, %2d PM-relevant",
+            "OK      %-35s %3d postings found, %2d relevant [%s]",
             name,
             len(raw_jobs),
             len(relevant),
+            label,
         )
         ok_count += 1
         time.sleep(0.3)  # be polite to career-page servers
 
-    summary = update_tracker(TRACKER_FILE, all_relevant)
-    generate_html()
+    counts = {"ok": ok_count, "empty": empty_count, "errored": error_count, "total": len(companies)}
+    return all_relevant, counts
+
+
+def run() -> None:
+    cv_profile = load_yaml(CV_PROFILE_FILE)
+
+    # --- Pass 1: Munich / Zurich (main list, any score) ---
+    companies = load_yaml(COMPANIES_FILE)["companies"]
+    main_jobs, main_counts = scrape_all(companies, cv_profile, min_score=0, label="Munich/Zurich")
+    main_summary = update_tracker(TRACKER_FILE, main_jobs)
 
     logger.info("-" * 60)
     logger.info(
-        "Companies: %d ok / %d empty / %d errored (of %d total)",
-        ok_count,
-        empty_count,
-        error_count,
-        len(companies),
+        "Munich/Zurich: %d ok / %d empty / %d errored (of %d total)",
+        main_counts["ok"], main_counts["empty"], main_counts["errored"], main_counts["total"],
     )
     logger.info(
-        "Tracker: %d new rows added, %d already tracked, %d total rows",
-        summary["added"],
-        summary["already_tracked"],
-        summary["total_rows"],
+        "Jobs sheet: %d new rows added, %d already tracked, %d total rows",
+        main_summary["added"], main_summary["already_tracked"], main_summary["total_rows"],
     )
+
+    # --- Pass 2: Dream cities (separate sheet, score threshold applied) ---
+    dream_min_score = cv_profile.get("dream_city_min_score", DEFAULT_DREAM_MIN_SCORE)
+    dream_companies = load_yaml(DREAM_CITIES_FILE)["companies"]
+    dream_jobs, dream_counts = scrape_all(
+        dream_companies, cv_profile, min_score=dream_min_score, label=f"Dream Cities, score>={dream_min_score}"
+    )
+    dream_summary = update_dream_tracker(TRACKER_FILE, dream_jobs)
+
+    logger.info("-" * 60)
+    logger.info(
+        "Dream cities: %d ok / %d empty / %d errored (of %d total)",
+        dream_counts["ok"], dream_counts["empty"], dream_counts["errored"], dream_counts["total"],
+    )
+    logger.info(
+        "Dream Cities sheet: %d new rows added, %d already tracked, %d total rows",
+        dream_summary["added"], dream_summary["already_tracked"], dream_summary["total_rows"],
+    )
+
+    generate_html()
     logger.info("Saved to %s", TRACKER_FILE)
 
 

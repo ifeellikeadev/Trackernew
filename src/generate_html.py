@@ -3,6 +3,10 @@ Turns data/job_tracker.xlsx into a plain, static HTML page at
 docs/index.html, so it can be published via GitHub Pages — one link,
 opens in any browser, no Excel and no download needed.
 
+Renders BOTH sheets as clearly separated sections: "Munich & Zurich"
+(the "Jobs" sheet, green highlight for new rows) and "Dream Cities"
+(the "Dream Cities" sheet, blue highlight, score 7+ only).
+
 Called automatically at the end of both src/main.py (daily scrape) and
 src/reset_tracker.py (monthly reset), so the page is always in sync
 with whatever's actually in the Excel file. Not meant to be run on its
@@ -20,21 +24,21 @@ import datetime as dt
 from pathlib import Path
 
 from openpyxl import load_workbook
+from openpyxl.worksheet.worksheet import Worksheet
 
-from src.tracker import COLUMNS, NEW_ROW_FILL
+from src.tracker import COLUMNS, NEW_ROW_FILL, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_NEW_ROW_FILL
 
 ROOT = Path(__file__).resolve().parent.parent
 TRACKER_FILE = ROOT / "data" / "job_tracker.xlsx"
 OUTPUT_FILE = ROOT / "docs" / "index.html"
 
-NEW_ROW_RGB = NEW_ROW_FILL.start_color.rgb  # e.g. "00D1FAE5" or "FFD1FAE5"
 
-
-def _is_new_row_fill(cell) -> bool:
-    rgb = getattr(cell.fill.start_color, "rgb", None)
-    if not isinstance(rgb, str) or not isinstance(NEW_ROW_RGB, str):
+def _rgb_matches(cell, fill) -> bool:
+    cell_rgb = getattr(cell.fill.start_color, "rgb", None)
+    fill_rgb = getattr(fill.start_color, "rgb", None)
+    if not isinstance(cell_rgb, str) or not isinstance(fill_rgb, str):
         return False
-    return rgb[-6:] == NEW_ROW_RGB[-6:]  # compare ignoring alpha prefix
+    return cell_rgb[-6:] == fill_rgb[-6:]  # compare ignoring alpha prefix
 
 
 def _escape(value) -> str:
@@ -49,40 +53,79 @@ def _escape(value) -> str:
     )
 
 
+def _render_table(ws: Worksheet | None, columns: list[str], new_row_fill, empty_message: str) -> tuple[str, int]:
+    """Returns (rows_html, total_row_count) for one sheet."""
+    if ws is None:
+        return f"<tr><td colspan='{len(columns)}'>{_escape(empty_message)}</td></tr>", 0
+
+    url_col = columns.index("URL") + 1
+    title_col = columns.index("Job Title")
+
+    rows_html_parts = []
+    for row in range(2, ws.max_row + 1):
+        values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
+        is_new = _rgb_matches(ws.cell(row=row, column=1), new_row_fill)
+        url = values[url_col - 1] or "#"
+
+        cells = []
+        for i, val in enumerate(values):
+            if i == title_col and url and url != "#":
+                cells.append(f"<td><a href='{_escape(url)}' target='_blank' rel='noopener'>{_escape(val)}</a></td>")
+            elif i == url_col - 1:
+                continue  # URL folded into the Job Title link, not shown as its own column
+            else:
+                cells.append(f"<td>{_escape(val)}</td>")
+        row_class = " class='new-row'" if is_new else ""
+        rows_html_parts.append(f"<tr{row_class}>{''.join(cells)}</tr>")
+
+    rows_html = "\n".join(rows_html_parts) if rows_html_parts else f"<tr><td colspan='{len(columns)}'>{_escape(empty_message)}</td></tr>"
+    return rows_html, ws.max_row - 1
+
+
+def _section_html(title: str, columns: list[str], rows_html: str, total: int, legend_color: str, legend_label: str) -> str:
+    display_columns = [c for c in columns if c != "URL"]
+    header_html = "".join(f"<th>{_escape(c)}</th>" for c in display_columns)
+    return f"""
+<h2>{_escape(title)}</h2>
+<div class="meta">
+  {total} tracked postings &middot;
+  <span class="legend" style="background:{legend_color};"></span>{_escape(legend_label)}
+</div>
+<div class="scroll-wrap">
+<table>
+<thead><tr>{header_html}</tr></thead>
+<tbody>
+{rows_html}
+</tbody>
+</table>
+</div>
+"""
+
+
 def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    if not tracker_path.exists():
-        rows_html = "<tr><td colspan='9'>No data yet — the scraper hasn't run.</td></tr>"
-        total = 0
-    else:
+    jobs_ws = None
+    dream_ws = None
+    if tracker_path.exists():
         wb = load_workbook(tracker_path)
-        ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
-        url_col = COLUMNS.index("URL") + 1
+        jobs_ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
+        dream_ws = wb[DREAM_SHEET_NAME] if DREAM_SHEET_NAME in wb.sheetnames else None
 
-        rows_html_parts = []
-        for row in range(2, ws.max_row + 1):
-            values = [ws.cell(row=row, column=c).value for c in range(1, len(COLUMNS) + 1)]
-            is_new = _is_new_row_fill(ws.cell(row=row, column=1))
-            url = values[url_col - 1] or "#"
-            title_col = COLUMNS.index("Job Title")
+    jobs_rows_html, jobs_total = _render_table(
+        jobs_ws, COLUMNS, NEW_ROW_FILL, "No data yet — the scraper hasn't run."
+    )
+    dream_rows_html, dream_total = _render_table(
+        dream_ws, DREAM_COLUMNS, DREAM_NEW_ROW_FILL, "No score-7+ matches yet in the dream-city list."
+    )
 
-            cells = []
-            for i, val in enumerate(values):
-                if i == title_col and url and url != "#":
-                    cells.append(f"<td><a href='{_escape(url)}' target='_blank' rel='noopener'>{_escape(val)}</a></td>")
-                elif i == url_col - 1:
-                    continue  # URL is folded into the Job Title link, not shown as its own column
-                else:
-                    cells.append(f"<td>{_escape(val)}</td>")
-            row_class = " class='new-row'" if is_new else ""
-            rows_html_parts.append(f"<tr{row_class}>{''.join(cells)}</tr>")
+    jobs_section = _section_html(
+        "Munich & Zurich", COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
+    )
+    dream_section = _section_html(
+        "Dream Cities (score 7+ only)", DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
+    )
 
-        rows_html = "\n".join(rows_html_parts) if rows_html_parts else "<tr><td colspan='9'>No matching jobs yet.</td></tr>"
-        total = ws.max_row - 1
-
-    display_columns = [c for c in COLUMNS if c != "URL"]  # URL folded into Job Title link
-    header_html = "".join(f"<th>{_escape(c)}</th>" for c in display_columns)
     updated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     html = f"""<!DOCTYPE html>
@@ -94,8 +137,10 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 <style>
   body {{ font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 16px; background: #f9fafb; color: #111827; }}
   h1 {{ font-size: 1.3rem; margin-bottom: 4px; }}
-  .meta {{ color: #6b7280; font-size: 0.85rem; margin-bottom: 16px; }}
-  .legend {{ display: inline-block; width: 12px; height: 12px; background: #D1FAE5; border: 1px solid #a7f3d0; margin-right: 6px; vertical-align: middle; }}
+  h2 {{ font-size: 1.05rem; margin: 28px 0 4px 0; }}
+  .page-meta {{ color: #6b7280; font-size: 0.85rem; margin-bottom: 8px; }}
+  .meta {{ color: #6b7280; font-size: 0.85rem; margin-bottom: 10px; }}
+  .legend {{ display: inline-block; width: 12px; height: 12px; border: 1px solid rgba(0,0,0,0.15); margin-right: 6px; vertical-align: middle; }}
   table {{ border-collapse: collapse; width: 100%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
   th, td {{ padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 0.85rem; vertical-align: top; }}
   th {{ background: #1F2937; color: white; position: sticky; top: 0; white-space: nowrap; }}
@@ -104,7 +149,8 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
   tr.new-row:hover {{ background: #bbf7d0; }}
   a {{ color: #2563eb; text-decoration: none; }}
   a:hover {{ text-decoration: underline; }}
-  .scroll-wrap {{ overflow-x: auto; }}
+  .scroll-wrap {{ overflow-x: auto; margin-bottom: 8px; }}
+  hr {{ border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }}
   @media (max-width: 700px) {{
     th, td {{ font-size: 0.75rem; padding: 6px; }}
     body {{ padding: 8px; }}
@@ -112,19 +158,11 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 </style>
 </head>
 <body>
-<h1>Job Tracker — Munich &amp; Zurich</h1>
-<div class="meta">
-  {total} tracked postings &middot; last updated {updated} &middot;
-  <span class="legend"></span>added since your last check
-</div>
-<div class="scroll-wrap">
-<table>
-<thead><tr>{header_html}</tr></thead>
-<tbody>
-{rows_html}
-</tbody>
-</table>
-</div>
+<h1>Job Tracker</h1>
+<div class="page-meta">last updated {updated}</div>
+{jobs_section}
+<hr>
+{dream_section}
 </body>
 </html>
 """

@@ -63,6 +63,25 @@ CITY_KEYWORDS = {
         "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
         "wädenswil", "waedenswil",
     ],
+    # --- Dream-city expansion (see /areas/job-search.md context: score
+    # 7+ postings only, visa-feasible locations given Italian + Nepali
+    # spouse family reunification routes). Kept in the same dict/lookup
+    # as Munich/Zurich so the existing location_status() logic just
+    # works for these too — no separate matching path needed. ---
+    "Copenhagen": ["copenhagen", "københavn", "kobenhavn"],
+    "Oslo": ["oslo"],
+    "Helsinki": ["helsinki", "helsingfors", "espoo"],
+    "Vienna": ["vienna", "wien"],
+    "Basel": ["basel", "bâle", "bale"],
+    "Bern": ["bern", "berne"],
+    "Geneva": ["geneva", "genève", "geneve"],
+    "Lausanne": ["lausanne", "vevey", "apples"],
+    "Lucerne": ["lucerne", "luzern"],
+    "Vancouver": ["vancouver", "burnaby", "richmond"],
+    "Perth": ["perth"],
+    "Melbourne": ["melbourne"],
+    "Sydney": ["sydney"],
+    "Singapore": ["singapore"],
 }
 
 # Keywords that count as "this location is clearly somewhere else" even
@@ -81,6 +100,8 @@ OTHER_MAJOR_LOCATIONS = [
     "augsburg", "regensburg", "würzburg", "wuerzburg", "ingolstadt",
     "geneva", "genève", "basel", "bern", "lausanne", "lucerne",
     "st. gallen", "st gallen", "chur", "lugano", "biel", "fribourg",
+    "copenhagen", "københavn", "oslo", "helsinki", "vancouver",
+    "perth", "melbourne", "sydney", "brisbane", "adelaide", "auckland",
 ]
 
 

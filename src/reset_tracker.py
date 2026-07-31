@@ -1,5 +1,6 @@
 """
-Archives the current tracker and starts a fresh one.
+Archives the current tracker (both the "Jobs" and "Dream Cities"
+sheets, together as one file) and starts a fresh one.
 Run manually with:  python -m src.reset_tracker
 Or automatically via .github/workflows/monthly_reset.yml on the 1st
 of each month.
