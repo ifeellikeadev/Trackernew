@@ -17,19 +17,14 @@ title_must_match:
   - "it project manager"
   - "delivery manager"
 
-# main_min_score:
-#   Only postings scoring at or above this make it into the tracker's
-#   main "Jobs" sheet (Munich/Zurich) — same 1-10 scale as everywhere
-#   else. Below-threshold postings are also pruned from rows already
-#   in the sheet, not just blocked going forward.
-main_min_score: 5
-
-# dream_city_min_score:
-#   Only postings scoring at or above this (on the 1-10 scale above)
-#   from the dream-cities list make it into the tracker's separate
-#   "Dream Cities" section — this list is meant to surface only the
-#   strongest matches, not everything that passes the title filter.
-dream_city_min_score: 7
+# main_min_score / dream_city_min_score:
+#   No score floor is applied — every job that passes the title +
+#   confirmed-location filter is shown, regardless of relevance score.
+#   The score is still computed and used to sort each sheet (highest
+#   first), just not used to exclude anything. Set either back above 0
+#   later if you want a floor again — the code fully supports it.
+main_min_score: 0
+dream_city_min_score: 0
 
 # score_ceiling:
 #   Used to convert the raw keyword-weight sum into a 1-10 scale shown
@@ -80,18 +75,3 @@ scoring_keywords:
   - {term: "audit", weight: 1}
   - {term: "budget", weight: 1}
   - {term: "leadership", weight: 1}
-
-# language_flags:
-#   If any of these appear in the description, the tracker adds a
-#   "German required" flag in its own column (roles are NOT excluded,
-#   just flagged, since some postings overstate the requirement).
-german_requirement_markers:
-  - "verhandlungssicheres Deutsch"
-  - "fließende Deutschkenntnisse"
-  - "fliessende Deutschkenntnisse"
-  - "Deutsch C1"
-  - "Deutsch C2"
-  - "German C1"
-  - "German C2"
-  - "native German"
-  - "muttersprachliches Deutsch"
