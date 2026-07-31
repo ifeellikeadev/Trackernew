@@ -312,6 +312,46 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
 
 
 # --------------------------------------------------------------------------
+# Description enrichment (fetch the job's OWN posting page)
+# --------------------------------------------------------------------------
+_SCRIPT_STYLE_RE = re.compile(r"<(script|style)[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
+
+
+def fetch_description_fallback(url: str, max_chars: int = 3000) -> str:
+    """
+    For platforms that don't include description text in their list
+    endpoint (SmartRecruiters, Workday, generic HTML), this fetches
+    the job posting's OWN page directly and pulls out visible text.
+
+    This is first-party (the actual posting, not a third-party
+    aggregator like Glassdoor/Indeed) — those are unreliable for
+    scraping (actively blocked, against their terms, and would need
+    fuzzy title/company matching to even find the right listing).
+    Fetching the posting's own URL avoids all of that: we already
+    know it's the exact right page.
+
+    Deliberately called only for jobs that already passed the title +
+    location filter (see main.py) — a handful of extra requests for
+    genuine candidates, not one per raw posting scraped.
+
+    Returns "" on any failure, or for pages that are JS-rendered SPAs
+    with no server-side text (a real, unavoidable limitation — same
+    one documented for scrape_generic).
+    """
+    resp = _safe_get(url)
+    if resp is None:
+        return ""
+    try:
+        html = resp.text
+        html = _SCRIPT_STYLE_RE.sub(" ", html)
+        text = BeautifulSoup(html, "html.parser").get_text(" ", strip=True)
+        return text[:max_chars]
+    except Exception as exc:
+        logger.warning("Description fallback failed for %s: %s", url, exc)
+        return ""
+
+
+# --------------------------------------------------------------------------
 # Generic HTML fallback
 # --------------------------------------------------------------------------
 JOB_LINK_HINTS = re.compile(

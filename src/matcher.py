@@ -1,19 +1,32 @@
 """
 Filters and scores scraped jobs against config/cv_profile.yaml.
 
-- A job is KEPT only if its title matches one of `title_must_match`.
-- A job is then checked against the company's expected metro area
-  (Munich or Zurich, including their surrounding satellite towns —
-  Ottobrunn, Taufkirchen, Freising, Zug, Winterthur, etc.): if the
-  scraped location text clearly names a place OUTSIDE that area, the
-  job is dropped. This matters because several platforms (Lever,
-  Greenhouse, SmartRecruiters, Workday) return a company's ENTIRE
-  global job board in one call — e.g. Palantir Zurich's Lever board
-  includes New York, London, DC, etc. alongside Zurich. Without this
-  check, every one of those non-local postings would pass through
-  just because the title matched "Project Manager."
-- Kept jobs get a `relevance_score` on a 1-10 scale (10 = best match to
-  your CV) and a `german_required` flag, both used in the Excel output.
+Two-step pipeline (split so main.py can enrich description text in
+between — see src/ats_scrapers.py, fetch_description_fallback):
+
+  1. filter_by_title_and_location(jobs, cv_profile, expected_city):
+     - KEEPS a job only if its title matches one of `title_must_match`.
+     - Then checks it against the company's expected metro area
+       (Munich or Zurich, including satellite towns — Ottobrunn,
+       Taufkirchen, Freising, Zug, Winterthur, etc. — or one of the
+       dream cities): if the location text doesn't explicitly confirm
+       the target area, the job is dropped. This matters because
+       several platforms (Lever, Greenhouse, SmartRecruiters, Workday)
+       return a company's ENTIRE global job board in one call — e.g.
+       a Munich-tagged company's board can include a New York or Abu
+       Dhabi posting alongside genuinely local ones.
+     - Does NOT score yet — that happens after enrichment.
+
+  2. score_jobs(jobs, cv_profile):
+     - Adds `relevance_score` (1-10 scale, 10 = best match to your CV)
+       to each job. Does not filter anything out by score — every job
+       that passed step 1 is kept and shown, regardless of score. The
+       score is for sorting/ranking only.
+
+No score threshold is applied anywhere in this file — main_min_score
+and dream_city_min_score in cv_profile.yaml both default to 0 (no
+floor), reflecting that a title+location match is considered
+worth seeing regardless of how strong the keyword match is.
 """
 
 from __future__ import annotations
@@ -63,11 +76,7 @@ CITY_KEYWORDS = {
         "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
         "wädenswil", "waedenswil",
     ],
-    # --- Dream-city expansion (see /areas/job-search.md context: score
-    # 7+ postings only, visa-feasible locations given Italian + Nepali
-    # spouse family reunification routes). Kept in the same dict/lookup
-    # as Munich/Zurich so the existing location_status() logic just
-    # works for these too — no separate matching path needed. ---
+    # --- Dream-city expansion ---
     "Copenhagen": ["copenhagen", "københavn", "kobenhavn"],
     "Oslo": ["oslo"],
     "Helsinki": ["helsinki", "helsingfors", "espoo"],
@@ -112,12 +121,10 @@ def title_matches(title: str, must_match: list[str]) -> bool:
 
 def location_status(location: str, expected_city: str) -> str:
     """
-    Returns "confirmed" (location text names the expected city),
+    Returns "confirmed" (location text names the expected city/area),
     "mismatch" (location text clearly names a different city), or
     "unconfirmed" (no location text available, or it's too generic
-    to tell - e.g. just "Germany" or "Remote"). Callers drop
-    "mismatch" and keep the other two, flagging "unconfirmed" in the
-    tracker so you know it wasn't location-verified.
+    to tell - e.g. just "Germany" or "Remote").
     """
     if not location:
         return "unconfirmed"
@@ -128,6 +135,28 @@ def location_status(location: str, expected_city: str) -> str:
     if any(other in loc for other in OTHER_MAJOR_LOCATIONS):
         return "mismatch"
     return "unconfirmed"
+
+
+def filter_by_title_and_location(
+    jobs: list[dict[str, Any]], cv_profile: dict[str, Any], expected_city: str = ""
+) -> list[dict[str, Any]]:
+    must_match = cv_profile.get("title_must_match", [])
+
+    kept = []
+    for job in jobs:
+        title = job.get("title", "")
+        if not title or not title_matches(title, must_match):
+            continue
+
+        loc_status = location_status(job.get("location", ""), expected_city)
+        if loc_status != "confirmed":
+            # Only keep jobs whose location text explicitly names the
+            # target city/area — a company's HQ city is frequently not
+            # where a given posting actually is.
+            continue
+
+        kept.append(job)
+    return kept
 
 
 def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:
@@ -145,38 +174,13 @@ def score_job_1_to_10(description: str, title: str, keywords: list[dict[str, Any
     return max(1, min(10, scaled))
 
 
-def flag_german_requirement(description: str, title: str, markers: list[str]) -> bool:
-    text = f"{title} {description}".lower()
-    return any(marker.lower() in text for marker in markers)
-
-
-def filter_and_score(
-    jobs: list[dict[str, Any]], cv_profile: dict[str, Any], expected_city: str = ""
-) -> list[dict[str, Any]]:
-    must_match = cv_profile.get("title_must_match", [])
+def score_jobs(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
+    """Adds relevance_score to every job in place. Does not filter
+    anything out — score is for ranking/sorting only."""
     keywords = cv_profile.get("scoring_keywords", [])
-    markers = cv_profile.get("german_requirement_markers", [])
     ceiling = cv_profile.get("score_ceiling", DEFAULT_SCORE_CEILING)
-
-    kept = []
     for job in jobs:
-        title = job.get("title", "")
-        if not title or not title_matches(title, must_match):
-            continue
-
-        loc_status = location_status(job.get("location", ""), expected_city)
-        if loc_status != "confirmed":
-            # Only keep jobs whose location text explicitly names the
-            # target city/area. "Unconfirmed" (blank or too generic to
-            # tell) used to be kept and flagged — now dropped too, since
-            # a company's HQ city is frequently not where a given
-            # posting actually is (a Munich-tagged company can easily
-            # post a role in Abu Dhabi), and silently keeping ambiguous
-            # ones let those through.
-            continue
-
-        description = job.get("description", "")
-        job["relevance_score"] = score_job_1_to_10(description, title, keywords, ceiling)
-        job["german_required"] = flag_german_requirement(description, title, markers)
-        kept.append(job)
-    return kept
+        job["relevance_score"] = score_job_1_to_10(
+            job.get("description", ""), job.get("title", ""), keywords, ceiling
+        )
+    return jobs

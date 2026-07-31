@@ -128,11 +128,13 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
         dream_ws, DREAM_COLUMNS, DREAM_NEW_ROW_FILL, "No score-7+ matches yet in the dream-city list."
     )
 
+    jobs_title = "Munich & Zurich" + (f" (score {main_min_score}+ only)" if main_min_score else "")
+    dream_title = "Dream Cities" + (f" (score {dream_min_score}+ only)" if dream_min_score else "")
     jobs_section = _section_html(
-        f"Munich & Zurich (score {main_min_score}+ only)", COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
+        jobs_title, COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
     )
     dream_section = _section_html(
-        f"Dream Cities (score {dream_min_score}+ only)", DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
+        dream_title, DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
     )
 
     updated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")

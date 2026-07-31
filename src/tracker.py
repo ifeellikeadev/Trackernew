@@ -61,11 +61,10 @@ COLUMNS = [
     "City",
     "Job Title",
     "Relevance Score (1-10)",
-    "German Required",
     "Location",
     "URL",
 ]
-COLUMN_WIDTHS = [14, 22, 9, 40, 12, 8, 30, 60]
+COLUMN_WIDTHS = [14, 22, 9, 40, 12, 30, 60]
 
 DREAM_SHEET_NAME = "Dream Cities"
 DREAM_COLUMNS = [
@@ -75,11 +74,10 @@ DREAM_COLUMNS = [
     "Country",
     "Job Title",
     "Relevance Score (1-10)",
-    "German Required",
     "Location",
     "URL",
 ]
-DREAM_COLUMN_WIDTHS = [14, 22, 11, 12, 40, 12, 8, 30, 60]
+DREAM_COLUMN_WIDTHS = [14, 22, 11, 12, 40, 12, 30, 60]
 
 # Old header names that should map onto a current column, so a rename
 # (like "Relevance Score" -> "Relevance Score (1-10)") doesn't strand
@@ -273,7 +271,6 @@ def _build_jobs_row(job: dict[str, Any], url: str) -> list:
         job.get("city", ""),
         job.get("title", ""),
         job.get("relevance_score", 1),
-        "Yes" if job.get("german_required") else "",
         job.get("location", ""),
         url,
     ]
@@ -287,7 +284,6 @@ def _build_dream_row(job: dict[str, Any], url: str) -> list:
         job.get("country", ""),
         job.get("title", ""),
         job.get("relevance_score", 1),
-        "Yes" if job.get("german_required") else "",
         job.get("location", ""),
         url,
     ]
