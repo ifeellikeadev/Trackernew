@@ -1,0 +1,817 @@
+# Dream-city expansion. Same format as companies.yaml, plus a
+# "country" field (used in the tracker's Dream Cities sheet).
+#
+# Scope reasoning (see chat for full discussion): these are cities
+# where an Italian citizen + Nepali spouse have a realistic, non-
+# lottery path to a visa — EU/EEA free movement (Denmark, Norway,
+# Finland, Austria), Switzerland's bilateral EU agreement, or
+# established skilled-migration programs (Canada, Australia,
+# Singapore). The US was deliberately left out: H-1B is a random
+# lottery with no reliable planning path.
+#
+# Only postings scoring 7+ (see cv_profile.yaml, dream_city_min_score)
+# make it into the tracker from this list — it's meant to surface
+# only your strongest matches, not general coverage the way the main
+# Munich/Zurich list is.
+companies:
+  # ---------------- COPENHAGEN, Denmark ----------------
+  - name: Novo Nordisk
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.novonordisk.com/careers.html
+    ats: workday
+    board_token: ""
+  - name: A.P. Moller-Maersk
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.maersk.com/careers
+    ats: auto
+    board_token: ""
+  - name: Vestas Wind Systems
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.vestas.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Orsted
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://orsted.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Danske Bank
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://danskebank.com/careers
+    ats: auto
+    board_token: ""
+  - name: Novozymes
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.novozymes.com/en/about-us/careers
+    ats: auto
+    board_token: ""
+  - name: Pandora
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://pandoragroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: Carlsberg Group
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.carlsberggroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: DSV
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.dsv.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Coloplast
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.coloplast.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Trustpilot
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.trustpilot.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: SimCorp
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.simcorp.com/careers
+    ats: auto
+    board_token: ""
+  - name: Netcompany
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.netcompany.com/careers
+    ats: auto
+    board_token: ""
+  - name: Pleo
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.pleo.io/en/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Tradeshift
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://tradeshift.com/careers/
+    ats: auto
+    board_token: ""
+
+  # ---------------- OSLO, Norway ----------------
+  - name: Equinor
+    city: Oslo
+    country: Norway
+    careers_url: https://www.equinor.com/careers
+    ats: workday
+    board_token: ""
+  - name: DNB Bank
+    city: Oslo
+    country: Norway
+    careers_url: https://www.dnb.no/en/about-us/careers.html
+    ats: auto
+    board_token: ""
+  - name: Telenor
+    city: Oslo
+    country: Norway
+    careers_url: https://www.telenor.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Yara International
+    city: Oslo
+    country: Norway
+    careers_url: https://www.yara.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Aker Solutions
+    city: Oslo
+    country: Norway
+    careers_url: https://www.akersolutions.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Statkraft
+    city: Oslo
+    country: Norway
+    careers_url: https://www.statkraft.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Schibsted
+    city: Oslo
+    country: Norway
+    careers_url: https://schibsted.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Norsk Hydro
+    city: Oslo
+    country: Norway
+    careers_url: https://www.hydro.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Kahoot
+    city: Oslo
+    country: Norway
+    careers_url: https://kahoot.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Cognite
+    city: Oslo
+    country: Norway
+    careers_url: https://www.cognite.com/en/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Vipps
+    city: Oslo
+    country: Norway
+    careers_url: https://www.vippsmobilepay.com/careers
+    ats: auto
+    board_token: ""
+  - name: PGS
+    city: Oslo
+    country: Norway
+    careers_url: https://www.pgs.com/careers/
+    ats: auto
+    board_token: ""
+
+  # ---------------- HELSINKI, Finland ----------------
+  - name: Nokia
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.nokia.com/careers/
+    ats: workday
+    board_token: ""
+  - name: KONE Corporation
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.kone.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Wartsila
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.wartsila.com/careers
+    ats: auto
+    board_token: ""
+  - name: Fortum
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.fortum.com/careers
+    ats: auto
+    board_token: ""
+  - name: Neste
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.neste.com/careers
+    ats: auto
+    board_token: ""
+  - name: Supercell
+    city: Helsinki
+    country: Finland
+    careers_url: https://supercell.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Rovio Entertainment
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.rovio.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Wolt
+    city: Helsinki
+    country: Finland
+    careers_url: https://careers.wolt.com/en
+    ats: greenhouse
+    board_token: ""
+  - name: Nordea
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.nordea.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: UPM-Kymmene
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.upm.com/about-us/careers/
+    ats: auto
+    board_token: ""
+  - name: Stora Enso
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.storaenso.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Elisa
+    city: Helsinki
+    country: Finland
+    careers_url: https://elisa.com/careers
+    ats: auto
+    board_token: ""
+  - name: WithSecure
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.withsecure.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Smartly.io
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.smartly.io/careers
+    ats: greenhouse
+    board_token: ""
+
+  # ---------------- VIENNA, Austria ----------------
+  - name: OMV
+    city: Vienna
+    country: Austria
+    careers_url: https://www.omv.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Erste Group
+    city: Vienna
+    country: Austria
+    careers_url: https://www.erstegroup.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Raiffeisen Bank International
+    city: Vienna
+    country: Austria
+    careers_url: https://www.rbinternational.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Wienerberger
+    city: Vienna
+    country: Austria
+    careers_url: https://www.wienerberger.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Andritz
+    city: Vienna
+    country: Austria
+    careers_url: https://www.andritz.com/careers-en/
+    ats: auto
+    board_token: ""
+  - name: Verbund
+    city: Vienna
+    country: Austria
+    careers_url: https://www.verbund.com/en-at/about-verbund/career
+    ats: auto
+    board_token: ""
+  - name: Bitpanda
+    city: Vienna
+    country: Austria
+    careers_url: https://www.bitpanda.com/en/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Mimecast Vienna
+    city: Vienna
+    country: Austria
+    careers_url: https://www.mimecast.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Frequentis
+    city: Vienna
+    country: Austria
+    careers_url: https://www.frequentis.com/en/career
+    ats: auto
+    board_token: ""
+  - name: T-Mobile Austria
+    city: Vienna
+    country: Austria
+    careers_url: https://www.t-mobile.at/karriere
+    ats: auto
+    board_token: ""
+
+  # ---------------- BASEL, Switzerland ----------------
+  - name: Novartis Basel
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.novartis.com/careers
+    ats: auto
+    board_token: ""
+  - name: Roche Basel
+    city: Basel
+    country: Switzerland
+    careers_url: https://careers.roche.com/
+    ats: auto
+    board_token: ""
+  - name: Syngenta
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.syngenta.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Clariant
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.clariant.com/en/Careers
+    ats: auto
+    board_token: ""
+  - name: Lonza
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.lonza.com/careers
+    ats: workday
+    board_token: ""
+
+  # ---------------- BERN, Switzerland ----------------
+  - name: Swiss Post
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.post.ch/en/about-us/career
+    ats: auto
+    board_token: ""
+  - name: PostFinance
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.postfinance.ch/en/about-us/career.html
+    ats: auto
+    board_token: ""
+  - name: Skyguide
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.skyguide.ch/en/company/jobs
+    ats: auto
+    board_token: ""
+  - name: Swisscom Bern
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.swisscom.ch/en/about/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Die Mobiliar
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.mobiliar.ch/mobiliar/jobs-karriere
+    ats: auto
+    board_token: ""
+  - name: Insel Gruppe
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.insel.ch/de/karriere
+    ats: auto
+    board_token: ""
+
+  # ---------------- GENEVA, Switzerland ----------------
+  - name: ICRC
+    city: Geneva
+    country: Switzerland
+    careers_url: https://careers.icrc.org/
+    ats: auto
+    board_token: ""
+  - name: World Health Organization
+    city: Geneva
+    country: Switzerland
+    careers_url: https://careers.who.int/
+    ats: auto
+    board_token: ""
+  - name: MSC Mediterranean Shipping Company
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.msc.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: SGS
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.sgs.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Richemont
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.richemont.com/careers
+    ats: auto
+    board_token: ""
+  - name: STMicroelectronics Geneva
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.st.com/content/st_com/en/about/st_careers.html
+    ats: auto
+    board_token: ""
+  - name: Trafigura
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.trafigura.com/careers/
+    ats: auto
+    board_token: ""
+
+  # ---------------- LAUSANNE, Switzerland ----------------
+  - name: Nestle
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.nestle.com/jobs
+    ats: auto
+    board_token: ""
+  - name: Logitech
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.logitech.com/en-us/careers.html
+    ats: workday
+    board_token: ""
+  - name: Philip Morris International
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.pmi.com/careers
+    ats: auto
+    board_token: ""
+  - name: IMD Business School
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.imd.org/about/careers/
+    ats: auto
+    board_token: ""
+  - name: EPFL
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.epfl.ch/about/working/en/
+    ats: auto
+    board_token: ""
+
+  # ---------------- LUCERNE, Switzerland ----------------
+  - name: Bucher Industries
+    city: Lucerne
+    country: Switzerland
+    careers_url: https://www.bucherindustries.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: CSS Versicherung
+    city: Lucerne
+    country: Switzerland
+    careers_url: https://www.css.ch/en/about-css/jobs.html
+    ats: auto
+    board_token: ""
+
+  # ---------------- VANCOUVER, Canada ----------------
+  - name: Amazon Vancouver
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.amazon.jobs/en/locations/vancouver-canada
+    ats: auto
+    board_token: ""
+  - name: Microsoft Vancouver
+    city: Vancouver
+    country: Canada
+    careers_url: https://careers.microsoft.com/
+    ats: auto
+    board_token: ""
+  - name: Electronic Arts Vancouver
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.ea.com/careers
+    ats: workday
+    board_token: ""
+  - name: Lululemon
+    city: Vancouver
+    country: Canada
+    careers_url: https://careers.lululemon.com/
+    ats: workday
+    board_token: ""
+  - name: Teck Resources
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.teck.com/careers
+    ats: auto
+    board_token: ""
+  - name: Finning International
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.finning.com/en-ca/careers.html
+    ats: auto
+    board_token: ""
+  - name: Ballard Power Systems
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.ballard.com/about-ballard/careers
+    ats: auto
+    board_token: ""
+  - name: Absolute Software
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.absolute.com/company/careers/
+    ats: auto
+    board_token: ""
+  - name: Hootsuite
+    city: Vancouver
+    country: Canada
+    careers_url: https://careers.hootsuite.com/
+    ats: greenhouse
+    board_token: ""
+  - name: TELUS
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.telus.com/en/about/careers
+    ats: auto
+    board_token: ""
+  - name: Clio
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.clio.com/about/careers/
+    ats: greenhouse
+    board_token: ""
+
+  # ---------------- PERTH, Australia ----------------
+  - name: BHP Perth
+    city: Perth
+    country: Australia
+    careers_url: https://www.bhp.com/careers
+    ats: auto
+    board_token: ""
+  - name: Rio Tinto Perth
+    city: Perth
+    country: Australia
+    careers_url: https://www.riotinto.com/en/careers
+    ats: workday
+    board_token: ""
+  - name: Woodside Energy
+    city: Perth
+    country: Australia
+    careers_url: https://www.woodside.com/careers
+    ats: auto
+    board_token: ""
+  - name: Fortescue
+    city: Perth
+    country: Australia
+    careers_url: https://www.fortescue.com/careers
+    ats: auto
+    board_token: ""
+  - name: Chevron Australia
+    city: Perth
+    country: Australia
+    careers_url: https://www.chevron.com/careers
+    ats: workday
+    board_token: ""
+  - name: Wesfarmers
+    city: Perth
+    country: Australia
+    careers_url: https://www.wesfarmers.com.au/careers
+    ats: auto
+    board_token: ""
+  - name: South32
+    city: Perth
+    country: Australia
+    careers_url: https://www.south32.net/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- MELBOURNE, Australia ----------------
+  - name: Telstra
+    city: Melbourne
+    country: Australia
+    careers_url: https://careers.telstra.com/
+    ats: auto
+    board_token: ""
+  - name: ANZ Bank
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.anz.com.au/careers/
+    ats: auto
+    board_token: ""
+  - name: NAB
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.nab.com.au/about-us/careers
+    ats: auto
+    board_token: ""
+  - name: AGL Energy
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.agl.com.au/about-agl/careers
+    ats: auto
+    board_token: ""
+  - name: Coles Group
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.colesgroup.com.au/careers/
+    ats: auto
+    board_token: ""
+  - name: SEEK
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.seek.com.au/about/careers
+    ats: auto
+    board_token: ""
+  - name: REA Group
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.rea-group.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Cochlear
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.cochlear.com/corporate/careers
+    ats: auto
+    board_token: ""
+  - name: CSL Limited
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.csl.com/careers
+    ats: workday
+    board_token: ""
+  - name: Medibank
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.medibank.com.au/about/careers/
+    ats: auto
+    board_token: ""
+
+  # ---------------- SYDNEY, Australia ----------------
+  - name: Atlassian
+    city: Sydney
+    country: Australia
+    careers_url: https://www.atlassian.com/company/careers
+    ats: auto
+    board_token: ""
+  - name: Commonwealth Bank
+    city: Sydney
+    country: Australia
+    careers_url: https://www.commbank.com.au/about-us/careers.html
+    ats: auto
+    board_token: ""
+  - name: Westpac
+    city: Sydney
+    country: Australia
+    careers_url: https://www.westpac.com.au/about-westpac/careers/
+    ats: auto
+    board_token: ""
+  - name: Macquarie Group
+    city: Sydney
+    country: Australia
+    careers_url: https://www.macquarie.com/careers
+    ats: auto
+    board_token: ""
+  - name: QBE Insurance
+    city: Sydney
+    country: Australia
+    careers_url: https://careers.qbe.com/
+    ats: auto
+    board_token: ""
+  - name: Qantas
+    city: Sydney
+    country: Australia
+    careers_url: https://www.qantas.com/careers
+    ats: auto
+    board_token: ""
+  - name: Woolworths Group
+    city: Sydney
+    country: Australia
+    careers_url: https://www.wowcareers.com.au/
+    ats: auto
+    board_token: ""
+  - name: Canva
+    city: Sydney
+    country: Australia
+    careers_url: https://www.canva.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Google Sydney
+    city: Sydney
+    country: Australia
+    careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=Sydney
+    ats: auto
+    board_token: ""
+  - name: Amazon Sydney
+    city: Sydney
+    country: Australia
+    careers_url: https://www.amazon.jobs/en/locations/sydney-australia
+    ats: auto
+    board_token: ""
+  - name: Optus
+    city: Sydney
+    country: Australia
+    careers_url: https://www.optus.com.au/about/careers
+    ats: auto
+    board_token: ""
+  - name: IAG Insurance
+    city: Sydney
+    country: Australia
+    careers_url: https://www.iag.com.au/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- SINGAPORE ----------------
+  - name: DBS Bank
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.dbs.com/careers/
+    ats: auto
+    board_token: ""
+  - name: OCBC Bank
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.ocbc.com/group/careers
+    ats: auto
+    board_token: ""
+  - name: UOB
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.uobgroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Singtel
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.singtel.com/about-us/careers
+    ats: auto
+    board_token: ""
+  - name: Grab
+    city: Singapore
+    country: Singapore
+    careers_url: https://grab.careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Sea Limited
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.sea.com/careers
+    ats: auto
+    board_token: ""
+  - name: ByteDance Singapore
+    city: Singapore
+    country: Singapore
+    careers_url: https://careers.bytedance.com/
+    ats: auto
+    board_token: ""
+  - name: Google Singapore
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=Singapore
+    ats: auto
+    board_token: ""
+  - name: Amazon Singapore
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.amazon.jobs/en/locations/singapore
+    ats: auto
+    board_token: ""
+  - name: PSA International
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.singaporepsa.com/careers
+    ats: auto
+    board_token: ""
+  - name: Temasek
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.temasek.com.sg/en/careers
+    ats: auto
+    board_token: ""
+  - name: GIC
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.gic.com.sg/careers/
+    ats: auto
+    board_token: ""
+  - name: Razer
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.razer.com/careers
+    ats: greenhouse
+    board_token: ""

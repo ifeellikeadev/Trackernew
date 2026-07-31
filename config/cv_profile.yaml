@@ -17,6 +17,13 @@ title_must_match:
   - "it project manager"
   - "delivery manager"
 
+# dream_city_min_score:
+#   Only postings scoring at or above this (on the 1-10 scale above)
+#   from the dream-cities list make it into the tracker's separate
+#   "Dream Cities" section — this list is meant to surface only the
+#   strongest matches, not everything that passes the title filter.
+dream_city_min_score: 7
+
 # score_ceiling:
 #   Used to convert the raw keyword-weight sum into a 1-10 scale shown
 #   in the Excel tracker (10 = best match). Raise this if scores are
