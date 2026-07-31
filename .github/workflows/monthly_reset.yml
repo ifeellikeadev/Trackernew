@@ -4,7 +4,7 @@ on:
   schedule:
     # 05:30 UTC on the 1st of every month — runs just before that
     # day's daily_scrape.yml, so the 1st starts with a clean sheet.
-    - cron: "30 5 1 * *"
+    - cron: "30 5 * * 1"
   workflow_dispatch: {}
 
 permissions:
