@@ -17,6 +17,13 @@ title_must_match:
   - "it project manager"
   - "delivery manager"
 
+# main_min_score:
+#   Only postings scoring at or above this make it into the tracker's
+#   main "Jobs" sheet (Munich/Zurich) — same 1-10 scale as everywhere
+#   else. Below-threshold postings are also pruned from rows already
+#   in the sheet, not just blocked going forward.
+main_min_score: 5
+
 # dream_city_min_score:
 #   Only postings scoring at or above this (on the 1-10 scale above)
 #   from the dream-cities list make it into the tracker's separate
@@ -29,7 +36,13 @@ dream_city_min_score: 7
 #   in the Excel tracker (10 = best match). Raise this if scores are
 #   clustering too high (e.g. everything shows 9-10); lower it if
 #   scores are clustering too low (e.g. everything shows 1-2).
-score_ceiling: 15
+#   Lowered from 15 to 12: many platforms (SmartRecruiters, Workday,
+#   generic HTML) don't expose full description text, so those
+#   postings can only be scored on title words alone — a lower
+#   ceiling means a modest title-only match isn't automatically
+#   floored out. Personio's feed now also gets its full description
+#   parsed (previously left blank), which helps more directly.
+score_ceiling: 12
 
 # scoring_keywords:
 #   Each match inside the job description adds "weight" points toward
@@ -44,11 +57,14 @@ scoring_keywords:
   - {term: "grid", weight: 2}
   - {term: "EU regulatory", weight: 3}
   - {term: "regulatory compliance", weight: 3}
+  - {term: "compliance", weight: 1}
   - {term: "PMP", weight: 2}
   - {term: "CAPM", weight: 1}
   - {term: "PMI", weight: 1}
   - {term: "risk management", weight: 2}
+  - {term: "risk", weight: 1}
   - {term: "stakeholder management", weight: 2}
+  - {term: "stakeholder", weight: 1}
   - {term: "supply chain", weight: 2}
   - {term: "procurement", weight: 2}
   - {term: "agile", weight: 1}
@@ -62,6 +78,8 @@ scoring_keywords:
   - {term: "cross-functional", weight: 1}
   - {term: "tender", weight: 1}
   - {term: "audit", weight: 1}
+  - {term: "budget", weight: 1}
+  - {term: "leadership", weight: 1}
 
 # language_flags:
 #   If any of these appear in the description, the tracker adds a

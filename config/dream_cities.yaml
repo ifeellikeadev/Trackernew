@@ -815,3 +815,523 @@ companies:
     careers_url: https://www.razer.com/careers
     ats: greenhouse
     board_token: ""
+
+  # ---------------- COPENHAGEN, Denmark (batch 2) ----------------
+  - name: Ambu
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.ambu.com/careers
+    ats: auto
+    board_token: ""
+  - name: Chr Hansen
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.chr-hansen.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Genmab
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.genmab.com/careers/
+    ats: workday
+    board_token: ""
+  - name: Demant
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.demant.com/careers
+    ats: auto
+    board_token: ""
+  - name: GN Store Nord
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.gn.com/careers
+    ats: auto
+    board_token: ""
+  - name: Jyske Bank
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://jyskebank.com/careers
+    ats: auto
+    board_token: ""
+  - name: Falck
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.falck.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: ISS A/S
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.issworld.com/careers
+    ats: auto
+    board_token: ""
+  - name: Lundbeck
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://www.lundbeck.com/global/careers
+    ats: workday
+    board_token: ""
+  - name: William Demant Foundation
+    city: Copenhagen
+    country: Denmark
+    careers_url: https://williamdemantfoundation.com/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- OSLO, Norway (batch 2) ----------------
+  - name: Aker BP
+    city: Oslo
+    country: Norway
+    careers_url: https://www.akerbp.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Norwegian Air Shuttle
+    city: Oslo
+    country: Norway
+    careers_url: https://www.norwegian.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Storebrand
+    city: Oslo
+    country: Norway
+    careers_url: https://www.storebrand.no/en/careers
+    ats: auto
+    board_token: ""
+  - name: Gjensidige Forsikring
+    city: Oslo
+    country: Norway
+    careers_url: https://www.gjensidige.no/karriere
+    ats: auto
+    board_token: ""
+  - name: Mowi
+    city: Oslo
+    country: Norway
+    careers_url: https://mowi.com/careers/
+    ats: auto
+    board_token: ""
+  - name: TGS
+    city: Oslo
+    country: Norway
+    careers_url: https://www.tgs.com/careers
+    ats: auto
+    board_token: ""
+  - name: Adevinta
+    city: Oslo
+    country: Norway
+    careers_url: https://www.adevinta.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Kongsberg Gruppen
+    city: Oslo
+    country: Norway
+    careers_url: https://www.kongsberg.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Norconsult
+    city: Oslo
+    country: Norway
+    careers_url: https://www.norconsult.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Multiconsult
+    city: Oslo
+    country: Norway
+    careers_url: https://www.multiconsult.no/en/careers/
+    ats: auto
+    board_token: ""
+
+  # ---------------- HELSINKI, Finland (batch 2) ----------------
+  - name: Metso Outotec
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.mogroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Huhtamaki
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.huhtamaki.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Sampo Group
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.sampo.com/careers/
+    ats: auto
+    board_token: ""
+  - name: OP Financial Group
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.op.fi/en/careers
+    ats: auto
+    board_token: ""
+  - name: Posti Group
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.posti.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Fingrid
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.fingrid.fi/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Caverion
+    city: Helsinki
+    country: Finland
+    careers_url: https://caverion.com/careers
+    ats: auto
+    board_token: ""
+  - name: YIT
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.yitgroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: Vaisala
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.vaisala.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Basware
+    city: Helsinki
+    country: Finland
+    careers_url: https://www.basware.com/en-en/careers/
+    ats: greenhouse
+    board_token: ""
+
+  # ---------------- VIENNA, Austria (batch 2) ----------------
+  - name: Constantia Flexibles
+    city: Vienna
+    country: Austria
+    careers_url: https://www.constantia.com/careers/
+    ats: auto
+    board_token: ""
+  - name: AMS OSRAM
+    city: Vienna
+    country: Austria
+    careers_url: https://ams-osram.com/careers
+    ats: auto
+    board_token: ""
+  - name: Palfinger
+    city: Vienna
+    country: Austria
+    careers_url: https://www.palfinger.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Zumtobel Group
+    city: Vienna
+    country: Austria
+    careers_url: https://www.zumtobelgroup.com/en/careers.htm
+    ats: auto
+    board_token: ""
+  - name: Do And Co
+    city: Vienna
+    country: Austria
+    careers_url: https://www.doco.com/en/career
+    ats: auto
+    board_token: ""
+  - name: Wien Energie
+    city: Vienna
+    country: Austria
+    careers_url: https://www.wienenergie.at/karriere/
+    ats: auto
+    board_token: ""
+  - name: OBB Austrian Federal Railways
+    city: Vienna
+    country: Austria
+    careers_url: https://jobs.oebb.at/
+    ats: auto
+    board_token: ""
+  - name: Uniqa Insurance
+    city: Vienna
+    country: Austria
+    careers_url: https://www.uniqagroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: Kapsch TrafficCom
+    city: Vienna
+    country: Austria
+    careers_url: https://www.kapsch.net/en/ktc/career
+    ats: auto
+    board_token: ""
+  - name: S Immo AG
+    city: Vienna
+    country: Austria
+    careers_url: https://www.simmoag.at/en/career
+    ats: auto
+    board_token: ""
+
+  # ---------------- BASEL, Switzerland (batch 2) ----------------
+  - name: Bachem
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.bachem.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Idorsia
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.idorsia.com/careers
+    ats: auto
+    board_token: ""
+  - name: Vifor Pharma
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.viforpharma.com/careers
+    ats: auto
+    board_token: ""
+  - name: Endress and Hauser
+    city: Basel
+    country: Switzerland
+    careers_url: https://careers.endress.com/
+    ats: auto
+    board_token: ""
+  - name: Ricola
+    city: Basel
+    country: Switzerland
+    careers_url: https://www.ricola.com/en/company/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- BERN, Switzerland (batch 2) ----------------
+  - name: BLS AG
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.bls.ch/en/unternehmen/jobs
+    ats: auto
+    board_token: ""
+  - name: RUAG Bern
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.ruag.com/en/career
+    ats: auto
+    board_token: ""
+  - name: BEKB Bernische Kantonalbank
+    city: Bern
+    country: Switzerland
+    careers_url: https://www.bekb.ch/en/jobs
+    ats: auto
+    board_token: ""
+
+  # ---------------- GENEVA, Switzerland (batch 2) ----------------
+  - name: DSM-Firmenich
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.dsm-firmenich.com/careers
+    ats: workday
+    board_token: ""
+  - name: Givaudan
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.givaudan.com/careers
+    ats: workday
+    board_token: ""
+  - name: Banque Cantonale de Geneve
+    city: Geneva
+    country: Switzerland
+    careers_url: https://www.bcge.ch/en/jobs
+    ats: auto
+    board_token: ""
+
+  # ---------------- LAUSANNE, Switzerland (batch 2) ----------------
+  - name: Bobst Group
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.bobst.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Kudelski Group
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.nagra.com/careers
+    ats: auto
+    board_token: ""
+  - name: Nespresso
+    city: Lausanne
+    country: Switzerland
+    careers_url: https://www.nespresso.com/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- VANCOUVER, Canada (batch 2) ----------------
+  - name: Methanex Corporation
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.methanex.com/careers
+    ats: auto
+    board_token: ""
+  - name: West Fraser Timber
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.westfraser.com/careers
+    ats: auto
+    board_token: ""
+  - name: Central 1 Credit Union
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.central1.com/careers
+    ats: auto
+    board_token: ""
+  - name: Vancity
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.vancity.com/AboutVancity/Careers/
+    ats: auto
+    board_token: ""
+  - name: Traction on Demand
+    city: Vancouver
+    country: Canada
+    careers_url: https://www.tractionondemand.com/careers
+    ats: greenhouse
+    board_token: ""
+
+  # ---------------- PERTH, Australia (batch 2) ----------------
+  - name: Newcrest Mining
+    city: Perth
+    country: Australia
+    careers_url: https://www.newcrest.com/careers
+    ats: auto
+    board_token: ""
+  - name: Mineral Resources
+    city: Perth
+    country: Australia
+    careers_url: https://mineralresources.com.au/careers/
+    ats: auto
+    board_token: ""
+  - name: Santos
+    city: Perth
+    country: Australia
+    careers_url: https://www.santos.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Alcoa Australia
+    city: Perth
+    country: Australia
+    careers_url: https://www.alcoa.com/careers
+    ats: workday
+    board_token: ""
+  - name: Water Corporation
+    city: Perth
+    country: Australia
+    careers_url: https://www.watercorporation.com.au/Careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- MELBOURNE, Australia (batch 2) ----------------
+  - name: Origin Energy
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.originenergy.com.au/about/careers.html
+    ats: auto
+    board_token: ""
+  - name: Bendigo and Adelaide Bank
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.bendigoadelaide.com.au/careers/
+    ats: auto
+    board_token: ""
+  - name: Toll Group
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.tollgroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: Incitec Pivot
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.incitecpivot.com.au/careers
+    ats: auto
+    board_token: ""
+  - name: Boral
+    city: Melbourne
+    country: Australia
+    careers_url: https://www.boral.com.au/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- SYDNEY, Australia (batch 2) ----------------
+  - name: Nine Entertainment
+    city: Sydney
+    country: Australia
+    careers_url: https://www.nineforbrands.com.au/careers
+    ats: auto
+    board_token: ""
+  - name: Suncorp Group
+    city: Sydney
+    country: Australia
+    careers_url: https://www.suncorpgroup.com.au/careers
+    ats: auto
+    board_token: ""
+  - name: Lendlease
+    city: Sydney
+    country: Australia
+    careers_url: https://www.lendlease.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Ansell
+    city: Sydney
+    country: Australia
+    careers_url: https://www.ansell.com/careers
+    ats: auto
+    board_token: ""
+  - name: James Hardie Industries
+    city: Sydney
+    country: Australia
+    careers_url: https://www.jameshardie.com/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- SINGAPORE (batch 2) ----------------
+  - name: Keppel Corporation
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.kepcorp.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: ComfortDelGro
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.comfortdelgro.com/careers
+    ats: auto
+    board_token: ""
+  - name: CapitaLand
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.capitaland.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Wilmar International
+    city: Singapore
+    country: Singapore
+    careers_url: https://www.wilmar-international.com/careers
+    ats: auto
+    board_token: ""
+  - name: Flex
+    city: Singapore
+    country: Singapore
+    careers_url: https://flex.com/careers
+    ats: workday
+    board_token: ""
+
+  # ---------------- LUCERNE, Switzerland (batch 2 - was thin, rounding out) ----------------
+  - name: Schindler
+    city: Lucerne
+    country: Switzerland
+    careers_url: https://www.schindler.com/en/careers.html
+    ats: workday
+    board_token: ""
+  - name: Emmi
+    city: Lucerne
+    country: Switzerland
+    careers_url: https://www.emmi.com/careers
+    ats: auto
+    board_token: ""
+  - name: Franke Group
+    city: Lucerne
+    country: Switzerland
+    careers_url: https://www.franke.com/careers
+    ats: auto
+    board_token: ""
