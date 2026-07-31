@@ -23,6 +23,7 @@ from __future__ import annotations
 import datetime as dt
 from pathlib import Path
 
+import yaml
 from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
@@ -31,6 +32,7 @@ from src.tracker import COLUMNS, NEW_ROW_FILL, DREAM_SHEET_NAME, DREAM_COLUMNS, 
 ROOT = Path(__file__).resolve().parent.parent
 TRACKER_FILE = ROOT / "data" / "job_tracker.xlsx"
 OUTPUT_FILE = ROOT / "docs" / "index.html"
+CV_PROFILE_FILE = ROOT / "config" / "cv_profile.yaml"
 
 
 def _rgb_matches(cell, fill) -> bool:
@@ -105,6 +107,13 @@ def _section_html(title: str, columns: list[str], rows_html: str, total: int, le
 def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
+    cv_profile = {}
+    if CV_PROFILE_FILE.exists():
+        with open(CV_PROFILE_FILE, "r", encoding="utf-8") as f:
+            cv_profile = yaml.safe_load(f) or {}
+    main_min_score = cv_profile.get("main_min_score", 0)
+    dream_min_score = cv_profile.get("dream_city_min_score", 0)
+
     jobs_ws = None
     dream_ws = None
     if tracker_path.exists():
@@ -120,10 +129,10 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
     )
 
     jobs_section = _section_html(
-        "Munich & Zurich", COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
+        f"Munich & Zurich (score {main_min_score}+ only)", COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
     )
     dream_section = _section_html(
-        "Dream Cities (score 7+ only)", DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
+        f"Dream Cities (score {dream_min_score}+ only)", DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
     )
 
     updated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")

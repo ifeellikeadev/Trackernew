@@ -165,12 +165,18 @@ def filter_and_score(
             continue
 
         loc_status = location_status(job.get("location", ""), expected_city)
-        if loc_status == "mismatch":
+        if loc_status != "confirmed":
+            # Only keep jobs whose location text explicitly names the
+            # target city/area. "Unconfirmed" (blank or too generic to
+            # tell) used to be kept and flagged — now dropped too, since
+            # a company's HQ city is frequently not where a given
+            # posting actually is (a Munich-tagged company can easily
+            # post a role in Abu Dhabi), and silently keeping ambiguous
+            # ones let those through.
             continue
 
         description = job.get("description", "")
         job["relevance_score"] = score_job_1_to_10(description, title, keywords, ceiling)
         job["german_required"] = flag_german_requirement(description, title, markers)
-        job["location_status"] = loc_status  # "confirmed" or "unconfirmed"
         kept.append(job)
     return kept

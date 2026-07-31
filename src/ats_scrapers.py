@@ -229,12 +229,28 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
         if created and created.text:
             # Personio's createdAt is usually "YYYY-MM-DD HH:MM:SS" or just a date
             posted = created.text.strip()[:10]
+
+        # Personio's feed includes full description sections (title +
+        # HTML body per section, e.g. "Your tasks", "Your profile") —
+        # this was previously left blank; concatenating it gives the
+        # relevance scorer real text to work with instead of just the
+        # job title, which is the single biggest lever we have for
+        # more accurate scores on Personio-based postings.
+        description_parts = []
+        for desc_block in position.find_all("jobDescription"):
+            value = desc_block.find("value")
+            if value and value.text:
+                text_only = BeautifulSoup(value.text, "html.parser").get_text(" ", strip=True)
+                if text_only:
+                    description_parts.append(text_only)
+        description = " ".join(description_parts)
+
         jobs.append(
             {
                 "title": name.text.strip() if name else "",
                 "location": office.text.strip() if office else "",
                 "url": link,
-                "description": "",
+                "description": description,
                 "posted_date": posted,
             }
         )
