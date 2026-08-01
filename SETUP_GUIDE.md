@@ -263,17 +263,16 @@ Pages screen and set Source back to "None."
 
 Alongside Munich/Zurich, the tracker also runs a second, smaller pass
 against `config/dream_cities.yaml` — Copenhagen, Oslo, Helsinki,
-Vienna, Basel, Bern, Geneva, Lausanne, Lucerne, Vancouver, Perth,
-Melbourne, Sydney, and Singapore. These were chosen specifically
-because they're places with a realistic, established visa path (EU/EEA
-free movement, Switzerland's bilateral agreement, or a proper skilled-
-migration program) rather than a lottery — the US was deliberately
-left out for exactly that reason.
+Vienna, Basel, Bern, Geneva, Lausanne, Lucerne, Amsterdam, Rotterdam,
+Vancouver, Perth, Melbourne, Sydney, and Singapore. These were chosen
+specifically because they're places with a realistic, established
+visa path (EU/EEA free movement, Switzerland's bilateral agreement, or
+a proper skilled-migration program) rather than a lottery — the US was
+deliberately left out for exactly that reason.
 
-Only postings scoring **7 or higher** (out of the same 1-10 relevance
-scale used everywhere else) make it into this list — it's meant to
-surface your strongest matches only, not general coverage. You'll see
-it as its own clearly separate section, both in the Excel file (a
+Same title + confirmed-location matching as Munich/Zurich, no score
+floor — everything that matches shows up, sorted by relevance. You'll
+see it as its own clearly separate section, both in the Excel file (a
 second sheet, tab labeled "Dream Cities" at the bottom of the
 spreadsheet) and on the webpage (its own section below Munich/Zurich,
 blue-highlighted new rows instead of green).
@@ -282,8 +281,48 @@ Adding, removing, or fixing a company in this list works exactly like
 Part 7 — same file format, just in `config/dream_cities.yaml` instead
 of `config/companies.yaml`, with one extra field: `country`.
 
-If you want to change the score threshold, adjust
+If you want to turn a score floor back on, adjust
 `dream_city_min_score` in `config/cv_profile.yaml`.
+
+---
+
+## Part 12 — Global Top Picks (the wildcard section)
+
+A third, smaller section, always at the bottom of both the Excel file
+(a tab called "Global Top Picks") and the webpage. Unlike the other
+two, this one isn't tied to specific cities — it matches against
+**whole countries**: Norway, Sweden, Denmark, Netherlands, Finland,
+Switzerland, Austria, Canada, UAE, and South Korea. A posting anywhere
+in one of those countries counts, not just in a specific city.
+
+Two things make this section different from the other two:
+
+- **Only score 9-10 makes it in.** This is meant to surface only your
+  very strongest matches, not general coverage.
+- **It's rebuilt from scratch every run**, not accumulated. The other
+  two sheets keep growing over time; this one always shows just the
+  current top 3-4 postings, gold-highlighted. If a stronger match
+  shows up next run, weaker ones drop off — nothing here is "kept"
+  long-term the way the other sheets work.
+
+The companies behind this section come from three places: Zurich
+companies you already have in `config/companies.yaml`, the
+Switzerland/Norway/Denmark/Netherlands/Finland/Austria/Canada
+companies already in `config/dream_cities.yaml`, and a new file,
+`config/wildcard_countries.yaml`, for the two genuinely new countries
+(Sweden, UAE, South Korea). Add/fix companies there the same way as
+Part 7.
+
+To change which countries are approved, edit
+`APPROVED_WILDCARD_COUNTRIES` near the top of `src/main.py`. To change
+the score floor or how many rows are shown, edit `WILDCARD_MIN_SCORE`
+/ `WILDCARD_MAX_ROWS` near the top of `src/tracker.py`.
+
+One honest tradeoff: several companies used here are also scraped in
+the Dream Cities pass (or the Munich/Zurich pass, for Zurich
+companies) — this section re-scrapes them independently rather than
+reusing that data, which keeps the code simpler but does mean the
+overall run takes noticeably longer now.
 
 ---
 
