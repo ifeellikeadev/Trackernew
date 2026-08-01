@@ -15,8 +15,12 @@
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 0.85rem; vertical-align: top; }
   th { background: #1F2937; color: white; position: sticky; top: 0; white-space: nowrap; }
   tr.new-row { background: #D1FAE5; }
+  tr.dream-new-row { background: #DBEAFE; }
+  tr.wildcard-row { background: #FEF3C7; }
   tr:hover { background: #f3f4f6; }
   tr.new-row:hover { background: #bbf7d0; }
+  tr.dream-new-row:hover { background: #bfdbfe; }
+  tr.wildcard-row:hover { background: #fde68a; }
   a { color: #2563eb; text-decoration: none; }
   a:hover { text-decoration: underline; }
   .scroll-wrap { overflow-x: auto; margin-bottom: 8px; }
@@ -29,7 +33,7 @@
 </head>
 <body>
 <h1>Job Tracker</h1>
-<div class="page-meta">last updated 2026-08-01 07:51 UTC</div>
+<div class="page-meta">last updated 2026-08-01 10:22 UTC</div>
 
 <h2>Munich &amp; Zurich</h2>
 <div class="meta">
@@ -68,7 +72,24 @@
 <table>
 <thead><tr><th>Job Posted</th><th>Company</th><th>City</th><th>Country</th><th>Job Title</th><th>Relevance Score (1-10)</th><th>Location</th></tr></thead>
 <tbody>
-<tr><td colspan='8'>No score-7+ matches yet in the dream-city list.</td></tr>
+<tr><td colspan='8'>No matches yet in the dream-city list.</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<h2>Global Top Picks (score 9-10 only, top few, refreshed every run)</h2>
+<div class="meta">
+  2 tracked postings &middot;
+  <span class="legend" style="background:#FEF3C7;"></span>whole-country matches — Norway, Sweden, Denmark, Netherlands, Finland, Switzerland, Austria, Canada, UAE, South Korea
+</div>
+<div class="scroll-wrap">
+<table>
+<thead><tr><th>Company</th><th>City</th><th>Country</th><th>Job Title</th><th>Relevance Score (1-10)</th><th>Location</th></tr></thead>
+<tbody>
+<tr class='wildcard-row'><td>Coupang</td><td>Seoul</td><td>South Korea</td><td><a href='https://www.coupang.jobs/en/jobs/?gh_jid=8068604' target='_blank' rel='noopener'>Staff, Program Manager(CoupangEats Engineering)</a></td><td>10</td><td>Seoul, South Korea</td></tr>
+<tr class='wildcard-row'><td>Coupang</td><td>Seoul</td><td>South Korea</td><td><a href='https://www.coupang.jobs/en/jobs/?gh_jid=8059231' target='_blank' rel='noopener'>Staff, Technical Program Manager(CoupangEats Engineering)</a></td><td>10</td><td>Seoul, South Korea</td></tr>
 </tbody>
 </table>
 </div>
