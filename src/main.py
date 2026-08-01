@@ -5,29 +5,38 @@ Entry point for the scrape. Run manually with:
 Or via the GitHub Actions workflow (.github/workflows/daily_scrape.yml,
 manually triggered — see SETUP_GUIDE.md).
 
-Runs THREE passes:
-  1. Munich/Zurich (config/companies.yaml) -> "Jobs" sheet.
-  2. Dream cities (config/dream_cities.yaml) -> "Dream Cities" sheet.
-  3. Wildcard (whole approved countries, not specific cities) ->
-     "Global Top Picks" sheet — only the top 3-4 postings scoring 9-10,
-     rebuilt fresh every run rather than accumulated. Pulls from
-     Zurich companies (companies.yaml), the approved-country subset of
-     dream_cities.yaml, and config/wildcard_countries.yaml (Sweden,
-     UAE, South Korea — the only genuinely new companies needed, since
-     the other approved countries already had real companies from
-     passes 1-2). Note: this does mean those shared companies get
-     scraped twice (once for their city-specific pass, once here) —
-     a known tradeoff for keeping the three passes independent and
-     simple rather than threading shared state between them.
+Runs TWO passes:
+  1. Combined scrape of every company in config/companies.yaml AND
+     config/dream_cities.yaml (each scraped once), matched against
+     ANY approved city (Munich, Zurich, or any of the 16 dream
+     cities) — not just whichever single city that company's config
+     entry happens to be tagged with. This matters: a company like
+     Databricks is listed once, tagged "Zurich," but its job board
+     spans many locations — a genuine Databricks posting in Munich is
+     just as real a match as one in Zurich, and previously got
+     silently rejected because only the Zurich question was being
+     asked. Matches route to the "Jobs" sheet (Munich/Zurich) or the
+     "Dream Cities" sheet based on which city actually matched, using
+     src.matcher.filter_by_title_and_any_city.
+  2. Wildcard (whole approved countries, not specific cities) ->
+     "Global Top Picks" sheet — only the top 3-4 postings scoring
+     9-10, rebuilt fresh every run rather than accumulated. Pulls
+     from Zurich companies (companies.yaml), the approved-country
+     subset of dream_cities.yaml, and config/wildcard_countries.yaml
+     (Sweden, UAE, South Korea). Note: this does mean those shared
+     companies get scraped twice (once in pass 1, once here) — a
+     known tradeoff for keeping the wildcard pass's whole-country
+     matching independent and simple rather than threading shared
+     state between fundamentally different matching rules.
 
-Neither of the first two passes filters by score — every job that
-passes the title + confirmed-location filter is kept and shown. The
-wildcard pass is the one exception: score >= 9 only, top 4 max.
+No score floor on pass 1 — every job that passes the title +
+confirmed-city filter is kept and shown. The wildcard pass is the one
+exception: score >= 9 only, top 4 max.
 
-Pipeline per company: scrape -> filter by title+location(or country)
--> enrich description for survivors that don't have one yet (fetches
-the job's own posting page, see ats_scrapers.fetch_description_fallback)
--> score.
+Pipeline per company: scrape -> filter by title + any approved city
+(or country, for the wildcard pass) -> enrich description for
+survivors that don't have one yet (fetches the job's own posting
+page, see ats_scrapers.fetch_description_fallback) -> score.
 """
 
 from __future__ import annotations
@@ -42,7 +51,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.ats_scrapers import scrape_company, fetch_description_fallback
-from src.matcher import filter_by_title_and_location, filter_by_title_and_country, score_jobs, title_matches
+from src.matcher import filter_by_title_and_any_city, filter_by_title_and_country, score_jobs, title_matches, MAIN_LIST_CITIES
 from src.tracker import update_tracker, update_dream_tracker, update_wildcard_tracker
 from src.generate_html import generate as generate_html
 
@@ -108,8 +117,10 @@ def load_wildcard_companies() -> list[dict]:
 
 def scrape_wildcard(companies: list[dict], cv_profile: dict) -> tuple[list[dict], dict]:
     """
-    Like scrape_all, but matches against the whole COUNTRY (via
-    filter_by_title_and_country) rather than one city. Scores
+    Matches against the whole COUNTRY (via filter_by_title_and_country)
+    rather than one city or the any-city set — this is deliberately a
+    different, broader question ("anywhere in Sweden?") than pass 1
+    asks ("Munich, Zurich, or one of the 16 dream cities?"). Scores
     everything that matches — filtering to score >= 9 and top 4
     happens later, in tracker.update_wildcard_tracker.
     """
@@ -158,19 +169,21 @@ def scrape_wildcard(companies: list[dict], cv_profile: dict) -> tuple[list[dict]
     return all_matched, counts
 
 
-def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[list[dict], dict]:
+def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[dict], list[dict], dict]:
     """
-    Scrapes every company in `companies`, filters by title+location,
-    enriches missing descriptions, scores, and logs progress per
-    company. No score-based filtering — everything that matches is
-    returned. Returns (all_matched_jobs, counts).
+    Scrapes every company once, matches each title-matched posting
+    against ANY approved city (not just that company's configured
+    one), and splits results into (main_jobs, dream_jobs) based on
+    where each posting actually matched. Returns (main_jobs,
+    dream_jobs, counts).
     """
-    all_matched = []
+    main_jobs = []
+    dream_jobs = []
     ok_count = 0
     empty_count = 0
     error_count = 0
     total_title_matched = 0
-    total_location_confirmed = 0
+    total_confirmed = 0
 
     for company in companies:
         name = company["name"]
@@ -186,26 +199,22 @@ def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[lis
             empty_count += 1
             continue
 
-        matched, stats = filter_by_title_and_location(raw_jobs, cv_profile, expected_city=company.get("city", ""))
+        matched, stats = filter_by_title_and_any_city(raw_jobs, cv_profile)
 
-        # If titles matched but none were location-confirmed, log the
-        # actual raw location text for the title-matched postings —
-        # this is what tells us WHY location matching failed (blank
-        # field? different format? genuinely a different city?)
-        # instead of just knowing THAT it failed.
+        # If titles matched but none confirmed against any approved
+        # city, log the actual raw location text for a few of them —
+        # tells us WHY (blank field? different format? genuinely
+        # nowhere on the approved list?) instead of just knowing THAT.
         if stats["title_matched"] > 0 and stats["location_confirmed"] == 0:
             title_matched_jobs = [
                 j for j in raw_jobs if title_matches(j.get("title", ""), cv_profile.get("title_must_match", []))
             ]
-            for j in title_matched_jobs[:5]:  # cap to avoid log spam
+            for j in title_matched_jobs[:5]:
                 logger.info(
-                    "  DIAG: title=%r  raw_location=%r  (expected city: %s)",
-                    j.get("title", ""), j.get("location", ""), company.get("city", ""),
+                    "  DIAG: title=%r  raw_location=%r  (no approved city matched)",
+                    j.get("title", ""), j.get("location", ""),
                 )
 
-        # Enrich description only for genuine candidates (already
-        # filtered), not every raw posting — keeps the extra requests
-        # proportional to what actually matters.
         for job in matched:
             if not job.get("description") and job.get("url"):
                 job["description"] = fetch_description_fallback(job["url"])
@@ -214,21 +223,20 @@ def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[lis
 
         for job in matched:
             job["company"] = name
-            job["city"] = company.get("city", "")
-            if "country" in company:
-                job["country"] = company["country"]
-        all_matched.extend(matched)
+            matched_city = job.pop("matched_city")
+            job["city"] = matched_city
+            if matched_city in MAIN_LIST_CITIES:
+                main_jobs.append(job)
+            else:
+                job["country"] = job.pop("matched_country", "")
+                dream_jobs.append(job)
 
         logger.info(
-            "OK      %-35s %3d postings, %2d title-matched, %2d location-confirmed [%s]",
-            name,
-            len(raw_jobs),
-            stats["title_matched"],
-            stats["location_confirmed"],
-            label,
+            "OK      %-35s %3d postings, %2d title-matched, %2d confirmed",
+            name, len(raw_jobs), stats["title_matched"], stats["location_confirmed"],
         )
         total_title_matched += stats["title_matched"]
-        total_location_confirmed += stats["location_confirmed"]
+        total_confirmed += stats["location_confirmed"]
         ok_count += 1
         time.sleep(0.3)  # be polite to career-page servers
 
@@ -238,53 +246,40 @@ def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[lis
         "errored": error_count,
         "total": len(companies),
         "title_matched": total_title_matched,
-        "location_confirmed": total_location_confirmed,
+        "location_confirmed": total_confirmed,
     }
-    return all_matched, counts
+    return main_jobs, dream_jobs, counts
 
 
 def run() -> None:
     cv_profile = load_yaml(CV_PROFILE_FILE)
 
-    # --- Pass 1: Munich / Zurich ---
-    companies = load_yaml(COMPANIES_FILE)["companies"]
-    main_jobs, main_counts = scrape_all(companies, cv_profile, label="Munich/Zurich")
+    # --- Pass 1: combined scrape, matched against ANY approved city ---
+    all_companies = load_yaml(COMPANIES_FILE)["companies"] + load_yaml(DREAM_CITIES_FILE)["companies"]
+    main_jobs, dream_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
+
     main_summary = update_tracker(TRACKER_FILE, main_jobs)
-
-    logger.info("-" * 60)
-    logger.info(
-        "Munich/Zurich: %d ok / %d empty / %d errored (of %d total)",
-        main_counts["ok"], main_counts["empty"], main_counts["errored"], main_counts["total"],
-    )
-    logger.info(
-        "Munich/Zurich: %d total title-matched, %d total location-confirmed across all companies",
-        main_counts["title_matched"], main_counts["location_confirmed"],
-    )
-    logger.info(
-        "Jobs sheet: %d new rows added, %d already tracked, %d total rows",
-        main_summary["added"], main_summary["already_tracked"], main_summary["total_rows"],
-    )
-
-    # --- Pass 2: Dream cities ---
-    dream_companies = load_yaml(DREAM_CITIES_FILE)["companies"]
-    dream_jobs, dream_counts = scrape_all(dream_companies, cv_profile, label="Dream Cities")
     dream_summary = update_dream_tracker(TRACKER_FILE, dream_jobs)
 
     logger.info("-" * 60)
     logger.info(
-        "Dream cities: %d ok / %d empty / %d errored (of %d total)",
-        dream_counts["ok"], dream_counts["empty"], dream_counts["errored"], dream_counts["total"],
+        "Combined scrape: %d ok / %d empty / %d errored (of %d total)",
+        counts["ok"], counts["empty"], counts["errored"], counts["total"],
     )
     logger.info(
-        "Dream cities: %d total title-matched, %d total location-confirmed across all companies",
-        dream_counts["title_matched"], dream_counts["location_confirmed"],
+        "%d total title-matched, %d total confirmed against any approved city",
+        counts["title_matched"], counts["location_confirmed"],
+    )
+    logger.info(
+        "Jobs sheet: %d new rows added, %d already tracked, %d total rows",
+        main_summary["added"], main_summary["already_tracked"], main_summary["total_rows"],
     )
     logger.info(
         "Dream Cities sheet: %d new rows added, %d already tracked, %d total rows",
         dream_summary["added"], dream_summary["already_tracked"], dream_summary["total_rows"],
     )
 
-    # --- Pass 3: Wildcard (whole approved countries, top scorers only) ---
+    # --- Pass 2: Wildcard (whole approved countries, top scorers only) ---
     wildcard_companies = load_wildcard_companies()
     wildcard_jobs, wildcard_counts = scrape_wildcard(wildcard_companies, cv_profile)
     wildcard_summary = update_wildcard_tracker(TRACKER_FILE, wildcard_jobs)
