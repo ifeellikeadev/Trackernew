@@ -4,8 +4,12 @@
 # title_must_match:
 #   A job's TITLE must contain at least one of these (case-insensitive)
 #   to be picked up at all. This is what keeps the tracker to
-#   "PM / Program Manager roles only" as requested. English + German
-#   variants included since some postings are German-only.
+#   "PM / Program Manager roles only" as requested. Includes English,
+#   German, and now local-language variants for the dream-cities
+#   countries (Danish, Norwegian, Finnish, Dutch, French) — many
+#   companies post in English internationally, but domestic/public-
+#   sector roles often don't, and those were silently failing this
+#   filter before reaching location or scoring at all.
 title_must_match:
   - "project manager"
   - "programme manager"
@@ -16,6 +20,20 @@ title_must_match:
   - "technical project manager"
   - "it project manager"
   - "delivery manager"
+  - "projektleder"       # Danish
+  - "prosjektleder"      # Norwegian
+  - "projektipäällikkö"  # Finnish
+  - "projektipaallikko"  # Finnish, no diacritics
+  - "projectmanager"     # Dutch
+  - "projectleider"      # Dutch
+  - "chef de projet"     # French
+  - "gestionnaire de projet"  # French
+  - "project lead"
+  - "program lead"
+  - "delivery lead"
+  - "portfolio manager"
+  - "pmo manager"
+  - "implementation manager"
 
 # main_min_score / dream_city_min_score:
 #   No score floor is applied — every job that passes the title +
