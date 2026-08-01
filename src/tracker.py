@@ -79,6 +79,21 @@ DREAM_COLUMNS = [
 ]
 DREAM_COLUMN_WIDTHS = [14, 22, 11, 12, 40, 12, 30, 60]
 
+WILDCARD_SHEET_NAME = "Global Top Picks"
+WILDCARD_COLUMNS = [
+    "Company",
+    "City",
+    "Country",
+    "Job Title",
+    "Relevance Score (1-10)",
+    "Location",
+    "URL",
+]
+WILDCARD_COLUMN_WIDTHS = [22, 14, 14, 40, 12, 30, 60]
+WILDCARD_MAX_ROWS = 4  # top N only — this sheet is rebuilt fresh, not accumulated
+WILDCARD_MIN_SCORE = 9
+WILDCARD_ROW_FILL = PatternFill(start_color="FEF3C7", end_color="FEF3C7", fill_type="solid")  # gold
+
 # Old header names that should map onto a current column, so a rename
 # (like "Relevance Score" -> "Relevance Score (1-10)") doesn't strand
 # existing data. Names not listed here and not in the current column
@@ -105,7 +120,7 @@ def _style_header(ws: Worksheet, columns: list[str], widths: list[int]) -> None:
 
 
 def _new_workbook() -> Workbook:
-    """Creates a fresh workbook with BOTH sheets, correctly headered."""
+    """Creates a fresh workbook with ALL THREE sheets, correctly headered."""
     wb = Workbook()
     ws = wb.active
     ws.title = "Jobs"
@@ -115,6 +130,10 @@ def _new_workbook() -> Workbook:
     dream_ws = wb.create_sheet(DREAM_SHEET_NAME)
     dream_ws.append(DREAM_COLUMNS)
     _style_header(dream_ws, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS)
+
+    wildcard_ws = wb.create_sheet(WILDCARD_SHEET_NAME)
+    wildcard_ws.append(WILDCARD_COLUMNS)
+    _style_header(wildcard_ws, WILDCARD_COLUMNS, WILDCARD_COLUMN_WIDTHS)
     return wb
 
 
@@ -169,6 +188,14 @@ def load_or_create(path: Path) -> Workbook:
         _style_header(dream_ws, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS)
     else:
         _migrate_sheet(wb, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS, len(wb.sheetnames) - 1)
+
+    if WILDCARD_SHEET_NAME not in wb.sheetnames:
+        wildcard_ws = wb.create_sheet(WILDCARD_SHEET_NAME)
+        wildcard_ws.append(WILDCARD_COLUMNS)
+        _style_header(wildcard_ws, WILDCARD_COLUMNS, WILDCARD_COLUMN_WIDTHS)
+    # No migration branch for the wildcard sheet: it's rebuilt fresh
+    # every run anyway (see update_wildcard_tracker), so there's no
+    # accumulated data to preserve across schema changes.
 
     return wb
 
@@ -289,6 +316,18 @@ def _build_dream_row(job: dict[str, Any], url: str) -> list:
     ]
 
 
+def _build_wildcard_row(job: dict[str, Any], url: str) -> list:
+    return [
+        job.get("company", ""),
+        job.get("city", ""),
+        job.get("country", ""),
+        job.get("title", ""),
+        job.get("relevance_score", 1),
+        job.get("location", ""),
+        url,
+    ]
+
+
 def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
     """Updates the main "Jobs" sheet (Munich/Zurich). Saves the file."""
     wb = load_or_create(path)
@@ -310,6 +349,42 @@ def update_dream_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: 
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
     return summary
+
+
+def update_wildcard_tracker(path: Path, candidate_jobs: list[dict[str, Any]]) -> dict[str, int]:
+    """
+    Rebuilds the "Global Top Picks" sheet FROM SCRATCH every run —
+    unlike the other two sheets, this one does NOT accumulate over
+    time. It's meant to always show "the best handful right now," not
+    a growing history, so each run: filters candidate_jobs down to
+    score >= WILDCARD_MIN_SCORE, sorts by score descending, keeps the
+    top WILDCARD_MAX_ROWS, and writes exactly that — nothing carried
+    over from the previous run, nothing deduped against past URLs.
+    """
+    wb = load_or_create(path)
+    ws = wb[WILDCARD_SHEET_NAME]
+
+    qualifying = [j for j in candidate_jobs if j.get("relevance_score", 0) >= WILDCARD_MIN_SCORE]
+    qualifying.sort(key=lambda j: j.get("relevance_score", 0), reverse=True)
+    top = qualifying[:WILDCARD_MAX_ROWS]
+
+    # Fully clear the sheet's data rows (not just blank the values —
+    # delete_rows so a previous run's leftover rows don't linger if
+    # this run has fewer top picks than last time).
+    if ws.max_row > 1:
+        ws.delete_rows(2, ws.max_row - 1)
+
+    for i, job in enumerate(top):
+        row_idx = i + 2
+        values = _build_wildcard_row(job, job.get("url", ""))
+        for col_idx, value in enumerate(values, start=1):
+            cell = ws.cell(row=row_idx, column=col_idx)
+            cell.value = value
+            cell.fill = WILDCARD_ROW_FILL
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return {"total_qualifying": len(qualifying), "shown": len(top)}
 
 
 def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:

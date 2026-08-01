@@ -76,23 +76,46 @@ CITY_KEYWORDS = {
         "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
         "wädenswil", "waedenswil",
     ],
-    # --- Dream-city expansion ---
-    "Copenhagen": ["copenhagen", "københavn", "kobenhavn"],
-    "Oslo": ["oslo"],
-    "Helsinki": ["helsinki", "helsingfors", "espoo"],
-    "Vienna": ["vienna", "wien"],
-    "Basel": ["basel", "bâle", "bale"],
-    "Bern": ["bern", "berne"],
-    "Geneva": ["geneva", "genève", "geneve"],
-    "Lausanne": ["lausanne", "vevey", "apples"],
-    "Lucerne": ["lucerne", "luzern"],
-    "Amsterdam": ["amsterdam", "amstelveen", "diemen", "zaandam", "schiphol", "haarlem"],
-    "Rotterdam": ["rotterdam", "schiedam", "papendrecht", "vlaardingen", "capelle aan den ijssel"],
-    "Vancouver": ["vancouver", "burnaby", "richmond"],
-    "Perth": ["perth"],
-    "Melbourne": ["melbourne"],
-    "Sydney": ["sydney"],
-    "Singapore": ["singapore"],
+    # --- Dream-city expansion (now includes metro-area satellite
+    # towns, same approach as Munich/Zurich — the city itself plus
+    # nearby commuter towns actually within reach, not the whole
+    # surrounding region) ---
+    "Copenhagen": [
+        "copenhagen", "københavn", "kobenhavn",
+        "frederiksberg", "gentofte", "lyngby", "kongens lyngby",
+        "ballerup", "glostrup", "hvidovre", "rødovre", "rodovre",
+        "taastrup",
+    ],
+    "Oslo": ["oslo", "bærum", "baerum", "asker", "lillestrøm", "lillestrom", "lørenskog", "lorenskog"],
+    "Helsinki": ["helsinki", "helsingfors", "espoo", "vantaa", "kauniainen"],
+    "Vienna": ["vienna", "wien", "klosterneuburg", "schwechat", "mödling", "modling", "baden bei wien"],
+    "Basel": [
+        "basel", "bâle", "bale",
+        "allschwil", "muttenz", "reinach", "binningen", "pratteln",
+    ],
+    "Bern": ["bern", "berne", "köniz", "koniz", "ostermundigen", "zollikofen"],
+    "Geneva": [
+        "geneva", "genève", "geneve",
+        "meyrin", "carouge", "vernier", "lancy", "nyon",
+    ],
+    "Lausanne": ["lausanne", "vevey", "apples", "pully", "renens", "morges"],
+    "Lucerne": ["lucerne", "luzern", "kriens", "emmen", "horw"],
+    "Amsterdam": [
+        "amsterdam", "amstelveen", "diemen", "zaandam", "schiphol", "haarlem",
+        "hoofddorp", "zaanstad",
+    ],
+    "Rotterdam": [
+        "rotterdam", "schiedam", "papendrecht", "vlaardingen",
+        "capelle aan den ijssel", "spijkenisse", "barendrecht",
+    ],
+    "Vancouver": [
+        "vancouver", "burnaby", "richmond",
+        "surrey", "coquitlam", "north vancouver", "new westminster", "delta",
+    ],
+    "Perth": ["perth", "fremantle", "joondalup", "rockingham"],
+    "Melbourne": ["melbourne", "dandenong", "frankston", "box hill"],
+    "Sydney": ["sydney", "parramatta", "north sydney", "chatswood"],
+    "Singapore": ["singapore"],  # city-state, no separate metro area to add
 }
 
 # Keywords that count as "this location is clearly somewhere else" even
@@ -174,6 +197,110 @@ def filter_by_title_and_location(
 
     stats = {"title_matched": title_matched_count, "location_confirmed": len(kept)}
     return kept, stats
+
+
+# --------------------------------------------------------------------------
+# Wildcard (whole-country) matching — for the "Global Top Picks" section.
+#
+# Unlike everything above, which matches a job to ONE specific city/metro
+# area, this matches a job to an entire APPROVED COUNTRY — "somewhere in
+# Switzerland" rather than "specifically Zurich." Built by grouping the
+# city keywords already defined above by country, plus each country's own
+# name. Only used for the wildcard pass (main.py), which then keeps just
+# the handful of highest-scoring postings across all approved countries.
+# --------------------------------------------------------------------------
+
+# Which country each city (from CITY_KEYWORDS above, or Munich/Zurich in
+# the main companies.yaml) actually belongs to.
+CITY_TO_COUNTRY = {
+    "Munich": "Germany",
+    "Zurich": "Switzerland",
+    "Copenhagen": "Denmark",
+    "Oslo": "Norway",
+    "Helsinki": "Finland",
+    "Vienna": "Austria",
+    "Basel": "Switzerland",
+    "Bern": "Switzerland",
+    "Geneva": "Switzerland",
+    "Lausanne": "Switzerland",
+    "Lucerne": "Switzerland",
+    "Amsterdam": "Netherlands",
+    "Rotterdam": "Netherlands",
+    "Vancouver": "Canada",
+    "Perth": "Australia",
+    "Melbourne": "Australia",
+    "Sydney": "Australia",
+    "Singapore": "Singapore",
+    # New wildcard-only cities (config/wildcard_countries.yaml)
+    "Stockholm": "Sweden",
+    "Dubai": "UAE",
+    "Seoul": "South Korea",
+}
+
+# Each approved country's own name, in the variants it's likely to appear
+# as in job location text.
+COUNTRY_NAME_KEYWORDS = {
+    "Norway": ["norway", "norge"],
+    "Sweden": ["sweden", "sverige"],
+    "Denmark": ["denmark", "danmark"],
+    "Netherlands": ["netherlands", "nederland", "holland"],
+    "Finland": ["finland", "suomi"],
+    "Switzerland": ["switzerland", "schweiz", "suisse", "svizzera"],
+    "Austria": ["austria", "österreich", "osterreich"],
+    "Canada": ["canada"],
+    "UAE": ["uae", "u.a.e", "united arab emirates", "dubai", "abu dhabi"],
+    "South Korea": ["south korea", "korea, republic", "republic of korea", "seoul", "s. korea"],
+}
+
+# All city keywords belonging to a given country, gathered from
+# CITY_KEYWORDS above via CITY_TO_COUNTRY — e.g. Switzerland gets every
+# Basel/Bern/Geneva/Lausanne/Lucerne/Zurich keyword, not just "zurich".
+_COUNTRY_CITY_KEYWORDS: dict[str, list[str]] = {}
+for _city, _country in CITY_TO_COUNTRY.items():
+    _COUNTRY_CITY_KEYWORDS.setdefault(_country, [])
+    _COUNTRY_CITY_KEYWORDS[_country].extend(CITY_KEYWORDS.get(_city, [_city.lower()]))
+
+
+def wildcard_country_status(location: str, country: str) -> str:
+    """
+    Returns "confirmed" if the location text names the country itself
+    OR any city known to be in that country (reusing CITY_KEYWORDS),
+    "unconfirmed" if there's nothing to go on, "mismatch" is not
+    distinguished here (not needed for the wildcard use case — a
+    posting either is in an approved country or it isn't tracked at
+    all, since the wildcard pool is pre-filtered to approved-country
+    companies in the first place).
+    """
+    if not location:
+        return "unconfirmed"
+    loc = location.lower()
+    keywords = COUNTRY_NAME_KEYWORDS.get(country, [country.lower()]) + _COUNTRY_CITY_KEYWORDS.get(country, [])
+    if any(kw in loc for kw in keywords):
+        return "confirmed"
+    return "unconfirmed"
+
+
+def filter_by_title_and_country(
+    jobs: list[dict[str, Any]], cv_profile: dict[str, Any], country: str = ""
+) -> list[dict[str, Any]]:
+    """
+    Like filter_by_title_and_location, but confirms against an entire
+    country rather than one city — for the wildcard "Global Top Picks"
+    pass. A job is kept if the title matches AND the location text
+    confirms it's genuinely in the approved country (not just
+    unconfirmed/blank — same "only real matches" standard as
+    everywhere else in this tool).
+    """
+    must_match = cv_profile.get("title_must_match", [])
+    kept = []
+    for job in jobs:
+        title = job.get("title", "")
+        if not title or not title_matches(title, must_match):
+            continue
+        if wildcard_country_status(job.get("location", ""), country) != "confirmed":
+            continue
+        kept.append(job)
+    return kept
 
 
 def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:
