@@ -65,6 +65,8 @@ def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[lis
     ok_count = 0
     empty_count = 0
     error_count = 0
+    total_title_matched = 0
+    total_location_confirmed = 0
 
     for company in companies:
         name = company["name"]
@@ -80,7 +82,7 @@ def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[lis
             empty_count += 1
             continue
 
-        matched = filter_by_title_and_location(raw_jobs, cv_profile, expected_city=company.get("city", ""))
+        matched, stats = filter_by_title_and_location(raw_jobs, cv_profile, expected_city=company.get("city", ""))
 
         # Enrich description only for genuine candidates (already
         # filtered), not every raw posting — keeps the extra requests
@@ -99,16 +101,26 @@ def scrape_all(companies: list[dict], cv_profile: dict, label: str) -> tuple[lis
         all_matched.extend(matched)
 
         logger.info(
-            "OK      %-35s %3d postings found, %2d matched [%s]",
+            "OK      %-35s %3d postings, %2d title-matched, %2d location-confirmed [%s]",
             name,
             len(raw_jobs),
-            len(matched),
+            stats["title_matched"],
+            stats["location_confirmed"],
             label,
         )
+        total_title_matched += stats["title_matched"]
+        total_location_confirmed += stats["location_confirmed"]
         ok_count += 1
         time.sleep(0.3)  # be polite to career-page servers
 
-    counts = {"ok": ok_count, "empty": empty_count, "errored": error_count, "total": len(companies)}
+    counts = {
+        "ok": ok_count,
+        "empty": empty_count,
+        "errored": error_count,
+        "total": len(companies),
+        "title_matched": total_title_matched,
+        "location_confirmed": total_location_confirmed,
+    }
     return all_matched, counts
 
 
@@ -126,6 +138,10 @@ def run() -> None:
         main_counts["ok"], main_counts["empty"], main_counts["errored"], main_counts["total"],
     )
     logger.info(
+        "Munich/Zurich: %d total title-matched, %d total location-confirmed across all companies",
+        main_counts["title_matched"], main_counts["location_confirmed"],
+    )
+    logger.info(
         "Jobs sheet: %d new rows added, %d already tracked, %d total rows",
         main_summary["added"], main_summary["already_tracked"], main_summary["total_rows"],
     )
@@ -139,6 +155,10 @@ def run() -> None:
     logger.info(
         "Dream cities: %d ok / %d empty / %d errored (of %d total)",
         dream_counts["ok"], dream_counts["empty"], dream_counts["errored"], dream_counts["total"],
+    )
+    logger.info(
+        "Dream cities: %d total title-matched, %d total location-confirmed across all companies",
+        dream_counts["title_matched"], dream_counts["location_confirmed"],
     )
     logger.info(
         "Dream Cities sheet: %d new rows added, %d already tracked, %d total rows",

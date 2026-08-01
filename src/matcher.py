@@ -86,6 +86,8 @@ CITY_KEYWORDS = {
     "Geneva": ["geneva", "genève", "geneve"],
     "Lausanne": ["lausanne", "vevey", "apples"],
     "Lucerne": ["lucerne", "luzern"],
+    "Amsterdam": ["amsterdam", "amstelveen", "diemen", "zaandam", "schiphol", "haarlem"],
+    "Rotterdam": ["rotterdam", "schiedam", "papendrecht", "vlaardingen", "capelle aan den ijssel"],
     "Vancouver": ["vancouver", "burnaby", "richmond"],
     "Perth": ["perth"],
     "Melbourne": ["melbourne"],
@@ -111,6 +113,7 @@ OTHER_MAJOR_LOCATIONS = [
     "st. gallen", "st gallen", "chur", "lugano", "biel", "fribourg",
     "copenhagen", "københavn", "oslo", "helsinki", "vancouver",
     "perth", "melbourne", "sydney", "brisbane", "adelaide", "auckland",
+    "rotterdam", "the hague", "utrecht", "eindhoven",
 ]
 
 
@@ -139,14 +142,26 @@ def location_status(location: str, expected_city: str) -> str:
 
 def filter_by_title_and_location(
     jobs: list[dict[str, Any]], cv_profile: dict[str, Any], expected_city: str = ""
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """
+    Returns (kept_jobs, stats) where stats = {"title_matched": N,
+    "location_confirmed": M} — title_matched counts jobs whose title
+    passed regardless of location; location_confirmed is the final
+    count (title AND location both passed, i.e. len(kept_jobs)).
+    Logging both separately is what lets you tell, from a run's
+    output, whether a company's postings are being filtered out by
+    the title check or the location check — without it, "0 matched"
+    is a dead end to debug.
+    """
     must_match = cv_profile.get("title_must_match", [])
 
     kept = []
+    title_matched_count = 0
     for job in jobs:
         title = job.get("title", "")
         if not title or not title_matches(title, must_match):
             continue
+        title_matched_count += 1
 
         loc_status = location_status(job.get("location", ""), expected_city)
         if loc_status != "confirmed":
@@ -156,7 +171,9 @@ def filter_by_title_and_location(
             continue
 
         kept.append(job)
-    return kept
+
+    stats = {"title_matched": title_matched_count, "location_confirmed": len(kept)}
+    return kept, stats
 
 
 def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:
