@@ -116,6 +116,10 @@ CITY_KEYWORDS = {
     "Melbourne": ["melbourne", "dandenong", "frankston", "box hill"],
     "Sydney": ["sydney", "parramatta", "north sydney", "chatswood"],
     "Singapore": ["singapore"],  # city-state, no separate metro area to add
+    "Berlin": [
+        "berlin", "potsdam", "falkensee", "oranienburg", "bernau",
+        "teltow", "kleinmachnow", "hennigsdorf",
+    ],
 }
 
 # Keywords that count as "this location is clearly somewhere else" even
@@ -129,7 +133,7 @@ OTHER_MAJOR_LOCATIONS = [
     "vienna", "prague", "budapest", "singapore", "tokyo", "bangalore",
     "hyderabad", "delhi", "mumbai", "toronto", "seattle", "austin",
     "boston", "chicago", "los angeles", "washington", "atlanta",
-    "berlin", "hamburg", "frankfurt", "cologne", "köln", "stuttgart",
+    "hamburg", "frankfurt", "cologne", "köln", "stuttgart",
     "düsseldorf", "duesseldorf", "leipzig", "dresden", "nuremberg",
     "augsburg", "regensburg", "würzburg", "wuerzburg", "ingolstadt",
     "geneva", "genève", "basel", "bern", "lausanne", "lucerne",
@@ -200,6 +204,77 @@ def filter_by_title_and_location(
 
 
 # --------------------------------------------------------------------------
+# Any-city matching — checks a job against EVERY approved city (Munich,
+# Zurich, and all 16 dream cities) instead of just the one city a
+# company's config entry happens to be tagged with.
+#
+# Why this exists: a company like Databricks or Palantir is listed
+# under ONE config entry (e.g. "Databricks Zurich"), but its actual job
+# board spans many locations. Checking that entry's postings only
+# against "is this in Zurich?" means a genuine Databricks posting in
+# Munich — which absolutely IS one of your approved cities — was being
+# silently rejected, because the wrong question was being asked. This
+# checks every title-matched posting against the full approved-city
+# list and routes it to whichever city actually matches, regardless of
+# which config entry (and which nominal city) it came from.
+# --------------------------------------------------------------------------
+
+# Munich/Zurich go to the main "Jobs" sheet; every other approved city
+# is a "dream city" and goes to the Dream Cities sheet.
+MAIN_LIST_CITIES = {"Munich", "Zurich"}
+ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, + all 16 dream cities
+
+
+def find_matching_city(location: str, candidate_cities: list[str] | None = None) -> str | None:
+    """
+    Returns the name of the first approved city whose keywords are
+    found in `location`, or None if the location doesn't confirm any
+    of them. Checks against ALL_APPROVED_CITIES by default.
+    """
+    if not location:
+        return None
+    loc = location.lower()
+    for city in candidate_cities or ALL_APPROVED_CITIES:
+        if any(kw in loc for kw in CITY_KEYWORDS.get(city, [city.lower()])):
+            return city
+    return None
+
+
+def filter_by_title_and_any_city(
+    jobs: list[dict[str, Any]], cv_profile: dict[str, Any]
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """
+    Like filter_by_title_and_location, but matches against ANY
+    approved city rather than one fixed expected_city. Each kept job
+    gets a "matched_city" field (and "matched_country" if it's a
+    dream city, via CITY_TO_COUNTRY) added, reflecting where it
+    actually was found to be — not wherever its source company entry
+    happened to be tagged.
+    """
+    must_match = cv_profile.get("title_must_match", [])
+
+    kept = []
+    title_matched_count = 0
+    for job in jobs:
+        title = job.get("title", "")
+        if not title or not title_matches(title, must_match):
+            continue
+        title_matched_count += 1
+
+        matched_city = find_matching_city(job.get("location", ""))
+        if matched_city is None:
+            continue
+
+        job["matched_city"] = matched_city
+        if matched_city not in MAIN_LIST_CITIES:
+            job["matched_country"] = CITY_TO_COUNTRY.get(matched_city, "")
+        kept.append(job)
+
+    stats = {"title_matched": title_matched_count, "location_confirmed": len(kept)}
+    return kept, stats
+
+
+# --------------------------------------------------------------------------
 # Wildcard (whole-country) matching — for the "Global Top Picks" section.
 #
 # Unlike everything above, which matches a job to ONE specific city/metro
@@ -231,6 +306,7 @@ CITY_TO_COUNTRY = {
     "Melbourne": "Australia",
     "Sydney": "Australia",
     "Singapore": "Singapore",
+    "Berlin": "Germany",
     # New wildcard-only cities (config/wildcard_countries.yaml)
     "Stockholm": "Sweden",
     "Dubai": "UAE",
