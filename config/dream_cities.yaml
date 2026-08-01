@@ -1335,3 +1335,291 @@ companies:
     careers_url: https://www.franke.com/careers
     ats: auto
     board_token: ""
+
+  # ---------------- AMSTERDAM, Netherlands ----------------
+  - name: ING Group
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.ing.jobs/global/careers
+    ats: auto
+    board_token: ""
+  - name: Philips
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.careers.philips.com/
+    ats: workday
+    board_token: ""
+  - name: Heineken
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.theheinekencompany.com/careers
+    ats: auto
+    board_token: ""
+  - name: Ahold Delhaize
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.aholddelhaize.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Booking.com
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://careers.booking.com/
+    ats: greenhouse
+    board_token: ""
+  - name: Adyen
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.adyen.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Uber Amsterdam
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.uber.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Netflix Amsterdam
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://jobs.netflix.com/
+    ats: auto
+    board_token: ""
+  - name: TomTom
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.tomtom.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Just Eat Takeaway
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://careers.justeattakeaway.com/
+    ats: auto
+    board_token: ""
+  - name: Randstad
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.randstad.com/careers/
+    ats: auto
+    board_token: ""
+  - name: KLM
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://werkenbij.klm.com/
+    ats: auto
+    board_token: ""
+  - name: Schiphol Group
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.werkenbijschiphol.nl/
+    ats: auto
+    board_token: ""
+  - name: ABN AMRO
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.abnamro.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: WeTransfer
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://wetransfer.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Mollie
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://jobs.mollie.com/
+    ats: greenhouse
+    board_token: ""
+  - name: Catawiki
+    city: Amsterdam
+    country: Netherlands
+    careers_url: https://www.catawiki.com/careers
+    ats: greenhouse
+    board_token: ""
+
+  # ---------------- ROTTERDAM, Netherlands ----------------
+  - name: Port of Rotterdam Authority
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.portofrotterdam.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Robeco
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.robeco.com/en/about-us/careers.html
+    ats: auto
+    board_token: ""
+  - name: Coolblue
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://werkenbij.coolblue.nl/en
+    ats: auto
+    board_token: ""
+  - name: Boskalis
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://boskalis.com/careers
+    ats: auto
+    board_token: ""
+  - name: SBM Offshore
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.sbmoffshore.com/careers
+    ats: auto
+    board_token: ""
+  - name: Eneco
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.eneco.nl/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Erasmus MC
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.erasmusmc.nl/en/careers
+    ats: auto
+    board_token: ""
+  - name: Van Oord
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://careers.vanoord.com/
+    ats: auto
+    board_token: ""
+  - name: Damen Shipyards
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.damen.com/careers
+    ats: auto
+    board_token: ""
+  - name: Vopak
+    city: Rotterdam
+    country: Netherlands
+    careers_url: https://www.vopak.com/careers
+    ats: auto
+    board_token: ""
+
+  # ---------------- BERLIN, Germany ----------------
+  - name: Zalando
+    city: Berlin
+    country: Germany
+    careers_url: https://jobs.zalando.com/en/
+    ats: auto
+    board_token: ""
+  - name: Delivery Hero
+    city: Berlin
+    country: Germany
+    careers_url: https://careers.deliveryhero.com/global/en
+    ats: auto
+    board_token: ""
+  - name: N26
+    city: Berlin
+    country: Germany
+    careers_url: https://n26.com/en/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Trade Republic
+    city: Berlin
+    country: Germany
+    careers_url: https://traderepublic.com/en-de/careers
+    ats: greenhouse
+    board_token: ""
+  - name: HelloFresh
+    city: Berlin
+    country: Germany
+    careers_url: https://careers.hellofresh.com/
+    ats: auto
+    board_token: ""
+  - name: Babbel
+    city: Berlin
+    country: Germany
+    careers_url: https://about.babbel.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: GetYourGuide
+    city: Berlin
+    country: Germany
+    careers_url: https://careers.getyourguide.com/
+    ats: greenhouse
+    board_token: ""
+  - name: SoundCloud
+    city: Berlin
+    country: Germany
+    careers_url: https://careers.soundcloud.com/
+    ats: greenhouse
+    board_token: ""
+  - name: Contentful
+    city: Berlin
+    country: Germany
+    careers_url: https://www.contentful.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Wooga
+    city: Berlin
+    country: Germany
+    careers_url: https://www.wooga.com/careers/
+    ats: personio
+    board_token: ""
+  - name: Auto1 Group
+    city: Berlin
+    country: Germany
+    careers_url: https://www.auto1-group.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Solarisbank
+    city: Berlin
+    country: Germany
+    careers_url: https://www.solarisgroup.com/en/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Mambu
+    city: Berlin
+    country: Germany
+    careers_url: https://mambu.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Spryker
+    city: Berlin
+    country: Germany
+    careers_url: https://spryker.com/en/careers/
+    ats: personio
+    board_token: ""
+  - name: Raisin
+    city: Berlin
+    country: Germany
+    careers_url: https://www.raisin.com/careers/
+    ats: personio
+    board_token: ""
+  - name: TIER Mobility
+    city: Berlin
+    country: Germany
+    careers_url: https://www.tier.app/en/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Infarm
+    city: Berlin
+    country: Germany
+    careers_url: https://infarm.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Sennder
+    city: Berlin
+    country: Germany
+    careers_url: https://sennder.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Forto
+    city: Berlin
+    country: Germany
+    careers_url: https://forto.com/en/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Grover
+    city: Berlin
+    country: Germany
+    careers_url: https://www.grover.com/de-en/careers
+    ats: greenhouse
+    board_token: ""
