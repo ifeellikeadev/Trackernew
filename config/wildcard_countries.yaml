@@ -1,0 +1,323 @@
+# Companies for the "Global Top Picks" wildcard section — countries
+# not otherwise represented in companies.yaml or dream_cities.yaml.
+# See src/matcher.py, filter_by_title_and_country: these are matched
+# against the WHOLE country (Sweden/UAE/South Korea), not one city —
+# "city" here is just the representative HQ location shown in the
+# tracker, not a matching constraint.
+#
+# The other approved wildcard countries (Norway, Denmark, Netherlands,
+# Finland, Switzerland, Austria, Canada) already have real companies
+# in dream_cities.yaml / companies.yaml (Zurich) — main.py reuses
+# those for the wildcard pass instead of duplicating them here.
+companies:
+  # ---------------- SWEDEN ----------------
+  - name: Spotify
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.lifeatspotify.com/jobs
+    ats: greenhouse
+    board_token: ""
+  - name: Klarna
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.klarna.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: Ericsson
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.ericsson.com/en/careers
+    ats: workday
+    board_token: ""
+  - name: Volvo Group
+    city: Gothenburg
+    country: Sweden
+    careers_url: https://www.volvogroup.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Volvo Cars
+    city: Gothenburg
+    country: Sweden
+    careers_url: https://www.volvocars.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: H&M Group
+    city: Stockholm
+    country: Sweden
+    careers_url: https://hmgroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: IKEA
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.ikea.com/global/en/work-with-us/
+    ats: auto
+    board_token: ""
+  - name: SEB Bank
+    city: Stockholm
+    country: Sweden
+    careers_url: https://sebgroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: Swedbank
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.swedbank.com/about-swedbank/careers.html
+    ats: auto
+    board_token: ""
+  - name: Handelsbanken
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.handelsbanken.com/careers
+    ats: auto
+    board_token: ""
+  - name: Sandvik
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.home.sandvik/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Atlas Copco
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.atlascopcogroup.com/en/careers
+    ats: workday
+    board_token: ""
+  - name: SKF
+    city: Gothenburg
+    country: Sweden
+    careers_url: https://www.skf.com/us/careers
+    ats: auto
+    board_token: ""
+  - name: Electrolux
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.electroluxgroup.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Scania
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.scania.com/group/en/home/careers.html
+    ats: auto
+    board_token: ""
+  - name: King
+    city: Stockholm
+    country: Sweden
+    careers_url: https://king.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Mojang Studios
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.minecraft.net/en-us/careers
+    ats: auto
+    board_token: ""
+  - name: Truecaller
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.truecaller.com/careers
+    ats: greenhouse
+    board_token: ""
+  - name: Northvolt
+    city: Stockholm
+    country: Sweden
+    careers_url: https://northvolt.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Polestar
+    city: Gothenburg
+    country: Sweden
+    careers_url: https://careers.polestar.com/
+    ats: auto
+    board_token: ""
+  - name: Sinch
+    city: Stockholm
+    country: Sweden
+    careers_url: https://www.sinch.com/careers/
+    ats: greenhouse
+    board_token: ""
+
+  # ---------------- UAE (Dubai / Abu Dhabi) ----------------
+  - name: Emirates Airline
+    city: Dubai
+    country: UAE
+    careers_url: https://www.emiratesgroupcareers.com/
+    ats: auto
+    board_token: ""
+  - name: Etihad Airways
+    city: Abu Dhabi
+    country: UAE
+    careers_url: https://www.etihadcareers.com/
+    ats: auto
+    board_token: ""
+  - name: DP World
+    city: Dubai
+    country: UAE
+    careers_url: https://www.dpworld.com/careers
+    ats: auto
+    board_token: ""
+  - name: Emaar Properties
+    city: Dubai
+    country: UAE
+    careers_url: https://www.emaar.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Dubai Holding
+    city: Dubai
+    country: UAE
+    careers_url: https://www.dubaiholding.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: ADNOC
+    city: Abu Dhabi
+    country: UAE
+    careers_url: https://adnoc.ae/en/careers
+    ats: auto
+    board_token: ""
+  - name: Mubadala
+    city: Abu Dhabi
+    country: UAE
+    careers_url: https://www.mubadala.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Careem
+    city: Dubai
+    country: UAE
+    careers_url: https://www.careem.com/careers/
+    ats: greenhouse
+    board_token: ""
+  - name: noon
+    city: Dubai
+    country: UAE
+    careers_url: https://www.noon.com/uae-en/careers/
+    ats: auto
+    board_token: ""
+  - name: Majid Al Futtaim
+    city: Dubai
+    country: UAE
+    careers_url: https://www.majidalfuttaim.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Jumeirah Group
+    city: Dubai
+    country: UAE
+    careers_url: https://www.jumeirah.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: DAMAC Properties
+    city: Dubai
+    country: UAE
+    careers_url: https://www.damacgroup.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Dubai Airports
+    city: Dubai
+    country: UAE
+    careers_url: https://www.dubaiairports.ae/careers
+    ats: auto
+    board_token: ""
+  - name: Chalhoub Group
+    city: Dubai
+    country: UAE
+    careers_url: https://www.chalhoubgroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: du Telecom
+    city: Dubai
+    country: UAE
+    careers_url: https://www.du.ae/about/careers
+    ats: auto
+    board_token: ""
+  - name: e& (Etisalat)
+    city: Abu Dhabi
+    country: UAE
+    careers_url: https://www.e-and.com/en/careers.html
+    ats: auto
+    board_token: ""
+
+  # ---------------- SOUTH KOREA ----------------
+  - name: Samsung Electronics
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.samsung.com/global/careers/
+    ats: auto
+    board_token: ""
+  - name: LG Electronics
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.lg.com/global/careers
+    ats: auto
+    board_token: ""
+  - name: Hyundai Motor
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.hyundai.com/worldwide/en/company/careers
+    ats: auto
+    board_token: ""
+  - name: SK Hynix
+    city: Seoul
+    country: South Korea
+    careers_url: https://careers.skhynix.com/
+    ats: auto
+    board_token: ""
+  - name: Kia
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.kia.com/global/careers
+    ats: auto
+    board_token: ""
+  - name: Naver
+    city: Seoul
+    country: South Korea
+    careers_url: https://recruit.navercorp.com/
+    ats: auto
+    board_token: ""
+  - name: Coupang
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.coupang.jobs/
+    ats: greenhouse
+    board_token: ""
+  - name: Kakao
+    city: Seoul
+    country: South Korea
+    careers_url: https://careers.kakao.com/
+    ats: auto
+    board_token: ""
+  - name: POSCO
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.posco.co.kr/homepage/docs/eng6/jsp/s91b7000010p.jsp
+    ats: auto
+    board_token: ""
+  - name: Lotte Group
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.lotte.co.kr/en/careers
+    ats: auto
+    board_token: ""
+  - name: Hanwha
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.hanwha.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Doosan
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.doosan.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: CJ Group
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.cj.net/en/career/
+    ats: auto
+    board_token: ""
+  - name: Woowa Brothers
+    city: Seoul
+    country: South Korea
+    careers_url: https://www.woowahan.com/en/careers
+    ats: greenhouse
+    board_token: ""
