@@ -210,21 +210,46 @@ calendar — nothing extra to set up.
 
 ---
 
-## Part 9 — Companies that may never work well (and that's OK)
+## Part 9 — JS-rendered career sites (mostly fixed, but bounded)
 
 Some companies build their career pages as JavaScript apps that load
-job listings *after* the page opens in a browser. Our scraper fetches
-the raw page (it doesn't run a browser), so for these companies it
-will see an empty shell no matter how `companies.yaml` is configured.
-This mainly affects large tech companies with custom career sites —
-Apple, Amazon, Google, Microsoft, SAP, Oracle, Salesforce, Adobe,
-ServiceNow, and similar. It's a real, structural limitation, not
-something Part 7's fixes can solve. If you notice a cluster of big
-names consistently coming back "EMPTY," this is almost always why —
-no further troubleshooting needed on those specific ones. Everything
-running on Greenhouse, Lever, Personio, SmartRecruiters, or a real
-Workday tenant subdomain is unaffected by this and should work as
-designed.
+job listings *after* the page opens in a browser — a plain HTTP
+request only sees the empty pre-JavaScript "shell" (nav links,
+footer, social links), not the real postings. This affects large tech
+companies with custom career sites (Apple, Amazon, Google, Microsoft,
+SAP, Oracle, Salesforce, Adobe, ServiceNow) and, it turns out, some
+non-tech ones too — Sixt's career site is the same pattern, discovered
+when a real "Project Manager" posting there never surfaced despite
+being genuinely relevant.
+
+The scraper now retries with a real (headless) Chromium browser via
+Playwright whenever the fast path comes back suspiciously thin — see
+`src/ats_scrapers.py`, `scrape_headless` / `_maybe_headless_upgrade` —
+so a lot of these now resolve correctly without needing a hand-
+maintained list of "known JS-rendered companies." That retry is
+deliberately last-resort only (it's 5-10x slower per page than a
+plain request) and is capped at a shared 15-minute budget for the
+*whole run*, not per company — see `_HEADLESS_BUDGET_SECONDS` in that
+same file. Once the budget for a run is spent, any remaining
+companies that would have qualified for a retry just keep whatever
+the fast path already found — same behavior as before this existed,
+not worse. This keeps total run time predictable regardless of how
+many companies happen to need it on a given day.
+
+Practical result: most JS-rendered companies should now resolve
+correctly, but not with 100% certainty every single run — if the
+budget fills up before your company of interest is reached, or a
+particular site is unusually slow to render, it may still fall back
+to the old thin result that day. If you notice a specific company
+still consistently coming back empty/thin despite this, it's worth
+checking by hand rather than assuming the scraper missed something
+fixable — but it's no longer a blanket "these will never work"
+category the way it used to be.
+
+Everything running on Greenhouse, Lever, Personio, SmartRecruiters,
+or a real Workday tenant subdomain never touches this path at all —
+those platforms' APIs are reliable enough that the fast path already
+finds real results, so the headless retry never triggers for them.
 
 ---
 
@@ -259,70 +284,41 @@ Pages screen and set Source back to "None."
 
 ---
 
-## Part 11 — The Dream Cities list
+## Part 11 — The main city list and the Dream Cities list
 
-Alongside Munich/Zurich, the tracker also runs a second, smaller pass
-against `config/dream_cities.yaml` — Copenhagen, Oslo, Helsinki,
-Vienna, Basel, Bern, Geneva, Lausanne, Lucerne, Amsterdam, Rotterdam,
-Vancouver, Perth, Melbourne, Sydney, and Singapore. These were chosen
-specifically because they're places with a realistic, established
-visa path (EU/EEA free movement, Switzerland's bilateral agreement, or
-a proper skilled-migration program) rather than a lottery — the US was
+The "Jobs" sheet is the full main-list tier — Munich, Zurich,
+Singapore, and Basel/Bern/Geneva/Lausanne/Lucerne (all of
+Switzerland's major cities except Lugano). Singapore and those Swiss
+cities used to be smaller "Dream Cities" entries; they were promoted
+to full main-list status with much larger, dedicated company lists
+(see `config/companies.yaml`) since they're genuine relocation
+options, not just aspirational ones.
+
+Alongside that, the tracker also runs a pass against
+`config/dream_cities.yaml` — Copenhagen, Oslo, Helsinki, Vienna,
+Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne, and Sydney.
+These were chosen specifically because they're places with a
+realistic, established visa path (EU/EEA free movement, or a proper
+skilled-migration program) rather than a lottery — the US was
 deliberately left out for exactly that reason.
 
-Same title + confirmed-location matching as Munich/Zurich, no score
-floor — everything that matches shows up, sorted by relevance. You'll
-see it as its own clearly separate section, both in the Excel file (a
-second sheet, tab labeled "Dream Cities" at the bottom of the
-spreadsheet) and on the webpage (its own section below Munich/Zurich,
-blue-highlighted new rows instead of green).
+Same title + confirmed-location matching throughout, no score floor —
+everything that matches shows up, sorted by relevance. You'll see the
+Jobs and Dream Cities sections as clearly separate, both in the Excel
+file (two sheet tabs) and on the webpage (green-highlighted new rows
+for Jobs, blue for Dream Cities).
 
-Adding, removing, or fixing a company in this list works exactly like
-Part 7 — same file format, just in `config/dream_cities.yaml` instead
-of `config/companies.yaml`, with one extra field: `country`.
+Adding, removing, or fixing a company in either list works exactly
+like Part 7 — same file format. `config/dream_cities.yaml` has one
+extra field, `country`, since that sheet shows a Country column.
 
-If you want to turn a score floor back on, adjust
-`dream_city_min_score` in `config/cv_profile.yaml`.
+If you want to turn a score floor back on for either sheet, adjust
+`main_min_score` / `dream_city_min_score` in `config/cv_profile.yaml`.
 
----
-
-## Part 12 — Global Top Picks (the wildcard section)
-
-A third, smaller section, always at the bottom of both the Excel file
-(a tab called "Global Top Picks") and the webpage. Unlike the other
-two, this one isn't tied to specific cities — it matches against
-**whole countries**: Norway, Sweden, Denmark, Netherlands, Finland,
-Switzerland, Austria, Canada, UAE, and South Korea. A posting anywhere
-in one of those countries counts, not just in a specific city.
-
-Two things make this section different from the other two:
-
-- **Only score 9-10 makes it in.** This is meant to surface only your
-  very strongest matches, not general coverage.
-- **It's rebuilt from scratch every run**, not accumulated. The other
-  two sheets keep growing over time; this one always shows just the
-  current top 3-4 postings, gold-highlighted. If a stronger match
-  shows up next run, weaker ones drop off — nothing here is "kept"
-  long-term the way the other sheets work.
-
-The companies behind this section come from three places: Zurich
-companies you already have in `config/companies.yaml`, the
-Switzerland/Norway/Denmark/Netherlands/Finland/Austria/Canada
-companies already in `config/dream_cities.yaml`, and a new file,
-`config/wildcard_countries.yaml`, for the two genuinely new countries
-(Sweden, UAE, South Korea). Add/fix companies there the same way as
-Part 7.
-
-To change which countries are approved, edit
-`APPROVED_WILDCARD_COUNTRIES` near the top of `src/main.py`. To change
-the score floor or how many rows are shown, edit `WILDCARD_MIN_SCORE`
-/ `WILDCARD_MAX_ROWS` near the top of `src/tracker.py`.
-
-One honest tradeoff: several companies used here are also scraped in
-the Dream Cities pass (or the Munich/Zurich pass, for Zurich
-companies) — this section re-scrapes them independently rather than
-reusing that data, which keeps the code simpler but does mean the
-overall run takes noticeably longer now.
+(There used to be a third section here — "Global Top Picks," a
+whole-country wildcard pass. Removed per request: Singapore and the
+Swiss cities it partly existed to surface are now proper main-list
+cities instead, which covers the same need more directly.)
 
 ---
 
