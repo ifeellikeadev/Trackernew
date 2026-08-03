@@ -1,5 +1,7 @@
+# Munich, Zurich, Singapore, Basel, Bern, Geneva, Lausanne, and Lucerne —
+# full main-list cities (see chat history: Singapore + Swiss cities
+# promoted from Dream Cities status). All routed to the "Jobs" sheet.
 companies:
-  # ---------------- MUNICH: established industrial / auto / tech ----------------
   - name: BMW Group
     city: Munich
     careers_url: https://www.bmwgroup.jobs/de/en.html
@@ -85,8 +87,6 @@ companies:
     careers_url: https://www.bsh-group.com/career
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: aerospace / defence (established) ----------------
   - name: Airbus
     city: Munich
     careers_url: https://www.airbus.com/en/careers
@@ -127,8 +127,6 @@ companies:
     careers_url: https://www.esg.de/en/career/
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: finance / insurance ----------------
   - name: Allianz
     city: Munich
     careers_url: https://careers.allianz.com/
@@ -154,8 +152,6 @@ companies:
     careers_url: https://www.versicherungskammer-bayern.de/karriere
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: energy / utilities ----------------
   - name: Stadtwerke Muenchen
     city: Munich
     careers_url: https://www.swm.de/karriere
@@ -171,8 +167,6 @@ companies:
     careers_url: https://www.tennet.eu/careers
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: IT / consulting ----------------
   - name: Google Munich
     city: Munich
     careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=Munich
@@ -228,8 +222,6 @@ companies:
     careers_url: https://www.atoss.com/en/career
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: biotech / pharma ----------------
   - name: Amgen Munich
     city: Munich
     careers_url: https://careers.amgen.com/
@@ -265,8 +257,6 @@ companies:
     careers_url: https://www.dermapharm.de/karriere
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: telecom / media / e-commerce ----------------
   - name: Telefonica Germany O2
     city: Munich
     careers_url: https://www.telefonica.de/karriere.html
@@ -287,8 +277,6 @@ companies:
     careers_url: https://www.house-of-communication.com/de/en/career.html
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: logistics / mobility ----------------
   - name: DB Schenker
     city: Munich
     careers_url: https://www.dbschenker.com/global/about/careers
@@ -299,8 +287,6 @@ companies:
     careers_url: https://www.flixbus.com/company/jobs
     ats: greenhouse
     board_token: ""
-
-  # ---------------- MUNICH: startups / scaleups ----------------
   - name: Celonis
     city: Munich
     careers_url: https://www.celonis.com/careers/
@@ -331,8 +317,6 @@ companies:
     careers_url: https://www.arx-robotics.com/careers
     ats: personio
     board_token: ""
-
-  # ---------------- ZURICH: finance ----------------
   - name: UBS
     city: Zurich
     careers_url: https://www.ubs.com/global/en/careers.html
@@ -358,8 +342,6 @@ companies:
     careers_url: https://www.vontobel.com/en-ch/careers/
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: insurance / reinsurance ----------------
   - name: Zurich Insurance Group
     city: Zurich
     careers_url: https://www.zurich.com/careers
@@ -380,8 +362,6 @@ companies:
     careers_url: https://www.baloise.com/en/home/about-us/careers.html
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: industrial / tech (established) ----------------
   - name: ABB
     city: Zurich
     careers_url: https://global.abb/group/en/careers
@@ -407,8 +387,6 @@ companies:
     careers_url: https://www.buhlergroup.com/content/buhlergroup/global/en/company/jobs-careers.html
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: telecom ----------------
   - name: Swisscom
     city: Zurich
     careers_url: https://www.swisscom.ch/en/about/jobs.html
@@ -429,8 +407,6 @@ companies:
     careers_url: https://www.hubersuhner.com/en/company/career
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: startups / scaleups ----------------
   - name: Scandit
     city: Zurich
     careers_url: https://www.scandit.com/company/careers/
@@ -461,8 +437,6 @@ companies:
     careers_url: https://www.rarog.tech/careers
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: additional startups/scaleups (batch 2) ----------------
   - name: Isar Aerospace
     city: Munich
     careers_url: https://www.isaraerospace.com/careers
@@ -593,8 +567,6 @@ companies:
     careers_url: https://flip.im/en/career/
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: additional established/corporate (batch 2) ----------------
   - name: Flughafen Muenchen
     city: Munich
     careers_url: https://www.munich-airport.com/careers
@@ -660,8 +632,6 @@ companies:
     careers_url: https://home.kpmg/de/en/home/careers.html
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: additional startups/scaleups (batch 2) ----------------
   - name: 21Shares
     city: Zurich
     careers_url: https://21shares.com/careers
@@ -792,8 +762,6 @@ companies:
     careers_url: https://www.partnersgroup.com/en/careers/
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: additional established/corporate (batch 2) ----------------
   - name: Swiss Life
     city: Zurich
     careers_url: https://www.swisslife.com/en/careers.html
@@ -834,7 +802,6 @@ companies:
     careers_url: https://home.kpmg/ch/en/home/careers.html
     ats: auto
     board_token: ""
-  # ---------------- MUNICH: tech / aerospace / engineering (GEMINI INPUT) ----------------
   - name: KraussMaffei
     city: Munich
     careers_url: https://www.kraussmaffei.com/en/careers
@@ -905,8 +872,6 @@ companies:
     careers_url: https://careers.servicenow.com/jobs
     ats: smartrecruiters
     board_token: ""
-
-  # ---------------- MUNICH: automotive / mobility / transport (GEMINI INPUT) ----------------
   - name: Traton
     city: Munich
     careers_url: https://traton.com/en/career.html
@@ -947,8 +912,6 @@ companies:
     careers_url: https://www.magna.com/company/careers
     ats: workday
     board_token: ""
-
-  # ---------------- MUNICH: pharma / medical / biotech (GEMINI INPUT) ----------------
   - name: Novartis Munich
     city: Munich
     careers_url: https://www.novartis.com/careers
@@ -989,8 +952,6 @@ companies:
     careers_url: https://www.olympus-europa.com/company/en/careers/
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: tech / software / AI (GEMINI INPUT) ----------------
   - name: Microsoft Switzerland
     city: Zurich
     careers_url: https://careers.microsoft.com/
@@ -1036,8 +997,6 @@ companies:
     careers_url: https://www.uipath.com/company/careers
     ats: greenhouse
     board_token: ""
-
-  # ---------------- ZURICH: industrial / engineering / robotics (GEMINI INPUT) ----------------
   - name: Oerlikon
     city: Zurich
     careers_url: https://www.oerlikon.com/en/careers/
@@ -1078,8 +1037,6 @@ companies:
     careers_url: https://www.phoenixcontact.com/en-ch/company/careers
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: pharma / biotech / medtech (GEMINI INPUT) ----------------
   - name: Novartis Zurich
     city: Zurich
     careers_url: https://www.novartis.com/careers
@@ -1110,8 +1067,6 @@ companies:
     careers_url: https://www.tecan.com/careers
     ats: auto
     board_token: ""
-
-  # ---------------- ZURICH: finance / consulting / services (GEMINI INPUT) ----------------
   - name: LGT Bank
     city: Zurich
     careers_url: https://www.lgt.com/en/careers
@@ -1162,8 +1117,6 @@ companies:
     careers_url: https://careers.bcg.com/
     ats: auto
     board_token: ""
-
-  # ---------------- MUNICH: metro-area satellite towns + additional coverage ----------------
   - name: Eurofighter Jagdflugzeug GmbH
     city: Munich
     careers_url: https://www.eurofighter.com/careers
@@ -1309,8 +1262,6 @@ companies:
     careers_url: https://www.proglove.com/careers/
     ats: personio
     board_token: ""
-
-  # ---------------- ZURICH: metro-area satellite towns + additional coverage ----------------
   - name: ETH Zurich
     city: Zurich
     careers_url: https://jobs.ethz.ch/
@@ -1419,5 +1370,1465 @@ companies:
   - name: Intershop Holding
     city: Zurich
     careers_url: https://www.intershop.ch/en/career
+    ats: auto
+    board_token: ""
+  - name: Standard Chartered Singapore
+    city: Singapore
+    careers_url: https://www.sc.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Citibank Singapore
+    city: Singapore
+    careers_url: https://jobs.citi.com/
+    ats: auto
+    board_token: ""
+  - name: HSBC Singapore
+    city: Singapore
+    careers_url: https://www.hsbc.com/careers
+    ats: auto
+    board_token: ""
+  - name: JPMorgan Singapore
+    city: Singapore
+    careers_url: https://careers.jpmorgan.com/
+    ats: auto
+    board_token: ""
+  - name: Goldman Sachs Singapore
+    city: Singapore
+    careers_url: https://www.goldmansachs.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Morgan Stanley Singapore
+    city: Singapore
+    careers_url: https://www.morganstanley.com/careers
+    ats: auto
+    board_token: ""
+  - name: Bank of America Singapore
+    city: Singapore
+    careers_url: https://careers.bankofamerica.com/
+    ats: auto
+    board_token: ""
+  - name: Barclays Singapore
+    city: Singapore
+    careers_url: https://home.barclays/careers/
+    ats: auto
+    board_token: ""
+  - name: BNP Paribas Singapore
+    city: Singapore
+    careers_url: https://group.bnpparibas/en/careers
+    ats: auto
+    board_token: ""
+  - name: Societe Generale Singapore
+    city: Singapore
+    careers_url: https://careers.societegenerale.com/
+    ats: auto
+    board_token: ""
+  - name: Deutsche Bank Singapore
+    city: Singapore
+    careers_url: https://careers.db.com/
+    ats: auto
+    board_token: ""
+  - name: Nomura Singapore
+    city: Singapore
+    careers_url: https://www.nomura.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Mizuho Bank Singapore
+    city: Singapore
+    careers_url: https://www.mizuhogroup.com/careers
+    ats: auto
+    board_token: ""
+  - name: MUFG Bank Singapore
+    city: Singapore
+    careers_url: https://www.mufg.jp/english/profile/recruit/
+    ats: auto
+    board_token: ""
+  - name: Maybank Singapore
+    city: Singapore
+    careers_url: https://www.maybank.com/en/careers.page
+    ats: auto
+    board_token: ""
+  - name: CIMB Singapore
+    city: Singapore
+    careers_url: https://www.cimb.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: ANZ Singapore
+    city: Singapore
+    careers_url: https://www.anz.com/careers/
+    ats: auto
+    board_token: ""
+  - name: UBS Singapore
+    city: Singapore
+    careers_url: https://www.ubs.com/global/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: AIA Singapore
+    city: Singapore
+    careers_url: https://www.aia.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Prudential Singapore
+    city: Singapore
+    careers_url: https://www.prudential.com.sg/careers
+    ats: auto
+    board_token: ""
+  - name: Great Eastern Life
+    city: Singapore
+    careers_url: https://www.greateasternlife.com/sg/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Manulife Singapore
+    city: Singapore
+    careers_url: https://www.manulife.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Zurich Insurance Singapore
+    city: Singapore
+    careers_url: https://www.zurich.com/careers
+    ats: auto
+    board_token: ""
+  - name: Swiss Re Singapore
+    city: Singapore
+    careers_url: https://www.swissre.com/careers.html
+    ats: auto
+    board_token: ""
+  - name: Munich Re Singapore
+    city: Singapore
+    careers_url: https://www.munichre.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Income Insurance
+    city: Singapore
+    careers_url: https://www.income.com.sg/careers
+    ats: auto
+    board_token: ""
+  - name: Meta Singapore
+    city: Singapore
+    careers_url: https://www.metacareers.com/
+    ats: auto
+    board_token: ""
+  - name: Microsoft Singapore
+    city: Singapore
+    careers_url: https://careers.microsoft.com/
+    ats: auto
+    board_token: ""
+  - name: Apple Singapore
+    city: Singapore
+    careers_url: https://www.apple.com/careers/sg/
+    ats: auto
+    board_token: ""
+  - name: TikTok Singapore
+    city: Singapore
+    careers_url: https://careers.tiktok.com/
+    ats: auto
+    board_token: ""
+  - name: Gojek Singapore
+    city: Singapore
+    careers_url: https://www.gojek.io/careers/
+    ats: auto
+    board_token: ""
+  - name: Zoom Singapore
+    city: Singapore
+    careers_url: https://careers.zoom.us/
+    ats: auto
+    board_token: ""
+  - name: Salesforce Singapore
+    city: Singapore
+    careers_url: https://www.salesforce.com/company/careers/
+    ats: auto
+    board_token: ""
+  - name: SAP Singapore
+    city: Singapore
+    careers_url: https://jobs.sap.com/
+    ats: auto
+    board_token: ""
+  - name: Oracle Singapore
+    city: Singapore
+    careers_url: https://www.oracle.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Adobe Singapore
+    city: Singapore
+    careers_url: https://careers.adobe.com/
+    ats: auto
+    board_token: ""
+  - name: LinkedIn Singapore
+    city: Singapore
+    careers_url: https://careers.linkedin.com/
+    ats: auto
+    board_token: ""
+  - name: Netflix Singapore
+    city: Singapore
+    careers_url: https://jobs.netflix.com/
+    ats: auto
+    board_token: ""
+  - name: Spotify Singapore
+    city: Singapore
+    careers_url: https://www.lifeatspotify.com/jobs
+    ats: auto
+    board_token: ""
+  - name: Atlassian Singapore
+    city: Singapore
+    careers_url: https://www.atlassian.com/company/careers
+    ats: auto
+    board_token: ""
+  - name: Stripe Singapore
+    city: Singapore
+    careers_url: https://stripe.com/jobs
+    ats: auto
+    board_token: ""
+  - name: PayPal Singapore
+    city: Singapore
+    careers_url: https://careers.pypl.com/
+    ats: auto
+    board_token: ""
+  - name: Visa Singapore
+    city: Singapore
+    careers_url: https://www.visa.com/careers.html
+    ats: auto
+    board_token: ""
+  - name: Mastercard Singapore
+    city: Singapore
+    careers_url: https://careers.mastercard.com/
+    ats: auto
+    board_token: ""
+  - name: Airbnb Singapore
+    city: Singapore
+    careers_url: https://careers.airbnb.com/
+    ats: auto
+    board_token: ""
+  - name: Uber Singapore
+    city: Singapore
+    careers_url: https://www.uber.com/us/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Booking.com Singapore
+    city: Singapore
+    careers_url: https://careers.booking.com/
+    ats: auto
+    board_token: ""
+  - name: Agoda
+    city: Singapore
+    careers_url: https://careersatagoda.com/
+    ats: auto
+    board_token: ""
+  - name: Traveloka Singapore
+    city: Singapore
+    careers_url: https://www.traveloka.com/en-sg/careers
+    ats: auto
+    board_token: ""
+  - name: Klook
+    city: Singapore
+    careers_url: https://careers.klook.com/
+    ats: auto
+    board_token: ""
+  - name: Carousell
+    city: Singapore
+    careers_url: https://careers.carousell.com/
+    ats: auto
+    board_token: ""
+  - name: PropertyGuru
+    city: Singapore
+    careers_url: https://www.propertygurugroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Circles.Life
+    city: Singapore
+    careers_url: https://www.circles.life/careers/
+    ats: auto
+    board_token: ""
+  - name: ShopBack
+    city: Singapore
+    careers_url: https://www.shopback.com/careers
+    ats: auto
+    board_token: ""
+  - name: Ninja Van
+    city: Singapore
+    careers_url: https://www.ninjavan.co/en-sg/careers
+    ats: auto
+    board_token: ""
+  - name: Dropbox Singapore
+    city: Singapore
+    careers_url: https://www.dropbox.com/jobs
+    ats: auto
+    board_token: ""
+  - name: Workday Singapore
+    city: Singapore
+    careers_url: https://www.workday.com/en-us/company/careers.html
+    ats: auto
+    board_token: ""
+  - name: ServiceNow Singapore
+    city: Singapore
+    careers_url: https://careers.servicenow.com/
+    ats: auto
+    board_token: ""
+  - name: VMware Singapore
+    city: Singapore
+    careers_url: https://careers.vmware.com/
+    ats: auto
+    board_token: ""
+  - name: Cisco Singapore
+    city: Singapore
+    careers_url: https://jobs.cisco.com/
+    ats: auto
+    board_token: ""
+  - name: IBM Singapore
+    city: Singapore
+    careers_url: https://www.ibm.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Dell Technologies Singapore
+    city: Singapore
+    careers_url: https://jobs.dell.com/
+    ats: auto
+    board_token: ""
+  - name: Huawei Singapore
+    city: Singapore
+    careers_url: https://career.huawei.com/
+    ats: auto
+    board_token: ""
+  - name: Samsung Singapore
+    city: Singapore
+    careers_url: https://www.samsung.com/sg/careers/
+    ats: auto
+    board_token: ""
+  - name: Sony Singapore
+    city: Singapore
+    careers_url: https://www.sony.com/en/SonyInfo/Jobs/
+    ats: auto
+    board_token: ""
+  - name: McKinsey Singapore
+    city: Singapore
+    careers_url: https://www.mckinsey.com/careers
+    ats: auto
+    board_token: ""
+  - name: BCG Singapore
+    city: Singapore
+    careers_url: https://careers.bcg.com/
+    ats: auto
+    board_token: ""
+  - name: Bain Singapore
+    city: Singapore
+    careers_url: https://www.bain.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Deloitte Singapore
+    city: Singapore
+    careers_url: https://www2.deloitte.com/sg/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: PwC Singapore
+    city: Singapore
+    careers_url: https://www.pwc.com/sg/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: EY Singapore
+    city: Singapore
+    careers_url: https://www.ey.com/en_sg/careers
+    ats: auto
+    board_token: ""
+  - name: KPMG Singapore
+    city: Singapore
+    careers_url: https://home.kpmg/sg/en/home/careers.html
+    ats: auto
+    board_token: ""
+  - name: Accenture Singapore
+    city: Singapore
+    careers_url: https://www.accenture.com/sg-en/careers
+    ats: auto
+    board_token: ""
+  - name: Capgemini Singapore
+    city: Singapore
+    careers_url: https://www.capgemini.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Kearney Singapore
+    city: Singapore
+    careers_url: https://www.kearney.com/careers
+    ats: auto
+    board_token: ""
+  - name: Oliver Wyman Singapore
+    city: Singapore
+    careers_url: https://www.oliverwyman.com/careers.html
+    ats: auto
+    board_token: ""
+  - name: Shell Singapore
+    city: Singapore
+    careers_url: https://www.shell.com/careers.html
+    ats: auto
+    board_token: ""
+  - name: ExxonMobil Singapore
+    city: Singapore
+    careers_url: https://corporate.exxonmobil.com/careers
+    ats: auto
+    board_token: ""
+  - name: Chevron Singapore
+    city: Singapore
+    careers_url: https://www.chevron.com/careers
+    ats: auto
+    board_token: ""
+  - name: BP Singapore
+    city: Singapore
+    careers_url: https://www.bp.com/en/global/corporate/careers.html
+    ats: auto
+    board_token: ""
+  - name: TotalEnergies Singapore
+    city: Singapore
+    careers_url: https://totalenergies.com/careers
+    ats: auto
+    board_token: ""
+  - name: Trafigura Singapore
+    city: Singapore
+    careers_url: https://www.trafigura.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Vitol Singapore
+    city: Singapore
+    careers_url: https://www.vitol.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Glencore Singapore
+    city: Singapore
+    careers_url: https://www.glencore.com/careers
+    ats: auto
+    board_token: ""
+  - name: Mercuria Singapore
+    city: Singapore
+    careers_url: https://www.mercuria.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Gunvor Singapore
+    city: Singapore
+    careers_url: https://gunvorgroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Maersk Singapore
+    city: Singapore
+    careers_url: https://www.maersk.com/careers
+    ats: auto
+    board_token: ""
+  - name: MSC Singapore
+    city: Singapore
+    careers_url: https://www.msc.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: DHL Singapore
+    city: Singapore
+    careers_url: https://careers.dhl.com/
+    ats: auto
+    board_token: ""
+  - name: FedEx Singapore
+    city: Singapore
+    careers_url: https://careers.fedex.com/
+    ats: auto
+    board_token: ""
+  - name: UPS Singapore
+    city: Singapore
+    careers_url: https://www.jobs-ups.com/
+    ats: auto
+    board_token: ""
+  - name: DB Schenker Singapore
+    city: Singapore
+    careers_url: https://www.dbschenker.com/global/careers
+    ats: auto
+    board_token: ""
+  - name: Kuehne+Nagel Singapore
+    city: Singapore
+    careers_url: https://home.kuehne-nagel.com/careers
+    ats: auto
+    board_token: ""
+  - name: Pacific International Lines
+    city: Singapore
+    careers_url: https://www.pilship.com/careers
+    ats: auto
+    board_token: ""
+  - name: Ocean Network Express
+    city: Singapore
+    careers_url: https://www.one-line.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Wilhelmsen
+    city: Singapore
+    careers_url: https://www.wilhelmsen.com/careers/
+    ats: auto
+    board_token: ""
+  - name: CMA CGM Singapore
+    city: Singapore
+    careers_url: https://www.cma-cgm.com/careers
+    ats: auto
+    board_token: ""
+  - name: COSCO Shipping Singapore
+    city: Singapore
+    careers_url: https://en.coscoshipping.com/col/col8091/
+    ats: auto
+    board_token: ""
+  - name: ST Engineering
+    city: Singapore
+    careers_url: https://www.stengg.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Rolls-Royce Singapore
+    city: Singapore
+    careers_url: https://careers.rolls-royce.com/
+    ats: auto
+    board_token: ""
+  - name: Airbus Singapore
+    city: Singapore
+    careers_url: https://www.airbus.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Boeing Singapore
+    city: Singapore
+    careers_url: https://jobs.boeing.com/
+    ats: auto
+    board_token: ""
+  - name: Safran Singapore
+    city: Singapore
+    careers_url: https://www.safran-group.com/careers
+    ats: auto
+    board_token: ""
+  - name: Pratt Whitney Singapore
+    city: Singapore
+    careers_url: https://careers.rtx.com/
+    ats: auto
+    board_token: ""
+  - name: GE Aviation Singapore
+    city: Singapore
+    careers_url: https://www.ge.com/careers
+    ats: auto
+    board_token: ""
+  - name: GSK Singapore
+    city: Singapore
+    careers_url: https://jobs.gsk.com/
+    ats: auto
+    board_token: ""
+  - name: Pfizer Singapore
+    city: Singapore
+    careers_url: https://www.pfizer.com/about/careers
+    ats: auto
+    board_token: ""
+  - name: Novartis Singapore
+    city: Singapore
+    careers_url: https://www.novartis.com/careers
+    ats: auto
+    board_token: ""
+  - name: Roche Singapore
+    city: Singapore
+    careers_url: https://careers.roche.com/
+    ats: auto
+    board_token: ""
+  - name: Sanofi Singapore
+    city: Singapore
+    careers_url: https://jobs.sanofi.com/
+    ats: auto
+    board_token: ""
+  - name: AbbVie Singapore
+    city: Singapore
+    careers_url: https://careers.abbvie.com/
+    ats: auto
+    board_token: ""
+  - name: Merck Singapore
+    city: Singapore
+    careers_url: https://jobs.merck.com/
+    ats: auto
+    board_token: ""
+  - name: Eli Lilly Singapore
+    city: Singapore
+    careers_url: https://careers.lilly.com/
+    ats: auto
+    board_token: ""
+  - name: Amgen Singapore
+    city: Singapore
+    careers_url: https://careers.amgen.com/
+    ats: auto
+    board_token: ""
+  - name: Bayer Singapore
+    city: Singapore
+    careers_url: https://career.bayer.com/
+    ats: auto
+    board_token: ""
+  - name: Johnson and Johnson Singapore
+    city: Singapore
+    careers_url: https://www.careers.jnj.com/
+    ats: auto
+    board_token: ""
+  - name: AstraZeneca Singapore
+    city: Singapore
+    careers_url: https://careers.astrazeneca.com/
+    ats: auto
+    board_token: ""
+  - name: Takeda Singapore
+    city: Singapore
+    careers_url: https://www.takeda.com/careers/
+    ats: auto
+    board_token: ""
+  - name: IHH Healthcare
+    city: Singapore
+    careers_url: https://www.ihhhealthcare.com/careers
+    ats: auto
+    board_token: ""
+  - name: Raffles Medical Group
+    city: Singapore
+    careers_url: https://www.rafflesmedicalgroup.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Nestle Singapore
+    city: Singapore
+    careers_url: https://www.nestle.com/jobs
+    ats: auto
+    board_token: ""
+  - name: Unilever Singapore
+    city: Singapore
+    careers_url: https://www.unilever.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Procter and Gamble Singapore
+    city: Singapore
+    careers_url: https://www.pgcareers.com/
+    ats: auto
+    board_token: ""
+  - name: PepsiCo Singapore
+    city: Singapore
+    careers_url: https://www.pepsicojobs.com/
+    ats: auto
+    board_token: ""
+  - name: Coca-Cola Singapore
+    city: Singapore
+    careers_url: https://www.coca-colacompany.com/careers
+    ats: auto
+    board_token: ""
+  - name: Mondelez Singapore
+    city: Singapore
+    careers_url: https://www.mondelezinternational.com/careers
+    ats: auto
+    board_token: ""
+  - name: Mars Singapore
+    city: Singapore
+    careers_url: https://www.mars.com/careers
+    ats: auto
+    board_token: ""
+  - name: Danone Singapore
+    city: Singapore
+    careers_url: https://www.danone.com/careers.html
+    ats: auto
+    board_token: ""
+  - name: Heineken Asia Pacific
+    city: Singapore
+    careers_url: https://www.theheinekencompany.com/careers
+    ats: auto
+    board_token: ""
+  - name: Diageo Singapore
+    city: Singapore
+    careers_url: https://careers.diageo.com/
+    ats: auto
+    board_token: ""
+  - name: LOreal Singapore
+    city: Singapore
+    careers_url: https://www.lorealusa.com/careers
+    ats: auto
+    board_token: ""
+  - name: Estee Lauder Singapore
+    city: Singapore
+    careers_url: https://www.elcompanies.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Singtel
+    city: Singapore
+    careers_url: https://www.singtel.com/about-us/careers
+    ats: auto
+    board_token: ""
+  - name: StarHub
+    city: Singapore
+    careers_url: https://www.starhub.com/about-us/careers.html
+    ats: auto
+    board_token: ""
+  - name: M1 Limited
+    city: Singapore
+    careers_url: https://www.m1.com.sg/About-M1/Careers
+    ats: auto
+    board_token: ""
+  - name: Economic Development Board
+    city: Singapore
+    careers_url: https://www.edb.gov.sg/en/about-edb/careers.html
+    ats: auto
+    board_token: ""
+  - name: JTC Corporation
+    city: Singapore
+    careers_url: https://www.jtc.gov.sg/about-jtc/careers
+    ats: auto
+    board_token: ""
+  - name: Monetary Authority of Singapore
+    city: Singapore
+    careers_url: https://www.mas.gov.sg/careers
+    ats: auto
+    board_token: ""
+  - name: City Developments Limited
+    city: Singapore
+    careers_url: https://www.cdlhtrust.com/careers
+    ats: auto
+    board_token: ""
+  - name: UOL Group
+    city: Singapore
+    careers_url: https://www.uol.com.sg/careers
+    ats: auto
+    board_token: ""
+  - name: GuocoLand
+    city: Singapore
+    careers_url: https://www.guocoland.com.sg/careers
+    ats: auto
+    board_token: ""
+  - name: Frasers Property
+    city: Singapore
+    careers_url: https://www.frasersproperty.com/careers
+    ats: auto
+    board_token: ""
+  - name: Mapletree Investments
+    city: Singapore
+    careers_url: https://www.mapletree.com.sg/careers
+    ats: auto
+    board_token: ""
+  - name: Micron Technology Singapore
+    city: Singapore
+    careers_url: https://www.micron.com/careers
+    ats: auto
+    board_token: ""
+  - name: Infineon Technologies Singapore
+    city: Singapore
+    careers_url: https://www.infineon.com/cms/en/about-infineon/careers/
+    ats: auto
+    board_token: ""
+  - name: STMicroelectronics Singapore
+    city: Singapore
+    careers_url: https://www.st.com/content/st_com/en/about/st_careers.html
+    ats: auto
+    board_token: ""
+  - name: GlobalFoundries Singapore
+    city: Singapore
+    careers_url: https://gf.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Applied Materials Singapore
+    city: Singapore
+    careers_url: https://www.appliedmaterials.com/careers
+    ats: auto
+    board_token: ""
+  - name: Broadcom Singapore
+    city: Singapore
+    careers_url: https://www.broadcom.com/careers
+    ats: auto
+    board_token: ""
+  - name: AMD Singapore
+    city: Singapore
+    careers_url: https://careers.amd.com/
+    ats: auto
+    board_token: ""
+  - name: Nvidia Singapore
+    city: Singapore
+    careers_url: https://www.nvidia.com/en-us/about-nvidia/careers/
+    ats: auto
+    board_token: ""
+  - name: Texas Instruments Singapore
+    city: Singapore
+    careers_url: https://careers.ti.com/
+    ats: auto
+    board_token: ""
+  - name: Singapore Airlines
+    city: Singapore
+    careers_url: https://careers.singaporeair.com/
+    ats: auto
+    board_token: ""
+  - name: Scoot
+    city: Singapore
+    careers_url: https://careers.singaporeair.com/
+    ats: auto
+    board_token: ""
+  - name: BASF Schweiz
+    city: Basel
+    careers_url: https://www.basf.com/global/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Ferring Pharmaceuticals
+    city: Basel
+    careers_url: https://www.ferring.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Santhera Pharmaceuticals
+    city: Basel
+    careers_url: https://www.santhera.com/careers
+    ats: auto
+    board_token: ""
+  - name: Basler Kantonalbank
+    city: Basel
+    careers_url: https://www.bkb.ch/de/ueber-uns/karriere
+    ats: auto
+    board_token: ""
+  - name: Coop Genossenschaft
+    city: Basel
+    careers_url: https://www.coop.ch/de/ueber-uns/jobs-karriere.html
+    ats: auto
+    board_token: ""
+  - name: Swiss TPH
+    city: Basel
+    careers_url: https://www.swisstph.ch/en/jobs/
+    ats: auto
+    board_token: ""
+  - name: University Hospital Basel
+    city: Basel
+    careers_url: https://www.unispital-basel.ch/en/jobs/
+    ats: auto
+    board_token: ""
+  - name: MCH Group
+    city: Basel
+    careers_url: https://www.mch-group.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Bank Cler
+    city: Basel
+    careers_url: https://www.cler.ch/en/about-us/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Basellandschaftliche Kantonalbank
+    city: Basel
+    careers_url: https://www.blkb.ch/de/ueber-uns/jobs-karriere
+    ats: auto
+    board_token: ""
+  - name: SBB CFF FFS
+    city: Bern
+    careers_url: https://karriere.sbb.ch/
+    ats: auto
+    board_token: ""
+  - name: Meyer Burger
+    city: Bern
+    careers_url: https://www.meyerburger.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Ammann Group
+    city: Bern
+    careers_url: https://www.ammann.com/en_INT/company/careers
+    ats: auto
+    board_token: ""
+  - name: Kambly
+    city: Bern
+    careers_url: https://www.kambly.com/en/career
+    ats: auto
+    board_token: ""
+  - name: Universitat Bern
+    city: Bern
+    careers_url: https://www.unibe.ch/university/working_at_unibe/index_eng.html
+    ats: auto
+    board_token: ""
+  - name: Bundesamt fur Informatik BIT
+    city: Bern
+    careers_url: https://www.bit.admin.ch/bit/en/home/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Swisscom Group HQ
+    city: Bern
+    careers_url: https://www.swisscom.ch/en/about/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Loeb AG
+    city: Bern
+    careers_url: https://www.loeb.ch/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Bernmobil
+    city: Bern
+    careers_url: https://www.bernmobil.ch/de/jobs
+    ats: auto
+    board_token: ""
+  - name: Burgergemeinde Bern
+    city: Bern
+    careers_url: https://www.bgbern.ch/
+    ats: auto
+    board_token: ""
+  - name: CERN
+    city: Geneva
+    careers_url: https://careers.cern/
+    ats: auto
+    board_token: ""
+  - name: UNHCR
+    city: Geneva
+    careers_url: https://www.unhcr.org/careers.html
+    ats: auto
+    board_token: ""
+  - name: International Labour Organization
+    city: Geneva
+    careers_url: https://www.ilo.org/careers
+    ats: auto
+    board_token: ""
+  - name: World Trade Organization
+    city: Geneva
+    careers_url: https://www.wto.org/english/docs_e/jobs_e/jobs_e.htm
+    ats: auto
+    board_token: ""
+  - name: WIPO
+    city: Geneva
+    careers_url: https://www.wipo.int/about-wipo/en/employment/
+    ats: auto
+    board_token: ""
+  - name: UNCTAD
+    city: Geneva
+    careers_url: https://unctad.org/vacancies
+    ats: auto
+    board_token: ""
+  - name: International Telecommunication Union
+    city: Geneva
+    careers_url: https://www.itu.int/en/careers/Pages/default.aspx
+    ats: auto
+    board_token: ""
+  - name: Rolex
+    city: Geneva
+    careers_url: https://www.rolex.com/careers
+    ats: auto
+    board_token: ""
+  - name: Patek Philippe
+    city: Geneva
+    careers_url: https://www.patek.com/en/company/careers
+    ats: auto
+    board_token: ""
+  - name: Vacheron Constantin
+    city: Geneva
+    careers_url: https://www.vacheron-constantin.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: SICPA
+    city: Geneva
+    careers_url: https://www.sicpa.com/careers
+    ats: auto
+    board_token: ""
+  - name: Union Bancaire Privee
+    city: Geneva
+    careers_url: https://www.ubp.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Edmond de Rothschild
+    city: Geneva
+    careers_url: https://www.edmond-de-rothschild.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: JPMorgan Geneva
+    city: Geneva
+    careers_url: https://careers.jpmorgan.com/
+    ats: auto
+    board_token: ""
+  - name: Credit Agricole Geneva
+    city: Geneva
+    careers_url: https://www.ca-nextbank.ch/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Geneva University Hospitals HUG
+    city: Geneva
+    careers_url: https://www.hug.ch/en/jobs
+    ats: auto
+    board_token: ""
+  - name: CHUV
+    city: Lausanne
+    careers_url: https://www.chuv.ch/fr/chuv-home/emploi-et-formation/emploi
+    ats: auto
+    board_token: ""
+  - name: Debiopharm
+    city: Lausanne
+    careers_url: https://www.debiopharm.com/careers/
+    ats: auto
+    board_token: ""
+  - name: International Olympic Committee
+    city: Lausanne
+    careers_url: https://olympics.com/ioc/careers
+    ats: auto
+    board_token: ""
+  - name: Ecole hoteliere de Lausanne
+    city: Lausanne
+    careers_url: https://www.ehl.edu/en/careers
+    ats: auto
+    board_token: ""
+  - name: DKSH
+    city: Lausanne
+    careers_url: https://www.dksh.com/global-en/careers
+    ats: auto
+    board_token: ""
+  - name: TP Vision Switzerland
+    city: Lausanne
+    careers_url: https://www.tpvision.com/careers
+    ats: auto
+    board_token: ""
+  - name: Firmenich
+    city: Lausanne
+    careers_url: https://www.dsm-firmenich.com/careers
+    ats: auto
+    board_token: ""
+  - name: Pilatus Aircraft
+    city: Lucerne
+    careers_url: https://www.pilatus-aircraft.com/en/career
+    ats: auto
+    board_token: ""
+  - name: Bucherer
+    city: Lucerne
+    careers_url: https://www.bucherer.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Comet Holding
+    city: Lucerne
+    careers_url: https://www.comet-group.com/careers
+    ats: auto
+    board_token: ""
+  - name: Lucerne University of Applied Sciences
+    city: Lucerne
+    careers_url: https://www.hslu.ch/en/lucerne-university-of-applied-sciences-and-arts/about-us/jobs-careers/
+    ats: auto
+    board_token: ""
+  - name: KKL Luzern
+    city: Lucerne
+    careers_url: https://www.kkl-luzern.ch/en/about-us/jobs/
+    ats: auto
+    board_token: ""
+  - name: Victorinox
+    city: Lucerne
+    careers_url: https://www.victorinox.com/int/en/Company/Careers
+    ats: auto
+    board_token: ""
+  - name: Bossard Group
+    city: Lucerne
+    careers_url: https://www.bossard.com/int-en/career/
+    ats: auto
+    board_token: ""
+  - name: Novartis Basel
+    city: Basel
+    careers_url: https://novartisbasel.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Roche Basel
+    city: Basel
+    careers_url: https://rochebasel.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Syngenta
+    city: Basel
+    careers_url: https://syngenta.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Clariant
+    city: Basel
+    careers_url: https://clariant.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Lonza
+    city: Basel
+    careers_url: https://www.lonza.com/careers
+    ats: auto
+    board_token: ""
+  - name: Bachem
+    city: Basel
+    careers_url: https://bachem.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Idorsia
+    city: Basel
+    careers_url: https://idorsia.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Vifor Pharma
+    city: Basel
+    careers_url: https://viforpharma.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Endress and Hauser
+    city: Basel
+    careers_url: https://endressandhauser.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Ricola
+    city: Basel
+    careers_url: https://ricola.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Swiss Post
+    city: Bern
+    careers_url: https://swisspost.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: PostFinance
+    city: Bern
+    careers_url: https://postfinance.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Skyguide
+    city: Bern
+    careers_url: https://skyguide.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Swisscom Bern
+    city: Bern
+    careers_url: https://swisscombern.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Die Mobiliar
+    city: Bern
+    careers_url: https://diemobiliar.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Insel Gruppe
+    city: Bern
+    careers_url: https://inselgruppe.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: BLS AG
+    city: Bern
+    careers_url: https://bls.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: RUAG Bern
+    city: Bern
+    careers_url: https://ruagbern.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: BEKB Bernische Kantonalbank
+    city: Bern
+    careers_url: https://bekbbernischekantonalbank.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: ICRC
+    city: Geneva
+    careers_url: https://icrc.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: World Health Organization
+    city: Geneva
+    careers_url: https://worldhealthorganization.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: MSC Mediterranean Shipping Company
+    city: Geneva
+    careers_url: https://mscmediterraneanshippingcompany.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: SGS
+    city: Geneva
+    careers_url: https://sgs.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Richemont
+    city: Geneva
+    careers_url: https://richemont.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: STMicroelectronics Geneva
+    city: Geneva
+    careers_url: https://stmicroelectronicsgeneva.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Trafigura
+    city: Geneva
+    careers_url: https://trafigura.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: DSM-Firmenich
+    city: Geneva
+    careers_url: https://www.dsm-firmenich.com/careers
+    ats: auto
+    board_token: ""
+  - name: Givaudan
+    city: Geneva
+    careers_url: https://www.givaudan.com/careers
+    ats: auto
+    board_token: ""
+  - name: Banque Cantonale de Geneve
+    city: Geneva
+    careers_url: https://banquecantonaledegeneve.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Nestle
+    city: Lausanne
+    careers_url: https://nestle.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Logitech
+    city: Lausanne
+    careers_url: https://www.logitech.com/en-us/careers.html
+    ats: auto
+    board_token: ""
+  - name: Philip Morris International
+    city: Lausanne
+    careers_url: https://philipmorrisinternational.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: IMD Business School
+    city: Lausanne
+    careers_url: https://imdbusinessschool.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: EPFL
+    city: Lausanne
+    careers_url: https://epfl.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Bobst Group
+    city: Lausanne
+    careers_url: https://bobst.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Kudelski Group
+    city: Lausanne
+    careers_url: https://kudelski.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Nespresso
+    city: Lausanne
+    careers_url: https://nespresso.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Bucher Industries
+    city: Lucerne
+    careers_url: https://bucherindustries.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: CSS Versicherung
+    city: Lucerne
+    careers_url: https://cssversicherung.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Schindler
+    city: Lucerne
+    careers_url: https://www.schindler.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Emmi
+    city: Lucerne
+    careers_url: https://emmi.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Franke Group
+    city: Lucerne
+    careers_url: https://franke.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: DBS Bank
+    city: Singapore
+    careers_url: https://dbsbank.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: OCBC Bank
+    city: Singapore
+    careers_url: https://ocbcbank.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: UOB
+    city: Singapore
+    careers_url: https://uob.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Grab
+    city: Singapore
+    careers_url: https://grab.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Sea Limited
+    city: Singapore
+    careers_url: https://sealimited.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: ByteDance Singapore
+    city: Singapore
+    careers_url: https://bytedancesingapore.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Google Singapore
+    city: Singapore
+    careers_url: https://googlesingapore.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Amazon Singapore
+    city: Singapore
+    careers_url: https://amazonsingapore.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: PSA International
+    city: Singapore
+    careers_url: https://psainternational.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Temasek
+    city: Singapore
+    careers_url: https://temasek.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: GIC
+    city: Singapore
+    careers_url: https://gic.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Razer
+    city: Singapore
+    careers_url: https://boards-api.greenhouse.io/v1/boards/razer/jobs?content=true
+    ats: greenhouse
+    board_token: "razer"
+  - name: Keppel Corporation
+    city: Singapore
+    careers_url: https://keppelcorporation.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: ComfortDelGro
+    city: Singapore
+    careers_url: https://comfortdelgro.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: CapitaLand
+    city: Singapore
+    careers_url: https://capitaland.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Wilmar International
+    city: Singapore
+    careers_url: https://wilmarinternational.jobs.personio.de
+    ats: personio
+    board_token: ""
+  - name: Flex
+    city: Singapore
+    careers_url: https://flex.com/careers
+    ats: auto
+    board_token: ""
+  - name: Bank J. Safra Sarasin
+    city: Basel
+    careers_url: https://www.jsafrasarasin.com/careers
+    ats: auto
+    board_token: ""
+  - name: BioVersys
+    city: Basel
+    careers_url: https://www.bioversys.com/careers/
+    ats: auto
+    board_token: ""
+  - name: AbbVie Schweiz
+    city: Basel
+    careers_url: https://careers.abbvie.com/
+    ats: auto
+    board_token: ""
+  - name: Sanofi-Aventis Schweiz
+    city: Basel
+    careers_url: https://jobs.sanofi.com/
+    ats: auto
+    board_token: ""
+  - name: Cellestia Biotech
+    city: Basel
+    careers_url: https://www.cellestia.com/careers
+    ats: auto
+    board_token: ""
+  - name: Novartis Pharma Schweiz
+    city: Basel
+    careers_url: https://www.novartis.com/careers
+    ats: auto
+    board_token: ""
+  - name: Actelion Pharmaceuticals
+    city: Basel
+    careers_url: https://www.jnj.com/careers
+    ats: auto
+    board_token: ""
+  - name: Swiss National Bank
+    city: Bern
+    careers_url: https://www.snb.ch/en/the-snb/careers
+    ats: auto
+    board_token: ""
+  - name: CSL Behring
+    city: Bern
+    careers_url: https://www.cslbehring.com/careers
+    ats: auto
+    board_token: ""
+  - name: Visana
+    city: Bern
+    careers_url: https://www.visana.ch/en/about-us/jobs
+    ats: auto
+    board_token: ""
+  - name: Bundesamt fur Gesundheit BAG
+    city: Bern
+    careers_url: https://www.bag.admin.ch/bag/en/home/das-bag/arbeiten-beim-bag.html
+    ats: auto
+    board_token: ""
+  - name: Institut fur Geistiges Eigentum IPI
+    city: Bern
+    careers_url: https://www.ige.ch/en/about-us/jobs
+    ats: auto
+    board_token: ""
+  - name: Bundesamt fur Umwelt BAFU
+    city: Bern
+    careers_url: https://www.bafu.admin.ch/bafu/en/home/the-fen/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Gavi the Vaccine Alliance
+    city: Geneva
+    careers_url: https://www.gavi.org/careers
+    ats: auto
+    board_token: ""
+  - name: World Economic Forum
+    city: Geneva
+    careers_url: https://www.weforum.org/about/careers/
+    ats: auto
+    board_token: ""
+  - name: International Organization for Migration
+    city: Geneva
+    careers_url: https://www.iom.int/careers
+    ats: auto
+    board_token: ""
+  - name: World Meteorological Organization
+    city: Geneva
+    careers_url: https://public.wmo.int/en/careers
+    ats: auto
+    board_token: ""
+  - name: Chopard
+    city: Geneva
+    careers_url: https://www.chopard.com/us/careers
+    ats: auto
+    board_token: ""
+  - name: Piaget
+    city: Geneva
+    careers_url: https://www.piaget.com/en-us/careers
+    ats: auto
+    board_token: ""
+  - name: MKS PAMP Group
+    city: Geneva
+    careers_url: https://www.mkspamp.com/careers
+    ats: auto
+    board_token: ""
+  - name: UNAIDS
+    city: Geneva
+    careers_url: https://www.unaids.org/en/careers
+    ats: auto
+    board_token: ""
+  - name: Sophia Genetics
+    city: Lausanne
+    careers_url: https://www.sophiagenetics.com/careers/
+    ats: auto
+    board_token: ""
+  - name: ELCA Informatique
+    city: Lausanne
+    careers_url: https://www.elca.ch/en/careers
+    ats: auto
+    board_token: ""
+  - name: Xsensio
+    city: Lausanne
+    careers_url: https://www.xsensio.com/careers
+    ats: auto
+    board_token: ""
+  - name: Addex Therapeutics
+    city: Lausanne
+    careers_url: https://www.addextherapeutics.com/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Concordia Krankenversicherung
+    city: Lucerne
+    careers_url: https://www.concordia.ch/de/ueber-uns/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Luzerner Kantonalbank
+    city: Lucerne
+    careers_url: https://www.lukb.ch/de/ueber-uns/karriere
+    ats: auto
+    board_token: ""
+  - name: Verkehrsbetriebe Luzern VBL
+    city: Lucerne
+    careers_url: https://www.vbl.ch/de/ueber-uns/jobs
+    ats: auto
+    board_token: ""
+  - name: Zentralschweizerische Kraftwerke CKW
+    city: Lucerne
+    careers_url: https://www.ckw.ch/ueber-uns/jobs
     ats: auto
     board_token: ""
