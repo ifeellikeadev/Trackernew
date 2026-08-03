@@ -14,6 +14,10 @@ Supported platforms:
   - personio         ({company}.jobs.personio.de/xml)
   - workday          (myworkdayjobs.com CXS API)
   - generic          (best-effort HTML fallback, keyword-based)
+  - headless         (last-resort: real Chromium render via Playwright,
+                      only for results the fast path found suspiciously
+                      thin — time-budgeted for the whole run, see
+                      scrape_headless / _maybe_headless_upgrade below)
 
 Each function returns a list of dicts with the same shape:
   {
@@ -451,13 +455,138 @@ def scrape_generic(company_name: str, careers_url: str) -> list[dict[str, Any]]:
 
 
 # --------------------------------------------------------------------------
+# Headless-browser fallback — for JS-rendered single-page career sites
+# (Sixt, Google, Amazon, Apple, Microsoft, SAP, Oracle, and others like
+# them) where scrape_generic's plain HTTP request only ever sees the
+# page's pre-JavaScript "shell" (nav links, footer, social links) — the
+# actual job cards get injected by JavaScript after the page loads in a
+# real browser, so they're invisible to a plain request no matter how
+# scrape_generic's link-extraction is tuned.
+#
+# Rather than hand-maintaining a fixed list of "known JS-rendered
+# companies" (inevitably incomplete — this exact problem was found on
+# Sixt's site by accident, not because it was on any such list), this
+# triggers automatically whenever the normal pipeline (API scraper +
+# scrape_generic) comes back suspiciously thin for a given company —
+# a real, low-effort proxy for "this is probably a JS shell, not a
+# real empty job board." That means it opportunistically helps
+# WHICHEVER companies actually need it, in Munich, a dream city, or
+# the wildcard pool alike, rather than only the ones already known
+# about.
+#
+# GUARDRAIL: rendering a real browser page is 5-10x slower than a
+# plain HTTP request. To keep total run time predictable regardless of
+# how many companies trigger this, cumulative headless time across the
+# WHOLE run (all passes combined — see main.py's reset_headless_budget
+# call) is capped by _HEADLESS_BUDGET_SECONDS. Once the budget is
+# spent, remaining companies just keep whatever scrape_generic already
+# found — same as before this feature existed, not worse.
+# --------------------------------------------------------------------------
+_HEADLESS_BUDGET_SECONDS = 900  # 15 minutes reserved for the whole run
+_headless_time_used = 0.0
+GENERIC_RESULT_SUSPICIOUSLY_LOW = 5  # fewer real-looking links than this -> probably a JS shell, worth a retry
+
+
+def reset_headless_budget() -> None:
+    """Call once per full run (see main.py) so the budget doesn't leak across runs."""
+    global _headless_time_used
+    _headless_time_used = 0.0
+
+
+def headless_budget_remaining() -> float:
+    """Seconds of headless-rendering time left before this run's cap kicks in."""
+    return max(0.0, _HEADLESS_BUDGET_SECONDS - _headless_time_used)
+
+
+def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]:
+    """
+    Renders careers_url in a real (headless) Chromium browser and applies
+    the SAME link-extraction heuristic as scrape_generic, just against
+    the fully-JavaScript-rendered page instead of the raw pre-JS HTML.
+
+    Returns [] immediately (no browser launched) if the run's headless
+    time budget is already spent — see module docstring above — or on
+    any error (missing browser install, page timeout, etc.), same
+    defensive contract as every other scraper here.
+    """
+    global _headless_time_used
+
+    if headless_budget_remaining() <= 0:
+        return []
+
+    start = time.monotonic()
+    try:
+        from playwright.sync_api import sync_playwright  # imported lazily: only needed if this path is used
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            try:
+                page = browser.new_page(user_agent=HEADERS["User-Agent"])
+                page.goto(careers_url, timeout=15000, wait_until="networkidle")
+                html = page.content()
+            finally:
+                browser.close()
+    except Exception as exc:
+        logger.warning("Headless render failed for %s: %s", company_name, exc)
+        _headless_time_used += time.monotonic() - start
+        return []
+    _headless_time_used += time.monotonic() - start
+
+    soup = BeautifulSoup(html, "html.parser")
+    jobs = []
+    seen_urls = set()
+    for a in soup.find_all("a", href=True):
+        text = a.get_text(" ", strip=True)
+        href = a["href"]
+        if not text or len(text) < 6 or len(text) > 120:
+            continue
+        if not JOB_LINK_HINTS.search(href) and not JOB_LINK_HINTS.search(text):
+            continue
+        if href.startswith("/"):
+            from urllib.parse import urljoin
+
+            href = urljoin(careers_url, href)
+        if href in seen_urls or not href.startswith("http"):
+            continue
+        seen_urls.add(href)
+        jobs.append(
+            {"title": text, "location": "", "url": href, "description": "", "posted_date": ""}
+        )
+    return jobs
+
+
+def _maybe_headless_upgrade(company_name: str, careers_url: str, current_result: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    If current_result looks suspiciously thin (see
+    GENERIC_RESULT_SUSPICIOUSLY_LOW) and there's budget left, retries
+    with scrape_headless. Any NON-EMPTY headless result wins outright
+    — not just a bigger one — since reaching this point already means
+    current_result was flagged as untrustworthy (probably nav-link
+    junk from an unrendered JS shell, not real postings); a real but
+    genuinely small company job board (say, one real opening) can
+    easily have fewer entries than that junk, so raw count isn't the
+    right comparison once we're already this deep into "the fast path
+    didn't look trustworthy." Only falls back to current_result if
+    headless ALSO comes back empty — better than nothing.
+    """
+    if len(current_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW or headless_budget_remaining() <= 0:
+        return current_result
+    headless_result = scrape_headless(company_name, careers_url)
+    return headless_result if headless_result else current_result
+
+
+# --------------------------------------------------------------------------
 # Dispatcher
 # --------------------------------------------------------------------------
 def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
     """
     Dispatch to the right scraper based on the company's configured ATS.
     Any explicit platform scraper that returns nothing falls back to the
-    generic HTML scraper before giving up — see module docstring.
+    generic HTML scraper before giving up — see module docstring. If
+    THAT also comes back suspiciously thin, one more retry happens via
+    a real headless browser (scrape_headless / _maybe_headless_upgrade)
+    before finally giving up — see that section's docstring for why
+    and how this is time-budgeted.
     """
     name = company["name"]
     careers_url = company["careers_url"]
@@ -467,19 +596,29 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
     try:
         if ats == "greenhouse":
             result = scrape_greenhouse(name, token)
-            return result or scrape_generic(name, careers_url)
+            if result:
+                return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "lever":
             result = scrape_lever(name, token)
-            return result or scrape_generic(name, careers_url)
+            if result:
+                return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "smartrecruiters":
             result = scrape_smartrecruiters(name, token)
-            return result or scrape_generic(name, careers_url)
+            if result:
+                return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "personio":
             result = scrape_personio(name, token)
-            return result or scrape_generic(name, careers_url)
+            if result:
+                return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "workday":
             result = scrape_workday(name, careers_url)
-            return result or scrape_generic(name, careers_url)
+            if result:
+                return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "auto":
             # Try the API-based platforms cheaply before falling back to HTML.
             for fn in (
@@ -491,9 +630,9 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
                 if result:
                     return result
                 time.sleep(0.2)
-            return scrape_generic(name, careers_url)
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         # unknown value in companies.yaml -> fall back to generic
-        return scrape_generic(name, careers_url)
+        return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
     except Exception as exc:  # belt-and-braces: never let one company kill the run
         logger.error("Unhandled error scraping %s: %s", name, exc)
         return []

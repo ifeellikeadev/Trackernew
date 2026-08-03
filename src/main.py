@@ -50,7 +50,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.ats_scrapers import scrape_company, fetch_description_fallback
+from src.ats_scrapers import scrape_company, fetch_description_fallback, reset_headless_budget
 from src.matcher import filter_by_title_and_any_city, filter_by_title_and_country, score_jobs, title_matches, MAIN_LIST_CITIES
 from src.tracker import update_tracker, update_dream_tracker, update_wildcard_tracker
 from src.generate_html import generate as generate_html
@@ -253,6 +253,7 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
 
 def run() -> None:
     cv_profile = load_yaml(CV_PROFILE_FILE)
+    reset_headless_budget()  # one shared 15-min headless budget for the ENTIRE run, both passes
 
     # --- Pass 1: combined scrape, matched against ANY approved city ---
     all_companies = load_yaml(COMPANIES_FILE)["companies"] + load_yaml(DREAM_CITIES_FILE)["companies"]
@@ -290,8 +291,8 @@ def run() -> None:
         wildcard_counts["ok"], wildcard_counts["empty"], wildcard_counts["errored"], wildcard_counts["total"],
     )
     logger.info(
-        "Global Top Picks sheet: %d qualified (score>=9), showing top %d",
-        wildcard_summary["total_qualifying"], wildcard_summary["shown"],
+        "Global Top Picks sheet: %d qualified (score>=8), %d excluded as repeats from last run, showing top %d",
+        wildcard_summary["total_qualifying"], wildcard_summary["excluded_as_repeat"], wildcard_summary["shown"],
     )
 
     generate_html()

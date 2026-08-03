@@ -91,7 +91,8 @@ WILDCARD_COLUMNS = [
 ]
 WILDCARD_COLUMN_WIDTHS = [22, 14, 14, 40, 12, 30, 60]
 WILDCARD_MAX_ROWS = 4  # top N only — this sheet is rebuilt fresh, not accumulated
-WILDCARD_MIN_SCORE = 9
+WILDCARD_MIN_SCORE = 8
+WILDCARD_HISTORY_SHEET_NAME = "_wildcard_history"  # hidden bookkeeping sheet, not a visible tracker section
 WILDCARD_ROW_FILL = PatternFill(start_color="FEF3C7", end_color="FEF3C7", fill_type="solid")  # gold
 
 # Old header names that should map onto a current column, so a rename
@@ -134,6 +135,9 @@ def _new_workbook() -> Workbook:
     wildcard_ws = wb.create_sheet(WILDCARD_SHEET_NAME)
     wildcard_ws.append(WILDCARD_COLUMNS)
     _style_header(wildcard_ws, WILDCARD_COLUMNS, WILDCARD_COLUMN_WIDTHS)
+
+    history_ws = wb.create_sheet(WILDCARD_HISTORY_SHEET_NAME)
+    history_ws.sheet_state = "hidden"  # bookkeeping only, never meant to be opened/viewed
     return wb
 
 
@@ -196,6 +200,10 @@ def load_or_create(path: Path) -> Workbook:
     # No migration branch for the wildcard sheet: it's rebuilt fresh
     # every run anyway (see update_wildcard_tracker), so there's no
     # accumulated data to preserve across schema changes.
+
+    if WILDCARD_HISTORY_SHEET_NAME not in wb.sheetnames:
+        history_ws = wb.create_sheet(WILDCARD_HISTORY_SHEET_NAME)
+        history_ws.sheet_state = "hidden"
 
     return wb
 
@@ -351,22 +359,52 @@ def update_dream_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: 
     return summary
 
 
+def _read_wildcard_history(wb: Workbook) -> set[str]:
+    """Returns the set of URLs shown in the wildcard section last run."""
+    ws = wb[WILDCARD_HISTORY_SHEET_NAME]
+    return {row[0].value for row in ws.iter_rows(min_row=1) if row[0].value}
+
+
+def _write_wildcard_history(wb: Workbook, urls: list[str]) -> None:
+    """Overwrites the hidden history sheet with this run's shown URLs."""
+    wb.remove(wb[WILDCARD_HISTORY_SHEET_NAME])
+    history_ws = wb.create_sheet(WILDCARD_HISTORY_SHEET_NAME)
+    history_ws.sheet_state = "hidden"
+    for url in urls:
+        history_ws.append([url])
+
+
 def update_wildcard_tracker(path: Path, candidate_jobs: list[dict[str, Any]]) -> dict[str, int]:
     """
     Rebuilds the "Global Top Picks" sheet FROM SCRATCH every run —
     unlike the other two sheets, this one does NOT accumulate over
-    time. It's meant to always show "the best handful right now," not
-    a growing history, so each run: filters candidate_jobs down to
-    score >= WILDCARD_MIN_SCORE, sorts by score descending, keeps the
-    top WILDCARD_MAX_ROWS, and writes exactly that — nothing carried
-    over from the previous run, nothing deduped against past URLs.
+    time. Filters candidate_jobs down to score >= WILDCARD_MIN_SCORE,
+    EXCLUDES any posting shown in the immediately previous run (see
+    _read_wildcard_history — a hidden sheet, never rendered to the
+    person, just bookkeeping), sorts what's left by score descending,
+    and keeps the top WILDCARD_MAX_ROWS.
+
+    This exclusion is deliberate: without it, if the same postings
+    happen to still be the highest scorers tomorrow (very possible —
+    most postings stay open for weeks), the section would show
+    identical results run after run, which defeats the point of a
+    "top picks" section that's supposed to feel current. Forcing
+    yesterday's picks to step aside guarantees genuine turnover as
+    long as there's more than WILDCARD_MAX_ROWS worth of qualifying
+    candidates in the pool — if there genuinely aren't enough OTHER
+    qualifying candidates, the section shows fewer than
+    WILDCARD_MAX_ROWS rows rather than quietly re-showing yesterday's
+    picks just to fill space.
     """
     wb = load_or_create(path)
     ws = wb[WILDCARD_SHEET_NAME]
 
+    previously_shown = _read_wildcard_history(wb)
+
     qualifying = [j for j in candidate_jobs if j.get("relevance_score", 0) >= WILDCARD_MIN_SCORE]
     qualifying.sort(key=lambda j: j.get("relevance_score", 0), reverse=True)
-    top = qualifying[:WILDCARD_MAX_ROWS]
+    fresh = [j for j in qualifying if j.get("url", "") not in previously_shown]
+    top = fresh[:WILDCARD_MAX_ROWS]
 
     # Fully clear the sheet's data rows (not just blank the values —
     # delete_rows so a previous run's leftover rows don't linger if
@@ -382,9 +420,11 @@ def update_wildcard_tracker(path: Path, candidate_jobs: list[dict[str, Any]]) ->
             cell.value = value
             cell.fill = WILDCARD_ROW_FILL
 
+    _write_wildcard_history(wb, [job.get("url", "") for job in top])
+
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
-    return {"total_qualifying": len(qualifying), "shown": len(top)}
+    return {"total_qualifying": len(qualifying), "shown": len(top), "excluded_as_repeat": len(qualifying) - len(fresh)}
 
 
 def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:
