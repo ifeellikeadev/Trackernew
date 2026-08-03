@@ -1,12 +1,20 @@
-name: Job scrape (manual)
+name: Daily job scrape
 
 on:
-  # No automatic schedule — this runs only when you click "Run workflow"
-  # on the Actions tab (or trigger it from the API/CLI). If you ever
-  # want it back on a schedule, uncomment the block below.
-  # schedule:
-  #   - cron: "0 5 * * *"
-  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+  # Runs daily at 06:30 Munich time — pushed an hour earlier than the
+  # original 07:30 plan, to give the now-longer run (roughly 60-90
+  # minutes with 764 companies across both sheets) more buffer to
+  # finish before a typical morning check. GitHub Actions cron is
+  # always UTC and has no concept of daylight saving, so this is a
+  # genuine tradeoff, not an oversight: 04:30 UTC = 06:30 CEST (summer,
+  # what Munich is on right now) but only 05:30 CET in winter — the
+  # run will land an hour earlier, local time, once clocks go back. If
+  # you want it pinned to exactly 06:30 year-round, say so and I'll
+  # add a second cron line for the winter months instead of this
+  # single one.
+  schedule:
+    - cron: "30 4 * * *"
+  workflow_dispatch: {}   # still lets you trigger it manually from the Actions tab too
 
 permissions:
   contents: write   # needed so the workflow can commit the updated Excel file back
