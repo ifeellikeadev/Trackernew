@@ -90,8 +90,8 @@ WILDCARD_COLUMNS = [
     "URL",
 ]
 WILDCARD_COLUMN_WIDTHS = [22, 14, 14, 40, 12, 30, 60]
-WILDCARD_MAX_ROWS = 4  # top N only — this sheet is rebuilt fresh, not accumulated
-WILDCARD_MIN_SCORE = 8
+WILDCARD_MAX_ROWS = 10  # top N only — this sheet is rebuilt fresh, not accumulated
+WILDCARD_MIN_SCORE = 5
 WILDCARD_HISTORY_SHEET_NAME = "_wildcard_history"  # hidden bookkeeping sheet, not a visible tracker section
 WILDCARD_ROW_FILL = PatternFill(start_color="FEF3C7", end_color="FEF3C7", fill_type="solid")  # gold
 
