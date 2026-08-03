@@ -260,6 +260,47 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
 # --------------------------------------------------------------------------
 # Workday
 # --------------------------------------------------------------------------
+_WORKDAY_URL_RE = re.compile(
+    r"https?://([\w-]+)\.(\w+)\.myworkdayjobs\.com/(?:[\w-]+/)?([\w-]+)"
+)
+
+
+def _discover_workday_url(careers_url: str) -> str | None:
+    """
+    Most companies' `careers_url` in config is their own vanity domain
+    (e.g. careers.astrazeneca.com), not the actual myworkdayjobs.com
+    URL the workday API regex needs — so the direct match in
+    scrape_workday fails for the large majority of workday-tagged
+    companies even when they genuinely run on Workday.
+
+    This fetches the vanity URL and looks for the real Workday URL in
+    two places: (1) where the request actually ends up after redirects
+    (requests follows redirects by default, and many corporate career
+    pages permanently redirect straight to their Workday tenant), and
+    (2) anywhere in the page's raw HTML (a myworkdayjobs.com link is
+    very often embedded even without a server-side redirect — e.g. an
+    "Apply" button pointing at it, or a client-side JS redirect that
+    still leaves the target URL sitting in the page source as a string).
+
+    Returns the discovered myworkdayjobs.com URL, or None if nothing
+    was found (a real signal that the company likely isn't on Workday
+    at all, whatever the config guessed).
+    """
+    try:
+        resp = requests.get(careers_url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True)
+    except requests.RequestException:
+        return None
+
+    if _WORKDAY_URL_RE.search(resp.url):
+        return resp.url
+
+    match = _WORKDAY_URL_RE.search(resp.text)
+    if match:
+        return match.group(0)
+
+    return None
+
+
 def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
     """
     Workday career sites follow the pattern:
@@ -268,22 +309,28 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
       https://{tenant}.{dc}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs
 
     We try to derive the API URL from the given careers_url. If that
-    fails (many companies are NOT actually on Workday despite the label,
-    or customize the URL heavily), we return an empty list and let the
-    dispatcher fall back to the generic scraper.
+    doesn't match directly — the common case, since most companies'
+    careers_url in config is their own vanity domain rather than the
+    myworkdayjobs.com one — we fetch that page and try to discover the
+    real Workday URL from it (see _discover_workday_url) before giving
+    up. If discovery also finds nothing, we return an empty list and
+    let the dispatcher fall back to the generic scraper — a genuine
+    signal the company likely isn't actually on Workday, not just a
+    URL-format mismatch.
 
     Note on dates: Workday's API gives a relative string like "Posted
     3 Days Ago" (postedOn), not an absolute date. We store that string
     as-is in posted_date rather than guessing an exact date from it —
     it's still useful context, just not a precise calendar date.
     """
-    m = re.match(
-        r"https?://([\w-]+)\.(\w+)\.myworkdayjobs\.com/(?:\w+/)?([\w-]+)",
-        careers_url,
-    )
+    m = _WORKDAY_URL_RE.match(careers_url)
     if not m:
-        logger.info("Workday URL pattern not recognized for %s: %s", company_name, careers_url)
-        return []
+        discovered = _discover_workday_url(careers_url)
+        if discovered:
+            m = _WORKDAY_URL_RE.match(discovered)
+        if not m:
+            logger.info("Workday URL pattern not recognized for %s: %s", company_name, careers_url)
+            return []
     tenant, dc, site = m.groups()
     api_url = f"https://{tenant}.{dc}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs"
     payload = {"limit": 50, "offset": 0, "searchText": ""}
