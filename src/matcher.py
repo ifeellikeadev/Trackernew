@@ -221,7 +221,7 @@ def filter_by_title_and_location(
 
 # Munich/Zurich go to the main "Jobs" sheet; every other approved city
 # is a "dream city" and goes to the Dream Cities sheet.
-MAIN_LIST_CITIES = {"Munich", "Zurich"}
+MAIN_LIST_CITIES = {"Munich", "Zurich", "Singapore", "Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
 ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, + all 16 dream cities
 
 
@@ -275,18 +275,11 @@ def filter_by_title_and_any_city(
 
 
 # --------------------------------------------------------------------------
-# Wildcard (whole-country) matching — for the "Global Top Picks" section.
-#
-# Unlike everything above, which matches a job to ONE specific city/metro
-# area, this matches a job to an entire APPROVED COUNTRY — "somewhere in
-# Switzerland" rather than "specifically Zurich." Built by grouping the
-# city keywords already defined above by country, plus each country's own
-# name. Only used for the wildcard pass (main.py), which then keeps just
-# the handful of highest-scoring postings across all approved countries.
+# CITY_TO_COUNTRY — used to tag the "Country" column on the Dream
+# Cities sheet. Munich/Zurich/Singapore/Basel/Bern/Geneva/Lausanne/
+# Lucerne don't need it (they're main-list cities, no Country column
+# there), but the mapping doesn't hurt to include them.
 # --------------------------------------------------------------------------
-
-# Which country each city (from CITY_KEYWORDS above, or Munich/Zurich in
-# the main companies.yaml) actually belongs to.
 CITY_TO_COUNTRY = {
     "Munich": "Germany",
     "Zurich": "Switzerland",
@@ -307,76 +300,7 @@ CITY_TO_COUNTRY = {
     "Sydney": "Australia",
     "Singapore": "Singapore",
     "Berlin": "Germany",
-    # New wildcard-only cities (config/wildcard_countries.yaml)
-    "Stockholm": "Sweden",
-    "Dubai": "UAE",
-    "Seoul": "South Korea",
 }
-
-# Each approved country's own name, in the variants it's likely to appear
-# as in job location text.
-COUNTRY_NAME_KEYWORDS = {
-    "Norway": ["norway", "norge"],
-    "Sweden": ["sweden", "sverige"],
-    "Denmark": ["denmark", "danmark"],
-    "Netherlands": ["netherlands", "nederland", "holland"],
-    "Finland": ["finland", "suomi"],
-    "Switzerland": ["switzerland", "schweiz", "suisse", "svizzera"],
-    "Austria": ["austria", "österreich", "osterreich"],
-    "Canada": ["canada"],
-    "UAE": ["uae", "u.a.e", "united arab emirates", "dubai", "abu dhabi"],
-    "South Korea": ["south korea", "korea, republic", "republic of korea", "seoul", "s. korea"],
-}
-
-# All city keywords belonging to a given country, gathered from
-# CITY_KEYWORDS above via CITY_TO_COUNTRY — e.g. Switzerland gets every
-# Basel/Bern/Geneva/Lausanne/Lucerne/Zurich keyword, not just "zurich".
-_COUNTRY_CITY_KEYWORDS: dict[str, list[str]] = {}
-for _city, _country in CITY_TO_COUNTRY.items():
-    _COUNTRY_CITY_KEYWORDS.setdefault(_country, [])
-    _COUNTRY_CITY_KEYWORDS[_country].extend(CITY_KEYWORDS.get(_city, [_city.lower()]))
-
-
-def wildcard_country_status(location: str, country: str) -> str:
-    """
-    Returns "confirmed" if the location text names the country itself
-    OR any city known to be in that country (reusing CITY_KEYWORDS),
-    "unconfirmed" if there's nothing to go on, "mismatch" is not
-    distinguished here (not needed for the wildcard use case — a
-    posting either is in an approved country or it isn't tracked at
-    all, since the wildcard pool is pre-filtered to approved-country
-    companies in the first place).
-    """
-    if not location:
-        return "unconfirmed"
-    loc = location.lower()
-    keywords = COUNTRY_NAME_KEYWORDS.get(country, [country.lower()]) + _COUNTRY_CITY_KEYWORDS.get(country, [])
-    if any(kw in loc for kw in keywords):
-        return "confirmed"
-    return "unconfirmed"
-
-
-def filter_by_title_and_country(
-    jobs: list[dict[str, Any]], cv_profile: dict[str, Any], country: str = ""
-) -> list[dict[str, Any]]:
-    """
-    Like filter_by_title_and_location, but confirms against an entire
-    country rather than one city — for the wildcard "Global Top Picks"
-    pass. A job is kept if the title matches AND the location text
-    confirms it's genuinely in the approved country (not just
-    unconfirmed/blank — same "only real matches" standard as
-    everywhere else in this tool).
-    """
-    must_match = cv_profile.get("title_must_match", [])
-    kept = []
-    for job in jobs:
-        title = job.get("title", "")
-        if not title or not title_matches(title, must_match):
-            continue
-        if wildcard_country_status(job.get("location", ""), country) != "confirmed":
-            continue
-        kept.append(job)
-    return kept
 
 
 def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:

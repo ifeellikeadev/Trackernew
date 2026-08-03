@@ -1,14 +1,17 @@
 """
 Manages the persistent Excel tracker file, which holds TWO sheets:
 
-  - "Jobs": the main Munich/Zurich tracker (PM-relevant, in-area
-    postings scoring at or above main_min_score).
+  - "Jobs": the main tracker for full-status locations — Munich,
+    Zurich, Singapore, and Basel/Bern/Geneva/Lausanne/Lucerne
+    (promoted from Dream Cities to full main-list status — see chat
+    history). PM-relevant, in-area postings scoring at or above
+    main_min_score.
   - "Dream Cities": a separate, smaller list — only postings scoring
     at or above dream_city_min_score (see cv_profile.yaml) from the
-    wider visa-feasible city list (Copenhagen, Oslo, Helsinki, Vienna,
-    several Swiss cities beyond Zurich, Vancouver, Perth/Melbourne/
-    Sydney, Singapore). Kept deliberately separate rather than mixed
-    into the main sheet, per how this was asked for.
+    remaining aspirational city list (Copenhagen, Oslo, Helsinki,
+    Vienna, Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne,
+    Sydney). Kept deliberately separate rather than mixed into the
+    main sheet, per how this was asked for.
 
 Both sheets share the same behaviour:
   - Each run, only genuinely NEW postings (by URL) are added.
@@ -33,12 +36,14 @@ understands old files):
   v4: dropped First Seen and Last Seen; sheet sorted by relevance
       instead of being append-only
   v5: added the separate "Dream Cities" sheet
-  v6 (current): dropped "Location Confirmed" — only confirmed-location
-      jobs are kept at all now (matcher.py), so the column was always
-      "Yes" and stopped being useful information. Migration DROPS any
-      row that was "Unconfirmed" under the old scheme entirely, rather
-      than keeping it without the column — that matches "I only want
-      jobs in specific places."
+  v6: dropped "Location Confirmed" — only confirmed-location jobs are
+      kept at all now (matcher.py), so the column was always "Yes"
+      and stopped being useful information.
+  v7 (current): a "Global Top Picks" wildcard sheet existed briefly
+      between v6 and now — removed entirely per request. If you're
+      looking at an old file that still has that sheet (plus a hidden
+      "_wildcard_history" bookkeeping sheet), load_or_create just
+      leaves them alone; they're inert leftovers, not migrated.
 Migration reads whatever columns an existing sheet has by NAME, not
 position, and rebuilds it against the current COLUMNS/DREAM_COLUMNS
 list — so it doesn't matter which older version your file is on.
@@ -79,22 +84,6 @@ DREAM_COLUMNS = [
 ]
 DREAM_COLUMN_WIDTHS = [14, 22, 11, 12, 40, 12, 30, 60]
 
-WILDCARD_SHEET_NAME = "Global Top Picks"
-WILDCARD_COLUMNS = [
-    "Company",
-    "City",
-    "Country",
-    "Job Title",
-    "Relevance Score (1-10)",
-    "Location",
-    "URL",
-]
-WILDCARD_COLUMN_WIDTHS = [22, 14, 14, 40, 12, 30, 60]
-WILDCARD_MAX_ROWS = 10  # top N only — this sheet is rebuilt fresh, not accumulated
-WILDCARD_MIN_SCORE = 5
-WILDCARD_HISTORY_SHEET_NAME = "_wildcard_history"  # hidden bookkeeping sheet, not a visible tracker section
-WILDCARD_ROW_FILL = PatternFill(start_color="FEF3C7", end_color="FEF3C7", fill_type="solid")  # gold
-
 # Old header names that should map onto a current column, so a rename
 # (like "Relevance Score" -> "Relevance Score (1-10)") doesn't strand
 # existing data. Names not listed here and not in the current column
@@ -121,7 +110,7 @@ def _style_header(ws: Worksheet, columns: list[str], widths: list[int]) -> None:
 
 
 def _new_workbook() -> Workbook:
-    """Creates a fresh workbook with ALL THREE sheets, correctly headered."""
+    """Creates a fresh workbook with BOTH sheets, correctly headered."""
     wb = Workbook()
     ws = wb.active
     ws.title = "Jobs"
@@ -131,13 +120,6 @@ def _new_workbook() -> Workbook:
     dream_ws = wb.create_sheet(DREAM_SHEET_NAME)
     dream_ws.append(DREAM_COLUMNS)
     _style_header(dream_ws, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS)
-
-    wildcard_ws = wb.create_sheet(WILDCARD_SHEET_NAME)
-    wildcard_ws.append(WILDCARD_COLUMNS)
-    _style_header(wildcard_ws, WILDCARD_COLUMNS, WILDCARD_COLUMN_WIDTHS)
-
-    history_ws = wb.create_sheet(WILDCARD_HISTORY_SHEET_NAME)
-    history_ws.sheet_state = "hidden"  # bookkeeping only, never meant to be opened/viewed
     return wb
 
 
@@ -193,17 +175,11 @@ def load_or_create(path: Path) -> Workbook:
     else:
         _migrate_sheet(wb, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS, len(wb.sheetnames) - 1)
 
-    if WILDCARD_SHEET_NAME not in wb.sheetnames:
-        wildcard_ws = wb.create_sheet(WILDCARD_SHEET_NAME)
-        wildcard_ws.append(WILDCARD_COLUMNS)
-        _style_header(wildcard_ws, WILDCARD_COLUMNS, WILDCARD_COLUMN_WIDTHS)
-    # No migration branch for the wildcard sheet: it's rebuilt fresh
-    # every run anyway (see update_wildcard_tracker), so there's no
-    # accumulated data to preserve across schema changes.
-
-    if WILDCARD_HISTORY_SHEET_NAME not in wb.sheetnames:
-        history_ws = wb.create_sheet(WILDCARD_HISTORY_SHEET_NAME)
-        history_ws.sheet_state = "hidden"
+    # Deliberately NOT touching "Global Top Picks" or "_wildcard_history"
+    # if an old file still has them — that feature was removed; this
+    # just leaves those sheets as inert leftovers rather than deleting
+    # or migrating them. Delete the tabs by hand in Excel if you want
+    # them gone from an existing file.
 
     return wb
 
@@ -324,20 +300,9 @@ def _build_dream_row(job: dict[str, Any], url: str) -> list:
     ]
 
 
-def _build_wildcard_row(job: dict[str, Any], url: str) -> list:
-    return [
-        job.get("company", ""),
-        job.get("city", ""),
-        job.get("country", ""),
-        job.get("title", ""),
-        job.get("relevance_score", 1),
-        job.get("location", ""),
-        url,
-    ]
-
-
 def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
-    """Updates the main "Jobs" sheet (Munich/Zurich). Saves the file."""
+    """Updates the main "Jobs" sheet (Munich, Zurich, Singapore, and
+    the promoted Swiss cities). Saves the file."""
     wb = load_or_create(path)
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -357,74 +322,6 @@ def update_dream_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: 
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
     return summary
-
-
-def _read_wildcard_history(wb: Workbook) -> set[str]:
-    """Returns the set of URLs shown in the wildcard section last run."""
-    ws = wb[WILDCARD_HISTORY_SHEET_NAME]
-    return {row[0].value for row in ws.iter_rows(min_row=1) if row[0].value}
-
-
-def _write_wildcard_history(wb: Workbook, urls: list[str]) -> None:
-    """Overwrites the hidden history sheet with this run's shown URLs."""
-    wb.remove(wb[WILDCARD_HISTORY_SHEET_NAME])
-    history_ws = wb.create_sheet(WILDCARD_HISTORY_SHEET_NAME)
-    history_ws.sheet_state = "hidden"
-    for url in urls:
-        history_ws.append([url])
-
-
-def update_wildcard_tracker(path: Path, candidate_jobs: list[dict[str, Any]]) -> dict[str, int]:
-    """
-    Rebuilds the "Global Top Picks" sheet FROM SCRATCH every run —
-    unlike the other two sheets, this one does NOT accumulate over
-    time. Filters candidate_jobs down to score >= WILDCARD_MIN_SCORE,
-    EXCLUDES any posting shown in the immediately previous run (see
-    _read_wildcard_history — a hidden sheet, never rendered to the
-    person, just bookkeeping), sorts what's left by score descending,
-    and keeps the top WILDCARD_MAX_ROWS.
-
-    This exclusion is deliberate: without it, if the same postings
-    happen to still be the highest scorers tomorrow (very possible —
-    most postings stay open for weeks), the section would show
-    identical results run after run, which defeats the point of a
-    "top picks" section that's supposed to feel current. Forcing
-    yesterday's picks to step aside guarantees genuine turnover as
-    long as there's more than WILDCARD_MAX_ROWS worth of qualifying
-    candidates in the pool — if there genuinely aren't enough OTHER
-    qualifying candidates, the section shows fewer than
-    WILDCARD_MAX_ROWS rows rather than quietly re-showing yesterday's
-    picks just to fill space.
-    """
-    wb = load_or_create(path)
-    ws = wb[WILDCARD_SHEET_NAME]
-
-    previously_shown = _read_wildcard_history(wb)
-
-    qualifying = [j for j in candidate_jobs if j.get("relevance_score", 0) >= WILDCARD_MIN_SCORE]
-    qualifying.sort(key=lambda j: j.get("relevance_score", 0), reverse=True)
-    fresh = [j for j in qualifying if j.get("url", "") not in previously_shown]
-    top = fresh[:WILDCARD_MAX_ROWS]
-
-    # Fully clear the sheet's data rows (not just blank the values —
-    # delete_rows so a previous run's leftover rows don't linger if
-    # this run has fewer top picks than last time).
-    if ws.max_row > 1:
-        ws.delete_rows(2, ws.max_row - 1)
-
-    for i, job in enumerate(top):
-        row_idx = i + 2
-        values = _build_wildcard_row(job, job.get("url", ""))
-        for col_idx, value in enumerate(values, start=1):
-            cell = ws.cell(row=row_idx, column=col_idx)
-            cell.value = value
-            cell.fill = WILDCARD_ROW_FILL
-
-    _write_wildcard_history(wb, [job.get("url", "") for job in top])
-
-    path.parent.mkdir(parents=True, exist_ok=True)
-    wb.save(path)
-    return {"total_qualifying": len(qualifying), "shown": len(top), "excluded_as_repeat": len(qualifying) - len(fresh)}
 
 
 def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:

@@ -470,9 +470,9 @@ def scrape_generic(company_name: str, careers_url: str) -> list[dict[str, Any]]:
 # scrape_generic) comes back suspiciously thin for a given company —
 # a real, low-effort proxy for "this is probably a JS shell, not a
 # real empty job board." That means it opportunistically helps
-# WHICHEVER companies actually need it, in Munich, a dream city, or
-# the wildcard pool alike, rather than only the ones already known
-# about.
+# WHICHEVER companies actually need it, in Munich, Singapore, a Swiss
+# city, or a Dream City alike, rather than only the ones already
+# known about.
 #
 # GUARDRAIL: rendering a real browser page is 5-10x slower than a
 # plain HTTP request. To keep total run time predictable regardless of

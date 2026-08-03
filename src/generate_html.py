@@ -3,17 +3,19 @@ Turns data/job_tracker.xlsx into a plain, static HTML page at
 docs/index.html, so it can be published via GitHub Pages — one link,
 opens in any browser, no Excel and no download needed.
 
-Renders all THREE sheets as clearly separated sections, in order:
-  1. "Munich & Zurich" (green highlight for new rows)
+Renders both sheets as clearly separated sections, in order:
+  1. "Jobs" (Munich, Zurich, Singapore, Basel, Bern, Geneva, Lausanne,
+     Lucerne — green highlight for new rows)
   2. "Dream Cities" (blue highlight for new rows)
-  3. "Global Top Picks" (wildcard — gold highlight on every row, since
-     this section is always fully rebuilt each run rather than
-     accumulated — there's no "new vs old" distinction to make)
 
 Called automatically at the end of both src/main.py (daily scrape) and
 src/reset_tracker.py (monthly reset), so the page is always in sync
 with whatever's actually in the Excel file. Not meant to be run on its
 own, though `python -m src.generate_html` works fine for testing.
+
+(There used to be a third "Global Top Picks" wildcard section here —
+removed per request, since Singapore and the Swiss cities it partly
+existed to surface are now proper main-list cities instead.)
 
 PRIVACY NOTE: GitHub Pages sites are public to anyone with the link,
 even when the repository itself is private (unless you're on GitHub
@@ -33,7 +35,6 @@ from openpyxl.worksheet.worksheet import Worksheet
 from src.tracker import (
     COLUMNS, NEW_ROW_FILL,
     DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_NEW_ROW_FILL,
-    WILDCARD_SHEET_NAME, WILDCARD_COLUMNS, WILDCARD_ROW_FILL,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -64,12 +65,8 @@ def _escape(value) -> str:
 
 def _render_table(
     ws: Worksheet | None, columns: list[str], new_row_fill, empty_message: str, row_class: str,
-    always_highlight: bool = False,
 ) -> tuple[str, int]:
-    """Returns (rows_html, total_row_count) for one sheet. If
-    always_highlight is True, every row gets `row_class` regardless of
-    fill (used for the wildcard sheet, where every row is "current",
-    not just newly-added ones)."""
+    """Returns (rows_html, total_row_count) for one sheet."""
     if ws is None or ws.max_row < 2:
         return f"<tr><td colspan='{len(columns)}'>{_escape(empty_message)}</td></tr>", 0
 
@@ -80,8 +77,8 @@ def _render_table(
     for row in range(2, ws.max_row + 1):
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         if all(v is None for v in values):
-            continue  # skip fully-empty rows (e.g. wildcard sheet with fewer than max rows)
-        is_highlighted = always_highlight or _rgb_matches(ws.cell(row=row, column=1), new_row_fill)
+            continue  # skip fully-empty rows
+        is_highlighted = _rgb_matches(ws.cell(row=row, column=1), new_row_fill)
         url = values[url_col - 1] or "#"
 
         cells = []
@@ -131,12 +128,10 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 
     jobs_ws = None
     dream_ws = None
-    wildcard_ws = None
     if tracker_path.exists():
         wb = load_workbook(tracker_path)
         jobs_ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
         dream_ws = wb[DREAM_SHEET_NAME] if DREAM_SHEET_NAME in wb.sheetnames else None
-        wildcard_ws = wb[WILDCARD_SHEET_NAME] if WILDCARD_SHEET_NAME in wb.sheetnames else None
 
     jobs_rows_html, jobs_total = _render_table(
         jobs_ws, COLUMNS, NEW_ROW_FILL, "No data yet — the scraper hasn't run.", "new-row"
@@ -144,25 +139,15 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
     dream_rows_html, dream_total = _render_table(
         dream_ws, DREAM_COLUMNS, DREAM_NEW_ROW_FILL, "No matches yet in the dream-city list.", "dream-new-row"
     )
-    wildcard_rows_html, wildcard_total = _render_table(
-        wildcard_ws, WILDCARD_COLUMNS, WILDCARD_ROW_FILL,
-        "No score-9+ matches right now in the approved wildcard countries.",
-        "wildcard-row", always_highlight=True,
-    )
 
-    jobs_title = "Munich & Zurich" + (f" (score {main_min_score}+ only)" if main_min_score else "")
+    jobs_title = "Munich, Zurich, Singapore & Swiss Cities" + (f" (score {main_min_score}+ only)" if main_min_score else "")
     dream_title = "Dream Cities" + (f" (score {dream_min_score}+ only)" if dream_min_score else "")
-    wildcard_title = "Global Top Picks (score 9-10 only, top few, refreshed every run)"
 
     jobs_section = _section_html(
         jobs_title, COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
     )
     dream_section = _section_html(
         dream_title, DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
-    )
-    wildcard_section = _section_html(
-        wildcard_title, WILDCARD_COLUMNS, wildcard_rows_html, wildcard_total, "#FEF3C7",
-        "whole-country matches — Norway, Sweden, Denmark, Netherlands, Finland, Switzerland, Austria, Canada, UAE, South Korea",
     )
 
     updated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -185,11 +170,9 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
   th {{ background: #1F2937; color: white; position: sticky; top: 0; white-space: nowrap; }}
   tr.new-row {{ background: #D1FAE5; }}
   tr.dream-new-row {{ background: #DBEAFE; }}
-  tr.wildcard-row {{ background: #FEF3C7; }}
   tr:hover {{ background: #f3f4f6; }}
   tr.new-row:hover {{ background: #bbf7d0; }}
   tr.dream-new-row:hover {{ background: #bfdbfe; }}
-  tr.wildcard-row:hover {{ background: #fde68a; }}
   a {{ color: #2563eb; text-decoration: none; }}
   a:hover {{ text-decoration: underline; }}
   .scroll-wrap {{ overflow-x: auto; margin-bottom: 8px; }}
@@ -206,8 +189,6 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 {jobs_section}
 <hr>
 {dream_section}
-<hr>
-{wildcard_section}
 </body>
 </html>
 """
