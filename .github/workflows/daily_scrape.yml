@@ -46,4 +46,13 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add data/job_tracker.xlsx docs/index.html
           git diff --staged --quiet && echo "No changes to commit" || git commit -m "Daily job scrape update"
+          # Pull any changes made to the repo while this run was in
+          # progress (uploading a file, another run, etc.) before
+          # pushing — without this, a push can get flat-out rejected
+          # ("fetch first") if anything else touched the repo during
+          # the run, which now takes 60-90 minutes and so has a real
+          # window for that to happen. --rebase replays this run's
+          # commit on top of whatever's now on the remote, so both
+          # sets of changes survive instead of one blocking the other.
+          git pull --rebase --autostash origin main
           git push
