@@ -92,14 +92,32 @@ CITY_KEYWORDS = {
     "Basel": [
         "basel", "bâle", "bale",
         "allschwil", "muttenz", "reinach", "binningen", "pratteln",
+        "birsfelden", "riehen", "bettingen", "arlesheim", "aesch",
+        "liestal", "münchenstein", "muenchenstein", "oberwil",
+        "therwil", "sissach",
     ],
-    "Bern": ["bern", "berne", "köniz", "koniz", "ostermundigen", "zollikofen"],
+    "Bern": [
+        "bern", "berne",
+        "köniz", "koniz", "ostermundigen", "zollikofen",
+        "muri bei bern", "ittigen", "bolligen", "worb", "belp",
+        "wabern", "kirchlindach",
+    ],
     "Geneva": [
         "geneva", "genève", "geneve",
         "meyrin", "carouge", "vernier", "lancy", "nyon",
+        "onex", "thônex", "thonex", "plan-les-ouates", "grand-saconnex",
+        "bernex", "versoix", "chêne-bourg", "chene-bourg",
     ],
-    "Lausanne": ["lausanne", "vevey", "apples", "pully", "renens", "morges"],
-    "Lucerne": ["lucerne", "luzern", "kriens", "emmen", "horw"],
+    "Lausanne": [
+        "lausanne", "vevey", "apples", "pully", "renens", "morges",
+        "prilly", "epalinges", "le mont-sur-lausanne", "mont-sur-lausanne",
+        "chavannes-près-renens", "chavannes-pres-renens", "crissier", "ecublens",
+    ],
+    "Lucerne": [
+        "lucerne", "luzern",
+        "kriens", "emmen", "horw",
+        "ebikon", "adligenswil", "root", "malters", "meggen",
+    ],
     "Amsterdam": [
         "amsterdam", "amstelveen", "diemen", "zaandam", "schiphol", "haarlem",
         "hoofddorp", "zaanstad",
