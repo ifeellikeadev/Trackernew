@@ -94,13 +94,13 @@ CITY_KEYWORDS = {
         "allschwil", "muttenz", "reinach", "binningen", "pratteln",
         "birsfelden", "riehen", "bettingen", "arlesheim", "aesch",
         "liestal", "münchenstein", "muenchenstein", "oberwil",
-        "therwil", "sissach",
+        "therwil", "sissach", "bubendorf",
     ],
     "Bern": [
         "bern", "berne",
         "köniz", "koniz", "ostermundigen", "zollikofen",
         "muri bei bern", "ittigen", "bolligen", "worb", "belp",
-        "wabern", "kirchlindach",
+        "wabern", "kirchlindach", "thun",
     ],
     "Geneva": [
         "geneva", "genève", "geneve",

@@ -59,6 +59,7 @@ logger = logging.getLogger("job_scraper.main")
 ROOT = Path(__file__).resolve().parent.parent
 COMPANIES_FILE = ROOT / "config" / "companies.yaml"
 DREAM_CITIES_FILE = ROOT / "config" / "dream_cities.yaml"
+JOB_BOARDS_FILE = ROOT / "config" / "job_boards.yaml"
 CV_PROFILE_FILE = ROOT / "config" / "cv_profile.yaml"
 TRACKER_FILE = ROOT / "data" / "job_tracker.xlsx"
 
@@ -157,7 +158,11 @@ def run() -> None:
     cv_profile = load_yaml(CV_PROFILE_FILE)
     reset_headless_budget()  # one shared 15-min headless budget for the whole run
 
-    all_companies = load_yaml(COMPANIES_FILE)["companies"] + load_yaml(DREAM_CITIES_FILE)["companies"]
+    all_companies = (
+        load_yaml(COMPANIES_FILE)["companies"]
+        + load_yaml(DREAM_CITIES_FILE)["companies"]
+        + (load_yaml(JOB_BOARDS_FILE)["companies"] if JOB_BOARDS_FILE.exists() else [])
+    )
     main_jobs, swiss_sg_jobs, dream_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
 
     main_summary = update_tracker(TRACKER_FILE, main_jobs)

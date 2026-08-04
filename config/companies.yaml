@@ -1334,8 +1334,8 @@ companies:
     board_token: ""
   - name: Jet Aviation
     city: Zurich
-    careers_url: https://www.jetaviation.com/careers
-    ats: workday
+    careers_url: https://jobs.jetaviation.com/
+    ats: auto
     board_token: ""
   - name: Kardex
     city: Zurich
@@ -2830,5 +2830,10 @@ companies:
   - name: Zentralschweizerische Kraftwerke CKW
     city: Lucerne
     careers_url: https://www.ckw.ch/ueber-uns/jobs
+    ats: auto
+    board_token: ""
+  - name: SWISSto12
+    city: Lausanne
+    careers_url: https://swissto12.com/careers/
     ats: auto
     board_token: ""

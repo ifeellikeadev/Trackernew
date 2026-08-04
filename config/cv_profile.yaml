@@ -80,6 +80,7 @@ scoring_keywords:
   - {term: "stakeholder", weight: 1}
   - {term: "supply chain", weight: 2}
   - {term: "procurement", weight: 2}
+  - {term: "crisis management", weight: 2}
   - {term: "agile", weight: 1}
   - {term: "waterfall", weight: 1}
   - {term: "IT project", weight: 2}
