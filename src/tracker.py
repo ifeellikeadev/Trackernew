@@ -1,19 +1,20 @@
 """
-Manages the persistent Excel tracker file, which holds TWO sheets:
+Manages the persistent Excel tracker file, which holds THREE sheets,
+in this order (top to bottom, matching the requested reading order):
 
-  - "Jobs": the main tracker for full-status locations — Munich,
-    Zurich, Singapore, and Basel/Bern/Geneva/Lausanne/Lucerne
-    (promoted from Dream Cities to full main-list status — see chat
-    history). PM-relevant, in-area postings scoring at or above
-    main_min_score.
-  - "Dream Cities": a separate, smaller list — only postings scoring
-    at or above dream_city_min_score (see cv_profile.yaml) from the
-    remaining aspirational city list (Copenhagen, Oslo, Helsinki,
-    Vienna, Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne,
-    Sydney). Kept deliberately separate rather than mixed into the
-    main sheet, per how this was asked for.
+  1. "Jobs" — Munich and Zurich only. The original core list.
+  2. "Singapore & Swiss Cities" — Singapore, Basel, Bern, Geneva,
+     Lausanne, Lucerne. Promoted from Dream Cities to full main-list
+     status, but kept as its own visually separate section rather
+     than merged into "Jobs" — otherwise Munich/Zurich's much higher
+     posting volume buries these cities' (genuinely fewer) matches at
+     the bottom of one score-sorted list, making it look like nothing
+     is there even when something is.
+  3. "Dream Cities" — the remaining aspirational city list
+     (Copenhagen, Oslo, Helsinki, Vienna, Berlin, Amsterdam,
+     Rotterdam, Vancouver, Perth, Melbourne, Sydney).
 
-Both sheets share the same behaviour:
+All three sheets share the same behaviour:
   - Each run, only genuinely NEW postings (by URL) are added.
   - Postings already in a sheet are left alone (deduped by URL,
     per-sheet — a URL only needs to be unique within its own sheet).
@@ -23,9 +24,9 @@ Both sheets share the same behaviour:
     actually cleans up the sheet, not just gates future additions.
   - Each sheet is re-sorted by Relevance Score (highest first) every
     run, so the best matches are always at the top.
-  - archive_and_reset() (called from reset_tracker.py) archives BOTH
-    sheets together as one file and starts fresh — same monthly
-    cadence, same manual-trigger option, for both.
+  - archive_and_reset() (called from reset_tracker.py) archives ALL
+    THREE sheets together as one file and starts fresh — same monthly
+    cadence, same manual-trigger option, for all of them.
 
 Column history for the "Jobs" sheet (kept here so future-you
 understands old files):
@@ -39,14 +40,18 @@ understands old files):
   v6: dropped "Location Confirmed" — only confirmed-location jobs are
       kept at all now (matcher.py), so the column was always "Yes"
       and stopped being useful information.
-  v7 (current): a "Global Top Picks" wildcard sheet existed briefly
-      between v6 and now — removed entirely per request. If you're
-      looking at an old file that still has that sheet (plus a hidden
-      "_wildcard_history" bookkeeping sheet), load_or_create just
-      leaves them alone; they're inert leftovers, not migrated.
+  v7: a "Global Top Picks" wildcard sheet existed briefly between v6
+      and now — removed entirely per request.
+  v8 (current): Singapore + the promoted Swiss cities briefly lived
+      inside "Jobs" alongside Munich/Zurich — split back out into
+      their own "Singapore & Swiss Cities" sheet, per request, so
+      they're not buried by Munich/Zurich's higher volume.
 Migration reads whatever columns an existing sheet has by NAME, not
-position, and rebuilds it against the current COLUMNS/DREAM_COLUMNS
-list — so it doesn't matter which older version your file is on.
+position, and rebuilds it against the current column list — so it
+doesn't matter which older version your file is on. If your file
+still has an old "Global Top Picks" or "_wildcard_history" sheet from
+before v7, load_or_create just leaves it alone (inert leftover, not
+migrated) — delete it by hand in Excel if you want it gone.
 """
 
 from __future__ import annotations
@@ -70,6 +75,12 @@ COLUMNS = [
     "URL",
 ]
 COLUMN_WIDTHS = [14, 22, 9, 40, 12, 30, 60]
+
+# Singapore & Swiss Cities shares the exact same schema as Jobs (no
+# Country column needed — same reasoning as Jobs: obvious from City).
+SWISS_SG_SHEET_NAME = "Singapore & Swiss Cities"
+SWISS_SG_COLUMNS = COLUMNS
+SWISS_SG_COLUMN_WIDTHS = COLUMN_WIDTHS
 
 DREAM_SHEET_NAME = "Dream Cities"
 DREAM_COLUMNS = [
@@ -96,6 +107,7 @@ HEADER_ALIASES = {
 HEADER_FILL = PatternFill(start_color="1F2937", end_color="1F2937", fill_type="solid")
 HEADER_FONT = Font(color="FFFFFF", bold=True)
 NEW_ROW_FILL = PatternFill(start_color="D1FAE5", end_color="D1FAE5", fill_type="solid")  # green
+SWISS_SG_NEW_ROW_FILL = PatternFill(start_color="FDE68A", end_color="FDE68A", fill_type="solid")  # amber
 DREAM_NEW_ROW_FILL = PatternFill(start_color="DBEAFE", end_color="DBEAFE", fill_type="solid")  # blue
 
 
@@ -110,12 +122,18 @@ def _style_header(ws: Worksheet, columns: list[str], widths: list[int]) -> None:
 
 
 def _new_workbook() -> Workbook:
-    """Creates a fresh workbook with BOTH sheets, correctly headered."""
+    """Creates a fresh workbook with ALL THREE sheets, correctly
+    headered, in the requested order: Jobs -> Singapore & Swiss
+    Cities -> Dream Cities."""
     wb = Workbook()
     ws = wb.active
     ws.title = "Jobs"
     ws.append(COLUMNS)
     _style_header(ws, COLUMNS, COLUMN_WIDTHS)
+
+    swiss_sg_ws = wb.create_sheet(SWISS_SG_SHEET_NAME)
+    swiss_sg_ws.append(SWISS_SG_COLUMNS)
+    _style_header(swiss_sg_ws, SWISS_SG_COLUMNS, SWISS_SG_COLUMN_WIDTHS)
 
     dream_ws = wb.create_sheet(DREAM_SHEET_NAME)
     dream_ws.append(DREAM_COLUMNS)
@@ -125,9 +143,9 @@ def _new_workbook() -> Workbook:
 
 def _migrate_sheet(wb: Workbook, sheet_name: str, columns: list[str], widths: list[int], sheet_index: int) -> None:
     """
-    Generic migration for either sheet: read every row into a dict
-    keyed by (aliased) old header name, drop any row that was
-    "Unconfirmed" under the old Location Confirmed scheme, then
+    Generic migration for any of the three sheets: read every row
+    into a dict keyed by (aliased) old header name, drop any row that
+    was "Unconfirmed" under the old Location Confirmed scheme, then
     rebuild the sheet from scratch against the current column list.
     """
     ws = wb[sheet_name]
@@ -161,19 +179,25 @@ def _migrate_sheet(wb: Workbook, sheet_name: str, columns: list[str], widths: li
     _style_header(new_ws, columns, widths)
 
 
+def _ensure_sheet(wb: Workbook, sheet_name: str, columns: list[str], widths: list[int], sheet_index: int) -> None:
+    """Creates the sheet fresh if missing, or migrates it in place if
+    it already exists under an older schema."""
+    if sheet_name not in wb.sheetnames:
+        ws = wb.create_sheet(sheet_name, sheet_index)
+        ws.append(columns)
+        _style_header(ws, columns, widths)
+    else:
+        _migrate_sheet(wb, sheet_name, columns, widths, sheet_index)
+
+
 def load_or_create(path: Path) -> Workbook:
     if not path.exists():
         return _new_workbook()
 
     wb = load_workbook(path)
     _migrate_sheet(wb, "Jobs", COLUMNS, COLUMN_WIDTHS, 0)
-
-    if DREAM_SHEET_NAME not in wb.sheetnames:
-        dream_ws = wb.create_sheet(DREAM_SHEET_NAME)
-        dream_ws.append(DREAM_COLUMNS)
-        _style_header(dream_ws, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS)
-    else:
-        _migrate_sheet(wb, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS, len(wb.sheetnames) - 1)
+    _ensure_sheet(wb, SWISS_SG_SHEET_NAME, SWISS_SG_COLUMNS, SWISS_SG_COLUMN_WIDTHS, 1)
+    _ensure_sheet(wb, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_COLUMN_WIDTHS, 2)
 
     # Deliberately NOT touching "Global Top Picks" or "_wildcard_history"
     # if an old file still has them — that feature was removed; this
@@ -301,8 +325,7 @@ def _build_dream_row(job: dict[str, Any], url: str) -> list:
 
 
 def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
-    """Updates the main "Jobs" sheet (Munich, Zurich, Singapore, and
-    the promoted Swiss cities). Saves the file."""
+    """Updates the "Jobs" sheet (Munich and Zurich only). Saves the file."""
     wb = load_or_create(path)
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -310,11 +333,22 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 
     return summary
 
 
+def update_swiss_sg_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
+    """Updates the "Singapore & Swiss Cities" sheet. Saves the file."""
+    wb = load_or_create(path)
+    summary = _update_sheet(
+        wb, SWISS_SG_SHEET_NAME, SWISS_SG_COLUMNS, SWISS_SG_NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return summary
+
+
 def update_dream_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
-    """Updates the "Dream Cities" sheet. Saves the file. Call this
-    separately from update_tracker() — each opens, updates its own
-    sheet, and saves; calling both in the same run (as main.py does)
-    just means the file gets saved twice, which is harmless."""
+    """Updates the "Dream Cities" sheet. Saves the file. Call each of
+    the three update_* functions separately (as main.py does) — each
+    opens, updates its own sheet, and saves; the file just gets saved
+    three times per run, which is harmless."""
     wb = load_or_create(path)
     summary = _update_sheet(
         wb, DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_NEW_ROW_FILL, new_jobs, _build_dream_row, min_score=min_score
@@ -326,10 +360,10 @@ def update_dream_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: 
 
 def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:
     """
-    Moves the current tracker (both sheets) to
+    Moves the current tracker (all three sheets) to
     archive/job_tracker_YYYY-MM.xlsx and creates a fresh empty tracker
-    (both sheets, empty) at `path`. Returns the archive path, or None
-    if there was nothing to archive.
+    (all three sheets, empty) at `path`. Returns the archive path, or
+    None if there was nothing to archive.
     """
     if not path.exists():
         _new_workbook().save(path)

@@ -219,10 +219,15 @@ def filter_by_title_and_location(
 # which config entry (and which nominal city) it came from.
 # --------------------------------------------------------------------------
 
-# Munich/Zurich go to the main "Jobs" sheet; every other approved city
-# is a "dream city" and goes to the Dream Cities sheet.
-MAIN_LIST_CITIES = {"Munich", "Zurich", "Singapore", "Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
-ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, + all 16 dream cities
+# Three tiers, feeding three separate tracker sheets/sections, in this
+# order top to bottom: "Jobs" (Munich, Zurich) -> "Singapore & Swiss
+# Cities" (Singapore, Basel, Bern, Geneva, Lausanne, Lucerne) ->
+# "Dream Cities" (everything else on the approved list). Kept as two
+# separate sets (not one combined "main" set) specifically so main.py
+# can route a match to the right one of three sheets, not just two.
+MAIN_LIST_CITIES = {"Munich", "Zurich"}
+SWISS_SG_CITIES = {"Singapore", "Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
+ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, Singapore, Swiss cities, + all dream cities
 
 
 def find_matching_city(location: str, candidate_cities: list[str] | None = None) -> str | None:
@@ -247,9 +252,11 @@ def filter_by_title_and_any_city(
     Like filter_by_title_and_location, but matches against ANY
     approved city rather than one fixed expected_city. Each kept job
     gets a "matched_city" field (and "matched_country" if it's a
-    dream city, via CITY_TO_COUNTRY) added, reflecting where it
+    Dream City, via CITY_TO_COUNTRY) added, reflecting where it
     actually was found to be — not wherever its source company entry
-    happened to be tagged.
+    happened to be tagged. main.py uses MAIN_LIST_CITIES /
+    SWISS_SG_CITIES membership on matched_city to decide which of the
+    three sheets a job goes to.
     """
     must_match = cv_profile.get("title_must_match", [])
 
@@ -266,7 +273,7 @@ def filter_by_title_and_any_city(
             continue
 
         job["matched_city"] = matched_city
-        if matched_city not in MAIN_LIST_CITIES:
+        if matched_city not in MAIN_LIST_CITIES and matched_city not in SWISS_SG_CITIES:
             job["matched_country"] = CITY_TO_COUNTRY.get(matched_city, "")
         kept.append(job)
 

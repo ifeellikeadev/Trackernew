@@ -3,32 +3,29 @@ Entry point for the scrape. Run manually with:
     python -m src.main
 
 Or via the GitHub Actions workflow (.github/workflows/daily_scrape.yml,
-manually triggered — see SETUP_GUIDE.md).
+runs daily at 06:30 Munich time, plus manual "Run workflow" trigger).
 
 Runs ONE combined pass: every company in config/companies.yaml AND
 config/dream_cities.yaml (each scraped once), matched against ANY
-approved city (Munich, Zurich, Singapore, Basel, Bern, Geneva,
-Lausanne, Lucerne, or any of the Dream Cities) — not just whichever
-single city that company's config entry happens to be tagged with.
-This matters: a company like Databricks is listed once, tagged
-"Zurich," but its job board spans many locations — a genuine
-Databricks posting in Munich or Singapore is just as real a match as
-one in Zurich, and previously got silently rejected because only the
-Zurich question was being asked.
+approved city — not just whichever single city that company's config
+entry happens to be tagged with. This matters: a company like
+Databricks is listed once, tagged "Zurich," but its job board spans
+many locations — a genuine Databricks posting in Munich or Singapore
+is just as real a match as one in Zurich, and would otherwise get
+silently rejected because only the Zurich question was being asked.
 
-Matches route to the "Jobs" sheet (Munich, Zurich, Singapore, Basel,
-Bern, Geneva, Lausanne, Lucerne — see matcher.MAIN_LIST_CITIES) or the
-"Dream Cities" sheet (everything else on the approved list), based on
-which city actually matched — see src.matcher.filter_by_title_and_any_city.
+Matches route to one of THREE sheets, based on which city actually
+matched (see src.matcher.MAIN_LIST_CITIES / SWISS_SG_CITIES and
+filter_by_title_and_any_city):
+  1. "Jobs" — Munich, Zurich.
+  2. "Singapore & Swiss Cities" — Singapore, Basel, Bern, Geneva,
+     Lausanne, Lucerne. Kept as its own sheet rather than merged into
+     "Jobs" so these cities' (genuinely fewer) matches aren't buried
+     under Munich/Zurich's much higher posting volume.
+  3. "Dream Cities" — everything else on the approved list.
 
 No score floor — every job that passes the title + confirmed-city
 filter is kept and shown.
-
-(There used to be a second "wildcard" pass here — whole-country
-matching feeding a "Global Top Picks" sheet. Removed per request:
-Singapore and the Swiss cities it partly existed to surface are now
-proper main-list cities instead, which covers the same need more
-directly.)
 
 Pipeline per company: scrape -> filter by title + any approved city
 -> enrich description for survivors that don't have one yet (fetches
@@ -48,8 +45,8 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.ats_scrapers import scrape_company, fetch_description_fallback, reset_headless_budget
-from src.matcher import filter_by_title_and_any_city, score_jobs, title_matches, MAIN_LIST_CITIES
-from src.tracker import update_tracker, update_dream_tracker
+from src.matcher import filter_by_title_and_any_city, score_jobs, title_matches, MAIN_LIST_CITIES, SWISS_SG_CITIES
+from src.tracker import update_tracker, update_swiss_sg_tracker, update_dream_tracker
 from src.generate_html import generate as generate_html
 
 logging.basicConfig(
@@ -71,15 +68,16 @@ def load_yaml(path: Path) -> dict:
         return yaml.safe_load(f)
 
 
-def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[dict], list[dict], dict]:
+def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[dict], list[dict], list[dict], dict]:
     """
     Scrapes every company once, matches each title-matched posting
     against ANY approved city (not just that company's configured
-    one), and splits results into (main_jobs, dream_jobs) based on
-    where each posting actually matched. Returns (main_jobs,
-    dream_jobs, counts).
+    one), and splits results into (main_jobs, swiss_sg_jobs,
+    dream_jobs) based on where each posting actually matched. Returns
+    (main_jobs, swiss_sg_jobs, dream_jobs, counts).
     """
     main_jobs = []
+    swiss_sg_jobs = []
     dream_jobs = []
     ok_count = 0
     empty_count = 0
@@ -129,6 +127,8 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
             job["city"] = matched_city
             if matched_city in MAIN_LIST_CITIES:
                 main_jobs.append(job)
+            elif matched_city in SWISS_SG_CITIES:
+                swiss_sg_jobs.append(job)
             else:
                 job["country"] = job.pop("matched_country", "")
                 dream_jobs.append(job)
@@ -150,7 +150,7 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
         "title_matched": total_title_matched,
         "location_confirmed": total_confirmed,
     }
-    return main_jobs, dream_jobs, counts
+    return main_jobs, swiss_sg_jobs, dream_jobs, counts
 
 
 def run() -> None:
@@ -158,9 +158,10 @@ def run() -> None:
     reset_headless_budget()  # one shared 15-min headless budget for the whole run
 
     all_companies = load_yaml(COMPANIES_FILE)["companies"] + load_yaml(DREAM_CITIES_FILE)["companies"]
-    main_jobs, dream_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
+    main_jobs, swiss_sg_jobs, dream_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
 
     main_summary = update_tracker(TRACKER_FILE, main_jobs)
+    swiss_sg_summary = update_swiss_sg_tracker(TRACKER_FILE, swiss_sg_jobs)
     dream_summary = update_dream_tracker(TRACKER_FILE, dream_jobs)
 
     logger.info("-" * 60)
@@ -173,8 +174,12 @@ def run() -> None:
         counts["title_matched"], counts["location_confirmed"],
     )
     logger.info(
-        "Jobs sheet: %d new rows added, %d already tracked, %d total rows",
+        "Jobs sheet (Munich/Zurich): %d new rows added, %d already tracked, %d total rows",
         main_summary["added"], main_summary["already_tracked"], main_summary["total_rows"],
+    )
+    logger.info(
+        "Singapore & Swiss Cities sheet: %d new rows added, %d already tracked, %d total rows",
+        swiss_sg_summary["added"], swiss_sg_summary["already_tracked"], swiss_sg_summary["total_rows"],
     )
     logger.info(
         "Dream Cities sheet: %d new rows added, %d already tracked, %d total rows",

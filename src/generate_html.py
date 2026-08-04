@@ -3,19 +3,17 @@ Turns data/job_tracker.xlsx into a plain, static HTML page at
 docs/index.html, so it can be published via GitHub Pages — one link,
 opens in any browser, no Excel and no download needed.
 
-Renders both sheets as clearly separated sections, in order:
-  1. "Jobs" (Munich, Zurich, Singapore, Basel, Bern, Geneva, Lausanne,
-     Lucerne — green highlight for new rows)
-  2. "Dream Cities" (blue highlight for new rows)
+Renders all THREE sheets as clearly separated sections, in the
+requested reading order:
+  1. "Jobs" (Munich, Zurich — green highlight for new rows)
+  2. "Singapore & Swiss Cities" (Singapore, Basel, Bern, Geneva,
+     Lausanne, Lucerne — amber highlight for new rows)
+  3. "Dream Cities" (blue highlight for new rows)
 
 Called automatically at the end of both src/main.py (daily scrape) and
 src/reset_tracker.py (monthly reset), so the page is always in sync
 with whatever's actually in the Excel file. Not meant to be run on its
 own, though `python -m src.generate_html` works fine for testing.
-
-(There used to be a third "Global Top Picks" wildcard section here —
-removed per request, since Singapore and the Swiss cities it partly
-existed to surface are now proper main-list cities instead.)
 
 PRIVACY NOTE: GitHub Pages sites are public to anyone with the link,
 even when the repository itself is private (unless you're on GitHub
@@ -34,6 +32,7 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 from src.tracker import (
     COLUMNS, NEW_ROW_FILL,
+    SWISS_SG_SHEET_NAME, SWISS_SG_COLUMNS, SWISS_SG_NEW_ROW_FILL,
     DREAM_SHEET_NAME, DREAM_COLUMNS, DREAM_NEW_ROW_FILL,
 )
 
@@ -124,27 +123,38 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
         with open(CV_PROFILE_FILE, "r", encoding="utf-8") as f:
             cv_profile = yaml.safe_load(f) or {}
     main_min_score = cv_profile.get("main_min_score", 0)
+    swiss_sg_min_score = cv_profile.get("swiss_sg_min_score", 0)
     dream_min_score = cv_profile.get("dream_city_min_score", 0)
 
     jobs_ws = None
+    swiss_sg_ws = None
     dream_ws = None
     if tracker_path.exists():
         wb = load_workbook(tracker_path)
         jobs_ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
+        swiss_sg_ws = wb[SWISS_SG_SHEET_NAME] if SWISS_SG_SHEET_NAME in wb.sheetnames else None
         dream_ws = wb[DREAM_SHEET_NAME] if DREAM_SHEET_NAME in wb.sheetnames else None
 
     jobs_rows_html, jobs_total = _render_table(
         jobs_ws, COLUMNS, NEW_ROW_FILL, "No data yet — the scraper hasn't run.", "new-row"
     )
+    swiss_sg_rows_html, swiss_sg_total = _render_table(
+        swiss_sg_ws, SWISS_SG_COLUMNS, SWISS_SG_NEW_ROW_FILL,
+        "No matches yet in Singapore or the Swiss cities.", "swiss-sg-new-row",
+    )
     dream_rows_html, dream_total = _render_table(
         dream_ws, DREAM_COLUMNS, DREAM_NEW_ROW_FILL, "No matches yet in the dream-city list.", "dream-new-row"
     )
 
-    jobs_title = "Munich, Zurich, Singapore & Swiss Cities" + (f" (score {main_min_score}+ only)" if main_min_score else "")
+    jobs_title = "Munich & Zurich" + (f" (score {main_min_score}+ only)" if main_min_score else "")
+    swiss_sg_title = "Singapore & Swiss Cities" + (f" (score {swiss_sg_min_score}+ only)" if swiss_sg_min_score else "")
     dream_title = "Dream Cities" + (f" (score {dream_min_score}+ only)" if dream_min_score else "")
 
     jobs_section = _section_html(
         jobs_title, COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
+    )
+    swiss_sg_section = _section_html(
+        swiss_sg_title, SWISS_SG_COLUMNS, swiss_sg_rows_html, swiss_sg_total, "#FDE68A", "added since your last check"
     )
     dream_section = _section_html(
         dream_title, DREAM_COLUMNS, dream_rows_html, dream_total, "#DBEAFE", "added since your last check"
@@ -169,9 +179,11 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
   th, td {{ padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 0.85rem; vertical-align: top; }}
   th {{ background: #1F2937; color: white; position: sticky; top: 0; white-space: nowrap; }}
   tr.new-row {{ background: #D1FAE5; }}
+  tr.swiss-sg-new-row {{ background: #FDE68A; }}
   tr.dream-new-row {{ background: #DBEAFE; }}
   tr:hover {{ background: #f3f4f6; }}
   tr.new-row:hover {{ background: #bbf7d0; }}
+  tr.swiss-sg-new-row:hover {{ background: #fcd34d; }}
   tr.dream-new-row:hover {{ background: #bfdbfe; }}
   a {{ color: #2563eb; text-decoration: none; }}
   a:hover {{ text-decoration: underline; }}
@@ -187,6 +199,8 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 <h1>Job Tracker</h1>
 <div class="page-meta">last updated {updated}</div>
 {jobs_section}
+<hr>
+{swiss_sg_section}
 <hr>
 {dream_section}
 </body>
