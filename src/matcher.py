@@ -263,39 +263,73 @@ def find_matching_city(location: str, candidate_cities: list[str] | None = None)
     return None
 
 
+def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    Just the title check, no location decision — exists so main.py can
+    enrich blank-location postings (see scrape_all_any_city) BEFORE
+    the location filter runs, rather than after. Location filtering
+    only ever discards, never adds information, so doing it first
+    would permanently lose postings whose real location just wasn't
+    in the initial scrape yet.
+    """
+    must_match = cv_profile.get("title_must_match", [])
+    return [job for job in jobs if job.get("title") and title_matches(job["title"], must_match)]
+
+
+def resolve_city_for_job(job: dict[str, Any], search_text: str | None = None) -> str | None:
+    """
+    Determines and tags matched_city (+ matched_country if relevant)
+    on a single already title-matched job. Searches search_text if
+    given (e.g. an enriched full-page text blob), otherwise falls back
+    to job["location"] — lets main.py search a richer text without
+    that raw text ending up as the job's displayed location. Returns
+    the matched city name, or None if nothing matched.
+    """
+    matched_city = find_matching_city(search_text if search_text is not None else job.get("location", ""))
+    if matched_city is None:
+        return None
+    job["matched_city"] = matched_city
+    if matched_city not in MAIN_LIST_CITIES and matched_city not in SWISS_SG_CITIES:
+        job["matched_country"] = CITY_TO_COUNTRY.get(matched_city, "")
+    return matched_city
+
+
+def extract_location_snippet(text: str, matched_city: str, window: int = 30) -> str:
+    """
+    For a job whose location was recovered from a full page-text blob
+    (see main.py's enrichment step) rather than a clean structured
+    field, pulls a short window of text around wherever the matched
+    city's keyword was actually found — so the tracker's Location
+    column shows something readable ("...role based in Zurich,
+    Switzerland, reporting to...") instead of the entire fetched page.
+    Falls back to just the city name if no keyword position is found
+    (shouldn't happen if matched_city really came from this text, but
+    defensive regardless).
+    """
+    loc = text.lower()
+    for kw in CITY_KEYWORDS.get(matched_city, [matched_city.lower()]):
+        idx = loc.find(kw)
+        if idx != -1:
+            start = max(0, idx - window)
+            end = min(len(text), idx + len(kw) + window)
+            snippet = text[start:end].strip()
+            return ("..." if start > 0 else "") + snippet + ("..." if end < len(text) else "")
+    return matched_city
+
+
 def filter_by_title_and_any_city(
     jobs: list[dict[str, Any]], cv_profile: dict[str, Any]
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
     """
-    Like filter_by_title_and_location, but matches against ANY
-    approved city rather than one fixed expected_city. Each kept job
-    gets a "matched_city" field (and "matched_country" if it's a
-    Dream City, via CITY_TO_COUNTRY) added, reflecting where it
-    actually was found to be — not wherever its source company entry
-    happened to be tagged. main.py uses MAIN_LIST_CITIES /
-    SWISS_SG_CITIES membership on matched_city to decide which of the
-    three sheets a job goes to.
+    Convenience wrapper combining filter_by_title_only +
+    resolve_city_for_job in one call, for callers that don't need the
+    enrich-before-filtering behavior (e.g. tests). main.py's real
+    pipeline calls the two pieces separately instead — see
+    scrape_all_any_city and its docstring for why.
     """
-    must_match = cv_profile.get("title_must_match", [])
-
-    kept = []
-    title_matched_count = 0
-    for job in jobs:
-        title = job.get("title", "")
-        if not title or not title_matches(title, must_match):
-            continue
-        title_matched_count += 1
-
-        matched_city = find_matching_city(job.get("location", ""))
-        if matched_city is None:
-            continue
-
-        job["matched_city"] = matched_city
-        if matched_city not in MAIN_LIST_CITIES and matched_city not in SWISS_SG_CITIES:
-            job["matched_country"] = CITY_TO_COUNTRY.get(matched_city, "")
-        kept.append(job)
-
-    stats = {"title_matched": title_matched_count, "location_confirmed": len(kept)}
+    title_matched = filter_by_title_only(jobs, cv_profile)
+    kept = [job for job in title_matched if resolve_city_for_job(job) is not None]
+    stats = {"title_matched": len(title_matched), "location_confirmed": len(kept)}
     return kept, stats
 
 

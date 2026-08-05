@@ -45,7 +45,10 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.ats_scrapers import scrape_company, fetch_description_fallback, reset_headless_budget
-from src.matcher import filter_by_title_and_any_city, score_jobs, title_matches, MAIN_LIST_CITIES, SWISS_SG_CITIES
+from src.matcher import (
+    filter_by_title_only, resolve_city_for_job, extract_location_snippet,
+    score_jobs, MAIN_LIST_CITIES, SWISS_SG_CITIES,
+)
 from src.tracker import update_tracker, update_swiss_sg_tracker, update_dream_tracker
 from src.generate_html import generate as generate_html
 
@@ -76,6 +79,26 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
     one), and splits results into (main_jobs, swiss_sg_jobs,
     dream_jobs) based on where each posting actually matched. Returns
     (main_jobs, swiss_sg_jobs, dream_jobs, counts).
+
+    IMPORTANT ordering fix: scrape_generic (ats_scrapers.py) always
+    leaves location blank — plain HTML link scraping has no reliable
+    way to find it near an arbitrary job link. Previously, the location
+    filter ran BEFORE any individual-page fetch, so every generic-
+    scraped posting was rejected before it ever had a chance to have
+    its real location discovered (fetch_description_fallback was only
+    called on postings that had ALREADY survived that filter — meaning
+    never, for these). This silently discarded real, relevant postings
+    from any company whose final source was the generic scraper — not
+    a small edge case; this is likely why entire sources (e.g. the
+    Randstad/Michael Page/etc. job-board entries, whose listings put
+    location in a separate line from the title link) showed nothing at
+    all rather than just a partial miss.
+
+    Fixed by enriching BEFORE deciding: for title-matched postings with
+    a blank location, fetch the individual posting page FIRST, and use
+    that page's text as the location search space — then apply the
+    location decision. That same fetched text is reused as the
+    description too, so no posting gets fetched twice.
     """
     main_jobs = []
     swiss_sg_jobs = []
@@ -100,25 +123,45 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
             empty_count += 1
             continue
 
-        matched, stats = filter_by_title_and_any_city(raw_jobs, cv_profile)
+        title_matched_jobs = filter_by_title_only(raw_jobs, cv_profile)
+
+        matched = []
+        for job in title_matched_jobs:
+            enrichment_text = None
+            if not job.get("location") and job.get("url"):
+                # Fetch BEFORE the location decision, not after — this is
+                # the actual fix. Reused as description below too.
+                enrichment_text = fetch_description_fallback(job["url"])
+
+            matched_city = resolve_city_for_job(job, search_text=enrichment_text)
+            if matched_city is None:
+                continue
+
+            if enrichment_text and not job.get("location"):
+                # Don't dump the whole fetched page into the Location
+                # column — pull a short readable window around the
+                # actual matched keyword instead.
+                job["location"] = extract_location_snippet(enrichment_text, matched_city)
+
+            if not job.get("description") and enrichment_text:
+                job["description"] = enrichment_text
+            elif not job.get("description") and job.get("url"):
+                job["description"] = fetch_description_fallback(job["url"])
+
+            matched.append(job)
+
+        stats = {"title_matched": len(title_matched_jobs), "location_confirmed": len(matched)}
 
         # If titles matched but none confirmed against any approved
         # city, log the actual raw location text for a few of them —
         # tells us WHY (blank field? different format? genuinely
         # nowhere on the approved list?) instead of just knowing THAT.
         if stats["title_matched"] > 0 and stats["location_confirmed"] == 0:
-            title_matched_jobs = [
-                j for j in raw_jobs if title_matches(j.get("title", ""), cv_profile.get("title_must_match", []))
-            ]
             for j in title_matched_jobs[:5]:
                 logger.info(
-                    "  DIAG: title=%r  raw_location=%r  (no approved city matched)",
-                    j.get("title", ""), j.get("location", ""),
+                    "  DIAG: title=%r  raw_location=%r  (no approved city matched, even after enrichment)",
+                    j.get("title", ""), (j.get("location", "") or "")[:200],
                 )
-
-        for job in matched:
-            if not job.get("description") and job.get("url"):
-                job["description"] = fetch_description_fallback(job["url"])
 
         score_jobs(matched, cv_profile)
 
