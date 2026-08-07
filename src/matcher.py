@@ -162,9 +162,23 @@ OTHER_MAJOR_LOCATIONS = [
 ]
 
 
-def title_matches(title: str, must_match: list[str]) -> bool:
+def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
+    """
+    True if title contains any of must_match AND none of
+    must_not_match. The exclusion list exists for cases like
+    "Projektleiter Stadionbau" — a real, common German title pattern
+    that contains "Projektleiter" (a valid PM-title match) but is
+    actually a construction/trades role (civil engineering degree,
+    site management) with nothing to do with the kind of PM work this
+    tool is meant to surface. Confirmed via real postings, not a
+    hypothetical — see cv_profile.yaml, title_must_not_match.
+    """
     t = title.lower()
-    return any(term.lower() in t for term in must_match)
+    if not any(term.lower() in t for term in must_match):
+        return False
+    if must_not_match and any(term.lower() in t for term in must_not_match):
+        return False
+    return True
 
 
 def location_status(location: str, expected_city: str) -> str:
@@ -199,12 +213,13 @@ def filter_by_title_and_location(
     is a dead end to debug.
     """
     must_match = cv_profile.get("title_must_match", [])
+    must_not_match = cv_profile.get("title_must_not_match", [])
 
     kept = []
     title_matched_count = 0
     for job in jobs:
         title = job.get("title", "")
-        if not title or not title_matches(title, must_match):
+        if not title or not title_matches(title, must_match, must_not_match):
             continue
         title_matched_count += 1
 
@@ -273,7 +288,11 @@ def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any])
     in the initial scrape yet.
     """
     must_match = cv_profile.get("title_must_match", [])
-    return [job for job in jobs if job.get("title") and title_matches(job["title"], must_match)]
+    must_not_match = cv_profile.get("title_must_not_match", [])
+    return [
+        job for job in jobs
+        if job.get("title") and title_matches(job["title"], must_match, must_not_match)
+    ]
 
 
 def resolve_city_for_job(job: dict[str, Any], search_text: str | None = None) -> str | None:

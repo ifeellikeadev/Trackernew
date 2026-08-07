@@ -35,13 +35,52 @@ title_must_match:
   - "pmo manager"
   - "implementation manager"
 
-# main_min_score / dream_city_min_score:
-#   No score floor is applied — every job that passes the title +
-#   confirmed-location filter is shown, regardless of relevance score.
-#   The score is still computed and used to sort each sheet (highest
-#   first), just not used to exclude anything. Set either back above 0
-#   later if you want a floor again — the code fully supports it.
-main_min_score: 0
+# Titles that would otherwise pass title_must_match above (they
+# contain "Projektleiter"/"Project Manager") but are a completely
+# different kind of role — confirmed from real postings Giorgio
+# flagged as irrelevant, not guessed:
+#   - "Projektleiter Stadionbau" -> stadium construction, requires a
+#     civil engineering/architecture degree, tagged "Construction" by
+#     the source site itself
+#   - "Projektleiter Elektrotechnik" -> electrical trades project lead
+# "Projektleiter" is an extremely broad term in German-speaking
+# markets — it covers construction site leads, HVAC leads, electrical
+# trade leads, none of which are the kind of PM role this tool is
+# meant to surface. If you flag more irrelevant postings later, check
+# whether they share a domain word like these — that's the pattern to
+# extend, not one-off exact titles.
+title_must_not_match:
+  - "stadionbau"
+  - "elektrotechnik"
+  - "hochbau"
+  - "wohnungsbau"
+  - "museumsbau"
+  - "tiefbau"
+  - "rohbau"
+  - "gebäudetechnik"
+  - "gebaudetechnik"
+  - "hlk"                    # HVAC (Heizung/Lüftung/Klima)
+  - "sanitärtechnik"
+  - "sanitartechnik"
+  - "bauleiter"
+  - "bauen im bestand"
+  - "schlüsselfertig"
+  - "schlusselfertig"
+  - "mieterausbau"
+  - "dachgeschossausbau"
+
+# main_min_score / swiss_sg_min_score / dream_city_min_score:
+#   Minimum Relevance Score (1-10) a posting needs to appear on that
+#   sheet at all — applied retroactively every run too (rows already
+#   in a sheet get pruned if they'd no longer qualify), not just as a
+#   gate on new additions. main_min_score and swiss_sg_min_score are
+#   set to 3 — company-count growth (agencies/job boards, the Swiss
+#   city expansion) pushed volume up enough that a floor is worth
+#   having again. dream_city_min_score stays at 0 (off) — that
+#   sheet's issue has been thinness, not excess volume, so a floor
+#   there would work against what's actually needed.
+main_min_score: 3
+swiss_sg_min_score: 3
 dream_city_min_score: 0
 
 # score_ceiling:
@@ -55,42 +94,81 @@ dream_city_min_score: 0
 #   ceiling means a modest title-only match isn't automatically
 #   floored out. Personio's feed now also gets its full description
 #   parsed (previously left blank), which helps more directly.
-score_ceiling: 12
+score_ceiling: 20
 
 # scoring_keywords:
 #   Each match inside the job description adds "weight" points toward
 #   the raw score above, which then gets converted to the 1-10 scale.
 #   Used to rank/sort results, not to filter them out.
 scoring_keywords:
-  - {term: "aerospace", weight: 3}
-  - {term: "defence", weight: 3}
-  - {term: "defense", weight: 3}
+  # Aerospace/defence — weighted clearly above energy/regulatory below,
+  # per direct feedback: real CV fit is stronger there, and scoring
+  # should reflect that rather than treating every domain as equal.
+  - {term: "aerospace", weight: 5}
+  - {term: "Luft- und Raumfahrt", weight: 5}
+  - {term: "Luftfahrt", weight: 5}
+  - {term: "defence", weight: 5}
+  - {term: "defense", weight: 5}
+  - {term: "Verteidigung", weight: 5}
+  - {term: "Wehrtechnik", weight: 5}
+  - {term: "Rüstung", weight: 5}
+  - {term: "military", weight: 4}
+  - {term: "Militär", weight: 4}
+  - {term: "militärisch", weight: 4}
+  # Energy/regulatory — kept fully in place as requested, just no
+  # longer tied with aerospace/defence at the same weight.
   - {term: "energy", weight: 2}
+  - {term: "Energie", weight: 2}
   - {term: "electricity market", weight: 3}
+  - {term: "Strommarkt", weight: 3}
   - {term: "grid", weight: 2}
+  - {term: "Stromnetz", weight: 2}
+  - {term: "Übertragungsnetz", weight: 2}
   - {term: "EU regulatory", weight: 3}
   - {term: "regulatory compliance", weight: 3}
+  - {term: "regulatorische Anforderungen", weight: 3}
+  - {term: "Regulatorik", weight: 3}
   - {term: "compliance", weight: 1}
   - {term: "PMP", weight: 2}
   - {term: "CAPM", weight: 1}
   - {term: "PMI", weight: 1}
   - {term: "risk management", weight: 2}
+  - {term: "Risikomanagement", weight: 2}
   - {term: "risk", weight: 1}
+  - {term: "Risiko", weight: 1}
   - {term: "stakeholder management", weight: 2}
   - {term: "stakeholder", weight: 1}
   - {term: "supply chain", weight: 2}
+  - {term: "Lieferkette", weight: 2}
   - {term: "procurement", weight: 2}
+  - {term: "Beschaffung", weight: 2}
+  - {term: "Einkauf", weight: 2}
   - {term: "crisis management", weight: 2}
+  - {term: "Krisenmanagement", weight: 2}
   - {term: "agile", weight: 1}
+  - {term: "agil", weight: 1}
   - {term: "waterfall", weight: 1}
+  - {term: "Wasserfallmethode", weight: 1}
+  - {term: "Wasserfallmodell", weight: 1}
   - {term: "IT project", weight: 2}
+  - {term: "IT-Projekt", weight: 2}
   - {term: "IT solutions", weight: 1}
+  - {term: "IT-Lösung", weight: 1}
   - {term: "process improvement", weight: 1}
+  - {term: "Prozessverbesserung", weight: 1}
+  - {term: "Prozessoptimierung", weight: 1}
   - {term: "governance", weight: 1}
   - {term: "SAP", weight: 1}
   - {term: "Jira", weight: 1}
   - {term: "cross-functional", weight: 1}
+  - {term: "funktionsübergreifend", weight: 1}
+  - {term: "bereichsübergreifend", weight: 1}
   - {term: "tender", weight: 1}
+  - {term: "Ausschreibung", weight: 1}
   - {term: "audit", weight: 1}
   - {term: "budget", weight: 1}
   - {term: "leadership", weight: 1}
+  - {term: "Führungskompetenz", weight: 1}
+  - {term: "Führungserfahrung", weight: 1}
+  - {term: "negotiation", weight: 1}
+  - {term: "Verhandlung", weight: 1}

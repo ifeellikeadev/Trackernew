@@ -208,9 +208,13 @@ def run() -> None:
     )
     main_jobs, swiss_sg_jobs, dream_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
 
-    main_summary = update_tracker(TRACKER_FILE, main_jobs)
-    swiss_sg_summary = update_swiss_sg_tracker(TRACKER_FILE, swiss_sg_jobs)
-    dream_summary = update_dream_tracker(TRACKER_FILE, dream_jobs)
+    main_summary = update_tracker(TRACKER_FILE, main_jobs, min_score=cv_profile.get("main_min_score", 0))
+    swiss_sg_summary = update_swiss_sg_tracker(
+        TRACKER_FILE, swiss_sg_jobs, min_score=cv_profile.get("swiss_sg_min_score", 0)
+    )
+    dream_summary = update_dream_tracker(
+        TRACKER_FILE, dream_jobs, min_score=cv_profile.get("dream_city_min_score", 0)
+    )
 
     logger.info("-" * 60)
     logger.info(
@@ -222,16 +226,19 @@ def run() -> None:
         counts["title_matched"], counts["location_confirmed"],
     )
     logger.info(
-        "Jobs sheet (Munich/Zurich): %d new rows added, %d already tracked, %d total rows",
-        main_summary["added"], main_summary["already_tracked"], main_summary["total_rows"],
+        "Jobs sheet (Munich/Zurich): %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
+        main_summary["added"], main_summary["already_tracked"], main_summary["pruned"],
+        cv_profile.get("main_min_score", 0), main_summary["total_rows"],
     )
     logger.info(
-        "Singapore & Swiss Cities sheet: %d new rows added, %d already tracked, %d total rows",
-        swiss_sg_summary["added"], swiss_sg_summary["already_tracked"], swiss_sg_summary["total_rows"],
+        "Singapore & Swiss Cities sheet: %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
+        swiss_sg_summary["added"], swiss_sg_summary["already_tracked"], swiss_sg_summary["pruned"],
+        cv_profile.get("swiss_sg_min_score", 0), swiss_sg_summary["total_rows"],
     )
     logger.info(
-        "Dream Cities sheet: %d new rows added, %d already tracked, %d total rows",
-        dream_summary["added"], dream_summary["already_tracked"], dream_summary["total_rows"],
+        "Dream Cities sheet: %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
+        dream_summary["added"], dream_summary["already_tracked"], dream_summary["pruned"],
+        cv_profile.get("dream_city_min_score", 0), dream_summary["total_rows"],
     )
 
     generate_html()
