@@ -16,8 +16,21 @@ Supported platforms:
   - generic          (best-effort HTML fallback, keyword-based)
   - headless         (last-resort: real Chromium render via Playwright,
                       only for results the fast path found suspiciously
-                      thin — time-budgeted for the whole run, see
-                      scrape_headless / _maybe_headless_upgrade below)
+                      thin — time-budgeted for the whole run)
+
+A recurring real problem, found by hand multiple times (Sixt, Jet
+Aviation, Hensoldt) before being fixed generally: a company's
+config entry often stores its marketing homepage, not its actual job
+board, on a completely different domain/subdomain. Rather than fix
+these one at a time as they're noticed, discover_real_careers_url +
+_recover_thin_result run for ANY company whose result looks
+suspiciously thin, regardless of what platform its config claims —
+fetching the stored URL and looking for the real job board (a known
+platform's URL takes priority, using its own fast structured
+scraper with the correctly-discovered token; otherwise, any
+different-domain "jobs."/"careers." link found is still worth a
+generic retry) before finally falling back to headless rendering as
+the last, slowest resort.
 
 Each function returns a list of dicts with the same shape:
   {
@@ -51,6 +64,7 @@ import re
 import time
 from datetime import datetime, timedelta, timezone
 from typing import Any
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -555,24 +569,134 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
     return jobs
 
 
-def _maybe_headless_upgrade(company_name: str, careers_url: str, current_result: list[dict[str, Any]]) -> list[dict[str, Any]]:
+# --------------------------------------------------------------------------
+# Generalized platform discovery — extends the fix originally built for
+# Workday (see _discover_workday_url above) to EVERY known ATS platform,
+# not just Workday. The root problem is the same one found repeatedly
+# by hand — Sixt, Jet Aviation, and Hensoldt were all silently broken
+# because their config entry stored the company's own vanity homepage
+# instead of the real job board, on three completely different
+# platforms (a JS-rendered shell, a wrong domain entirely, and
+# SuccessFactors). Rather than keep finding these one at a time, this
+# runs the same "fetch the vanity page, look for the real board" check
+# for every company whose result looks thin — regardless of what its
+# config says the platform is.
+# --------------------------------------------------------------------------
+_PLATFORM_URL_PATTERNS = {
+    "greenhouse": re.compile(r"https?://(?:boards|job-boards)\.greenhouse\.io/([\w-]+)"),
+    "lever": re.compile(r"https?://jobs\.lever\.co/([\w-]+)"),
+    "personio": re.compile(r"https?://([\w-]+)\.jobs\.personio\.(?:de|com)"),
+    "smartrecruiters": re.compile(r"https?://(?:jobs|careers)\.smartrecruiters\.com/([\w-]+)"),
+}
+
+_PLATFORM_SCRAPERS = {
+    "greenhouse": scrape_greenhouse,
+    "lever": scrape_lever,
+    "personio": scrape_personio,
+    "smartrecruiters": scrape_smartrecruiters,
+}
+
+# A same-domain "careers" link on the vanity page itself isn't a real
+# discovery (that's just the page we already have) — only a DIFFERENT
+# domain counts as finding the real, separately-hosted job board.
+_GENERIC_JOB_BOARD_HINT = re.compile(r"jobs\.|careers\.|/careers|/jobs", re.IGNORECASE)
+
+
+def discover_real_careers_url(vanity_url: str) -> tuple[str | None, str | None, str | None]:
     """
-    If current_result looks suspiciously thin (see
-    GENERIC_RESULT_SUSPICIOUSLY_LOW) and there's budget left, retries
-    with scrape_headless. Any NON-EMPTY headless result wins outright
-    — not just a bigger one — since reaching this point already means
-    current_result was flagged as untrustworthy (probably nav-link
-    junk from an unrendered JS shell, not real postings); a real but
-    genuinely small company job board (say, one real opening) can
-    easily have fewer entries than that junk, so raw count isn't the
-    right comparison once we're already this deep into "the fast path
-    didn't look trustworthy." Only falls back to current_result if
-    headless ALSO comes back empty — better than nothing.
+    Fetches vanity_url and looks for the REAL job-board URL in two
+    places: where the request ends up after redirects, and anywhere in
+    the page's raw HTML (an "Apply"/"View Jobs" button very often
+    points at the real platform even with no server-side redirect).
+
+    Returns (discovered_url, platform, token):
+      - A known platform matched: (url, "greenhouse"/"lever"/etc, the
+        extracted board token) — enough to call that platform's own
+        fast, structured scraper directly with the CORRECT token,
+        rather than guessing one from the company name.
+      - Workday matched: (url, "workday", None) — scrape_workday takes
+        the full URL, not a separate token.
+      - A different domain was found but doesn't match any known
+        platform: (url, None, None) — still worth trying as a plain
+        URL (generic scraper, or headless as a last resort) even
+        though we don't know what platform runs it.
+      - Nothing found: (None, None, None).
     """
-    if len(current_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW or headless_budget_remaining() <= 0:
+    try:
+        resp = requests.get(vanity_url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True)
+    except requests.RequestException:
+        return None, None, None
+
+    for space in (resp.url, resp.text):
+        for platform, pattern in _PLATFORM_URL_PATTERNS.items():
+            m = pattern.search(space)
+            if m:
+                return m.group(0), platform, m.group(1)
+        wm = _WORKDAY_URL_RE.search(space)
+        if wm:
+            return wm.group(0), "workday", None
+
+    vanity_domain = urlparse(vanity_url).netloc
+    for m in re.finditer(r'href=["\']((https?://)[^"\']+)["\']', resp.text):
+        candidate = m.group(1)
+        if urlparse(candidate).netloc != vanity_domain and _GENERIC_JOB_BOARD_HINT.search(candidate):
+            return candidate, None, None
+
+    return None, None, None
+
+
+def _recover_thin_result(company_name: str, careers_url: str, current_result: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    Last-resort recovery chain for a suspiciously thin result, tried in
+    order of cost — cheapest first, headless (the slowest, budget-
+    capped option) only as the final step:
+      1. discover_real_careers_url — if the stored URL is actually a
+         vanity homepage, find the real job board. If it's a known
+         platform, use that platform's own fast structured scraper
+         with the correctly-discovered token, not a guessed one.
+      2. If a URL was discovered but isn't a recognized platform,
+         retry the generic scraper against THAT url instead of the
+         original — often enough on its own without ever needing
+         headless rendering.
+      3. If still thin, headless-render whichever URL is most likely
+         correct (discovered if found, else the original one).
+    Only runs any of this if current_result is already thin — a
+    healthy result never pays any of these costs.
+    """
+    if len(current_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return current_result
-    headless_result = scrape_headless(company_name, careers_url)
-    return headless_result if headless_result else current_result
+
+    best_result = current_result
+    best_url = careers_url
+
+    discovered_url, platform, token = discover_real_careers_url(careers_url)
+    if discovered_url:
+        best_url = discovered_url
+        if platform in _PLATFORM_SCRAPERS:
+            candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
+        elif platform == "workday":
+            candidate = scrape_workday(company_name, discovered_url)
+        else:
+            candidate = scrape_generic(company_name, discovered_url)
+        # Same reasoning as the headless case below: any NON-EMPTY
+        # result from here wins outright, not just a bigger one — a
+        # real platform's own API (or a retry against the actually-
+        # correct URL) is trustworthy even if it happens to return
+        # fewer raw entries than whatever junk the thin result had.
+        if candidate:
+            best_result = candidate
+
+    if len(best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW or headless_budget_remaining() <= 0:
+        return best_result
+
+    headless_result = scrape_headless(company_name, best_url)
+    return headless_result if headless_result else best_result
+
+
+# Kept as an alias: _maybe_headless_upgrade was the name used before
+# this was generalized beyond just headless rendering. Same signature,
+# same call sites — _recover_thin_result is the real implementation now.
+_maybe_headless_upgrade = _recover_thin_result
 
 
 # --------------------------------------------------------------------------
