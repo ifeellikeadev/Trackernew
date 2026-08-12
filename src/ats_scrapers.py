@@ -226,12 +226,8 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
 # --------------------------------------------------------------------------
 # Personio
 # --------------------------------------------------------------------------
-def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
-    token = board_token or _slugify(company_name)
-    url = f"https://{token}.jobs.personio.de/xml"
-    resp = _safe_get(url)
-    if resp is None:
-        return []
+def _parse_personio_xml(resp, token: str, domain: str) -> list[dict[str, Any]]:
+    """Shared XML parsing for scrape_personio's .de/.com attempts."""
     try:
         soup = BeautifulSoup(resp.content, "xml")
     except Exception:
@@ -242,7 +238,7 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
         office = position.find("office")
         job_id = position.find("id")
         created = position.find("createdAt") or position.find("created_at")
-        link = f"https://{token}.jobs.personio.de/job/{job_id.text}" if job_id else ""
+        link = f"https://{token}.jobs.personio.{domain}/job/{job_id.text}" if job_id else ""
         posted = ""
         if created and created.text:
             # Personio's createdAt is usually "YYYY-MM-DD HH:MM:SS" or just a date
@@ -273,6 +269,30 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
             }
         )
     return jobs
+
+
+def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
+    """
+    Personio hosts company job boards on BOTH {token}.jobs.personio.de
+    AND {token}.jobs.personio.com, depending on the company's own
+    account configuration — there's no way to know which one a given
+    company uses without trying (found via STARK Defence, whose real
+    board is on .com; the original version of this function only ever
+    tried .de, which would have silently returned nothing for any
+    .com-hosted company, not just this one). Tries .de first (the more
+    common case for German-market companies), falls back to .com only
+    if .de returns nothing.
+    """
+    token = board_token or _slugify(company_name)
+    for domain in ("de", "com"):
+        url = f"https://{token}.jobs.personio.{domain}/xml"
+        resp = _safe_get(url)
+        if resp is None:
+            continue
+        jobs = _parse_personio_xml(resp, token, domain)
+        if jobs:
+            return jobs
+    return []
 
 
 # --------------------------------------------------------------------------
