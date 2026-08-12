@@ -2837,3 +2837,8 @@ companies:
     careers_url: https://swissto12.com/careers/
     ats: auto
     board_token: ""
+  - name: STARK Defence
+    city: Munich
+    careers_url: https://stark.jobs.personio.com/
+    ats: personio
+    board_token: "stark"
