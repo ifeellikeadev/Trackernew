@@ -69,19 +69,17 @@ title_must_not_match:
   - "mieterausbau"
   - "dachgeschossausbau"
 
-# main_min_score / swiss_sg_min_score / dream_city_min_score:
+# main_min_score / swiss_min_score:
 #   Minimum Relevance Score (1-10) a posting needs to appear on that
 #   sheet at all — applied retroactively every run too (rows already
 #   in a sheet get pruned if they'd no longer qualify), not just as a
-#   gate on new additions. main_min_score and swiss_sg_min_score are
-#   set to 3 — company-count growth (agencies/job boards, the Swiss
-#   city expansion) pushed volume up enough that a floor is worth
-#   having again. dream_city_min_score stays at 0 (off) — that
-#   sheet's issue has been thinness, not excess volume, so a floor
-#   there would work against what's actually needed.
+#   gate on new additions. Both set to 3 — company-count growth
+#   (agencies/job boards, the Swiss city expansion) pushed volume up
+#   enough that a floor is worth having.
+# (dream_city_min_score removed — Dream Cities is no longer scraped
+# at all, per a scope refocus to Munich + Swiss cities only.)
 main_min_score: 3
-swiss_sg_min_score: 3
-dream_city_min_score: 0
+swiss_min_score: 3
 
 # score_ceiling:
 #   Used to convert the raw keyword-weight sum into a 1-10 scale shown

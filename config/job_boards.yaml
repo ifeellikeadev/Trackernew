@@ -1,34 +1,37 @@
-# Staffing-agency job boards — genuinely different from companies.yaml
-# and dream_cities.yaml: these are pre-filtered SEARCH RESULTS pages
-# on a recruitment agency's own site, not one company's own career
-# page. Kept in a separate file so it's easy to add, remove, or
-# disable this category independently of direct-employer companies.
+# Staffing-agency job boards — genuinely different from companies.yaml:
+# these are pre-filtered SEARCH RESULTS pages on a recruitment
+# agency's own site, not one company's own career page. Kept in a
+# separate file so it's easy to add, remove, or disable this category
+# independently of direct-employer companies.
 #
-# Currently: Randstad, Michael Page, Robert Walters (Switzerland,
-# Germany, Singapore), and EMEA Recruitment (Switzerland only — they
-# specialize specifically in Procurement & Supply Chain, a strong
-# match for the CV). Hays was checked and deliberately left out: no
-# clean pre-filtered search URL could be verified — their Switzerland
-# page is a filter-driven interface, not a simple query URL like the
-# others, so nothing was added rather than guessing one.
+# Scope refocused to Munich + Swiss cities per request — Singapore
+# agency entries (Randstad/Michael Page/Robert Walters Singapore)
+# removed. Deliberately kept lower priority than direct companies per
+# that same request: not actively expanding this list further right
+# now, current entries (Randstad, Michael Page, Robert Walters —
+# Switzerland + Germany; EMEA Recruitment — Switzerland, specializes
+# in Procurement & Supply Chain) stay as-is. Hays was checked and
+# deliberately left out: no clean pre-filtered search URL could be
+# verified — their Switzerland page is a filter-driven interface, not
+# a simple query URL like the others, so nothing was added rather
+# than guessing one.
 #
-# IMPORTANT, READ BEFORE ADDING MORE: many agency listings anonymize
-# the real hiring company ("Our client is a leading..."), so rows
-# sourced from here will show the AGENCY's name (e.g. "Randstad
-# Switzerland") in the tracker's Company column, not the actual
-# employer — you'll need to click through to find that out, same as
-# you would have needed to manually. This is a real, known trade-off,
-# not a bug. Verified NOT to include LinkedIn, Indeed, or Glassdoor —
-# all three have anti-scraping enforcement and ToS that explicitly
+# IMPORTANT: many agency listings anonymize the real hiring company
+# ("Our client is a leading..."), so rows sourced from here will show
+# the AGENCY's name (e.g. "Randstad Switzerland") in the tracker's
+# Company column, not the actual employer — you'll need to click
+# through to find that out. This is a real, known trade-off, not a
+# bug. Verified NOT to include LinkedIn, Indeed, or Glassdoor — all
+# three have anti-scraping enforcement and ToS that explicitly
 # prohibit this, unlike a recruitment agency's own public listings
 # page, which exists specifically to be found by candidates.
 #
 # Same schema as companies.yaml. "city" here is just a nominal
 # placeholder — since each URL is a country-wide (not city-specific)
-# search, the ACTUAL routing to Jobs/Singapore & Swiss Cities/Dream
-# Cities is driven by each individual posting's own location text via
-# the any-city matching (src/matcher.py), exactly like every other
-# entry — not by this field.
+# search, the ACTUAL routing to Jobs/Swiss Cities is driven by each
+# individual posting's own location text via the any-city matching
+# (src/matcher.py), exactly like every other entry — not by this
+# field.
 companies:
   - name: Randstad Switzerland
     city: Zurich
@@ -38,11 +41,6 @@ companies:
   - name: Randstad Germany
     city: Munich
     careers_url: https://www.randstad.de/jobs/b-wirtschaft-und-administration/t-administration-und-verwaltung/j-projektmanager/
-    ats: auto
-    board_token: ""
-  - name: Randstad Singapore
-    city: Singapore
-    careers_url: https://www.randstad.com.sg/jobs/q-project-manager/
     ats: auto
     board_token: ""
   - name: Michael Page Switzerland
@@ -55,11 +53,6 @@ companies:
     careers_url: https://www.michaelpage.de/jobs/projekt-manager/deutschland
     ats: auto
     board_token: ""
-  - name: Michael Page Singapore
-    city: Singapore
-    careers_url: https://www.michaelpage.com.sg/jobs/project-manager
-    ats: auto
-    board_token: ""
   - name: Robert Walters Switzerland
     city: Zurich
     careers_url: https://www.robertwalters.ch/en/jobs.html
@@ -68,11 +61,6 @@ companies:
   - name: Robert Walters Germany
     city: Munich
     careers_url: https://www.robertwalters.de/en/information-technology/project-programme-management-jobs.html
-    ats: auto
-    board_token: ""
-  - name: Robert Walters Singapore
-    city: Singapore
-    careers_url: https://www.robertwalters.com.sg/expertise/project-and-change-management/project-manager-jobs.html
     ats: auto
     board_token: ""
   - name: EMEA Recruitment Switzerland

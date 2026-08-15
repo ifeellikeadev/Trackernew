@@ -2842,3 +2842,298 @@ companies:
     careers_url: https://stark.jobs.personio.com/
     ats: personio
     board_token: "stark"
+  - name: Rohde und Schwarz
+    city: Munich
+    careers_url: https://www.rohde-schwarz.com/us/career/jobs/career-jobboard_251573.html
+    ats: auto
+    board_token: ""
+  - name: Scout24
+    city: Munich
+    careers_url: https://www.scout24.com/en/career/
+    ats: auto
+    board_token: ""
+  - name: Giesecke und Devrient
+    city: Munich
+    careers_url: https://www.gi-de.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: ERGO Group
+    city: Munich
+    careers_url: https://www.ergo.com/en/Career
+    ats: auto
+    board_token: ""
+  - name: Munich Airport
+    city: Munich
+    careers_url: https://www.munich-airport.com/career-31718
+    ats: auto
+    board_token: ""
+  - name: EOS GmbH
+    city: Munich
+    careers_url: https://www.eos.info/en/career
+    ats: auto
+    board_token: ""
+  - name: Stylight
+    city: Munich
+    careers_url: https://www.stylight.com/jobs/
+    ats: auto
+    board_token: ""
+  - name: Zurich Airport
+    city: Zurich
+    careers_url: https://www.flughafen-zuerich.ch/en/jobs
+    ats: auto
+    board_token: ""
+  - name: Panalpina Welttransport
+    city: Basel
+    careers_url: https://www.dsv.com/en/about-dsv/careers
+    ats: auto
+    board_token: ""
+  - name: BKW Energie
+    city: Bern
+    careers_url: https://jobs.bkw.com/de/offene-stellen
+    ats: auto
+    board_token: ""
+  - name: SRG SSR
+    city: Bern
+    careers_url: https://www.srgssr.ch/en/jobs
+    ats: auto
+    board_token: ""
+  - name: Japan Tobacco International
+    city: Geneva
+    careers_url: https://www.jti.com/careers
+    ats: auto
+    board_token: ""
+  - name: Louis Dreyfus Company
+    city: Geneva
+    careers_url: https://www.ldc.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Bunge
+    city: Geneva
+    careers_url: https://www.bunge.com/careers
+    ats: auto
+    board_token: ""
+  - name: Cargill Geneva
+    city: Geneva
+    careers_url: https://www.cargill.com/careers
+    ats: auto
+    board_token: ""
+  - name: Caterpillar Geneva
+    city: Geneva
+    careers_url: https://www.caterpillar.com/en/careers.html
+    ats: auto
+    board_token: ""
+  - name: Medtronic
+    city: Lausanne
+    careers_url: https://www.medtronic.com/en-us/careers.html
+    ats: auto
+    board_token: ""
+  - name: Vaudoise Assurances
+    city: Lausanne
+    careers_url: https://www.vaudoise.ch/en/career
+    ats: auto
+    board_token: ""
+  - name: Banque Cantonale Vaudoise
+    city: Lausanne
+    careers_url: https://www.bcv.ch/en/About-us/Jobs
+    ats: auto
+    board_token: ""
+  - name: von Moos Stahl
+    city: Lucerne
+    careers_url: https://www.vonmoos.ch/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Energie Wasser Bern
+    city: Bern
+    careers_url: https://www.ewb.ch/de/ueber-uns/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Feldschloesschen
+    city: Basel
+    careers_url: https://www.feldschloesschen.com/en/career
+    ats: auto
+    board_token: ""
+  - name: Lilium
+    city: Munich
+    careers_url: https://lilium.com/careers
+    ats: auto
+    board_token: ""
+  - name: The Exploration Company
+    city: Munich
+    careers_url: https://www.exploration.space/careers
+    ats: auto
+    board_token: ""
+  - name: Yuri
+    city: Munich
+    careers_url: https://yuri.gm/careers/
+    ats: auto
+    board_token: ""
+  - name: TWAICE
+    city: Munich
+    careers_url: https://www.twaice.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Kopernikus Automotive
+    city: Munich
+    careers_url: https://www.kopernikus.ai/careers
+    ats: auto
+    board_token: ""
+  - name: Mimi Hearing Technologies
+    city: Munich
+    careers_url: https://www.mimi.io/careers
+    ats: auto
+    board_token: ""
+  - name: Tacto
+    city: Munich
+    careers_url: https://www.tacto.ai/careers
+    ats: auto
+    board_token: ""
+  - name: LatticeFlow
+    city: Zurich
+    careers_url: https://latticeflow.ai/careers
+    ats: auto
+    board_token: ""
+  - name: Deep Judge
+    city: Zurich
+    careers_url: https://www.deepjudge.ai/careers
+    ats: auto
+    board_token: ""
+  - name: Nexoya
+    city: Zurich
+    careers_url: https://www.nexoya.com/careers
+    ats: auto
+    board_token: ""
+  - name: Numab Therapeutics
+    city: Basel
+    careers_url: https://www.numab.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Anaveon
+    city: Basel
+    careers_url: https://www.anaveon.com/careers
+    ats: auto
+    board_token: ""
+  - name: T3 Pharmaceuticals
+    city: Basel
+    careers_url: https://www.t3pharma.com/careers
+    ats: auto
+    board_token: ""
+  - name: Distalmotion
+    city: Lausanne
+    careers_url: https://www.distalmotion.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Aleva Neurotherapeutics
+    city: Lausanne
+    careers_url: https://www.aleva-neuro.com/careers
+    ats: auto
+    board_token: ""
+  - name: Novigenix
+    city: Lausanne
+    careers_url: https://www.novigenix.com/careers
+    ats: auto
+    board_token: ""
+  - name: Kandou Bus
+    city: Lausanne
+    careers_url: https://www.kandou.com/careers/
+    ats: auto
+    board_token: ""
+  - name: QuantumDiamonds
+    city: Munich
+    careers_url: https://quantumdiamonds.de/careers/
+    ats: auto
+    board_token: ""
+  - name: Aily Labs
+    city: Munich
+    careers_url: https://aily.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Holidu
+    city: Munich
+    careers_url: https://www.holidu.com/careers
+    ats: auto
+    board_token: ""
+  - name: AMSilk
+    city: Munich
+    careers_url: https://www.amsilk.com/career/
+    ats: auto
+    board_token: ""
+  - name: Roadsurfer
+    city: Munich
+    careers_url: https://www.roadsurfer.com/en/jobs/
+    ats: auto
+    board_token: ""
+  - name: Fernride
+    city: Munich
+    careers_url: https://www.fernride.com/careers
+    ats: auto
+    board_token: ""
+  - name: HyImpulse
+    city: Munich
+    careers_url: https://www.hyimpulse.de/en/career/
+    ats: auto
+    board_token: ""
+  - name: South Pole
+    city: Zurich
+    careers_url: https://www.southpole.com/careers
+    ats: auto
+    board_token: ""
+  - name: Starmind
+    city: Zurich
+    careers_url: https://www.starmind.ai/careers
+    ats: auto
+    board_token: ""
+  - name: GlycoEra
+    city: Zurich
+    careers_url: https://www.glycoera.com/careers
+    ats: auto
+    board_token: ""
+  - name: Oviva
+    city: Zurich
+    careers_url: https://oviva.com/uk/en/careers/
+    ats: auto
+    board_token: ""
+  - name: Stalicla
+    city: Geneva
+    careers_url: https://www.stalicla.com/careers
+    ats: auto
+    board_token: ""
+  - name: iOnctura
+    city: Geneva
+    careers_url: https://ionctura.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Neurosoft Bioelectronics
+    city: Geneva
+    careers_url: https://www.neurosoft-bio.com/careers
+    ats: auto
+    board_token: ""
+  - name: Dathena
+    city: Geneva
+    careers_url: https://www.dathena.io/careers
+    ats: auto
+    board_token: ""
+  - name: TECH5
+    city: Geneva
+    careers_url: https://tech5.ai/careers/
+    ats: auto
+    board_token: ""
+  - name: High-Tech Bridge
+    city: Geneva
+    careers_url: https://www.htbridge.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Hilo
+    city: Bern
+    careers_url: https://www.hilo.co/careers
+    ats: auto
+    board_token: ""
+  - name: Nym Technologies
+    city: Bern
+    careers_url: https://nym.com/careers
+    ats: auto
+    board_token: ""
+  - name: Araris Biotech
+    city: Bern
+    careers_url: https://www.araris.ch/careers
+    ats: auto
+    board_token: ""

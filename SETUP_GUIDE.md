@@ -284,41 +284,40 @@ Pages screen and set Source back to "None."
 
 ---
 
-## Part 11 — The main city list and the Dream Cities list
+## Part 11 — The city list: Munich + Swiss cities
 
-The "Jobs" sheet is the full main-list tier — Munich, Zurich,
-Singapore, and Basel/Bern/Geneva/Lausanne/Lucerne (all of
-Switzerland's major cities except Lugano). Singapore and those Swiss
-cities used to be smaller "Dream Cities" entries; they were promoted
-to full main-list status with much larger, dedicated company lists
-(see `config/companies.yaml`) since they're genuine relocation
-options, not just aspirational ones.
+The tracker is deliberately scoped to just two sheets — "Jobs"
+(Munich, Zurich) and "Swiss Cities" (Basel, Bern, Geneva, Lausanne,
+Lucerne — all of Switzerland's major cities except Lugano). Kept as
+two separate sheets, not one, so Munich/Zurich's much higher posting
+volume doesn't bury the Swiss cities' genuinely fewer matches.
 
-Alongside that, the tracker also runs a pass against
-`config/dream_cities.yaml` — Copenhagen, Oslo, Helsinki, Vienna,
-Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne, and Sydney.
-These were chosen specifically because they're places with a
-realistic, established visa path (EU/EEA free movement, or a proper
-skilled-migration program) rather than a lottery — the US was
-deliberately left out for exactly that reason.
+This used to be broader — Singapore was a full main-list city, and a
+separate "Dream Cities" section covered Copenhagen, Oslo, Helsinki,
+Vienna, Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne, and
+Sydney. Both were dropped entirely per a scope-refocus decision:
+Munich and Swiss cities/nearby areas only, with the freed-up effort
+going into a much deeper company list for those instead.
+`config/dream_cities.yaml` still exists on disk (unused, not loaded
+by `src/main.py`) in case this gets reversed later — it wasn't
+deleted, just disconnected.
 
-Same title + confirmed-location matching throughout, no score floor —
-everything that matches shows up, sorted by relevance. You'll see the
-Jobs and Dream Cities sections as clearly separate, both in the Excel
-file (two sheet tabs) and on the webpage (green-highlighted new rows
-for Jobs, blue for Dream Cities).
+Same title + confirmed-location matching throughout. A minimum score
+of 3 applies to both sheets (`main_min_score` / `swiss_min_score` in
+`config/cv_profile.yaml`), pruned retroactively every run — not just
+gating new additions. You'll see the two sections clearly separated,
+both in the Excel file (two sheet tabs) and on the webpage
+(green-highlighted new rows for Jobs, amber for Swiss Cities).
 
-Adding, removing, or fixing a company in either list works exactly
-like Part 7 — same file format. `config/dream_cities.yaml` has one
-extra field, `country`, since that sheet shows a Country column.
+Adding, removing, or fixing a company works exactly like Part 7 —
+same file format, `config/companies.yaml` for both sheets (routing is
+automatic, based on where a posting's own location text actually
+matches — see `src/matcher.py`, `MAIN_LIST_CITIES` / `SWISS_CITIES`).
 
-If you want to turn a score floor back on for either sheet, adjust
-`main_min_score` / `dream_city_min_score` in `config/cv_profile.yaml`.
-
-(There used to be a third section here — "Global Top Picks," a
-whole-country wildcard pass. Removed per request: Singapore and the
-Swiss cities it partly existed to surface are now proper main-list
-cities instead, which covers the same need more directly.)
+If you have an existing tracker file with real historical data in an
+old "Dream Cities" or "Singapore & Swiss Cities" sheet from before
+this refocus, it's left untouched — just no longer updated with new
+postings. Delete it by hand in Excel if you want it fully gone.
 
 ---
 

@@ -6,23 +6,27 @@ Or via the GitHub Actions workflow (.github/workflows/daily_scrape.yml,
 runs daily at 06:30 Munich time, plus manual "Run workflow" trigger).
 
 Runs ONE combined pass: every company in config/companies.yaml AND
-config/dream_cities.yaml (each scraped once), matched against ANY
+config/job_boards.yaml (each scraped once), matched against ANY
 approved city — not just whichever single city that company's config
 entry happens to be tagged with. This matters: a company like
 Databricks is listed once, tagged "Zurich," but its job board spans
-many locations — a genuine Databricks posting in Munich or Singapore
-is just as real a match as one in Zurich, and would otherwise get
-silently rejected because only the Zurich question was being asked.
+many locations — a genuine Databricks posting in Munich is just as
+real a match as one in Zurich, and would otherwise get silently
+rejected because only the Zurich question was being asked.
 
-Matches route to one of THREE sheets, based on which city actually
-matched (see src.matcher.MAIN_LIST_CITIES / SWISS_SG_CITIES and
+Matches route to one of TWO sheets, based on which city actually
+matched (see src.matcher.MAIN_LIST_CITIES / SWISS_CITIES and
 filter_by_title_and_any_city):
   1. "Jobs" — Munich, Zurich.
-  2. "Singapore & Swiss Cities" — Singapore, Basel, Bern, Geneva,
-     Lausanne, Lucerne. Kept as its own sheet rather than merged into
-     "Jobs" so these cities' (genuinely fewer) matches aren't buried
-     under Munich/Zurich's much higher posting volume.
-  3. "Dream Cities" — everything else on the approved list.
+  2. "Swiss Cities" — Basel, Bern, Geneva, Lausanne, Lucerne. Kept as
+     its own sheet rather than merged into "Jobs" so these cities'
+     (genuinely fewer) matches aren't buried under Munich/Zurich's
+     much higher posting volume.
+
+Scope refocused per request to Munich + Swiss cities/nearby areas
+ONLY — config/dream_cities.yaml is no longer loaded at all (Singapore
+and every Dream City dropped). The file itself is left in place,
+unused, in case this gets reversed later rather than deleted outright.
 
 No score floor — every job that passes the title + confirmed-city
 filter is kept and shown.
@@ -47,9 +51,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.ats_scrapers import scrape_company, fetch_description_fallback, reset_headless_budget
 from src.matcher import (
     filter_by_title_only, resolve_city_for_job, extract_location_snippet,
-    score_jobs, MAIN_LIST_CITIES, SWISS_SG_CITIES,
+    score_jobs, MAIN_LIST_CITIES, SWISS_CITIES,
 )
-from src.tracker import update_tracker, update_swiss_sg_tracker, update_dream_tracker
+from src.tracker import update_tracker, update_swiss_tracker
 from src.generate_html import generate as generate_html
 
 logging.basicConfig(
@@ -61,7 +65,6 @@ logger = logging.getLogger("job_scraper.main")
 
 ROOT = Path(__file__).resolve().parent.parent
 COMPANIES_FILE = ROOT / "config" / "companies.yaml"
-DREAM_CITIES_FILE = ROOT / "config" / "dream_cities.yaml"
 JOB_BOARDS_FILE = ROOT / "config" / "job_boards.yaml"
 CV_PROFILE_FILE = ROOT / "config" / "cv_profile.yaml"
 TRACKER_FILE = ROOT / "data" / "job_tracker.xlsx"
@@ -72,13 +75,13 @@ def load_yaml(path: Path) -> dict:
         return yaml.safe_load(f)
 
 
-def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[dict], list[dict], list[dict], dict]:
+def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[dict], list[dict], dict]:
     """
     Scrapes every company once, matches each title-matched posting
     against ANY approved city (not just that company's configured
-    one), and splits results into (main_jobs, swiss_sg_jobs,
-    dream_jobs) based on where each posting actually matched. Returns
-    (main_jobs, swiss_sg_jobs, dream_jobs, counts).
+    one), and splits results into (main_jobs, swiss_jobs) based on
+    where each posting actually matched. Returns (main_jobs,
+    swiss_jobs, counts).
 
     IMPORTANT ordering fix: scrape_generic (ats_scrapers.py) always
     leaves location blank — plain HTML link scraping has no reliable
@@ -101,8 +104,7 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
     description too, so no posting gets fetched twice.
     """
     main_jobs = []
-    swiss_sg_jobs = []
-    dream_jobs = []
+    swiss_jobs = []
     ok_count = 0
     empty_count = 0
     error_count = 0
@@ -171,11 +173,8 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
             job["city"] = matched_city
             if matched_city in MAIN_LIST_CITIES:
                 main_jobs.append(job)
-            elif matched_city in SWISS_SG_CITIES:
-                swiss_sg_jobs.append(job)
             else:
-                job["country"] = job.pop("matched_country", "")
-                dream_jobs.append(job)
+                swiss_jobs.append(job)
 
         logger.info(
             "OK      %-35s %3d postings, %2d title-matched, %2d confirmed",
@@ -194,7 +193,7 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
         "title_matched": total_title_matched,
         "location_confirmed": total_confirmed,
     }
-    return main_jobs, swiss_sg_jobs, dream_jobs, counts
+    return main_jobs, swiss_jobs, counts
 
 
 def run() -> None:
@@ -203,17 +202,13 @@ def run() -> None:
 
     all_companies = (
         load_yaml(COMPANIES_FILE)["companies"]
-        + load_yaml(DREAM_CITIES_FILE)["companies"]
         + (load_yaml(JOB_BOARDS_FILE)["companies"] if JOB_BOARDS_FILE.exists() else [])
     )
-    main_jobs, swiss_sg_jobs, dream_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
+    main_jobs, swiss_jobs, counts = scrape_all_any_city(all_companies, cv_profile)
 
     main_summary = update_tracker(TRACKER_FILE, main_jobs, min_score=cv_profile.get("main_min_score", 0))
-    swiss_sg_summary = update_swiss_sg_tracker(
-        TRACKER_FILE, swiss_sg_jobs, min_score=cv_profile.get("swiss_sg_min_score", 0)
-    )
-    dream_summary = update_dream_tracker(
-        TRACKER_FILE, dream_jobs, min_score=cv_profile.get("dream_city_min_score", 0)
+    swiss_summary = update_swiss_tracker(
+        TRACKER_FILE, swiss_jobs, min_score=cv_profile.get("swiss_min_score", 0)
     )
 
     logger.info("-" * 60)
@@ -231,14 +226,9 @@ def run() -> None:
         cv_profile.get("main_min_score", 0), main_summary["total_rows"],
     )
     logger.info(
-        "Singapore & Swiss Cities sheet: %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
-        swiss_sg_summary["added"], swiss_sg_summary["already_tracked"], swiss_sg_summary["pruned"],
-        cv_profile.get("swiss_sg_min_score", 0), swiss_sg_summary["total_rows"],
-    )
-    logger.info(
-        "Dream Cities sheet: %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
-        dream_summary["added"], dream_summary["already_tracked"], dream_summary["pruned"],
-        cv_profile.get("dream_city_min_score", 0), dream_summary["total_rows"],
+        "Swiss Cities sheet: %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
+        swiss_summary["added"], swiss_summary["already_tracked"], swiss_summary["pruned"],
+        cv_profile.get("swiss_min_score", 0), swiss_summary["total_rows"],
     )
 
     generate_html()

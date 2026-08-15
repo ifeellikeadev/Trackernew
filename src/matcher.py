@@ -76,19 +76,6 @@ CITY_KEYWORDS = {
         "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
         "wädenswil", "waedenswil",
     ],
-    # --- Dream-city expansion (now includes metro-area satellite
-    # towns, same approach as Munich/Zurich — the city itself plus
-    # nearby commuter towns actually within reach, not the whole
-    # surrounding region) ---
-    "Copenhagen": [
-        "copenhagen", "københavn", "kobenhavn",
-        "frederiksberg", "gentofte", "lyngby", "kongens lyngby",
-        "ballerup", "glostrup", "hvidovre", "rødovre", "rodovre",
-        "taastrup",
-    ],
-    "Oslo": ["oslo", "bærum", "baerum", "asker", "lillestrøm", "lillestrom", "lørenskog", "lorenskog"],
-    "Helsinki": ["helsinki", "helsingfors", "espoo", "vantaa", "kauniainen"],
-    "Vienna": ["vienna", "wien", "klosterneuburg", "schwechat", "mödling", "modling", "baden bei wien"],
     "Basel": [
         "basel", "bâle", "bale",
         "allschwil", "muttenz", "reinach", "binningen", "pratteln",
@@ -118,27 +105,14 @@ CITY_KEYWORDS = {
         "kriens", "emmen", "horw",
         "ebikon", "adligenswil", "root", "malters", "meggen",
     ],
-    "Amsterdam": [
-        "amsterdam", "amstelveen", "diemen", "zaandam", "schiphol", "haarlem",
-        "hoofddorp", "zaanstad",
-    ],
-    "Rotterdam": [
-        "rotterdam", "schiedam", "papendrecht", "vlaardingen",
-        "capelle aan den ijssel", "spijkenisse", "barendrecht",
-    ],
-    "Vancouver": [
-        "vancouver", "burnaby", "richmond",
-        "surrey", "coquitlam", "north vancouver", "new westminster", "delta",
-    ],
-    "Perth": ["perth", "fremantle", "joondalup", "rockingham"],
-    "Melbourne": ["melbourne", "dandenong", "frankston", "box hill"],
-    "Sydney": ["sydney", "parramatta", "north sydney", "chatswood"],
-    "Singapore": ["singapore"],  # city-state, no separate metro area to add
-    "Berlin": [
-        "berlin", "potsdam", "falkensee", "oranienburg", "bernau",
-        "teltow", "kleinmachnow", "hennigsdorf",
-    ],
 }
+# Everything beyond Munich/Zurich/Basel/Bern/Geneva/Lausanne/Lucerne —
+# Singapore, all Dream Cities (Copenhagen, Oslo, Helsinki, Vienna,
+# Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne, Sydney) —
+# was deliberately removed per a scope refocus request: only Munich
+# and Swiss cities/nearby areas now. dream_cities.yaml and the
+# Singapore entries in job_boards.yaml are no longer loaded by
+# main.py, kept only as inert files in case this gets reversed later.
 
 # Keywords that count as "this location is clearly somewhere else" even
 # when it happens to also mention the right country in passing (e.g. a
@@ -252,15 +226,14 @@ def filter_by_title_and_location(
 # which config entry (and which nominal city) it came from.
 # --------------------------------------------------------------------------
 
-# Three tiers, feeding three separate tracker sheets/sections, in this
-# order top to bottom: "Jobs" (Munich, Zurich) -> "Singapore & Swiss
-# Cities" (Singapore, Basel, Bern, Geneva, Lausanne, Lucerne) ->
-# "Dream Cities" (everything else on the approved list). Kept as two
-# separate sets (not one combined "main" set) specifically so main.py
-# can route a match to the right one of three sheets, not just two.
+# Two tiers, feeding two tracker sheets, in this order top to bottom:
+# "Jobs" (Munich, Zurich) -> "Swiss Cities" (Basel, Bern, Geneva,
+# Lausanne, Lucerne). There used to be a third tier (Singapore + all
+# Dream Cities, routed to their own sheets) — removed per a scope
+# refocus request: Munich and Swiss cities/nearby areas only now.
 MAIN_LIST_CITIES = {"Munich", "Zurich"}
-SWISS_SG_CITIES = {"Singapore", "Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
-ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, Singapore, Swiss cities, + all dream cities
+SWISS_CITIES = {"Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
+ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, + the 5 Swiss cities
 
 
 def find_matching_city(location: str, candidate_cities: list[str] | None = None) -> str | None:
@@ -297,19 +270,17 @@ def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any])
 
 def resolve_city_for_job(job: dict[str, Any], search_text: str | None = None) -> str | None:
     """
-    Determines and tags matched_city (+ matched_country if relevant)
-    on a single already title-matched job. Searches search_text if
-    given (e.g. an enriched full-page text blob), otherwise falls back
-    to job["location"] — lets main.py search a richer text without
-    that raw text ending up as the job's displayed location. Returns
-    the matched city name, or None if nothing matched.
+    Determines and tags matched_city on a single already title-matched
+    job. Searches search_text if given (e.g. an enriched full-page
+    text blob), otherwise falls back to job["location"] — lets main.py
+    search a richer text without that raw text ending up as the job's
+    displayed location. Returns the matched city name, or None if
+    nothing matched.
     """
     matched_city = find_matching_city(search_text if search_text is not None else job.get("location", ""))
     if matched_city is None:
         return None
     job["matched_city"] = matched_city
-    if matched_city not in MAIN_LIST_CITIES and matched_city not in SWISS_SG_CITIES:
-        job["matched_country"] = CITY_TO_COUNTRY.get(matched_city, "")
     return matched_city
 
 
@@ -350,35 +321,6 @@ def filter_by_title_and_any_city(
     kept = [job for job in title_matched if resolve_city_for_job(job) is not None]
     stats = {"title_matched": len(title_matched), "location_confirmed": len(kept)}
     return kept, stats
-
-
-# --------------------------------------------------------------------------
-# CITY_TO_COUNTRY — used to tag the "Country" column on the Dream
-# Cities sheet. Munich/Zurich/Singapore/Basel/Bern/Geneva/Lausanne/
-# Lucerne don't need it (they're main-list cities, no Country column
-# there), but the mapping doesn't hurt to include them.
-# --------------------------------------------------------------------------
-CITY_TO_COUNTRY = {
-    "Munich": "Germany",
-    "Zurich": "Switzerland",
-    "Copenhagen": "Denmark",
-    "Oslo": "Norway",
-    "Helsinki": "Finland",
-    "Vienna": "Austria",
-    "Basel": "Switzerland",
-    "Bern": "Switzerland",
-    "Geneva": "Switzerland",
-    "Lausanne": "Switzerland",
-    "Lucerne": "Switzerland",
-    "Amsterdam": "Netherlands",
-    "Rotterdam": "Netherlands",
-    "Vancouver": "Canada",
-    "Perth": "Australia",
-    "Melbourne": "Australia",
-    "Sydney": "Australia",
-    "Singapore": "Singapore",
-    "Berlin": "Germany",
-}
 
 
 def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:
