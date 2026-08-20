@@ -34,17 +34,17 @@ companies:
     board_token: ""
   - name: Linde
     city: Munich
-    careers_url: https://careers.linde.com/
-    ats: workday
+    careers_url: https://www.lindecareers.com/en/search-jobs
+    ats: auto
     board_token: ""
   - name: Wacker Chemie
     city: Munich
-    careers_url: https://www.wacker.com/cms/en-us/career/career.html
+    careers_url: https://www.wacker.com/cms/en-us/careers/overview.html
     ats: auto
     board_token: ""
   - name: KUKA
     city: Munich
-    careers_url: https://www.kuka.com/en-de/company/career
+    careers_url: https://www.kuka.com/en-de/company/careers/vacancies
     ats: auto
     board_token: ""
   - name: Osram
@@ -59,9 +59,9 @@ companies:
     board_token: ""
   - name: Brainlab
     city: Munich
-    careers_url: https://www.brainlab.com/careers/
-    ats: auto
-    board_token: ""
+    careers_url: https://careers.smartrecruiters.com/brainlab
+    ats: smartrecruiters
+    board_token: "brainlab"
   - name: Rohde & Schwarz
     city: Munich
     careers_url: https://jobs.rohde-schwarz.com/
@@ -99,7 +99,7 @@ companies:
     board_token: ""
   - name: Diehl Defence
     city: Munich
-    careers_url: https://www.diehl.com/defence/en/career/
+    careers_url: https://new.diehl.com/career/en/jobs-application/job-offers/
     ats: auto
     board_token: ""
   - name: KNDS Deutschland
@@ -374,7 +374,7 @@ companies:
     board_token: ""
   - name: Kuehne+Nagel
     city: Zurich
-    careers_url: https://www.kuehne-nagel.com/careers
+    careers_url: https://jobs.kuehne-nagel.com/global/en
     ats: auto
     board_token: ""
   - name: Sulzer
@@ -439,7 +439,7 @@ companies:
     board_token: ""
   - name: Isar Aerospace
     city: Munich
-    careers_url: https://isaraerospace.com/careers
+    careers_url: https://www.isaraerospace.com/careers
     ats: auto
     board_token: ""
   - name: Proxima Fusion
@@ -1299,7 +1299,7 @@ companies:
     board_token: ""
   - name: Swiss International Air Lines
     city: Zurich
-    careers_url: https://careers.swiss.com/
+    careers_url: https://www.swiss.com/corporate/en/careers
     ats: auto
     board_token: ""
   - name: Flughafen Zuerich AG
@@ -1424,7 +1424,7 @@ companies:
     board_token: ""
   - name: SBB CFF FFS
     city: Bern
-    careers_url: https://karriere.sbb.ch/
+    careers_url: https://company.sbb.ch/en/jobs-careers.html
     ats: auto
     board_token: ""
   - name: Meyer Burger
@@ -1699,7 +1699,7 @@ companies:
     board_token: ""
   - name: RUAG Bern
     city: Bern
-    careers_url: https://www.ruag.com/en/careers
+    careers_url: https://careers.ruag.com/
     ats: auto
     board_token: ""
   - name: BEKB Bernische Kantonalbank
@@ -1784,12 +1784,12 @@ companies:
     board_token: ""
   - name: Bobst Group
     city: Lausanne
-    careers_url: https://www.bobst.com/en/career/
+    careers_url: https://careers.bobst.com/en
     ats: auto
     board_token: ""
   - name: Kudelski Group
     city: Lausanne
-    careers_url: https://www.kudelski.com/en/careers
+    careers_url: https://careers.nagra.com/
     ats: auto
     board_token: ""
   - name: Nespresso
