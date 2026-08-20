@@ -394,7 +394,7 @@ companies:
     board_token: ""
   - name: Sunrise Communications
     city: Zurich
-    careers_url: https://www.sunrise.ch/en/about-us/jobs
+    careers_url: https://careers.sunrise.ch/gb/en/search-results
     ats: auto
     board_token: ""
   - name: UPC Switzerland
@@ -439,9 +439,9 @@ companies:
     board_token: ""
   - name: Isar Aerospace
     city: Munich
-    careers_url: https://www.isaraerospace.com/careers
-    ats: auto
-    board_token: ""
+    careers_url: https://job-boards.eu.greenhouse.io/isaraerospace
+    ats: greenhouse
+    board_token: "isaraerospace"
   - name: Proxima Fusion
     city: Munich
     careers_url: https://www.proximafusion.com/careers
@@ -614,7 +614,7 @@ companies:
     board_token: ""
   - name: EY Germany
     city: Munich
-    careers_url: https://www.ey.com/en_de/careers
+    careers_url: https://careers.ey.com/
     ats: auto
     board_token: ""
   - name: Deloitte Germany
@@ -754,7 +754,7 @@ companies:
     board_token: ""
   - name: Rieter
     city: Zurich
-    careers_url: https://www.rieter.com/career
+    careers_url: https://www.rieter.com/careers
     ats: auto
     board_token: ""
   - name: Partners Group
@@ -794,7 +794,7 @@ companies:
     board_token: ""
   - name: PwC Switzerland
     city: Zurich
-    careers_url: https://www.pwc.ch/en/careers.html
+    careers_url: https://www.pwc.ch/en/careers-with-pwc.html
     ats: auto
     board_token: ""
   - name: KPMG Switzerland
@@ -1339,8 +1339,8 @@ companies:
     board_token: ""
   - name: Kardex
     city: Zurich
-    careers_url: https://www.kardex.com/en/career
-    ats: auto
+    careers_url: https://kardex.wd3.myworkdayjobs.com/Kardex
+    ats: workday
     board_token: ""
   - name: Conzzeta
     city: Zurich
