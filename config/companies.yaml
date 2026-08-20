@@ -304,9 +304,9 @@ companies:
     board_token: ""
   - name: Alpine Eagle
     city: Munich
-    careers_url: https://www.alpine-eagle.com/careers
-    ats: auto
-    board_token: ""
+    careers_url: https://job-boards.eu.greenhouse.io/alpineeagle
+    ats: greenhouse
+    board_token: "alpineeagle"
   - name: Reflex Aerospace
     city: Munich
     careers_url: https://www.reflexaerospace.com/careers
@@ -899,12 +899,12 @@ companies:
     board_token: ""
   - name: IAV
     city: Munich
-    careers_url: https://www.iav.com/en/careers/
+    careers_url: https://career.iav.com/en
     ats: auto
     board_token: ""
   - name: FEV Group
     city: Munich
-    careers_url: https://www.fev.com/en/careers.html
+    careers_url: https://www.fev.com/en/career/
     ats: auto
     board_token: ""
   - name: Magna International Munich
@@ -1444,12 +1444,12 @@ companies:
     board_token: ""
   - name: Universitat Bern
     city: Bern
-    careers_url: https://www.unibe.ch/university/working_at_unibe/index_eng.html
+    careers_url: https://www.karriere.unibe.ch/jobs/job_portal/index_eng.html
     ats: auto
     board_token: ""
   - name: Bundesamt fur Informatik BIT
     city: Bern
-    careers_url: https://www.bit.admin.ch/bit/en/home/jobs.html
+    careers_url: https://www.bit.admin.ch/de/jobs-karriere-bit
     ats: auto
     board_token: ""
   - name: Swisscom Group HQ
@@ -1494,7 +1494,7 @@ companies:
     board_token: ""
   - name: WIPO
     city: Geneva
-    careers_url: https://www.wipo.int/about-wipo/en/employment/
+    careers_url: https://www.wipo.int/en/web/working-at-wipo/wipo-jobs
     ats: auto
     board_token: ""
   - name: UNCTAD
@@ -1514,7 +1514,7 @@ companies:
     board_token: ""
   - name: Patek Philippe
     city: Geneva
-    careers_url: https://www.patek.com/en/company/careers
+    careers_url: https://careers.patek.com/
     ats: auto
     board_token: ""
   - name: Vacheron Constantin
@@ -1589,7 +1589,7 @@ companies:
     board_token: ""
   - name: Pilatus Aircraft
     city: Lucerne
-    careers_url: https://www.pilatus-aircraft.com/en/career
+    careers_url: https://www.pilatus-aircraft.com/en/jobs
     ats: auto
     board_token: ""
   - name: Bucherer
@@ -1604,7 +1604,7 @@ companies:
     board_token: ""
   - name: Lucerne University of Applied Sciences
     city: Lucerne
-    careers_url: https://www.hslu.ch/en/lucerne-university-of-applied-sciences-and-arts/about-us/jobs-careers/
+    careers_url: https://www.hslu.ch/en/careers/
     ats: auto
     board_token: ""
   - name: KKL Luzern
@@ -1619,7 +1619,7 @@ companies:
     board_token: ""
   - name: Bossard Group
     city: Lucerne
-    careers_url: https://www.bossard.com/int-en/career/
+    careers_url: https://www.bossard.com/global-en/about-us/jobs-and-careers/
     ats: auto
     board_token: ""
   - name: Syngenta
@@ -1639,7 +1639,7 @@ companies:
     board_token: ""
   - name: Bachem
     city: Basel
-    careers_url: https://www.bachem.com/company/careers/
+    careers_url: https://careers.bachem.com/
     ats: auto
     board_token: ""
   - name: Idorsia
@@ -1669,7 +1669,7 @@ companies:
     board_token: ""
   - name: PostFinance
     city: Bern
-    careers_url: https://www.postfinance.ch/en/about-us/jobs.html
+    careers_url: https://www.postfinance.ch/en/about-us/work-postfinance.html
     ats: auto
     board_token: ""
   - name: Skyguide
@@ -1684,12 +1684,12 @@ companies:
     board_token: ""
   - name: Die Mobiliar
     city: Bern
-    careers_url: https://www.mobiliar.ch/en/jobs
+    careers_url: https://www.mobiliar.ch/ueber-uns/karriere
     ats: auto
     board_token: ""
   - name: Insel Gruppe
     city: Bern
-    careers_url: https://www.insel.ch/de/stellenangebote
+    careers_url: https://inselgruppe.ch/en/jobs-careers/vacancies
     ats: auto
     board_token: ""
   - name: BLS AG
@@ -1709,7 +1709,7 @@ companies:
     board_token: ""
   - name: ICRC
     city: Geneva
-    careers_url: https://www.icrc.org/en/careers
+    careers_url: https://careers.icrc.org/
     ats: auto
     board_token: ""
   - name: World Health Organization
@@ -1774,12 +1774,12 @@ companies:
     board_token: ""
   - name: IMD Business School
     city: Lausanne
-    careers_url: https://www.imd.org/careers/
+    careers_url: https://www.imd.org/about/jobs-at-imd/
     ats: auto
     board_token: ""
   - name: EPFL
     city: Lausanne
-    careers_url: https://www.epfl.ch/about/working-at-epfl/job-opportunities/
+    careers_url: https://www.epfl.ch/about/working/working-at-epfl/job-openings/
     ats: auto
     board_token: ""
   - name: Bobst Group
@@ -1819,7 +1819,7 @@ companies:
     board_token: ""
   - name: Franke Group
     city: Lucerne
-    careers_url: https://www.franke.com/ch/en/karriere.html
+    careers_url: https://jobs.franke.com/
     ats: auto
     board_token: ""
   - name: Bank J. Safra Sarasin
@@ -1904,7 +1904,7 @@ companies:
     board_token: ""
   - name: World Meteorological Organization
     city: Geneva
-    careers_url: https://public.wmo.int/en/careers
+    careers_url: https://wmo.int/jobs
     ats: auto
     board_token: ""
   - name: Chopard
@@ -1914,7 +1914,7 @@ companies:
     board_token: ""
   - name: Piaget
     city: Geneva
-    careers_url: https://www.piaget.com/en-us/careers
+    careers_url: https://www.piaget.com/kw-en/careers
     ats: auto
     board_token: ""
   - name: MKS PAMP Group
@@ -1944,7 +1944,7 @@ companies:
     board_token: ""
   - name: Addex Therapeutics
     city: Lausanne
-    careers_url: https://www.addextherapeutics.com/en/careers/
+    careers_url: https://www.addextherapeutics.com/en/about-us/careers/
     ats: auto
     board_token: ""
   - name: Concordia Krankenversicherung
@@ -1954,7 +1954,7 @@ companies:
     board_token: ""
   - name: Luzerner Kantonalbank
     city: Lucerne
-    careers_url: https://www.lukb.ch/de/ueber-uns/karriere
+    careers_url: https://www.lukb.ch/ueber-uns/jobs
     ats: auto
     board_token: ""
   - name: Verkehrsbetriebe Luzern VBL
@@ -2069,7 +2069,7 @@ companies:
     board_token: ""
   - name: Banque Cantonale Vaudoise
     city: Lausanne
-    careers_url: https://www.bcv.ch/en/About-us/Jobs
+    careers_url: https://www.bcv.ch/en/home/la-bcv/careers.html
     ats: auto
     board_token: ""
   - name: von Moos Stahl
@@ -2107,11 +2107,6 @@ companies:
     careers_url: https://www.twaice.com/careers/
     ats: auto
     board_token: ""
-  - name: Kopernikus Automotive
-    city: Munich
-    careers_url: https://www.kopernikus.ai/careers
-    ats: auto
-    board_token: ""
   - name: Mimi Hearing Technologies
     city: Munich
     careers_url: https://www.mimi.io/careers
@@ -2124,7 +2119,7 @@ companies:
     board_token: ""
   - name: LatticeFlow
     city: Zurich
-    careers_url: https://latticeflow.ai/careers
+    careers_url: https://apply.workable.com/latticeflow/?lng=en
     ats: auto
     board_token: ""
   - name: Deep Judge
@@ -2145,11 +2140,6 @@ companies:
   - name: Anaveon
     city: Basel
     careers_url: https://www.anaveon.com/careers
-    ats: auto
-    board_token: ""
-  - name: T3 Pharmaceuticals
-    city: Basel
-    careers_url: https://www.t3pharma.com/careers
     ats: auto
     board_token: ""
   - name: Distalmotion
@@ -2239,7 +2229,7 @@ companies:
     board_token: ""
   - name: Neurosoft Bioelectronics
     city: Geneva
-    careers_url: https://www.neurosoft-bio.com/careers
+    careers_url: https://join.com/companies/neurosoft-bio2
     ats: auto
     board_token: ""
   - name: Dathena
