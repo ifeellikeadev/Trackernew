@@ -404,7 +404,7 @@ companies:
     board_token: ""
   - name: Huber+Suhner
     city: Zurich
-    careers_url: https://www.hubersuhner.com/en/company/career
+    careers_url: https://www.hubersuhner.com/en/company/jobs-and-careers
     ats: auto
     board_token: ""
   - name: Scandit
@@ -989,8 +989,8 @@ companies:
     board_token: ""
   - name: Snowflake Zurich
     city: Zurich
-    careers_url: https://www.snowflake.com/en/company/careers/
-    ats: greenhouse
+    careers_url: https://careers.snowflake.com/us/en/search-results
+    ats: auto
     board_token: ""
   - name: UiPath Zurich
     city: Zurich
@@ -1069,7 +1069,7 @@ companies:
     board_token: ""
   - name: LGT Bank
     city: Zurich
-    careers_url: https://www.lgt.com/en/careers
+    careers_url: https://www.lgt.com/global-en/career
     ats: auto
     board_token: ""
   - name: Lombard Odier Zurich
