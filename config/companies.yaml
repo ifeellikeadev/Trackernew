@@ -2262,3 +2262,1453 @@ companies:
     careers_url: https://www.araris.ch/careers
     ats: auto
     board_token: ""
+  - name: Zuhlke Engineering
+    city: Zurich
+    careers_url: https://www.zuehlke.com/
+    ats: auto
+    board_token: ""
+  - name: SEGULA Technologies
+    city: Munich
+    careers_url: https://www.segulatechnologies.com/de/
+    ats: auto
+    board_token: ""
+  - name: Digicomp Academy
+    city: Zurich
+    careers_url: https://www.digicomp.ch/
+    ats: auto
+    board_token: ""
+  - name: Liip
+    city: Zurich
+    careers_url: https://www.liip.ch/
+    ats: auto
+    board_token: ""
+  - name: Atos IT Solutions and Services
+    city: Munich
+    careers_url: https://atos.net/de/standorte
+    ats: auto
+    board_token: ""
+  - name: Boston Consulting Group Munich
+    city: Munich
+    careers_url: https://www.bcg.com/offices/munich/default
+    ats: auto
+    board_token: ""
+  - name: Nine Internet Solutions
+    city: Zurich
+    careers_url: https://www.nine.ch/
+    ats: auto
+    board_token: ""
+  - name: Cadence Design Systems
+    city: Munich
+    careers_url: https://cadence.wd1.myworkdayjobs.com/External_Careers
+    ats: workday
+    board_token: ""
+  - name: msg systems
+    city: Munich
+    careers_url: https://www.msg.group/en/career/
+    ats: auto
+    board_token: ""
+  - name: MVTec Software
+    city: Munich
+    careers_url: https://jobs.mvtec.com/
+    ats: auto
+    board_token: ""
+  - name: TDK Electronics
+    city: Munich
+    careers_url: https://www.tdk-electronics.tdk.com/en/2302162/careers/job-offers
+    ats: auto
+    board_token: ""
+  - name: EDAG Engineering
+    city: Munich
+    careers_url: https://www.edag.com/en/career
+    ats: auto
+    board_token: ""
+  - name: Altran Deutschland S.A.S. & Co. KG
+    city: Munich
+    careers_url: https://www.capgemini.com/careers/
+    ats: auto
+    board_token: ""
+  - name: ANSYS Germany GmbH
+    city: Munich
+    careers_url: https://ansys.synopsys.com/careers
+    ats: auto
+    board_token: ""
+  - name: ARRK Engineering GmbH
+    city: Munich
+    careers_url: https://engineering.arrk.com/jobs-career
+    ats: auto
+    board_token: ""
+  - name: Biersack GmbH & Co. KG
+    city: Munich
+    careers_url: https://lr-pure.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: Dornier Consulting Munich
+    city: Munich
+    careers_url: https://www.dornier-group.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: E.E.P.D. - Electronic-Equipment-Produktion & Distribution GmbH
+    city: Munich
+    careers_url: https://eepd.de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: EVO GmbH
+    city: Munich
+    careers_url: https://evo-gmbh.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Expleo Germany Holding GmbH
+    city: Munich
+    careers_url: https://expleo.com/global/en/
+    ats: auto
+    board_token: ""
+  - name: GAF Geospatial GmbH
+    city: Munich
+    careers_url: https://www.gaf.de/careers/
+    ats: auto
+    board_token: ""
+  - name: Haberkorn Deutschland GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.sahlberg.de/de/karriere.html
+    ats: auto
+    board_token: ""
+  - name: Industrie- und Handelskammer (IHK) für München und Oberbayern
+    city: Munich
+    careers_url: https://www.ihk-muenchen.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Liedtke Kunststofftechnik GmbH
+    city: Munich
+    careers_url: https://www.kunststoff-tiefziehtechnik-liedtke.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Messner GmbH
+    city: Munich
+    careers_url: https://www.messner-gmbh.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Phytron GmbH
+    city: Munich
+    careers_url: https://www.phytron.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: SPINNER GmbH
+    city: Munich
+    careers_url: https://www.spinner-group.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: TBK GbR
+    city: Munich
+    careers_url: https://www.tbk.com
+    ats: auto
+    board_token: ""
+  - name: Telair International GmbH
+    city: Munich
+    careers_url: https://telair.com/career/
+    ats: auto
+    board_token: ""
+  - name: Validas AG
+    city: Munich
+    careers_url: https://www.validas.de/career
+    ats: auto
+    board_token: ""
+  - name: Volke Consulting Engineer GmbH & Co. Planungs KG
+    city: Munich
+    careers_url: https://www.volke-muc.de/?page_id=2074
+    ats: auto
+    board_token: ""
+  - name: W.L. Gore & Associates GmbH
+    city: Munich
+    careers_url: https://www.gore.com/?RDCT=wlgore.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Arval Deutschland GmbH
+    city: Munich
+    careers_url: https://www.arval.de
+    ats: auto
+    board_token: ""
+  - name: ATS Automation Tooling Systems GmbH
+    city: Munich
+    careers_url: https://atsautomation.com/podcast/careers-in-focus/
+    ats: auto
+    board_token: ""
+  - name: Banner Batterien Deutschland GmbH
+    city: Munich
+    careers_url: https://www.bannerbatterien.com/de/Unternehmen/Karriere
+    ats: auto
+    board_token: ""
+  - name: BBS Automation Hallbergmoos GmbH
+    city: Munich
+    careers_url: https://www.bbsautomation.com/en/career
+    ats: auto
+    board_token: ""
+  - name: Beissbarth GmbH
+    city: Munich
+    careers_url: https://www.beissbarth.com/ueber-uns/karriere
+    ats: auto
+    board_token: ""
+  - name: BONN Elektronik GmbH
+    city: Munich
+    careers_url: https://www.bonn-elektronik.com/de/stellenangebote/
+    ats: auto
+    board_token: ""
+  - name: CAPTRON Electronic GmbH
+    city: Munich
+    careers_url: https://www.captron.com/company/jobs-career/
+    ats: auto
+    board_token: ""
+  - name: Copyright MVI Group GmbH
+    city: Munich
+    careers_url: https://mvi-group.com/karriere
+    ats: auto
+    board_token: ""
+  - name: csi entwicklungstechnik GmbH
+    city: Munich
+    careers_url: https://www.csi-online.de/de/karriere/karriere-bei-csi
+    ats: auto
+    board_token: ""
+  - name: DocuWare GmbH
+    city: Munich
+    careers_url: https://careers.docuware.com/us
+    ats: auto
+    board_token: ""
+  - name: Dr. Hönle AG
+    city: Munich
+    careers_url: https://www.hoenle.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: EBV Elektronik GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.avnet.com/wps/portal/ebv/karriere
+    ats: auto
+    board_token: ""
+  - name: Elried Markierungssysteme GmbH
+    city: Munich
+    careers_url: https://www.elried.de/arbeiten-bei-elried/
+    ats: auto
+    board_token: ""
+  - name: ENACO Energieanlagen- und Kommunikationstechnik GmbH
+    city: Munich
+    careers_url: https://karriere.freitag-gruppe.de
+    ats: auto
+    board_token: ""
+  - name: Engelbert Sellmaier Feinwerktechnik GmbH
+    city: Munich
+    careers_url: https://www.sellmaier.com/karriere
+    ats: auto
+    board_token: ""
+  - name: F&H Communications GmbH
+    city: Munich
+    careers_url: https://fundh.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Felderer München GmbH
+    city: Munich
+    careers_url: https://felderer.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Fritzmeier Group
+    city: Munich
+    careers_url: https://www.fritzmeier.de/karriere/wer-sind-wir/
+    ats: auto
+    board_token: ""
+  - name: Gregor Hofbauer GmbH
+    city: Munich
+    careers_url: https://www.hofbauer.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: GSI - Gesellschaft für Schweißtechnik International mbH, Niederlassung SLV München
+    city: Munich
+    careers_url: https://www.gsi-slv.de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Hago PU GmbH
+    city: Munich
+    careers_url: https://www.polypag.ch/jobs-karriere/
+    ats: auto
+    board_token: ""
+  - name: Hermann Harbeck Fahrzeugbau GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.harbeck.de/stellenanzeigen/
+    ats: auto
+    board_token: ""
+  - name: hofer powertrain GmbH
+    city: Munich
+    careers_url: https://www.hoferpowertrain.com/career/jobs
+    ats: auto
+    board_token: ""
+  - name: Huber + Suhner GmbH
+    city: Munich
+    careers_url: https://www.instagram.com/hubersuhner_careers
+    ats: auto
+    board_token: ""
+  - name: InoNet Computer GmbH
+    city: Munich
+    careers_url: https://www.inonet.com/unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: Instrument Systems GmbH
+    city: Munich
+    careers_url: https://www.instrumentsystems.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: iwis motorsysteme GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.iwis.com/de-de/karriere
+    ats: auto
+    board_token: ""
+  - name: iwis SE & Co. KG
+    city: Munich
+    careers_url: https://www.iwis.com/de-de/karriere
+    ats: auto
+    board_token: ""
+  - name: Josef Lentner GmbH
+    city: Munich
+    careers_url: https://lentner-gmbh.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Keller & Kalmbach GmbH & Co.KG
+    city: Munich
+    careers_url: https://www.keller-kalmbach.com/unternehmen/karriere
+    ats: auto
+    board_token: ""
+  - name: KET Karosserie Entwicklung Thurner GmbH
+    city: Munich
+    careers_url: https://www.ket-muc.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: Kiefel GmbH
+    city: Munich
+    careers_url: https://jobs.brueckner-group.com/go/All-Jobs/9694701/?markerViewed=&carouselIndex=&facetFilters=%7B%22legalEntity_obj%22%3A%5B%22KIEFEL+GmbH%22%5D%7D&pageNumber=0
+    ats: auto
+    board_token: ""
+  - name: Kraftanlagen München GmbH
+    city: Munich
+    careers_url: https://www.kraftanlagen.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: KRATZER AUTOMATION AG
+    city: Munich
+    careers_url: https://www.emerson.com/de/corporate/careers
+    ats: auto
+    board_token: ""
+  - name: Kufner Holding GmbH
+    city: Munich
+    careers_url: https://kufner.com
+    ats: auto
+    board_token: ""
+  - name: Kunststoffverarbeitung Wimmer GmbH
+    city: Munich
+    careers_url: https://www.wimmer-composites.com/karriereportal/
+    ats: auto
+    board_token: ""
+  - name: Leadec BV&Co. KG
+    city: Munich
+    careers_url: https://germany.leadec-services.com/de/jobs-karriere/arbeiten-bei-leadec
+    ats: auto
+    board_token: ""
+  - name: LexCom Informationssysteme GmbH
+    city: Munich
+    careers_url: https://lexcom.helixjobs.com/
+    ats: auto
+    board_token: ""
+  - name: Ludwig Meister GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.ludwigmeister.de/karriere
+    ats: auto
+    board_token: ""
+  - name: M Plan Modulare Planungs- und Konstruktionstechnik GmbH
+    city: Munich
+    careers_url: https://touch.ferchau.com/de/de?type=3
+    ats: auto
+    board_token: ""
+  - name: marco Systemanalyse und Entwicklung GmbH
+    city: Munich
+    careers_url: https://www.marco-systems.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: Martin Reisch GmbH
+    city: Munich
+    careers_url: https://reisch-fahrzeugbau.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Metallwarenfabrik Reichertshofen Karl Binder GmbH
+    city: Munich
+    careers_url: https://www.bindernet.de/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Müller-BBM Industry Solutions GmbH
+    city: Munich
+    careers_url: https://www.mbbm.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: NAT Neuberger Anlagen-Technik AG
+    city: Munich
+    careers_url: https://www.nat.eu/karriere
+    ats: auto
+    board_token: ""
+  - name: National Instruments Germany GmbH
+    city: Munich
+    careers_url: https://www.emerson.com/de/corporate/careers
+    ats: auto
+    board_token: ""
+  - name: Palfinger GmbH
+    city: Munich
+    careers_url: https://www.palfinger.com/de/de.html/karriere.html
+    ats: auto
+    board_token: ""
+  - name: Pininfarina Deutschland GmbH
+    city: Munich
+    careers_url: https://pininfarina.it/careers
+    ats: auto
+    board_token: ""
+  - name: Pixida GmbH
+    city: Munich
+    careers_url: https://www.pixida.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Prüftechnik Dieter Busch AG
+    city: Munich
+    careers_url: https://www.fluke.com/en-us/products/condition-monitoring?source=pruftechnik/karriere
+    ats: auto
+    board_token: ""
+  - name: psm protech GmbH & Co. KG
+    city: Munich
+    careers_url: https://psmprotech.de/karriere-mobil
+    ats: auto
+    board_token: ""
+  - name: psw automotive engineering GmbH
+    city: Munich
+    careers_url: https://www.psw-engineering.de/karriere
+    ats: auto
+    board_token: ""
+  - name: REMA TIP TOP AG
+    city: Munich
+    careers_url: https://rema-tiptop.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Rosenberger Hochfrequenztechnik GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.rosenberger.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Schabmüller Automobiltechnik GmbH
+    city: Munich
+    careers_url: https://www.schabmueller.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Schaltbau GmbH
+    city: Munich
+    careers_url: https://schaltbau.com/de/unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: Schleicher Fahrzeugteile GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.schleicher-fahrzeugteile.de
+    ats: auto
+    board_token: ""
+  - name: Schlemmer GmbH
+    city: Munich
+    careers_url: https://www.schlemmer.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Schreiner Group GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.schreiner-group.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Semcon Holding GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.semcon.com/
+    ats: auto
+    board_token: ""
+  - name: Snap-on Equipment GmbH
+    city: Munich
+    careers_url: https://www.snapon.com/EN/Careers
+    ats: auto
+    board_token: ""
+  - name: Softing AG
+    city: Munich
+    careers_url: https://career.softing.com/index.html
+    ats: auto
+    board_token: ""
+  - name: Stahlwerk Annahütte Max Aicher GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.annahuette.com/
+    ats: auto
+    board_token: ""
+  - name: Steadforce GmbH
+    city: Munich
+    careers_url: https://www.steadforce.com/jobs
+    ats: auto
+    board_token: ""
+  - name: Yamaichi Electronics Deutschland GmbH
+    city: Munich
+    careers_url: https://www.yamaichi.de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: VISPIRON Systems GmbH
+    city: Munich
+    careers_url: https://jobs.vispiron.com/jobs
+    ats: auto
+    board_token: ""
+  - name: ViscoTec Pumpen- und Dosiertechnik GmbH
+    city: Munich
+    careers_url: https://www.viscotec.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Triebenbacher Betriebsgesellschaft mbH
+    city: Munich
+    careers_url: https://www.sommer-group.eu/de-de/jobs
+    ats: auto
+    board_token: ""
+  - name: Tremco illbruck Produktion GmbH - Niederlassung Traunreut
+    city: Munich
+    careers_url: https://www.tremcocpg.eu/en-gb/?utm_source=www.tremco-illbruck.com&utm_medium=301_redirect&utm_campaign=ti_shutdown/karriere
+    ats: auto
+    board_token: ""
+  - name: tfk technologies GmbH
+    city: Munich
+    careers_url: https://www.tfk.de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: SUSS MicroTec Lithography GmbH
+    city: Munich
+    careers_url: https://www.suss.com/en/your-career
+    ats: auto
+    board_token: ""
+  - name: Spectrum Elektrotechnik GmbH
+    city: Munich
+    careers_url: https://www.spectrum-et.com/career/
+    ats: auto
+    board_token: ""
+  - name: Siteco GmbH
+    city: Munich
+    careers_url: https://www.siteco.de/karriere
+    ats: auto
+    board_token: ""
+  - name: SFC Energy AG
+    city: Munich
+    careers_url: https://www.sfc.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: ritterwerk GmbH
+    city: Munich
+    careers_url: https://www.ritterwerk.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Rail Power Systems GmbH
+    city: Munich
+    careers_url: https://karriere.rail-ps.com
+    ats: auto
+    board_token: ""
+  - name: PCS Systemtechnik GmbH
+    city: Munich
+    careers_url: https://www.pcs.com/ueber-uns/unternehmen/karriere
+    ats: auto
+    board_token: ""
+  - name: Mentor Graphics Deutschland GmbH
+    city: Munich
+    careers_url: https://www.siemens.com/global/en/company/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Max-Planck-Institut für Plasmaphysik
+    city: Munich
+    careers_url: https://www.ipp.mpg.de/4797342/ccpostdoc
+    ats: auto
+    board_token: ""
+  - name: Linner GmbH
+    city: Munich
+    careers_url: https://linner.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: LEMO Elektronik GmbH
+    city: Munich
+    careers_url: https://www.lemo.com/en/careers/job-offers
+    ats: auto
+    board_token: ""
+  - name: Lauterbach GmbH
+    city: Munich
+    careers_url: https://career.lauterbach.com/
+    ats: auto
+    board_token: ""
+  - name: Klasing Kabel GmbH
+    city: Munich
+    careers_url: https://www.klasing-kabel.de/klasing/cms/startseite/
+    ats: auto
+    board_token: ""
+  - name: KEM Küppers Elektromechanik GmbH
+    city: Munich
+    careers_url: https://www.kemflow.com/karriere
+    ats: auto
+    board_token: ""
+  - name: ILF Beratende Ingenieure GmbH
+    city: Munich
+    careers_url: https://www.ilf.com/jobs-at-ilf/
+    ats: auto
+    board_token: ""
+  - name: Hörmann Kommunikationsnetze GmbH
+    city: Munich
+    careers_url: https://www.hoermann-kn.de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: HOCHTIEF Infrastrucutre GmbH
+    city: Munich
+    careers_url: https://www.hochtief.com/careers/job-search
+    ats: auto
+    board_token: ""
+  - name: Hirsch Identiv EMEA Office
+    city: Munich
+    careers_url: https://identiv.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Gorenje Vertriebs GmbH
+    city: Munich
+    careers_url: https://de.hisense.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Ges. für Wolfram Industrie mbH
+    city: Munich
+    careers_url: https://wolfram-industrie.de/das-unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: Future Electronics Deutschland GmbH
+    city: Munich
+    careers_url: https://www.futureelectronics.com/de/careers
+    ats: auto
+    board_token: ""
+  - name: Finze & Wagner EMSR Ingenieurgesellschaft mbH
+    city: Munich
+    careers_url: https://www.fiwagroup.com/de/de/#section-career
+    ats: auto
+    board_token: ""
+  - name: exceet Card AG
+    city: Munich
+    careers_url: https://www.exceet-card-group.com/jobs/
+    ats: auto
+    board_token: ""
+  - name: esz AG calibration & metrology
+    city: Munich
+    careers_url: https://www.esz-ag.de
+    ats: auto
+    board_token: ""
+  - name: EP Electronic Print GmbH
+    city: Munich
+    careers_url: https://ep-electronicprint.de/unternehmen/jobs-karriere/
+    ats: auto
+    board_token: ""
+  - name: EnOcean GmbH
+    city: Munich
+    careers_url: https://www.enocean.com/en/about-us/career/
+    ats: auto
+    board_token: ""
+  - name: ELWA Elektro-Wärme GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.elwa.com/career/
+    ats: auto
+    board_token: ""
+  - name: Eloma GmbH - Innovative Koch- und Backtechnik
+    city: Munich
+    careers_url: https://www.eloma.com/
+    ats: auto
+    board_token: ""
+  - name: Elektrotechnische Werke Fritz Driescher & Söhne GmbH
+    city: Munich
+    careers_url: https://karriere.driescher.de/
+    ats: auto
+    board_token: ""
+  - name: Elektro Maier GmbH
+    city: Munich
+    careers_url: https://karriere.em-group.org/
+    ats: auto
+    board_token: ""
+  - name: Dr. Mach GmbH & Co. KG
+    city: Munich
+    careers_url: https://dr-mach.de/karriere
+    ats: auto
+    board_token: ""
+  - name: CitrinSolar GmbH Energie- und Umwelttechnik
+    city: Munich
+    careers_url: https://www.citrinsolar.de/wp-content/uploads/2025/05/karriere.webp
+    ats: auto
+    board_token: ""
+  - name: Christian Koenen GmbH
+    city: Munich
+    careers_url: https://www.christian-koenen.de/de/unternehmen/karriere
+    ats: auto
+    board_token: ""
+  - name: BSH Hausgeräte GmbH
+    city: Munich
+    careers_url: https://www.bsh-group.com/de/de/karriere/willkommen-bei-der-bsh/
+    ats: auto
+    board_token: ""
+  - name: Bayerisches Zentrum für Angewandte Energieforschung e. V. (ZAE Bayern) Energiespeicherung
+    city: Munich
+    careers_url: https://zae-bayern.de/jobs-career/
+    ats: auto
+    board_token: ""
+  - name: Bayerngas GmbH
+    city: Munich
+    careers_url: https://www.bayerngas.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Brückner Maschinenbau GmbH & Co. KG
+    city: Munich
+    careers_url: https://jobs.brueckner-group.com/go/Home_EN/9694601/
+    ats: auto
+    board_token: ""
+  - name: FORRS GmbH
+    city: Munich
+    careers_url: https://www.forrs.de/en/careers
+    ats: auto
+    board_token: ""
+  - name: Güntner GmbH & Co. KG
+    city: Munich
+    careers_url: https://guntner.com/de-de/unternehmen/karriere
+    ats: auto
+    board_token: ""
+  - name: InfraServ GmbH & Co. Gendorf KG
+    city: Munich
+    careers_url: https://karriere.infraserv.gendorf.de
+    ats: auto
+    board_token: ""
+  - name: Martin GmbH für Umwelt- und Energietechnik
+    city: Munich
+    careers_url: https://www.martingmbh.de/de/karriere.html
+    ats: auto
+    board_token: ""
+  - name: NAU TS GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.nau-gmbh.de/stellenangebot/
+    ats: auto
+    board_token: ""
+  - name: NR Neue Raumpflege Gebäude-Dienstleistungs-GmbH
+    city: Munich
+    careers_url: https://nrgb.de/jobs-karriere/
+    ats: auto
+    board_token: ""
+  - name: THIMM SCHERTLER Verpackungssysteme GmbH & CO. KG
+    city: Munich
+    careers_url: https://www.thimm.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: WALTRON GmbH
+    city: Munich
+    careers_url: https://waltron.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: 1&1 Mail & Media GmbH Zweigniederlassung München
+    city: Munich
+    careers_url: https://career.1and1.org/?traceId=35cf176a-eb01-4758-861d-4f85c95dc4ef
+    ats: auto
+    board_token: ""
+  - name: Abel Mobilfunk GmbH & Co. KG
+    city: Munich
+    careers_url: https://jobs.abel-gruppe.de/
+    ats: auto
+    board_token: ""
+  - name: Activision Blizzard Deutschland GmbH
+    city: Munich
+    careers_url: https://www.vgames.net/karriere
+    ats: auto
+    board_token: ""
+  - name: Aeromaritime Systembau GmbH
+    city: Munich
+    careers_url: https://aeromaritimegroup.com/jobs/
+    ats: auto
+    board_token: ""
+  - name: ARRI AG
+    city: Munich
+    careers_url: https://www.arri.com/en/company/careers
+    ats: auto
+    board_token: ""
+  - name: Assyst GmbH
+    city: Munich
+    careers_url: https://style3d-assyst.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: ATRON electronic GmbH
+    city: Munich
+    careers_url: https://www.atron.com/de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: AUSY Technologies Germany AG
+    city: Munich
+    careers_url: https://www.randstaddigital.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: AVERY ZWECKFORM GmbH
+    city: Munich
+    careers_url: https://www.avery.com/about-us/careers
+    ats: auto
+    board_token: ""
+  - name: avodaq AG
+    city: Munich
+    careers_url: https://www.avodaq.com/de/karriere/arbeiten-bei-avodaq/
+    ats: auto
+    board_token: ""
+  - name: b.telligent Deutschland GmbH
+    city: Munich
+    careers_url: https://www.btelligent.com/karriere/ueberblick
+    ats: auto
+    board_token: ""
+  - name: B2X Care Solutions GmbH
+    city: Munich
+    careers_url: https://www.b2x.com/#careers
+    ats: auto
+    board_token: ""
+  - name: Bavaria Studios & Production Services GmbH
+    city: Munich
+    careers_url: https://www.bavaria-studios.de/de/about/karriere/
+    ats: auto
+    board_token: ""
+  - name: Bloom GmbH
+    city: Munich
+    careers_url: https://bloomproject.de/jobs
+    ats: auto
+    board_token: ""
+  - name: Bosch Sicherheitssysteme GmbH
+    city: Munich
+    careers_url: https://www.bosch.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Brainloop AG
+    city: Munich
+    careers_url: https://brainloop.com/de-de/karriere/
+    ats: auto
+    board_token: ""
+  - name: BT (Germany) GmbH & Co. oHG
+    city: Munich
+    careers_url: https://jobs.bt.com/
+    ats: auto
+    board_token: ""
+  - name: Chimera Entertainment GmbH
+    city: Munich
+    careers_url: https://chimera-entertainment.com/career/
+    ats: auto
+    board_token: ""
+  - name: CIM GmbH
+    city: Munich
+    careers_url: https://cim-logistics.com/404-page-not-found
+    ats: auto
+    board_token: ""
+  - name: Citrix Systems GmbH
+    city: Munich
+    careers_url: https://careers.cloud.com/
+    ats: auto
+    board_token: ""
+  - name: Condé Nast Verlag GmbH
+    city: Munich
+    careers_url: https://www.condenast.com/de/careers
+    ats: auto
+    board_token: ""
+  - name: DMC Datenverarbeitungs- und Management-Consulting GmbH
+    city: Munich
+    careers_url: https://www.dmc-group.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: EQS Group AG
+    city: Munich
+    careers_url: https://www.eqs.com/about-eqs/careers/
+    ats: auto
+    board_token: ""
+  - name: Esri Deutschland GmbH
+    city: Munich
+    careers_url: https://www.esri.de/de-de/about/careers/overview
+    ats: auto
+    board_token: ""
+  - name: European Computer Telecoms AG - ECT
+    city: Munich
+    careers_url: https://www.ect-telecoms.com/about-ect/careers
+    ats: auto
+    board_token: ""
+  - name: FAST LTA GmbH
+    city: Munich
+    careers_url: https://www.fast-lta.de/de/fast/stellenangebote
+    ats: auto
+    board_token: ""
+  - name: Finanz Informatik Technologie Service GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.f-i-ts.de/arbeiten-bei-fi-ts
+    ats: auto
+    board_token: ""
+  - name: Gebr. Geiselberger GmbH
+    city: Munich
+    careers_url: https://karriere.geiselberger.de/
+    ats: auto
+    board_token: ""
+  - name: genua GmbH
+    city: Munich
+    careers_url: https://www.genua.de/karriere
+    ats: auto
+    board_token: ""
+  - name: GPP Communication GmbH & Co. KG
+    city: Munich
+    careers_url: https://gpp-com.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Hueber Verlag GmbH & Co KG
+    city: Munich
+    careers_url: https://www.hueber.de/ueber-uns/karriere-bei-hueber
+    ats: auto
+    board_token: ""
+  - name: IFCO Systems GmbH
+    city: Munich
+    careers_url: https://www.ifco.com/de/
+    ats: auto
+    board_token: ""
+  - name: IntraFind Software AG
+    city: Munich
+    careers_url: https://intrafind.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Kinoton Digital Solutions GmbH
+    city: Munich
+    careers_url: https://www.kinoton.de/unternehmen#karriere
+    ats: auto
+    board_token: ""
+  - name: Leica Geosystems GmbH Vertrieb
+    city: Munich
+    careers_url: https://leica-geosystems.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: M-net Telekommunikations GmbH
+    city: Munich
+    careers_url: https://www.m-net.de/privatkunden
+    ats: auto
+    board_token: ""
+  - name: mediawave commerce GmbH
+    city: Munich
+    careers_url: https://jobs.mediawave.de/
+    ats: auto
+    board_token: ""
+  - name: NAGARRO GmbH
+    city: Munich
+    careers_url: https://www.nagarro.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: NetApp Deutschland GmbH
+    city: Munich
+    careers_url: https://careers.netapp.com
+    ats: auto
+    board_token: ""
+  - name: NTT Security GmbH
+    city: Munich
+    careers_url: https://nttcomsecurity.com/
+    ats: auto
+    board_token: ""
+  - name: OBERMEYER Servbest GmbH
+    city: Munich
+    careers_url: https://www.obermeyer-group.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Parametric Technology GmbH
+    city: Munich
+    careers_url: https://www.ptc.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Quadient Germany GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.quadient.com/en-us/careers
+    ats: auto
+    board_token: ""
+  - name: Q_PERIOR AG
+    city: Munich
+    careers_url: https://www.wavestone.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: ratioform Verpackungen GmbH
+    city: Munich
+    careers_url: https://www.kaiserkraft.de/shop/ratioform-shop/w/ratioform_shop/?source=ratioform
+    ats: auto
+    board_token: ""
+  - name: Red Hat GmbH
+    city: Munich
+    careers_url: https://www.redhat.com/de/global/dach?oh=www.redhat.de/karriere
+    ats: auto
+    board_token: ""
+  - name: A. Greitner Gebäudereinigung + Service GmbH
+    city: Munich
+    careers_url: https://www.greitner.de/bewerbung
+    ats: auto
+    board_token: ""
+  - name: A. Schweiger GmbH
+    city: Munich
+    careers_url: https://www.schweiger-group.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Advanced Micro Devices GmbH
+    city: Munich
+    careers_url: https://www.amd.com/de.html
+    ats: auto
+    board_token: ""
+  - name: ALZMETALL Werkzeugmaschinenfabrik und Gießerei Friedrich GmbH & Co. KG
+    city: Munich
+    careers_url: https://alzmetall.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Amper-Plastik R. Dittrich GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.amperplastik.de/amperplastik/karriere
+    ats: auto
+    board_token: ""
+  - name: ANDRITZ Separation GmbH
+    city: Munich
+    careers_url: https://www.andritz.com/group-en/careers
+    ats: auto
+    board_token: ""
+  - name: ASM Automation Sensorik Meßtechnik GmbH
+    city: Munich
+    careers_url: https://www.asm-sensor.com/de/de/unternehmen.html#5karriere
+    ats: auto
+    board_token: ""
+  - name: AVNET EMG GmbH
+    city: Munich
+    careers_url: https://www.avnet.com/wps/portal/emea/karriere
+    ats: auto
+    board_token: ""
+  - name: BAUER Aktiengesellschaft
+    city: Munich
+    careers_url: https://www.bauer.de/de/stellenanzeigen
+    ats: auto
+    board_token: ""
+  - name: Bauer Kompressoren GmbH
+    city: Munich
+    careers_url: https://www.bauer-kompressoren.de/stellenangebote
+    ats: auto
+    board_token: ""
+  - name: BAUER Maschinen GmbH
+    city: Munich
+    careers_url: https://www.bauer.de/de/stellenanzeigen
+    ats: auto
+    board_token: ""
+  - name: BAUER Resources GmbH
+    city: Munich
+    careers_url: https://www.bauer.de/de/stellenanzeigen
+    ats: auto
+    board_token: ""
+  - name: Bavaria Alloys Systems (BAS) GmbH
+    city: Munich
+    careers_url: https://bavaria-alloys.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Betz-Chrom GmbH
+    city: Munich
+    careers_url: https://www.betz-chrom.de/stellenangebote/
+    ats: auto
+    board_token: ""
+  - name: BrauKon GmbH
+    city: Munich
+    careers_url: https://braukon.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Brückner Group GmbH
+    city: Munich
+    careers_url: https://jobs.brueckner-group.com/go/Home_EN/9694601/
+    ats: auto
+    board_token: ""
+  - name: BRÜCKNER Textile Technologies GmbH & Co. KG Niederlassung Tittmoning
+    city: Munich
+    careers_url: https://azubiblog.brueckner-textile.com
+    ats: auto
+    board_token: ""
+  - name: Butz & Neumair GmbH Aufzugbau
+    city: Munich
+    careers_url: https://www.butz-neumair.de/unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: CALIQUA-BORMANN GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.caliqua-bormann.de/index.php/arbeitgeber-und-ausbildungsbetrieb.html
+    ats: auto
+    board_token: ""
+  - name: CCL Label GmbH
+    city: Munich
+    careers_url: https://www.hugedomains.com/domain_profile.cfm?d=cclindustries.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Christoph Liebers GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.liebers.de/en/jobs
+    ats: auto
+    board_token: ""
+  - name: Collomix Rühr- und Mischgeräte GmbH
+    city: Munich
+    careers_url: https://www.collomix.com/de-de/unternehmen/karriere
+    ats: auto
+    board_token: ""
+  - name: Donau Hydraulik GmbH
+    city: Munich
+    careers_url: https://donauhydraulik.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Drei Bond GmbH
+    city: Munich
+    careers_url: https://dreibond.de/karriere
+    ats: auto
+    board_token: ""
+  - name: DREI V GmbH Verpackung, Verpacken, Versenden
+    city: Munich
+    careers_url: https://www.drei-v.de/de/jobs.html
+    ats: auto
+    board_token: ""
+  - name: Dürrmann GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.duerrmann.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Esterer Gießerei GmbH
+    city: Munich
+    careers_url: https://www.esterer-giesserei.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Esterer WD GmbH
+    city: Munich
+    careers_url: https://www.ewd.de/stellenanzeigen
+    ats: auto
+    board_token: ""
+  - name: Fraunhofer-Institut für Verfahrenstechnik und Verpackung IVV
+    city: Munich
+    careers_url: https://www.ivv.fraunhofer.de/de/jobs-karriere.html
+    ats: auto
+    board_token: ""
+  - name: Gardner Denver Thomas GmbH
+    city: Munich
+    careers_url: https://www.gardnerdenver.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Gleason-Hurth Tooling GmbH
+    city: Munich
+    careers_url: https://www.gleason.com/en/careers
+    ats: auto
+    board_token: ""
+  - name: Gummiwerk KRAIBURG Elastik GmbH & Co. KG
+    city: Munich
+    careers_url: https://kraiburg-elastik.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Hans Brunner GmbH
+    city: Munich
+    careers_url: https://hansbrunner.de/stellenangebote
+    ats: auto
+    board_token: ""
+  - name: HAWE Hydraulik SE
+    city: Munich
+    careers_url: https://www.hawe.com/de-de/unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: Hawle Armaturen GmbH
+    city: Munich
+    careers_url: https://karriere.hawle.de
+    ats: auto
+    board_token: ""
+  - name: HBS Bolzenschweiss-Systeme GmbH & Co. KG
+    city: Munich
+    careers_url: https://hbswelding.systems/de/karriere
+    ats: auto
+    board_token: ""
+  - name: HECHT Technologie GmbH
+    city: Munich
+    careers_url: https://www.hecht.eu/karriere
+    ats: auto
+    board_token: ""
+  - name: Hennig GmbH
+    city: Munich
+    careers_url: https://hennigworldwide.com/de/berufe-und-lehrstellen
+    ats: auto
+    board_token: ""
+  - name: HMT Medizintechnik GmbH
+    city: Munich
+    careers_url: https://www.hmt-ffb.de/karriere-bei-hmt-und-aktuelle-stellenangebote/
+    ats: auto
+    board_token: ""
+  - name: Hoffmann GmbH
+    city: Munich
+    careers_url: https://www.hoffmann-group.com/GB/en/houk/hoffmann-group/careers/e/116222/
+    ats: auto
+    board_token: ""
+  - name: Jura-Guss GmbH
+    city: Munich
+    careers_url: https://aluminium-giesserei.com/de/ausbildung/azubi-net
+    ats: auto
+    board_token: ""
+  - name: KELVION REFRIGERATION GMBH
+    city: Munich
+    careers_url: https://www.kelvion.com/de/karriere/arbeiten-bei-kelvion
+    ats: auto
+    board_token: ""
+  - name: Kessel AG
+    city: Munich
+    careers_url: https://karriere-kessel.de/
+    ats: auto
+    board_token: ""
+  - name: KINSHOFER GmbH
+    city: Munich
+    careers_url: https://www.kinshofer.com/en/home/job-reports
+    ats: auto
+    board_token: ""
+  - name: Körber Pharma Inspection GmbH
+    city: Munich
+    careers_url: https://www.koerber.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Lacon Electronic GmbH
+    city: Munich
+    careers_url: https://www.lacon.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Zunhammer GmbH Gülletechnik - Fahrzeugbau
+    city: Munich
+    careers_url: https://zunhammer.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: YASKAWA Europe GmbH
+    city: Munich
+    careers_url: https://career.yaskawa.eu.com/eng
+    ats: auto
+    board_token: ""
+  - name: Wolf Anlagen-Technik GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.wolf-geisenfeld.de/de/karriere
+    ats: auto
+    board_token: ""
+  - name: Wipro Hochrainer GmbH
+    city: Munich
+    careers_url: https://www.wipro-hochrainer.com/unternehmen
+    ats: auto
+    board_token: ""
+  - name: Werner Weitner GmbH
+    city: Munich
+    careers_url: https://www.werner-weitner.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Voith Composites GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.voith.com/corp-en/index.html
+    ats: auto
+    board_token: ""
+  - name: Vestner Aufzüge GmbH
+    city: Munich
+    careers_url: https://www.vestner.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: valantic Supply Chain Excellence GmbH
+    city: Munich
+    careers_url: https://www.valantic.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Telelift GmbH
+    city: Munich
+    careers_url: https://www.telelift-logistics.com/en/company/career/
+    ats: auto
+    board_token: ""
+  - name: SÜSS MicroTec AG
+    city: Munich
+    careers_url: https://www.suss.com/en/your-career
+    ats: auto
+    board_token: ""
+  - name: Streifeneder ortho. production GmbH
+    city: Munich
+    careers_url: https://streifeneder.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Stemmer Imaging GmbH
+    city: Munich
+    careers_url: https://www.stemmer-imaging.com/de
+    ats: auto
+    board_token: ""
+  - name: Steigerwald Strahltechnik GmbH
+    city: Munich
+    careers_url: https://www.sst-ebeam.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: STAHLGRUBER GmbH
+    city: Munich
+    careers_url: https://www.lkqkarriere.de/
+    ats: auto
+    board_token: ""
+  - name: Spinner Werkzeugmaschinenfabrik GmbH
+    city: Munich
+    careers_url: https://www.spinner.eu.com/karriere
+    ats: auto
+    board_token: ""
+  - name: SILOKING Mayer Maschinenbau GmbH
+    city: Munich
+    careers_url: https://www.siloking.com/karriere
+    ats: auto
+    board_token: ""
+  - name: Schwanner GmbH
+    city: Munich
+    careers_url: https://www.butting.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: Schnurr GmbH
+    city: Munich
+    careers_url: https://schnurr-gmbh.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: SAFELOG GmbH
+    city: Munich
+    careers_url: https://www.safelog.de/unternehmen/#jobs
+    ats: auto
+    board_token: ""
+  - name: Ruff GmbH
+    city: Munich
+    careers_url: https://ruff-worldwide.de/career/
+    ats: auto
+    board_token: ""
+  - name: Robert Schiessl GmbH
+    city: Munich
+    careers_url: https://www.schiessl-kaelte.com/de_DE/Karriere
+    ats: auto
+    board_token: ""
+  - name: Riedl Aufzugbau GmbH & Co. KG
+    city: Munich
+    careers_url: https://riedl-aufzuege.de/karriere/arbeiten-bei-riedl.html
+    ats: auto
+    board_token: ""
+  - name: Resch Maschinenbau GmbH
+    city: Munich
+    careers_url: https://www.resch-maschinenbau.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: POLIGRAT GmbH
+    city: Munich
+    careers_url: https://poligrat.de/kontakt/
+    ats: auto
+    board_token: ""
+  - name: Poellath GmbH & Co. KG
+    city: Munich
+    careers_url: https://poellath.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Peter Feckl Maschinenbau GmbH
+    city: Munich
+    careers_url: https://feckl.com/feckl-maschinenbau-cnc-praezisionstechnik-aus-bayern/ueber-uns-feckl-maschinenbau-unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: Papierfabrik Louisenthal GmbH
+    city: Munich
+    careers_url: https://www.louisenthal.com/de/karriere
+    ats: auto
+    board_token: ""
+  - name: OKS Spezialschmierstoffe GmbH
+    city: Munich
+    careers_url: https://www.oks-germany.com/de/unternehmen/
+    ats: auto
+    board_token: ""
+  - name: Océ Printing Systems GmbH
+    city: Munich
+    careers_url: https://cpp.canon/careers/
+    ats: auto
+    board_token: ""
+  - name: Novexx Solutions GmbH
+    city: Munich
+    careers_url: https://www.novexx.com/career/
+    ats: auto
+    board_token: ""
+  - name: MULTIMON Industrieanlagen GmbH
+    city: Munich
+    careers_url: https://www.firian.com/karriere
+    ats: auto
+    board_token: ""
+  - name: MIAS Maschinenbau Industrieanlagen & Service GmbH
+    city: Munich
+    careers_url: https://mias-group.com/de/karriere/stellenangebote/
+    ats: auto
+    board_token: ""
+  - name: Metawell GmbH
+    city: Munich
+    careers_url: https://www.metawell.com/unternehmen/karriere/
+    ats: auto
+    board_token: ""
+  - name: Meiller Aufzugtüren GmbH
+    city: Munich
+    careers_url: https://karriere.meiller.com
+    ats: auto
+    board_token: ""
+  - name: MEGATRON Elektronik GmbH & Co. KG
+    city: Munich
+    careers_url: https://www.megatron.de/unternehmen/karriere
+    ats: auto
+    board_token: ""
+  - name: Manntech Fassadenbefahrsysteme GmbH
+    city: Munich
+    careers_url: https://www.manntech.com/about/career-opportunities/
+    ats: auto
+    board_token: ""
+  - name: Ludwig Schwerdtel GmbH
+    city: Munich
+    careers_url: https://ls.schwerdtel.eu/karriere/
+    ats: auto
+    board_token: ""
+  - name: Ludwig Hunger Werkzeug- und Maschinenfabrik GmbH
+    city: Munich
+    careers_url: https://www.ludwig-hunger.de/ger/Aktuelles/Stellenangebote
+    ats: auto
+    board_token: ""
+  - name: BayBG Bayerische Beteiligungsgesellschaft mbH
+    city: Munich
+    careers_url: https://baybg.com/de/ueber-uns/karriere/
+    ats: auto
+    board_token: ""
+  - name: blu Professionals GmbH
+    city: Munich
+    careers_url: https://www.bluprofessionals.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: COMMERZBANK AG
+    city: Munich
+    careers_url: https://www.commerzbank.de/group/careers/
+    ats: auto
+    board_token: ""
+  - name: Kreissparkasse München Starnberg Ebersberg
+    city: Munich
+    careers_url: https://www.kskmse.de/de/home.html/karriere
+    ats: auto
+    board_token: ""
+  - name: Kreissparkasse Traunstein - Trostberg
+    city: Munich
+    careers_url: https://www.spk-ts.de/de/home.html/karriere
+    ats: auto
+    board_token: ""
+  - name: LHI Leasing GmbH
+    city: Munich
+    careers_url: https://www.lhi.de
+    ats: auto
+    board_token: ""
+  - name: LKC Grünwald GmbH & Co. KG Wirtschaftsprüfungsgesellschaft Steuerberatungsgesellschaft
+    city: Munich
+    careers_url: https://lkc.de/karriere/
+    ats: auto
+    board_token: ""
+  - name: Münchener Hypothekenbank eG
+    city: Munich
+    careers_url: https://karriere.mhb.de/
+    ats: auto
+    board_token: ""
+  - name: Münchener Rückversicherungs-Gesellschaft AG
+    city: Munich
+    careers_url: https://careers.munichre.com/en/munichre
+    ats: auto
+    board_token: ""
+  - name: Oberbank AG Niederlassung Deutschland
+    city: Munich
+    careers_url: https://www.oberbank.de/karriere
+    ats: auto
+    board_token: ""
+  - name: SNP Schlawien Partnerschaft mbB Rechtsanwälte Steuerberater
+    city: Munich
+    careers_url: https://snp.law/karriere/
+    ats: auto
+    board_token: ""
+  - name: State Street Bank GmbH
+    city: Munich
+    careers_url: https://careers.statestreet.com/global/en
+    ats: auto
+    board_token: ""
+  - name: transact Elektronische Zahlungssysteme GmbH
+    city: Munich
+    careers_url: https://www.epay.de/karriere
+    ats: auto
+    board_token: ""
