@@ -264,9 +264,9 @@ companies:
     board_token: ""
   - name: commercetools
     city: Munich
-    careers_url: https://commercetools.com/careers
+    careers_url: https://job-boards.greenhouse.io/commercetools
     ats: greenhouse
-    board_token: ""
+    board_token: "commercetools"
   - name: Serviceplan Group
     city: Munich
     careers_url: https://www.house-of-communication.com/de/en/career.html
@@ -284,18 +284,18 @@ companies:
     board_token: ""
   - name: FlixMobility
     city: Munich
-    careers_url: https://www.flixbus.com/company/jobs
-    ats: greenhouse
+    careers_url: https://flix.careers/
+    ats: auto
     board_token: ""
   - name: Celonis
     city: Munich
-    careers_url: https://www.celonis.com/careers/
-    ats: greenhouse
+    careers_url: https://careers.celonis.com/
+    ats: auto
     board_token: ""
   - name: Quantum Systems
     city: Munich
-    careers_url: https://quantum-systems.com/careers/
-    ats: personio
+    careers_url: https://career.quantum-systems.com/
+    ats: auto
     board_token: ""
   - name: Tytan Technologies
     city: Munich
@@ -309,14 +309,14 @@ companies:
     board_token: "alpineeagle"
   - name: Reflex Aerospace
     city: Munich
-    careers_url: https://www.reflexaerospace.com/careers
+    careers_url: https://reflex-aerospace-gmbh.jobs.personio.de/?language=en
     ats: personio
-    board_token: ""
+    board_token: "reflex-aerospace-gmbh"
   - name: ARX Robotics
     city: Munich
-    careers_url: https://www.arx-robotics.com/careers
-    ats: personio
-    board_token: ""
+    careers_url: https://job-boards.eu.greenhouse.io/arxroboticsgmbh
+    ats: greenhouse
+    board_token: "arxroboticsgmbh"
   - name: UBS
     city: Zurich
     careers_url: https://www.ubs.com/global/en/careers.html
@@ -424,14 +424,14 @@ companies:
     board_token: "anybotics"
   - name: Climeworks
     city: Zurich
-    careers_url: https://climeworks.com/careers
-    ats: greenhouse
+    careers_url: https://climeworks.recruitee.com/
+    ats: auto
     board_token: ""
   - name: Auterion
     city: Zurich
-    careers_url: https://auterion.com/careers/
+    careers_url: https://job-boards.greenhouse.io/auterion
     ats: greenhouse
-    board_token: ""
+    board_token: "auterion"
   - name: RAROG
     city: Zurich
     careers_url: https://www.rarog.tech/careers
@@ -659,9 +659,9 @@ companies:
     board_token: ""
   - name: Beekeeper
     city: Zurich
-    careers_url: https://www.beekeeper.io/careers/
+    careers_url: https://boards.greenhouse.io/beekeeper
     ats: greenhouse
-    board_token: ""
+    board_token: "beekeeper"
   - name: Squirro
     city: Zurich
     careers_url: https://squirro.com/careers/
@@ -869,9 +869,9 @@ companies:
     board_token: ""
   - name: ServiceNow Munich
     city: Munich
-    careers_url: https://careers.servicenow.com/jobs
+    careers_url: https://careers.smartrecruiters.com/servicenow
     ats: smartrecruiters
-    board_token: ""
+    board_token: "servicenow"
   - name: Traton
     city: Munich
     careers_url: https://traton.com/en/career.html
@@ -979,14 +979,14 @@ companies:
     board_token: ""
   - name: Palantir Zurich
     city: Zurich
-    careers_url: https://www.palantir.com/careers/
+    careers_url: https://jobs.lever.co/palantir
     ats: lever
-    board_token: ""
+    board_token: "palantir"
   - name: Databricks Zurich
     city: Zurich
-    careers_url: https://www.databricks.com/company/careers
+    careers_url: https://job-boards.greenhouse.io/databricks
     ats: greenhouse
-    board_token: ""
+    board_token: "databricks"
   - name: Snowflake Zurich
     city: Zurich
     careers_url: https://careers.snowflake.com/us/en/search-results
@@ -1059,8 +1059,8 @@ companies:
     board_token: ""
   - name: Straumann Group
     city: Zurich
-    careers_url: https://www.straumann.com/group/en/careers.html
-    ats: smartrecruiters
+    careers_url: https://careers.straumann.com/global/de/search-results
+    ats: auto
     board_token: ""
   - name: Tecan
     city: Zurich
@@ -1179,9 +1179,9 @@ companies:
     board_token: ""
   - name: Cosuno
     city: Munich
-    careers_url: https://www.cosuno.com/en/career
+    careers_url: https://cosuno.jobs.personio.de/
     ats: personio
-    board_token: ""
+    board_token: "cosuno"
   - name: Voith Digital Solutions
     city: Munich
     careers_url: https://www.voith.com/corp-en/careers.html
@@ -1189,8 +1189,8 @@ companies:
     board_token: ""
   - name: FREE NOW
     city: Munich
-    careers_url: https://free-now.com/careers/
-    ats: greenhouse
+    careers_url: https://www.free-now.com/de/karriere/
+    ats: auto
     board_token: ""
   - name: Cassini Consulting
     city: Munich
@@ -1229,8 +1229,8 @@ companies:
     board_token: ""
   - name: Instagrid
     city: Munich
-    careers_url: https://www.instagrid.co/careers
-    ats: personio
+    careers_url: https://careers.instagrid.co/
+    ats: auto
     board_token: ""
   - name: Reply Munich
     city: Munich
@@ -1255,12 +1255,12 @@ companies:
   - name: Tacterion
     city: Munich
     careers_url: https://www.tacterion.com/careers
-    ats: personio
+    ats: auto
     board_token: ""
   - name: ProGlove
     city: Munich
     careers_url: https://www.proglove.com/careers/
-    ats: personio
+    ats: auto
     board_token: ""
   - name: ETH Zurich
     city: Zurich
@@ -1284,8 +1284,8 @@ companies:
     board_token: ""
   - name: Bitcoin Suisse
     city: Zurich
-    careers_url: https://www.bitcoinsuisse.com/careers
-    ats: greenhouse
+    careers_url: https://bitcoinsuisse.com/careers
+    ats: auto
     board_token: ""
   - name: Hitachi Energy
     city: Zurich
@@ -1972,11 +1972,6 @@ companies:
     careers_url: https://swissto12.com/careers/
     ats: auto
     board_token: ""
-  - name: STARK Defence
-    city: Munich
-    careers_url: https://stark.jobs.personio.com/
-    ats: personio
-    board_token: "stark"
   - name: Rohde und Schwarz
     city: Munich
     careers_url: https://www.rohde-schwarz.com/us/career/jobs/career-jobboard_251573.html
@@ -3710,5 +3705,35 @@ companies:
   - name: transact Elektronische Zahlungssysteme GmbH
     city: Munich
     careers_url: https://www.epay.de/karriere
+    ats: auto
+    board_token: ""
+  - name: Helsing
+    city: Munich
+    careers_url: https://helsing.ai/careers
+    ats: auto
+    board_token: ""
+  - name: Beyond Gravity
+    city: Zurich
+    careers_url: https://careers.beyondgravity.com/BeyondGravity/go/Join-Beyond-Gravity/5353801/
+    ats: auto
+    board_token: ""
+  - name: Acutronic
+    city: Zurich
+    careers_url: https://www.acutronic.com/careers
+    ats: auto
+    board_token: ""
+  - name: Leonteq
+    city: Zurich
+    careers_url: https://ch.leonteq.com/careers
+    ats: auto
+    board_token: ""
+  - name: Landis and Gyr
+    city: Zurich
+    careers_url: https://www.landisgyr.com/careers/
+    ats: auto
+    board_token: ""
+  - name: Georg Fischer
+    city: Zurich
+    careers_url: https://www.georgfischer.com/en/about-gf/career.html
     ats: auto
     board_token: ""
