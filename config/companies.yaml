@@ -2432,11 +2432,6 @@ companies:
     careers_url: https://www.bannerbatterien.com/de/Unternehmen/Karriere
     ats: auto
     board_token: ""
-  - name: BBS Automation Hallbergmoos GmbH
-    city: Munich
-    careers_url: https://www.bbsautomation.com/en/career
-    ats: auto
-    board_token: ""
   - name: Beissbarth GmbH
     city: Munich
     careers_url: https://www.beissbarth.com/ueber-uns/karriere
@@ -3657,11 +3652,6 @@ companies:
     careers_url: https://www.commerzbank.de/group/careers/
     ats: auto
     board_token: ""
-  - name: Kreissparkasse München Starnberg Ebersberg
-    city: Munich
-    careers_url: https://www.kskmse.de/de/home.html/karriere
-    ats: auto
-    board_token: ""
   - name: Kreissparkasse Traunstein - Trostberg
     city: Munich
     careers_url: https://www.spk-ts.de/de/home.html/karriere
@@ -3707,11 +3697,6 @@ companies:
     careers_url: https://www.epay.de/karriere
     ats: auto
     board_token: ""
-  - name: Helsing
-    city: Munich
-    careers_url: https://helsing.ai/careers
-    ats: auto
-    board_token: ""
   - name: Beyond Gravity
     city: Zurich
     careers_url: https://careers.beyondgravity.com/BeyondGravity/go/Join-Beyond-Gravity/5353801/
@@ -3735,5 +3720,35 @@ companies:
   - name: Georg Fischer
     city: Zurich
     careers_url: https://www.georgfischer.com/en/about-gf/career.html
+    ats: auto
+    board_token: ""
+  - name: HypoVereinsbank
+    city: Munich
+    careers_url: https://www.hypovereinsbank.de/hvb/ueber-uns/jobs-karriere
+    ats: auto
+    board_token: ""
+  - name: WTS Group
+    city: Munich
+    careers_url: https://wts.com/global/career
+    ats: auto
+    board_token: ""
+  - name: Deloitte Digital Munich
+    city: Munich
+    careers_url: https://www2.deloitte.com/de/de/careers.html
+    ats: auto
+    board_token: ""
+  - name: Swiss Re Munich
+    city: Munich
+    careers_url: https://www.swissre.com/careers.html
+    ats: auto
+    board_token: ""
+  - name: Hubert Burda Media
+    city: Munich
+    careers_url: https://www.burda.com/en/career/
+    ats: auto
+    board_token: ""
+  - name: Bayerische Versorgungskammer
+    city: Munich
+    careers_url: https://www.versorgungskammer.de/karriere/
     ats: auto
     board_token: ""
