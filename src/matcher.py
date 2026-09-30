@@ -72,12 +72,12 @@ CITY_KEYWORDS = {
         # the dropped west-side towns, but less certain than the
         # above):
         "vaterstetten", "poing", "aschheim", "kirchheim", "feldkirchen",
-        "ismaning", "unterföhring", "unterfoehring",
+        "ismaning", "unterföhring", "unterfoehring", "garching", "erding"
         # Dropped as confirmed or high-confidence too far for a
         # 20-25 min drive from Rosenheimer Platz specifically:
-        # manching (~50-60 min, near Ingolstadt), garching,
+        # manching (~50-60 min, near Ingolstadt),
         # oberpfaffenhofen, unterschleissheim, holzkirchen, dachau,
-        # freising (confirmed 35 min), erding, fürstenfeldbruck,
+        # freising (confirmed 35 min), fürstenfeldbruck,
         # starnberg, germering, gräfelfing, planegg, gilching,
         # puchheim, hallbergmoos.
     ],
