@@ -60,13 +60,26 @@ DEFAULT_SCORE_CEILING = 15
 CITY_KEYWORDS = {
     "Munich": [
         "munich", "münchen", "muenchen",
-        "ottobrunn", "taufkirchen", "manching", "garching",
-        "oberpfaffenhofen", "unterschleissheim", "unterschleißheim",
-        "ismaning", "unterföhring", "unterfoehring", "neubiberg",
-        "poing", "feldkirchen", "holzkirchen", "dachau", "freising",
-        "erding", "fürstenfeldbruck", "fuerstenfeldbruck", "starnberg",
-        "germering", "gräfelfing", "graefelfing", "planegg", "gilching",
-        "puchheim", "vaterstetten", "haar", "aschheim", "kirchheim",
+        # Tight radius, per request: only towns within a real ~20-25
+        # min drive of Rosenheimer Platz (81667 München, Haidhausen,
+        # east-central Munich) — verified via actual driving-time
+        # research, not assumed from a broader "Munich region"
+        # definition. Confidently in range (south/southeast, same
+        # side of the city as Rosenheimer Platz):
+        "ottobrunn", "taufkirchen", "unterhaching", "neubiberg", "haar", "putzbrunn",
+        # Borderline, included with moderate confidence (east/
+        # northeast — genuinely closer to this side of the city than
+        # the dropped west-side towns, but less certain than the
+        # above):
+        "vaterstetten", "poing", "aschheim", "kirchheim", "feldkirchen",
+        "ismaning", "unterföhring", "unterfoehring",
+        # Dropped as confirmed or high-confidence too far for a
+        # 20-25 min drive from Rosenheimer Platz specifically:
+        # manching (~50-60 min, near Ingolstadt), garching,
+        # oberpfaffenhofen, unterschleissheim, holzkirchen, dachau,
+        # freising (confirmed 35 min), erding, fürstenfeldbruck,
+        # starnberg, germering, gräfelfing, planegg, gilching,
+        # puchheim, hallbergmoos.
     ],
     "Zurich": [
         "zurich", "zürich", "zuerich",
