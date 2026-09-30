@@ -66,7 +66,7 @@ CITY_KEYWORDS = {
         # research, not assumed from a broader "Munich region"
         # definition. Confidently in range (south/southeast, same
         # side of the city as Rosenheimer Platz):
-        "ottobrunn", "taufkirchen", "unterhaching", "neubiberg", "haar", "putzbrunn",
+        "ottobrunn", "taufkirchen", "unterhaching", "neubiberg", "haar", "putzbrunn", "freising"
         # Borderline, included with moderate confidence (east/
         # northeast — genuinely closer to this side of the city than
         # the dropped west-side towns, but less certain than the
