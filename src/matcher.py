@@ -89,64 +89,9 @@ CITY_KEYWORDS = {
         "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
         "wädenswil", "waedenswil",
     ],
-    "Basel": [
-        "basel", "bâle", "bale",
-        "allschwil", "muttenz", "reinach", "binningen", "pratteln",
-        "birsfelden", "riehen", "bettingen", "arlesheim", "aesch",
-        "liestal", "münchenstein", "muenchenstein", "oberwil",
-        "therwil", "sissach", "bubendorf",
-    ],
-    "Bern": [
-        "bern", "berne",
-        "köniz", "koniz", "ostermundigen", "zollikofen",
-        "muri bei bern", "ittigen", "bolligen", "worb", "belp",
-        "wabern", "kirchlindach", "thun",
-    ],
-    "Geneva": [
-        "geneva", "genève", "geneve",
-        "meyrin", "carouge", "vernier", "lancy", "nyon",
-        "onex", "thônex", "thonex", "plan-les-ouates", "grand-saconnex",
-        "bernex", "versoix", "chêne-bourg", "chene-bourg",
-    ],
-    "Lausanne": [
-        "lausanne", "vevey", "apples", "pully", "renens", "morges",
-        "prilly", "epalinges", "le mont-sur-lausanne", "mont-sur-lausanne",
-        "chavannes-près-renens", "chavannes-pres-renens", "crissier", "ecublens",
-    ],
-    "Lucerne": [
-        "lucerne", "luzern",
-        "kriens", "emmen", "horw",
-        "ebikon", "adligenswil", "root", "malters", "meggen",
-    ],
+   
 }
-# Everything beyond Munich/Zurich/Basel/Bern/Geneva/Lausanne/Lucerne —
-# Singapore, all Dream Cities (Copenhagen, Oslo, Helsinki, Vienna,
-# Berlin, Amsterdam, Rotterdam, Vancouver, Perth, Melbourne, Sydney) —
-# was deliberately removed per a scope refocus request: only Munich
-# and Swiss cities/nearby areas now. dream_cities.yaml and the
-# Singapore entries in job_boards.yaml are no longer loaded by
-# main.py, kept only as inert files in case this gets reversed later.
-
-# Keywords that count as "this location is clearly somewhere else" even
-# when it happens to also mention the right country in passing (e.g. a
-# location string like "Germany (Remote)" without a specific city is
-# treated as unconfirmed, not excluded - only a NAMED other city/region
-# triggers exclusion).
-OTHER_MAJOR_LOCATIONS = [
-    "new york", "san francisco", "london", "paris", "warsaw", "krakow",
-    "dublin", "amsterdam", "madrid", "barcelona", "lisbon", "milan",
-    "vienna", "prague", "budapest", "singapore", "tokyo", "bangalore",
-    "hyderabad", "delhi", "mumbai", "toronto", "seattle", "austin",
-    "boston", "chicago", "los angeles", "washington", "atlanta",
-    "hamburg", "frankfurt", "cologne", "köln", "stuttgart",
-    "düsseldorf", "duesseldorf", "leipzig", "dresden", "nuremberg",
-    "augsburg", "regensburg", "würzburg", "wuerzburg", "ingolstadt",
-    "geneva", "genève", "basel", "bern", "lausanne", "lucerne",
-    "st. gallen", "st gallen", "chur", "lugano", "biel", "fribourg",
-    "copenhagen", "københavn", "oslo", "helsinki", "vancouver",
-    "perth", "melbourne", "sydney", "brisbane", "adelaide", "auckland",
-    "rotterdam", "the hague", "utrecht", "eindhoven",
-]
+# Everything beyond Munich/Zurich/
 
 
 def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
@@ -225,7 +170,7 @@ def filter_by_title_and_location(
 
 # --------------------------------------------------------------------------
 # Any-city matching — checks a job against EVERY approved city (Munich,
-# Zurich, and all 16 dream cities) instead of just the one city a
+# Zurich,) instead of just the one city a
 # company's config entry happens to be tagged with.
 #
 # Why this exists: a company like Databricks or Palantir is listed
@@ -245,8 +190,7 @@ def filter_by_title_and_location(
 # Dream Cities, routed to their own sheets) — removed per a scope
 # refocus request: Munich and Swiss cities/nearby areas only now.
 MAIN_LIST_CITIES = {"Munich", "Zurich"}
-SWISS_CITIES = {"Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
-ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, + the 5 Swiss cities
+ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich
 
 
 def find_matching_city(location: str, candidate_cities: list[str] | None = None) -> str | None:
