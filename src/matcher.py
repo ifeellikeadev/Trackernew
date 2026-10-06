@@ -89,9 +89,22 @@ CITY_KEYWORDS = {
         "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
         "wädenswil", "waedenswil",
     ],
-   
+    "Basel": [
+        "basel", "basle",
+    ],
+    "Bern": [
+        "bern", "berne",
+    ],
+    "Geneva": [
+        "geneva", "genève", "geneve",
+    ],
+    "Lausanne": [
+        "lausanne",
+    ],
+    "Lucerne": [
+        "lucerne", "luzern", "zürich", "zug",  # Lucerne region
+    ],
 }
-# Everything beyond Munich/Zurich/
 
 
 def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
@@ -190,7 +203,8 @@ def filter_by_title_and_location(
 # Dream Cities, routed to their own sheets) — removed per a scope
 # refocus request: Munich and Swiss cities/nearby areas only now.
 MAIN_LIST_CITIES = {"Munich", "Zurich"}
-ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich
+SWISS_CITIES = {"Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
+ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, Basel, Bern, Geneva, Lausanne, Lucerne
 
 
 def find_matching_city(location: str, candidate_cities: list[str] | None = None) -> str | None:
