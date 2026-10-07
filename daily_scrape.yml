@@ -1,0 +1,48 @@
+name: Daily job scrape
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: tracker-writer-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      SCRAPE_RESULTS_FILE: ${{ runner.temp }}/scrape-results.json
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Run scraper
+        run: python -m src.main
+      - name: Preserve results even if publishing fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scrape-results-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/scrape-results.json
+            data/job_tracker.xlsx
+            docs/index.html
+          if-no-files-found: warn
+      - name: Publish onto latest tracker without binary rebase
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: python -m src.publish_results "$SCRAPE_RESULTS_FILE" --branch "$TARGET_BRANCH"
