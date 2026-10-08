@@ -1,6 +1,9 @@
-# Munich, Zurich, and Basel/Bern/Geneva/Lausanne/Lucerne — Munich +
-# Swiss cities only (Singapore and Dream Cities dropped, see chat
-# history). All routed to "Jobs" (Munich/Zurich) or "Swiss Cities".
+# Munich-area employer candidates; expanded 2026-10-08.
+# Target: approximately 25 minutes by car from Wiener Platz, 81667 Munich.
+# Driving times are NOT verified. Check the exact workplace and traffic before applying.
+# city: Munich is the existing tracker label, not proof of a city-centre office.
+# Retained legacy entries have not all been independently location-checked.
+# Career pages may include jobs outside Munich; filter each vacancy by workplace.
 companies:
   - name: BMW Group
     city: Munich
@@ -42,11 +45,6 @@ companies:
     careers_url: https://www.wacker.com/cms/en-us/careers/overview.html
     ats: auto
     board_token: ""
-  - name: KUKA
-    city: Munich
-    careers_url: https://www.kuka.com/en-de/company/careers/vacancies
-    ats: auto
-    board_token: ""
   - name: Osram
     city: Munich
     careers_url: https://careers.ams-osram.com/en/ams-osram-career/
@@ -70,11 +68,6 @@ companies:
   - name: MAN Truck & Bus
     city: Munich
     careers_url: https://www.man.eu/de/en/career.html
-    ats: auto
-    board_token: ""
-  - name: Krones
-    city: Munich
-    careers_url: https://www.krones.com/en/career.php
     ats: auto
     board_token: ""
   - name: Webasto
@@ -105,11 +98,6 @@ companies:
   - name: KNDS Deutschland
     city: Munich
     careers_url: https://www.knds.de/karriere/
-    ats: auto
-    board_token: ""
-  - name: MBDA Deutschland
-    city: Munich
-    careers_url: https://www.mbda-systems.com/careers/
     ats: auto
     board_token: ""
   - name: OHB System
@@ -392,11 +380,6 @@ companies:
     careers_url: https://www.buildingradar.com/careers
     ats: auto
     board_token: ""
-  - name: Wunder Mobility
-    city: Munich
-    careers_url: https://wundermobility.com/careers/
-    ats: auto
-    board_token: ""
   - name: Tado
     city: Munich
     careers_url: https://tado.jobs.personio.de/?language=en
@@ -435,16 +418,6 @@ companies:
   - name: SimScale
     city: Munich
     careers_url: https://www.simscale.com/careers/
-    ats: auto
-    board_token: ""
-  - name: Vimcar
-    city: Munich
-    careers_url: https://www.shiftmove.com/de/careers/job-board
-    ats: auto
-    board_token: ""
-  - name: Flip
-    city: Munich
-    careers_url: https://flip.im/en/career/
     ats: auto
     board_token: ""
   - name: Flughafen Muenchen
@@ -662,338 +635,373 @@ companies:
     careers_url: https://www.olympus-europa.com/company/en/careers/
     ats: auto
     board_token: ""
-  - name: UBS
-    city: Zurich
-    careers_url: https://www.ubs.com/global/en/careers.html
-    ats: workday
-    board_token: ""
-  - name: Julius Baer
-    city: Zurich
-    careers_url: https://www.juliusbaer.com/en/careers/
+  - name: "Holidu"
+    city: Munich
+    careers_url: https://www.holidu.com/careers/list
     ats: auto
     board_token: ""
-  - name: Zuercher Kantonalbank
-    city: Zurich
-    careers_url: https://www.zkb.ch/en/careers.html
+  - name: "Apaleo"
+    city: Munich
+    careers_url: https://job-boards.greenhouse.io/apaleo
     ats: auto
     board_token: ""
-  - name: SIX Group
-    city: Zurich
-    careers_url: https://www.six-group.com/en/careers.html
+  - name: "DataGuard"
+    city: Munich
+    careers_url: https://www.dataguard.com/careers/
     ats: auto
     board_token: ""
-  - name: Vontobel
-    city: Zurich
-    careers_url: https://www.vontobel.com/en-ch/careers/
+  - name: "QPLIX"
+    city: Munich
+    careers_url: https://www.qplix.com/career
     ats: auto
     board_token: ""
-  - name: Zurich Insurance Group
-    city: Zurich
-    careers_url: https://www.zurich.com/careers
-    ats: workday
-    board_token: ""
-  - name: Swiss Re
-    city: Zurich
-    careers_url: https://careers.swissre.com/
+  - name: "Foodji"
+    city: Munich
+    careers_url: https://foodji.recruitee.com/
     ats: auto
     board_token: ""
-  - name: Helvetia
-    city: Zurich
-    careers_url: http://jobs.helvetia.com/?lang=en&filter_20=1189523
+  - name: "everdrop"
+    city: Munich
+    careers_url: https://www.everdrop.de/en/about-us/jobs
     ats: auto
     board_token: ""
-  - name: Baloise
-    city: Zurich
-    careers_url: https://www.baloise.com/en/home/about-us/careers.html
+  - name: "yfood"
+    city: Munich
+    careers_url: https://yfood.com/en-eu/pages/career
     ats: auto
     board_token: ""
-  - name: ABB
-    city: Zurich
-    careers_url: https://global.abb/group/en/careers
-    ats: workday
-    board_token: ""
-  - name: Google Zurich
-    city: Zurich
-    careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=Zurich
+  - name: "IONITY"
+    city: Munich
+    careers_url: https://www.ionity.eu/ionity/careers
     ats: auto
     board_token: ""
-  - name: Kuehne+Nagel
-    city: Zurich
-    careers_url: https://jobs.kuehne-nagel.com/global/en
+  - name: "IDnow"
+    city: Munich
+    careers_url: https://idnow.io/careers/
     ats: auto
     board_token: ""
-  - name: Sulzer
-    city: Zurich
-    careers_url: https://www.sulzer.com/en/careers
+  - name: "Hoffmann Group"
+    city: Munich
+    careers_url: https://career.hoffmann-group.com/stellenangebote.html
     ats: auto
     board_token: ""
-  - name: Buehler Group
-    city: Zurich
-    careers_url: https://www.buhlergroup.com/content/buhlergroup/global/en/company/jobs-careers.html
+  - name: "Veridos"
+    city: Munich
+    careers_url: https://careers.gi-de.com/Veridos/?locale=de_DE
     ats: auto
     board_token: ""
-  - name: Swisscom
-    city: Zurich
-    careers_url: https://www.swisscom.ch/en/about/jobs.html
+  - name: "Accenture"
+    city: Munich
+    careers_url: https://www.accenture.com/de-de/careers
     ats: auto
     board_token: ""
-  - name: Sunrise Communications
-    city: Zurich
-    careers_url: https://careers.sunrise.ch/gb/en/search-results
+  - name: "Roland Berger"
+    city: Munich
+    careers_url: https://www.rolandberger.com/en/Join/All-Jobs/
     ats: auto
     board_token: ""
-  - name: UPC Switzerland
-    city: Zurich
-    careers_url: https://www.upc.ch/en/about-us/jobs/
+  - name: "Boston Consulting Group"
+    city: Munich
+    careers_url: https://careers.bcg.com/global/en/locations/germany-austria/jobs-in-munich
     ats: auto
     board_token: ""
-  - name: Huber+Suhner
-    city: Zurich
-    careers_url: https://www.hubersuhner.com/en/company/jobs-and-careers
+  - name: "BCG Platinion"
+    city: Munich
+    careers_url: https://www.bcgplatinion.com/careers?local=de
     ats: auto
     board_token: ""
-  - name: Scandit
-    city: Zurich
-    careers_url: https://www.scandit.com/careers/
+  - name: "Bain & Company"
+    city: Munich
+    careers_url: https://www.bain.com/de/careers/
     ats: auto
     board_token: ""
-  - name: Daedalean
-    city: Zurich
-    careers_url: https://www.daedalean.ai/careers
+  - name: "McKinsey & Company"
+    city: Munich
+    careers_url: https://karriere.mckinsey.de/karriere/search-jobs
     ats: auto
     board_token: ""
-  - name: ANYbotics
-    city: Zurich
-    careers_url: https://jobs.lever.co/anybotics
-    ats: lever
-    board_token: "anybotics"
-  - name: Climeworks
-    city: Zurich
-    careers_url: https://climeworks.recruitee.com/
+  - name: "Oliver Wyman"
+    city: Munich
+    careers_url: https://www.oliverwyman.com/careers.html
     ats: auto
     board_token: ""
-  - name: Auterion
-    city: Zurich
-    careers_url: https://job-boards.greenhouse.io/auterion
-    ats: greenhouse
-    board_token: "auterion"
-  - name: RAROG
-    city: Zurich
-    careers_url: https://www.rarog.tech/careers
+  - name: "BearingPoint"
+    city: Munich
+    careers_url: https://www.bearingpoint.com/de-de/karriere/stellenangebote/?country=DE
     ats: auto
     board_token: ""
-  - name: 21Shares
-    city: Zurich
-    careers_url: https://job-boards.greenhouse.io/21shares
-    ats: greenhouse
-    board_token: "21shares"
-  - name: Sygnum
-    city: Zurich
-    careers_url: https://www.sygnum.com/careers/
+  - name: "Capco"
+    city: Munich
+    careers_url: https://www.capco.com/Careers
     ats: auto
     board_token: ""
-  - name: Ascento Robotics
-    city: Zurich
-    careers_url: https://www.ascento.ai/careers
+  - name: "d-fine"
+    city: Munich
+    careers_url: https://www.d-fine.com/karriere/stellenportal/
     ats: auto
     board_token: ""
-  - name: Terra Quantum
-    city: Zurich
-    careers_url: https://terraquantum.swiss/careers/
+  - name: "Scout24"
+    city: Munich
+    careers_url: https://www.scout24.com/karriere/jobs
     ats: auto
     board_token: ""
-  - name: On Running
-    city: Zurich
-    careers_url: https://www.on-running.com/en-ch/careers
+  - name: "AutoScout24"
+    city: Munich
+    careers_url: https://www.autoscout24.com/as24-career-pages/
     ats: auto
     board_token: ""
-  - name: Beekeeper
-    city: Zurich
-    careers_url: https://boards.greenhouse.io/beekeeper
-    ats: greenhouse
-    board_token: "beekeeper"
-  - name: Squirro
-    city: Zurich
-    careers_url: https://squirro.com/careers/
+  - name: "zooplus"
+    city: Munich
+    careers_url: https://careers.zooplus.com/
     ats: auto
     board_token: ""
-  - name: Advanon
-    city: Zurich
-    careers_url: https://www.advanon.com/careers
+  - name: "Westwing"
+    city: Munich
+    careers_url: https://westwing.jobs.personio.com/
     ats: auto
     board_token: ""
-  - name: Numarics
-    city: Zurich
-    careers_url: https://www.numarics.com/careers
+  - name: "Reply"
+    city: Munich
+    careers_url: https://www.reply.com/de/about/careers/de
     ats: auto
     board_token: ""
-  - name: Crypto Finance AG
-    city: Zurich
-    careers_url: https://www.crypto-finance.com/careers/
+  - name: "adesso"
+    city: Munich
+    careers_url: https://jobs.adesso-group.com/
     ats: auto
     board_token: ""
-  - name: SEBA Bank
-    city: Zurich
-    careers_url: https://www.seba.swiss/careers
+  - name: "msg"
+    city: Munich
+    careers_url: https://www.msg.group/de/karriere/
     ats: auto
     board_token: ""
-  - name: Numbrs
-    city: Zurich
-    careers_url: https://jobs.jobvite.com/centralway/jobs/
+  - name: "Sopra Steria"
+    city: Munich
+    careers_url: https://careers.soprasteria.de/jobs
     ats: auto
     board_token: ""
-  - name: Amazon Zurich
-    city: Zurich
-    careers_url: https://www.amazon.jobs/en/locations/zurich-switzerland
+  - name: "valantic"
+    city: Munich
+    careers_url: https://www.valantic.com/de/karriere/
     ats: auto
     board_token: ""
-  - name: Meta Zurich
-    city: Zurich
-    careers_url: https://www.metacareers.com/locations/zurich/
+  - name: "Messe Muenchen"
+    city: Munich
+    careers_url: https://messe-muenchen.de/de/karriere/stellenanzeigen/
     ats: auto
     board_token: ""
-  - name: Disney Research Zurich
-    city: Zurich
-    careers_url: https://www.disneyresearch.com/careers/
+  - name: "GEMA"
+    city: Munich
+    careers_url: https://jobs.gema.de/jobportal/gema/viewAusschreibungen.html
     ats: auto
     board_token: ""
-  - name: IBM Research Zurich
-    city: Zurich
-    careers_url: https://www.zurich.ibm.com/careers.html
+  - name: "ADAC"
+    city: Munich
+    careers_url: https://karriere.adac.de/jobangebote-stellenanzeigen.html
     ats: auto
     board_token: ""
-  - name: Open Systems
-    city: Zurich
-    careers_url: https://www.open-systems.com/careers/
+  - name: "Daiichi Sankyo"
+    city: Munich
+    careers_url: https://careers.daiichisankyo.com/
     ats: auto
     board_token: ""
-  - name: Ricardo.ch
-    city: Zurich
-    careers_url: https://www.ricardo.ch/en/jobs/
+  - name: "Octopus Energy Germany"
+    city: Munich
+    careers_url: https://octopusenergy.de/karriere/offene-stellen
     ats: auto
     board_token: ""
-  - name: Digitec Galaxus
-    city: Zurich
-    careers_url: https://www.digitecgalaxus.ch/en/jobs
+  - name: "The Mobility House"
+    city: Munich
+    careers_url: https://tmh.jobs.personio.de/?language=de
     ats: auto
     board_token: ""
-  - name: Migros
-    city: Zurich
-    careers_url: https://www.migros.ch/en/jobs.html
+  - name: "TWAICE"
+    city: Munich
+    careers_url: https://twaice.jobs.personio.com/
     ats: auto
     board_token: ""
-  - name: Zuehlke Engineering
-    city: Zurich
-    careers_url: https://www.zuehlke.com/en/careers
+  - name: "VoltStorage"
+    city: Munich
+    careers_url: https://voltstorage.jobs.personio.de/?language=en
     ats: auto
     board_token: ""
-  - name: Adnovum
-    city: Zurich
-    careers_url: https://careers.adnovum.com/search/
+  - name: "FTAPI"
+    city: Munich
+    careers_url: https://ftapi.jobs.personio.de/
     ats: auto
     board_token: ""
-  - name: Netcetera
-    city: Zurich
-    careers_url: https://www.netcetera.com/careers.html
+  - name: "Retarus"
+    city: Munich
+    careers_url: https://www.retarus.com/careers/
     ats: auto
     board_token: ""
-  - name: Avaloq
-    city: Zurich
-    careers_url: https://www.avaloq.com/careers
+  - name: "SpaceNet"
+    city: Munich
+    careers_url: https://www.space.net/stellenanzeigen/
     ats: auto
     board_token: ""
-  - name: Rieter
-    city: Zurich
-    careers_url: https://www.rieter.com/careers
+  - name: "Usercentrics"
+    city: Munich
+    careers_url: https://apply.workable.com/usercentrics/
     ats: auto
     board_token: ""
-  - name: Partners Group
-    city: Zurich
-    careers_url: https://www.partnersgroup.com/en/careers/
+  - name: "Speexx"
+    city: Munich
+    careers_url: https://www.speexx.com/all-jobs/
     ats: auto
     board_token: ""
-  - name: Swiss Life
-    city: Zurich
-    careers_url: https://www.swisslife.com/en/careers.html
+  - name: "Cobrainer"
+    city: Munich
+    careers_url: https://cobrainer.jobs.personio.de/?language=de
     ats: auto
     board_token: ""
-  - name: Implenia
-    city: Zurich
-    careers_url: https://www.implenia.com/en/careers/
+  - name: "Soley"
+    city: Munich
+    careers_url: https://soley-gmbh.jobs.personio.de/?language=de
     ats: auto
     board_token: ""
-  - name: Adecco Group
-    city: Zurich
-    careers_url: https://careers.adeccogroup.com/en
+  - name: "VEACT"
+    city: Munich
+    careers_url: https://veact.jobs.personio.de/
     ats: auto
     board_token: ""
-  - name: Barry Callebaut
-    city: Zurich
-    careers_url: https://www.barry-callebaut.com/en/careers
+  - name: "Schleich"
+    city: Munich
+    careers_url: https://career.schleich-s.com/stellenangebote.html
     ats: auto
     board_token: ""
-  - name: EY Switzerland
-    city: Zurich
-    careers_url: https://www.ey.com/en_ch/careers
+  - name: "Travian Games"
+    city: Munich
+    careers_url: https://www.traviangames.com/en/career
     ats: auto
     board_token: ""
-  - name: Deloitte Switzerland
-    city: Zurich
-    careers_url: https://www2.deloitte.com/ch/en/careers.html
+  - name: "Schweitzer Fachinformationen"
+    city: Munich
+    careers_url: https://www.schweitzer-online.de/info/Jobs-und-Karriere/
     ats: auto
     board_token: ""
-  - name: PwC Switzerland
-    city: Zurich
-    careers_url: https://www.pwc.ch/en/careers-with-pwc.html
+  - name: "C.H.Beck"
+    city: Munich
+    careers_url: https://karriere.chbeck.de/
     ats: auto
     board_token: ""
-  - name: KPMG Switzerland
-    city: Zurich
-    careers_url: https://home.kpmg/ch/en/home/careers.html
+  - name: "Carl Hanser Verlag"
+    city: Munich
+    careers_url: https://karriere.hanser.de/
     ats: auto
     board_token: ""
-  - name: Microsoft Switzerland
-    city: Zurich
-    careers_url: https://careers.microsoft.com/
+  - name: "Sueddeutsche Zeitung"
+    city: Munich
+    careers_url: https://www.sueddeutsche.de/jobs/stellenanzeigen/
     ats: auto
     board_token: ""
-  - name: Apple Zurich
-    city: Zurich
-    careers_url: https://jobs.apple.com/en-us/search?location=zurich-ZRH
+  - name: "Bayerischer Rundfunk"
+    city: Munich
+    careers_url: https://jobs.br.de/Jobs
     ats: auto
     board_token: ""
-  - name: Oracle Switzerland
-    city: Zurich
-    careers_url: https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1
+  - name: "Sky Deutschland"
+    city: Munich
+    careers_url: https://karriere.sky.de/de/de/jobs
     ats: auto
     board_token: ""
-  - name: Cisco Zurich
-    city: Zurich
-    careers_url: https://jobs.cisco.com/
+  - name: "DAZN"
+    city: Munich
+    careers_url: https://careers.dazn.com/munich
     ats: auto
     board_token: ""
-  - name: Nvidia Zurich
-    city: Zurich
-    careers_url: https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite
-    ats: workday
-    board_token: ""
-  - name: Palantir Zurich
-    city: Zurich
-    careers_url: https://jobs.lever.co/palantir
-    ats: lever
-    board_token: "palantir"
-  - name: Databricks Zurich
-    city: Zurich
-    careers_url: https://job-boards.greenhouse.io/databricks
-    ats: greenhouse
-    board_token: "databricks"
-  - name: Snowflake Zurich
-    city: Zurich
-    careers_url: https://careers.snowflake.com/us/en/search-results
+  - name: "Red Bull Germany"
+    city: Munich
+    careers_url: https://jobs.redbull.com/de-de/results?locations=2
     ats: auto
     board_token: ""
-  - name: UiPath Zurich
-    city: Zurich
-    careers_url: https://www.uipath.com/company/careers
-    ats: greenhouse
+  - name: "HolidayCheck"
+    city: Munich
+    careers_url: https://holidaycheck.jobs.personio.de/
+    ats: auto
+    board_token: ""
+  - name: "PAYBACK Group"
+    city: Munich
+    careers_url: https://jobs.payback.group/en_US/careers/SearchJobs
+    ats: auto
+    board_token: ""
+  - name: "Loyalty Partner Solutions"
+    city: Munich
+    careers_url: https://lpsolutions.com/career/
+    ats: auto
+    board_token: ""
+  - name: "Hubert Burda Media"
+    city: Munich
+    careers_url: https://www.burda.com/de/karriere/
+    ats: auto
+    board_token: ""
+  - name: "BurdaForward"
+    city: Munich
+    careers_url: https://www.burda-forward.de/en/career/jobs/
+    ats: auto
+    board_token: ""
+  - name: "BurdaSolutions"
+    city: Munich
+    careers_url: https://www.burdasolutions.com/karriere/
+    ats: auto
+    board_token: ""
+  - name: "Burda Principal Investments"
+    city: Munich
+    careers_url: https://www.burdaprincipalinvestments.com/careers/
+    ats: auto
+    board_token: ""
+  - name: "Hawk"
+    city: Munich
+    careers_url: https://jobs.ashbyhq.com/hawk
+    ats: auto
+    board_token: ""
+  - name: "Motel One Group"
+    city: Munich
+    careers_url: https://jobs.motel-one.com/en/jobsearch/location/germany/munich/
+    ats: auto
+    board_token: ""
+  - name: "Generali Deutschland"
+    city: Munich
+    careers_url: https://www.generali.de/karriere/jobboerse
+    ats: auto
+    board_token: ""
+  - name: "MEAG"
+    city: Munich
+    careers_url: https://careers.munichre.com/en/meag
+    ats: auto
+    board_token: ""
+  - name: "WWK Versicherungen"
+    city: Munich
+    careers_url: https://wwk-karriere.dvinci-hr.com/de/jobs
+    ats: auto
+    board_token: ""
+  - name: "LV 1871"
+    city: Munich
+    careers_url: https://lv1871.softgarden.io/
+    ats: auto
+    board_token: ""
+  - name: "Muenchener Hypothekenbank"
+    city: Munich
+    careers_url: https://karriere.mhb.de/stellenangebote
+    ats: auto
+    board_token: ""
+  - name: "Stadtsparkasse Muenchen"
+    city: Munich
+    careers_url: https://sskm.helixjobs.com/
+    ats: auto
+    board_token: ""
+  - name: "Hiscox"
+    city: Munich
+    careers_url: https://www.hiscox.de/ueber-hiscox/karriere/stellenangebote/
+    ats: auto
+    board_token: ""
+  - name: "State Street"
+    city: Munich
+    careers_url: https://careers.statestreet.com/
+    ats: auto
+    board_token: ""
+  - name: "BNP Paribas"
+    city: Munich
+    careers_url: https://group.bnpparibas/en/careers/all-job-offers/munich
+    ats: auto
     board_token: ""
