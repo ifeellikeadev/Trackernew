@@ -1,30 +1,25 @@
 name: Daily job scrape
 
 on:
-  # Runs daily at 06:30 Munich time — pushed an hour earlier than the
-  # original 07:30 plan, to give the now-longer run (roughly 60-90
-  # minutes with 764 companies across both sheets) more buffer to
-  # finish before a typical morning check. GitHub Actions cron is
-  # always UTC and has no concept of daylight saving, so this is a
-  # genuine tradeoff, not an oversight: 04:30 UTC = 06:30 CEST (summer,
-  # what Munich is on right now) but only 05:30 CET in winter — the
-  # run will land an hour earlier, local time, once clocks go back. If
-  # you want it pinned to exactly 06:30 year-round, say so and I'll
-  # add a second cron line for the winter months instead of this
-  # single one.
   schedule:
     - cron: "30 4 * * *"
-  workflow_dispatch: {}   # still lets you trigger it manually from the Actions tab too
+  workflow_dispatch: {}
 
 permissions:
-  contents: write   # needed so the workflow can commit the updated Excel file back
+  contents: write
 
+concurrency:
+  group: tracker-writes
+  cancel-in-progress: false
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -46,13 +41,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add data/job_tracker.xlsx docs/index.html
           git diff --staged --quiet && echo "No changes to commit" || git commit -m "Daily job scrape update"
-          # Pull any changes made to the repo while this run was in
-          # progress (uploading a file, another run, etc.) before
-          # pushing — without this, a push can get flat-out rejected
-          # ("fetch first") if anything else touched the repo during
-          # the run, which now takes 60-90 minutes and so has a real
-          # window for that to happen. --rebase replays this run's
-          # commit on top of whatever's now on the remote, so both
-          # sets of changes survive instead of one blocking the other.
           git pull --rebase --autostash origin main
           git push

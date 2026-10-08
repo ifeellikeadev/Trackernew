@@ -1,9 +1,6 @@
 name: Validate company URLs
 
 on:
-  # Manual trigger only — this is a diagnostic tool, not part of the
-  # daily scrape. Run it whenever you want a full health check of
-  # every company's careers_url without waiting for a full scrape.
   workflow_dispatch: {}
 
 jobs:
@@ -20,15 +17,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        # Using the full requirements.txt, not just requests+PyYAML —
-        # validate_urls.py imports discover_real_careers_url from
-        # ats_scrapers.py, which needs beautifulsoup4 (bs4) at import
-        # time even though the validator itself never calls anything
-        # that uses it directly. Found this the hard way: a minimal
-        # install here caused "ModuleNotFoundError: No module named
-        # 'bs4'" the first time this workflow actually ran. Doesn't
-        # install the headless browser (see daily_scrape.yml) since
-        # this validator never touches scrape_headless.
 
       - name: Run URL validator
         run: python -m src.validate_urls
