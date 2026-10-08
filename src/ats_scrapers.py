@@ -189,38 +189,62 @@ def scrape_lever(company_name: str, board_token: str = "") -> list[dict[str, Any
 # SmartRecruiters
 # --------------------------------------------------------------------------
 def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
+    from urllib.parse import quote
     token = board_token or company_name.replace(" ", "")
-    url = f"https://api.smartrecruiters.com/v1/companies/{token}/postings"
-    resp = _safe_get(url)
-    if resp is None:
-        return []
-    try:
+    base = f"https://api.smartrecruiters.com/v1/companies/{quote(token, safe='')}/postings"
+    jobs, seen, offset = [], set(), 0
+    for _ in range(200):
+        resp = _safe_get(base, params={"limit": 100, "offset": offset})
+        if resp is None:
+            raise RuntimeError(f"SmartRecruiters feed unavailable at offset {offset}")
         data = resp.json()
-    except ValueError:
-        return []
-    jobs = []
-    for job in data.get("content", []):
-        location = ""
-        loc = job.get("location") or {}
-        if loc:
-            location = ", ".join(filter(None, [loc.get("city"), loc.get("country")]))
-        posted = ""
-        raw_date = job.get("releasedDate") or job.get("createdOn") or ""
-        if raw_date:
-            try:
-                posted = _iso(datetime.fromisoformat(raw_date.replace("Z", "+00:00")))
-            except ValueError:
-                posted = ""
-        jobs.append(
-            {
-                "title": job.get("name", "").strip(),
-                "location": location,
-                "url": (job.get("ref") or {}).get("jobAd", "") or job.get("id", ""),
-                "description": "",  # SmartRecruiters needs a 2nd call per job; kept light
-                "posted_date": posted,
-            }
-        )
-    return jobs
+        page = data.get("content", [])
+        if not isinstance(page, list):
+            raise ValueError("SmartRecruiters content must be a list")
+        if not page:
+            return jobs
+        added = 0
+        for job in page:
+            ident = str(job.get("id") or job.get("uuid") or "")
+            if not ident or ident in seen:
+                continue
+            seen.add(ident)
+            added += 1
+            details = {}
+            detail_resp = _safe_get(base + "/" + quote(ident, safe=''))
+            if detail_resp is not None:
+                try:
+                    details = detail_resp.json()
+                except ValueError:
+                    pass
+            if not isinstance(details, dict):
+                details = {}
+            loc = details.get("location") or job.get("location") or {}
+            ad = details.get("jobAd") or {}
+            sections = ad.get("sections", {}) if isinstance(ad, dict) else {}
+            desc = " ".join(str(v.get("text", "")) for v in sections.values() if isinstance(v, dict)) if isinstance(sections, dict) else ""
+            raw_date = job.get("releasedDate") or ""
+            posted = ""
+            if raw_date:
+                try:
+                    posted = _iso(datetime.fromisoformat(raw_date.replace("Z", "+00:00")))
+                except ValueError:
+                    pass
+            candidate = details.get("jobAdUrl") or job.get("jobAdUrl") or ""
+            if not isinstance(candidate, str) or not candidate.startswith(("https://", "http://")):
+                candidate = f"https://jobs.smartrecruiters.com/{quote(token, safe='')}/{quote(ident, safe='')}"
+            jobs.append({"title": (job.get("name") or "").strip(),
+                         "location": ", ".join(str(loc[k]) for k in ("city", "country") if loc.get(k)),
+                         "url": candidate,
+                         "description": BeautifulSoup(desc, "html.parser").get_text(" ", strip=True),
+                         "posted_date": posted})
+        if not added:
+            raise RuntimeError("SmartRecruiters repeated a page; pagination incomplete")
+        offset += len(page)
+        total = data.get("totalFound")
+        if total is not None and offset >= int(total):
+            return jobs
+    raise RuntimeError("SmartRecruiters pagination safety limit reached")
 
 
 # --------------------------------------------------------------------------
@@ -299,7 +323,7 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
 # Workday
 # --------------------------------------------------------------------------
 _WORKDAY_URL_RE = re.compile(
-    r"https?://([\w-]+)\.(\w+)\.myworkdayjobs\.com/(?:[\w-]+/)?([\w-]+)"
+    r"https?://([\w-]+)\.(wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([\w-]+)"
 )
 
 
@@ -371,29 +395,35 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
             return []
     tenant, dc, site = m.groups()
     api_url = f"https://{tenant}.{dc}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs"
-    payload = {"limit": 50, "offset": 0, "searchText": ""}
-    try:
-        resp = requests.post(api_url, json=payload, headers=HEADERS, timeout=TIMEOUT)
-        if resp.status_code >= 400:
-            return []
-        data = resp.json()
-    except (requests.RequestException, ValueError) as exc:
-        logger.warning("Workday API failed for %s: %s", company_name, exc)
-        return []
-
-    jobs = []
+    jobs, seen, offset = [], set(), 0
     base = f"https://{tenant}.{dc}.myworkdayjobs.com/{site}"
-    for posting in data.get("jobPostings", []):
-        jobs.append(
-            {
-                "title": posting.get("title", "").strip(),
-                "location": posting.get("locationsText", ""),
-                "url": base + posting.get("externalPath", ""),
-                "description": "",
-                "posted_date": posting.get("postedOn", ""),  # relative text, see docstring
-            }
-        )
-    return jobs
+    for _ in range(500):
+        resp = requests.post(api_url, json={"limit": 20, "offset": offset, "searchText": ""}, headers=HEADERS, timeout=TIMEOUT)
+        resp.raise_for_status()
+        data = resp.json()
+        page = data.get("jobPostings", [])
+        if not isinstance(page, list):
+            raise ValueError("Workday jobPostings must be a list")
+        if not page:
+            return jobs
+        added = 0
+        for posting in page:
+            path = posting.get("externalPath") or ""
+            if not path or path in seen:
+                continue
+            seen.add(path)
+            added += 1
+            jobs.append({"title": (posting.get("title") or "").strip(),
+                         "location": posting.get("locationsText", ""),
+                         "url": base + path,
+                         "description": "", "posted_date": posting.get("postedOn", "")})
+        if not added:
+            raise RuntimeError("Workday repeated a page; pagination incomplete")
+        offset += len(page)
+        total = data.get("total")
+        if total is not None and offset >= int(total):
+            return jobs
+    raise RuntimeError("Workday pagination safety limit reached")
 
 
 # --------------------------------------------------------------------------
@@ -556,7 +586,11 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
             browser = p.chromium.launch()
             try:
                 page = browser.new_page(user_agent=HEADERS["User-Agent"])
-                page.goto(careers_url, timeout=15000, wait_until="networkidle")
+                page.goto(careers_url, timeout=15000, wait_until="domcontentloaded")
+                try:
+                    page.wait_for_selector("a[href*='/job'], a[href*='/position'], a[href*='/posting']", timeout=5000)
+                except Exception:
+                    pass
                 html = page.content()
             finally:
                 browser.close()
@@ -603,7 +637,7 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
 # config says the platform is.
 # --------------------------------------------------------------------------
 _PLATFORM_URL_PATTERNS = {
-    "greenhouse": re.compile(r"https?://(?:boards|job-boards)\.greenhouse\.io/([\w-]+)"),
+    "greenhouse": re.compile(r"https?://(?:boards|job-boards)(?:\.eu)?\.greenhouse\.io/([\w-]+)"),
     "lever": re.compile(r"https?://jobs\.lever\.co/([\w-]+)"),
     "personio": re.compile(r"https?://([\w-]+)\.jobs\.personio\.(?:de|com)"),
     "smartrecruiters": re.compile(r"https?://(?:jobs|careers)\.smartrecruiters\.com/([\w-]+)"),
@@ -764,19 +798,20 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "auto":
-            # Try the API-based platforms cheaply before falling back to HTML.
-            for fn in (
-                lambda: scrape_greenhouse(name, token),
-                lambda: scrape_lever(name, token),
-                lambda: scrape_personio(name, token),
-            ):
-                result = fn()
+            for platform, pattern in _PLATFORM_URL_PATTERNS.items():
+                match = pattern.search(careers_url)
+                if match:
+                    result = _PLATFORM_SCRAPERS[platform](name, token or match.group(1))
+                    if result:
+                        return result
+                    return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
+            if _WORKDAY_URL_RE.match(careers_url):
+                result = scrape_workday(name, careers_url)
                 if result:
                     return result
-                time.sleep(0.2)
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         # unknown value in companies.yaml -> fall back to generic
         return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
     except Exception as exc:  # belt-and-braces: never let one company kill the run
         logger.error("Unhandled error scraping %s: %s", name, exc)
-        return []
+        raise
