@@ -1,29 +1,3 @@
-"""
-Turns data/job_tracker.xlsx into a plain, static HTML page at
-docs/index.html, so it can be published via GitHub Pages — one link,
-opens in any browser, no Excel and no download needed.
-
-Renders both sheets as clearly separated sections, in order:
-  1. "Jobs" (Munich, Zurich — green highlight for new rows)
-  2. "Swiss Cities" (Basel, Bern, Geneva, Lausanne, Lucerne — amber
-     highlight for new rows)
-
-Called automatically at the end of both src/main.py (daily scrape) and
-src/reset_tracker.py (monthly reset), so the page is always in sync
-with whatever's actually in the Excel file. Not meant to be run on its
-own, though `python -m src.generate_html` works fine for testing.
-
-(There used to be a third "Dream Cities" section here — removed per a
-scope refocus request: Munich and Swiss cities/nearby areas only now.
-If your tracker file still has real historical data in an old "Dream
-Cities" sheet, it's left untouched in the Excel file itself — just no
-longer rendered on this page.)
-
-PRIVACY NOTE: GitHub Pages sites are public to anyone with the link,
-even when the repository itself is private (unless you're on GitHub
-Enterprise). This page will show your company/job data to anyone who
-finds the URL — see SETUP_GUIDE.md, "Enabling the public webpage view."
-"""
 
 from __future__ import annotations
 
@@ -34,9 +8,9 @@ import yaml
 from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
+from src.job_scope import allowed_job
 from src.tracker import (
     COLUMNS, NEW_ROW_FILL,
-    SWISS_SHEET_NAME, SWISS_COLUMNS, SWISS_NEW_ROW_FILL,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -68,7 +42,6 @@ def _escape(value) -> str:
 def _render_table(
     ws: Worksheet | None, columns: list[str], new_row_fill, empty_message: str, row_class: str,
 ) -> tuple[str, int]:
-    """Returns (rows_html, total_row_count) for one sheet."""
     if ws is None or ws.max_row < 2:
         return f"<tr><td colspan='{len(columns)}'>{_escape(empty_message)}</td></tr>", 0
 
@@ -80,6 +53,9 @@ def _render_table(
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         if all(v is None for v in values):
             continue  # skip fully-empty rows
+        record = dict(zip(columns, values))
+        if not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
+            continue
         is_highlighted = _rgb_matches(ws.cell(row=row, column=1), new_row_fill)
         url = values[url_col - 1] or "#"
 
@@ -126,33 +102,20 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
         with open(CV_PROFILE_FILE, "r", encoding="utf-8") as f:
             cv_profile = yaml.safe_load(f) or {}
     main_min_score = cv_profile.get("main_min_score", 0)
-    swiss_min_score = cv_profile.get("swiss_min_score", 0)
 
     jobs_ws = None
-    swiss_ws = None
     if tracker_path.exists():
         wb = load_workbook(tracker_path)
         jobs_ws = wb["Jobs"] if "Jobs" in wb.sheetnames else wb.active
-        swiss_ws = wb[SWISS_SHEET_NAME] if SWISS_SHEET_NAME in wb.sheetnames else None
 
     jobs_rows_html, jobs_total = _render_table(
         jobs_ws, COLUMNS, NEW_ROW_FILL, "No data yet — the scraper hasn't run.", "new-row"
     )
-    swiss_rows_html, swiss_total = _render_table(
-        swiss_ws, SWISS_COLUMNS, SWISS_NEW_ROW_FILL,
-        "No matches yet in the Swiss cities.", "swiss-new-row",
-    )
-
-    jobs_title = "Munich & Zurich" + (f" (score {main_min_score}+ only)" if main_min_score else "")
-    swiss_title = "Swiss Cities" + (f" (score {swiss_min_score}+ only)" if swiss_min_score else "")
+    jobs_title = "Munich area" + (f" (score {main_min_score}+ only)" if main_min_score else "")
 
     jobs_section = _section_html(
         jobs_title, COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
     )
-    swiss_section = _section_html(
-        swiss_title, SWISS_COLUMNS, swiss_rows_html, swiss_total, "#FDE68A", "added since your last check"
-    )
-
     updated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     html = f"""<!DOCTYPE html>
@@ -172,10 +135,8 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
   th, td {{ padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 0.85rem; vertical-align: top; }}
   th {{ background: #1F2937; color: white; position: sticky; top: 0; white-space: nowrap; }}
   tr.new-row {{ background: #D1FAE5; }}
-  tr.swiss-new-row {{ background: #FDE68A; }}
   tr:hover {{ background: #f3f4f6; }}
   tr.new-row:hover {{ background: #bbf7d0; }}
-  tr.swiss-new-row:hover {{ background: #fcd34d; }}
   a {{ color: #2563eb; text-decoration: none; }}
   a:hover {{ text-decoration: underline; }}
   .scroll-wrap {{ overflow-x: auto; margin-bottom: 8px; }}
@@ -190,8 +151,7 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 <h1>Job Tracker</h1>
 <div class="page-meta">last updated {updated}</div>
 {jobs_section}
-<hr>
-{swiss_section}
+
 </body>
 </html>
 """

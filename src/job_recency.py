@@ -1,4 +1,3 @@
-"""Keep jobs no more than 21 days old; unknown dates are retained."""
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 import re
@@ -36,7 +35,6 @@ def parse_posted(value, *, today=None, allow_relative=False):
         return today
     if t in ("yesterday", "gestern"):
         return today - timedelta(days=1)
-    # Do not invent a date for '30+ days ago' or approximate ranges.
     m = re.fullmatch(r"(\d+)\s+(day|days|week|weeks|hour|hours)\s+ago", t)
     if m:
         n = int(m.group(1)); unit = m.group(2)
@@ -51,7 +49,6 @@ def parse_posted(value, *, today=None, allow_relative=False):
 def keep_posted(value, *, today=None, allow_relative=False):
     today = today or today_local()
     posted = parse_posted(value, today=today, allow_relative=allow_relative)
-    # Future dates are treated as uncertain source data, not silently deleted.
     return posted is None or posted > today or (today - posted).days <= MAX_JOB_AGE_DAYS
 
 def filter_recent_jobs(jobs, *, today=None):
@@ -75,8 +72,6 @@ def prune_old_rows(ws, columns, *, today=None):
     col = columns.index("Job Posted") + 1
     removed = 0
     for row in range(ws.max_row, 1, -1):
-        # Old relative strings have no observation date: never rebase them
-        # against today, which would make them stay recent forever.
         if not keep_posted(ws.cell(row=row, column=col).value, today=today):
             ws.delete_rows(row)
             removed += 1

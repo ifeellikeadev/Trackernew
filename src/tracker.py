@@ -1,59 +1,3 @@
-"""
-Manages the persistent Excel tracker file, which holds TWO sheets, in
-this order (top to bottom):
-
-  1. "Jobs" — Munich and Zurich only. The original core list.
-  2. "Swiss Cities" — Basel, Bern, Geneva, Lausanne, Lucerne. Kept as
-     its own visually separate section rather than merged into
-     "Jobs" — otherwise Munich/Zurich's much higher posting volume
-     buries these cities' (genuinely fewer) matches at the bottom of
-     one score-sorted list, making it look like nothing is there even
-     when something is.
-
-Both sheets share the same behaviour:
-  - Each run, only genuinely NEW postings (by URL) are added.
-  - Postings already in a sheet are left alone (deduped by URL,
-    per-sheet — a URL only needs to be unique within its own sheet).
-  - Every run, rows scoring below that sheet's min_score are pruned —
-    this applies to rows already sitting in the sheet too, not just
-    new ones, so lowering/raising the threshold in cv_profile.yaml
-    actually cleans up the sheet, not just gates future additions.
-  - Each sheet is re-sorted by Relevance Score (highest first) every
-    run, so the best matches are always at the top.
-  - archive_and_reset() (called from reset_tracker.py) archives BOTH
-    sheets together as one file and starts fresh — same monthly
-    cadence, same manual-trigger option, for both.
-
-Column history for the "Jobs" sheet (kept here so future-you
-understands old files):
-  v1: First Seen, Last Seen, Company, City, Job Title, Relevance Score,
-      German Required, Location, URL
-  v2: added Job Posted; renamed score column to "Relevance Score (1-10)"
-  v3: added Location Confirmed
-  v4: dropped First Seen and Last Seen; sheet sorted by relevance
-      instead of being append-only
-  v5: added a separate "Dream Cities" sheet
-  v6: dropped "Location Confirmed" — only confirmed-location jobs are
-      kept at all now (matcher.py), so the column was always "Yes"
-      and stopped being useful information.
-  v7: a "Global Top Picks" wildcard sheet existed briefly between v6
-      and now — removed entirely per request.
-  v8: Singapore + the promoted Swiss cities briefly lived inside
-      "Jobs" alongside Munich/Zurich — split back out into their own
-      "Singapore & Swiss Cities" sheet.
-  v9 (current): scope refocused to Munich + Swiss cities only, per
-      request — Singapore and every Dream City dropped entirely.
-      "Singapore & Swiss Cities" renamed to "Swiss Cities." An
-      existing file's old "Dream Cities" sheet (real historical data,
-      if you had any) is deliberately left alone, not deleted — it
-      just stops being updated with new postings. Same for any
-      leftover "Global Top Picks"/"_wildcard_history" sheets from
-      before v7. Delete any of these by hand in Excel if you want
-      them gone.
-Migration reads whatever columns an existing sheet has by NAME, not
-position, and rebuilds it against the current column list — so it
-doesn't matter which older version your file is on.
-"""
 
 from __future__ import annotations
 
@@ -61,7 +5,7 @@ import datetime as dt
 from pathlib import Path
 from typing import Any, Callable
 
-# RECENCY_PATCH_V1
+from src.job_scope import allowed_job
 from src.job_recency import filter_recent_jobs, prune_old_rows
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
@@ -79,18 +23,7 @@ COLUMNS = [
 ]
 COLUMN_WIDTHS = [14, 22, 9, 40, 12, 30, 60]
 
-# Swiss Cities shares the exact same schema as Jobs (no Country column
-# needed — same reasoning as Jobs: obvious from City, since every
-# approved city is now either Munich/Zurich or a Swiss city).
-SWISS_SHEET_NAME = "Swiss Cities"
-SWISS_COLUMNS = COLUMNS
-SWISS_COLUMN_WIDTHS = COLUMN_WIDTHS
 
-# Old header names that should map onto a current column, so a rename
-# (like "Relevance Score" -> "Relevance Score (1-10)") doesn't strand
-# existing data. Names not listed here and not in the current column
-# list are dropped (that's how First Seen / Last Seen / Location
-# Confirmed disappear on migration).
 HEADER_ALIASES = {
     "Relevance Score": "Relevance Score (1-10)",
 }
@@ -98,7 +31,6 @@ HEADER_ALIASES = {
 HEADER_FILL = PatternFill(start_color="1F2937", end_color="1F2937", fill_type="solid")
 HEADER_FONT = Font(color="FFFFFF", bold=True)
 NEW_ROW_FILL = PatternFill(start_color="D1FAE5", end_color="D1FAE5", fill_type="solid")  # green
-SWISS_NEW_ROW_FILL = PatternFill(start_color="FDE68A", end_color="FDE68A", fill_type="solid")  # amber
 
 
 def _style_header(ws: Worksheet, columns: list[str], widths: list[int]) -> None:
@@ -112,27 +44,16 @@ def _style_header(ws: Worksheet, columns: list[str], widths: list[int]) -> None:
 
 
 def _new_workbook() -> Workbook:
-    """Creates a fresh workbook with BOTH sheets, correctly headered,
-    in order: Jobs -> Swiss Cities."""
     wb = Workbook()
     ws = wb.active
     ws.title = "Jobs"
     ws.append(COLUMNS)
     _style_header(ws, COLUMNS, COLUMN_WIDTHS)
 
-    swiss_ws = wb.create_sheet(SWISS_SHEET_NAME)
-    swiss_ws.append(SWISS_COLUMNS)
-    _style_header(swiss_ws, SWISS_COLUMNS, SWISS_COLUMN_WIDTHS)
     return wb
 
 
 def _migrate_sheet(wb: Workbook, sheet_name: str, columns: list[str], widths: list[int], sheet_index: int) -> None:
-    """
-    Generic migration for either sheet: read every row into a dict
-    keyed by (aliased) old header name, drop any row that was
-    "Unconfirmed" under the old Location Confirmed scheme, then
-    rebuild the sheet from scratch against the current column list.
-    """
     ws = wb[sheet_name]
     existing_headers = [c.value for c in ws[1]]
     if existing_headers == columns:
@@ -165,8 +86,6 @@ def _migrate_sheet(wb: Workbook, sheet_name: str, columns: list[str], widths: li
 
 
 def _ensure_sheet(wb: Workbook, sheet_name: str, columns: list[str], widths: list[int], sheet_index: int) -> None:
-    """Creates the sheet fresh if missing, or migrates it in place if
-    it already exists under an older schema."""
     if sheet_name not in wb.sheetnames:
         ws = wb.create_sheet(sheet_name, sheet_index)
         ws.append(columns)
@@ -181,16 +100,15 @@ def load_or_create(path: Path) -> Workbook:
 
     wb = load_workbook(path)
     _migrate_sheet(wb, "Jobs", COLUMNS, COLUMN_WIDTHS, 0)
-    _ensure_sheet(wb, SWISS_SHEET_NAME, SWISS_COLUMNS, SWISS_COLUMN_WIDTHS, 1)
-
-    # Deliberately NOT touching an existing "Dream Cities",
-    # "Singapore & Swiss Cities", "Global Top Picks", or
-    # "_wildcard_history" sheet if the file still has one — those
-    # sheets held real historical data at some point and are left
-    # alone rather than deleted; they just stop being updated with
-    # new postings going forward. Delete them by hand in Excel if you
-    # want them gone.
-
+    # Active workbook is Munich-only; historical archives are not modified.
+    for name in list(wb.sheetnames):
+        if any(term in name.lower() for term in ('swiss', 'zurich', 'zuerich', 'zürich', 'switzerland')):
+            wb.remove(wb[name])
+    ws = wb['Jobs']
+    for row in range(ws.max_row, 1, -1):
+        record = {col: ws.cell(row, i + 1).value for i, col in enumerate(COLUMNS)}
+        if not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
+            ws.delete_rows(row)
     return wb
 
 
@@ -204,9 +122,6 @@ def _existing_urls(ws: Worksheet, columns: list[str]) -> set[str]:
 
 
 def _prune_below_score(ws: Worksheet, columns: list[str], min_score: int) -> int:
-    """Deletes any row scoring below min_score. Runs every update, so
-    it retroactively cleans rows already in the sheet too, not just
-    new ones going forward. Returns how many rows were removed."""
     if not min_score:
         return 0
     score_col = columns.index("Relevance Score (1-10)") + 1
@@ -226,9 +141,6 @@ def _prune_below_score(ws: Worksheet, columns: list[str], min_score: int) -> int
 def _sort_by_relevance(
     ws: Worksheet, columns: list[str], fill: PatternFill, newly_added_urls: set[str]
 ) -> None:
-    """Re-sorts all data rows by Relevance Score (highest first), then
-    re-applies the "new" highlight to whichever URLs were added this
-    run (their row position may have moved during the sort)."""
     score_col = columns.index("Relevance Score (1-10)")
     url_col = columns.index("URL")
 
@@ -263,7 +175,7 @@ def _update_sheet(
     min_score: int = 0,
 ) -> dict[str, int]:
     ws = wb[sheet_name]
-    new_jobs = filter_recent_jobs(new_jobs)
+    new_jobs = [j for j in filter_recent_jobs(new_jobs) if allowed_job(j)]
     age_pruned = prune_old_rows(ws, columns)
     existing_urls = _existing_urls(ws, columns)
 
@@ -300,7 +212,6 @@ def _build_jobs_row(job: dict[str, Any], url: str) -> list:
 
 
 def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
-    """Updates the "Jobs" sheet (Munich and Zurich only). Saves the file."""
     wb = load_or_create(path)
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -308,28 +219,7 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 
     return summary
 
 
-def update_swiss_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
-    """Updates the "Swiss Cities" sheet. Saves the file. Call this
-    separately from update_tracker() (as main.py does) — each opens,
-    updates its own sheet, and saves; the file just gets saved twice
-    per run, which is harmless."""
-    wb = load_or_create(path)
-    summary = _update_sheet(
-        wb, SWISS_SHEET_NAME, SWISS_COLUMNS, SWISS_NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score
-    )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    wb.save(path)
-    return summary
-
-
 def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:
-    """
-    Moves the current tracker (all its sheets, including any inert
-    leftover ones — see load_or_create) to
-    archive/job_tracker_YYYY-MM.xlsx and creates a fresh empty tracker
-    (Jobs + Swiss Cities, empty) at `path`. Returns the archive path,
-    or None if there was nothing to archive.
-    """
     if not path.exists():
         _new_workbook().save(path)
         return None

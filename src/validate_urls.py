@@ -1,52 +1,3 @@
-"""
-A fast, lightweight health check for every company's careers_url —
-answers "does this URL even respond?" without doing any of the actual
-scraping/matching work src/main.py does. Where main.py takes 60-90
-minutes (fetching every posting, enriching descriptions, scoring),
-this takes a few minutes, since it's just one HEAD/GET request per
-company with a short timeout.
-
-Exists because of a real, recurring pattern found by hand throughout
-this project (Sixt, Jet Aviation, Hensoldt, and — at real scale — 35
-companies with an auto-guessed, never-real Personio URL): a config
-entry silently pointing at the wrong page. Rather than only catching
-these one at a time when a specific missing posting gets noticed, this
-gives a full picture in one pass.
-
-Run manually with:
-    python -m src.validate_urls
-Or via the GitHub Actions workflow (.github/workflows/validate_urls.yml,
-manual-trigger only — this is a diagnostic tool, not part of the daily
-scrape).
-
-IMPORTANT — what this does and doesn't tell you:
-  - A non-200 status, a connection error, or a DNS failure is a strong
-    signal something is genuinely wrong (see discover_real_careers_url
-    in ats_scrapers.py for the automated fix path once you know which
-    ones to look at).
-  - A 200 response does NOT guarantee the page actually has real job
-    postings on it — some legitimate career pages 403/anti-bot a
-    plain request like this one even though src/main.py's full
-    scraper (which uses a real browser User-Agent, and as a last
-    resort a real headless browser) can still get through. Treat a
-    non-200 result here as "worth checking," not as an automatic
-    verdict — cross-reference with an actual scrape run's OK/EMPTY/
-    FAILED lines before concluding a URL is truly broken.
-
-For entries that DO look broken, this now also tries
-discover_real_careers_url (the same mechanism the real scraper uses
-as a last resort — see ats_scrapers.py) to suggest a fix. One real
-limit worth understanding: discovery works by fetching the URL you
-already have and searching THAT page for a link to the real one — so
-it only has a chance for NOT_FOUND (404), HTTP_ERROR, and BLOCKED
-results, where the server responded with *something*. For
-CONNECTION_ERROR (the domain doesn't resolve at all — e.g. the 35
-auto-guessed Personio subdomains fixed earlier, like
-novartisbasel.jobs.personio.de) there is no page to search, so
-discovery is skipped for those and they're flagged as needing actual
-research for the company's real website instead — the same manual fix
-already applied to that batch.
-"""
 
 from __future__ import annotations
 
@@ -60,6 +11,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from src.job_scope import excluded_source
 from src.ats_scrapers import discover_real_careers_url
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -83,11 +35,6 @@ def load_yaml(path: Path) -> list[dict]:
 
 
 def check_one(company: dict) -> dict:
-    """Returns a result dict: {name, city, url, status, detail,
-    suggested_fix}. suggested_fix is filled in via discover_real_careers_url
-    for statuses where the server actually responded with something
-    (a real page to search for the correct link) — see module
-    docstring for why CONNECTION_ERROR can't get one."""
     name = company["name"]
     city = company.get("city", "")
     url = company.get("careers_url", "")
@@ -100,10 +47,6 @@ def check_one(company: dict) -> dict:
     except requests.exceptions.SSLError as exc:
         return {"name": name, "city": city, "url": url, "status": "SSL_ERROR", "detail": str(exc)[:150], "suggested_fix": None}
     except requests.exceptions.ConnectionError as exc:
-        # This is where a wrong/nonexistent domain shows up (DNS failure).
-        # No page ever loaded, so there's nothing for discovery to search —
-        # this needs actual research for the company's real website, same
-        # fix already applied to the 35-company Personio batch.
         detail = "DNS resolution failed / connection refused" if "NameResolutionError" in str(exc) else str(exc)[:150]
         return {"name": name, "city": city, "url": url, "status": "CONNECTION_ERROR", "detail": detail, "suggested_fix": None}
     except requests.exceptions.Timeout:
@@ -118,9 +61,6 @@ def check_one(company: dict) -> dict:
     if resp.status_code == 200:
         return {"name": name, "city": city, "url": url, "status": "OK", "detail": f"200{redirect_note}", "suggested_fix": None}
 
-    # Everything below here got SOME response from the server — a real
-    # page discovery can search for the actual job-board link, unlike
-    # CONNECTION_ERROR above.
     suggested_fix = None
     try:
         discovered_url, platform, _token = discover_real_careers_url(url)
@@ -130,8 +70,6 @@ def check_one(company: dict) -> dict:
         pass  # discovery is best-effort here; a failure just means no suggestion, not a crash
 
     if resp.status_code in (403, 999):
-        # Common anti-bot response to a plain request — worth knowing
-        # about, but NOT necessarily broken (see module docstring).
         return {"name": name, "city": city, "url": url, "status": "BLOCKED", "detail": f"{resp.status_code}{redirect_note} — may just be anti-bot, not necessarily wrong", "suggested_fix": suggested_fix}
     elif resp.status_code == 404:
         return {"name": name, "city": city, "url": url, "status": "NOT_FOUND", "detail": f"404{redirect_note}", "suggested_fix": suggested_fix}
@@ -141,6 +79,7 @@ def check_one(company: dict) -> dict:
 
 def run() -> None:
     companies = load_yaml(COMPANIES_FILE) + load_yaml(JOB_BOARDS_FILE)
+    companies = [c for c in companies if not excluded_source(c)]
     print(f"Checking {len(companies)} companies...\n")
 
     results = []
@@ -160,9 +99,6 @@ def run() -> None:
         if status in by_status:
             print(f"  {status}: {len(by_status[status])}")
 
-    # The genuinely actionable ones — likely real, wrong URLs. Split
-    # into "has a suggested fix" (discovery found something) vs "needs
-    # manual research" (CONNECTION_ERROR — no page existed to search).
     no_page_at_all = by_status.get("CONNECTION_ERROR", []) + by_status.get("NO_URL", [])
     other_broken = by_status.get("NOT_FOUND", []) + by_status.get("HTTP_ERROR", []) + by_status.get("TIMEOUT", []) + by_status.get("SSL_ERROR", []) + by_status.get("OTHER_ERROR", [])
 

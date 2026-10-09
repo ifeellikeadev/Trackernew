@@ -1,123 +1,15 @@
-"""
-Filters and scores scraped jobs against config/cv_profile.yaml.
-
-Two-step pipeline (split so main.py can enrich description text in
-between — see src/ats_scrapers.py, fetch_description_fallback):
-
-  1. filter_by_title_and_location(jobs, cv_profile, expected_city):
-     - KEEPS a job only if its title matches one of `title_must_match`.
-     - Then checks it against the company's expected metro area
-       (Munich or Zurich, including satellite towns — Ottobrunn,
-       Taufkirchen, Freising, Zug, Winterthur, etc. — or one of the
-       dream cities): if the location text doesn't explicitly confirm
-       the target area, the job is dropped. This matters because
-       several platforms (Lever, Greenhouse, SmartRecruiters, Workday)
-       return a company's ENTIRE global job board in one call — e.g.
-       a Munich-tagged company's board can include a New York or Abu
-       Dhabi posting alongside genuinely local ones.
-     - Does NOT score yet — that happens after enrichment.
-
-  2. score_jobs(jobs, cv_profile):
-     - Adds `relevance_score` (1-10 scale, 10 = best match to your CV)
-       to each job. Does not filter anything out by score — every job
-       that passed step 1 is kept and shown, regardless of score. The
-       score is for sorting/ranking only.
-
-No score threshold is applied anywhere in this file — main_min_score
-and dream_city_min_score in cv_profile.yaml both default to 0 (no
-floor), reflecting that a title+location match is considered
-worth seeing regardless of how strong the keyword match is.
-"""
 
 from __future__ import annotations
 
 from typing import Any
+import re
+from src.job_scope import EXCLUDED_LOCATION
 
-# How the 1-10 scale works:
-#   1. Add up the weight of every scoring_keyword found in the title +
-#      description (this is the "raw" score - unbounded).
-#   2. Divide by SCORE_CEILING and scale to 10, capping at 10 and
-#      flooring at 1 (a job that passed the title filter always shows
-#      at least 1, never 0).
-#   3. SCORE_CEILING is set so that a genuinely strong match (title hit
-#      + several keyword hits) lands around 8-10, and a bare-minimum
-#      match (title hit only, few/no keyword hits) lands around 1-3.
-#   Adjust SCORE_CEILING in config/cv_profile.yaml if scores all cluster
-#   too high or too low once you've seen real results.
 DEFAULT_SCORE_CEILING = 15
 
-# Keywords that count as "this location IS in the Munich metro area" /
-# "this location IS in the Zurich metro area" — i.e. the city itself
-# plus its commuter-belt satellite towns, since a job in Ottobrunn or
-# Freising is just as reachable/relevant as one in Munich proper.
-#
-# Deliberately does NOT extend to all of Bavaria or all of Switzerland
-# — Nuremberg, Augsburg, Regensburg, Geneva, Basel, Bern, etc. are
-# real cities in their own right, ~1.5-3h away, not "the Munich/Zurich
-# area." If you want a specific town added or removed, edit the lists
-# below (see SETUP_GUIDE.md for how to make and upload this kind of
-# change).
-CITY_KEYWORDS = {
-    "Munich": [
-        "munich", "münchen", "muenchen",
-        # Tight radius, per request: only towns within a real ~20-25
-        # min drive of Rosenheimer Platz (81667 München, Haidhausen,
-        # east-central Munich) — verified via actual driving-time
-        # research, not assumed from a broader "Munich region"
-        # definition. Confidently in range (south/southeast, same
-        # side of the city as Rosenheimer Platz):
-        "ottobrunn", "taufkirchen", "unterhaching", "neubiberg", "haar", "putzbrunn", "freising"
-        # Borderline, included with moderate confidence (east/
-        # northeast — genuinely closer to this side of the city than
-        # the dropped west-side towns, but less certain than the
-        # above):
-        "vaterstetten", "poing", "aschheim", "kirchheim", "feldkirchen",
-        "ismaning", "unterföhring", "unterfoehring", "garching", "erding", "fürstenfeldbruck", "hallbergmoos"
-        # Dropped as confirmed or high-confidence too far for a
-        # 20-25 min drive from Rosenheimer Platz specifically:
-        # manching (~50-60 min, near Ingolstadt),
-        # oberpfaffenhofen, unterschleissheim, holzkirchen, dachau,
-        # freising (confirmed 35 min),
-        # starnberg, germering, gräfelfing, planegg, gilching,
-        # puchheim, .
-    ],
-    "Zurich": [
-        "zurich", "zürich", "zuerich",
-        "zug", "winterthur", "baden", "dietikon", "wallisellen",
-        "dübendorf", "duebendorf", "opfikon", "kloten", "adliswil",
-        "horgen", "meilen", "rüschlikon", "rueschlikon", "uster",
-        "regensdorf", "schlieren", "volketswil", "wetzikon", "thalwil",
-        "wädenswil", "waedenswil",
-    ],
-    "Basel": [
-        "basel", "basle",
-    ],
-    "Bern": [
-        "bern", "berne",
-    ],
-    "Geneva": [
-        "geneva", "genève", "geneve",
-    ],
-    "Lausanne": [
-        "lausanne",
-    ],
-    "Lucerne": [
-        "lucerne", "luzern", "zürich", "zug",  # Lucerne region
-    ],
-}
-
+CITY_KEYWORDS = {'Munich': ['munich', 'münchen', 'muenchen', 'ottobrunn', 'taufkirchen', 'unterhaching', 'neubiberg', 'haar', 'putzbrunn', 'poing', 'aschheim', 'kirchheim', 'feldkirchen', 'ismaning', 'unterföhring', 'unterfoehring', 'garching', 'erding', 'fürstenfeldbruck', 'hallbergmoos', 'freising', 'vaterstetten', 'bogenhausen', 'werksviertel', 'lehel', 'altstadt']}
 
 def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
-    """
-    True if title contains any of must_match AND none of
-    must_not_match. The exclusion list exists for cases like
-    "Projektleiter Stadionbau" — a real, common German title pattern
-    that contains "Projektleiter" (a valid PM-title match) but is
-    actually a construction/trades role (civil engineering degree,
-    site management) with nothing to do with the kind of PM work this
-    tool is meant to surface. Confirmed via real postings, not a
-    hypothetical — see cv_profile.yaml, title_must_not_match.
-    """
     t = title.lower()
     if not any(term.lower() in t for term in must_match):
         return False
@@ -127,36 +19,21 @@ def title_matches(title: str, must_match: list[str], must_not_match: list[str] |
 
 
 def location_status(location: str, expected_city: str) -> str:
-    """
-    Returns "confirmed" (location text names the expected city/area),
-    "mismatch" (location text clearly names a different city), or
-    "unconfirmed" (no location text available, or it's too generic
-    to tell - e.g. just "Germany" or "Remote").
-    """
     if not location:
         return "unconfirmed"
     loc = location.lower()
+    if EXCLUDED_LOCATION.search(loc):
+        return "mismatch"
     expected_keywords = CITY_KEYWORDS.get(expected_city, [expected_city.lower()])
     if any(kw in loc for kw in expected_keywords):
         return "confirmed"
-    if any(other in loc for other in OTHER_MAJOR_LOCATIONS):
-        return "mismatch"
+    return "mismatch"
     return "unconfirmed"
 
 
 def filter_by_title_and_location(
     jobs: list[dict[str, Any]], cv_profile: dict[str, Any], expected_city: str = ""
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
-    """
-    Returns (kept_jobs, stats) where stats = {"title_matched": N,
-    "location_confirmed": M} — title_matched counts jobs whose title
-    passed regardless of location; location_confirmed is the final
-    count (title AND location both passed, i.e. len(kept_jobs)).
-    Logging both separately is what lets you tell, from a run's
-    output, whether a company's postings are being filtered out by
-    the title check or the location check — without it, "0 matched"
-    is a dead end to debug.
-    """
     must_match = cv_profile.get("title_must_match", [])
     must_not_match = cv_profile.get("title_must_not_match", [])
 
@@ -170,9 +47,6 @@ def filter_by_title_and_location(
 
         loc_status = location_status(job.get("location", ""), expected_city)
         if loc_status != "confirmed":
-            # Only keep jobs whose location text explicitly names the
-            # target city/area — a company's HQ city is frequently not
-            # where a given posting actually is.
             continue
 
         kept.append(job)
@@ -181,56 +55,23 @@ def filter_by_title_and_location(
     return kept, stats
 
 
-# --------------------------------------------------------------------------
-# Any-city matching — checks a job against EVERY approved city (Munich,
-# Zurich,) instead of just the one city a
-# company's config entry happens to be tagged with.
-#
-# Why this exists: a company like Databricks or Palantir is listed
-# under ONE config entry (e.g. "Databricks Zurich"), but its actual job
-# board spans many locations. Checking that entry's postings only
-# against "is this in Zurich?" means a genuine Databricks posting in
-# Munich — which absolutely IS one of your approved cities — was being
-# silently rejected, because the wrong question was being asked. This
-# checks every title-matched posting against the full approved-city
-# list and routes it to whichever city actually matches, regardless of
-# which config entry (and which nominal city) it came from.
-# --------------------------------------------------------------------------
 
-# Two tiers, feeding two tracker sheets, in this order top to bottom:
-# "Jobs" (Munich, Zurich) -> "Swiss Cities" (Basel, Bern, Geneva,
-# Lausanne, Lucerne). There used to be a third tier (Singapore + all
-# Dream Cities, routed to their own sheets) — removed per a scope
-# refocus request: Munich and Swiss cities/nearby areas only now.
-MAIN_LIST_CITIES = {"Munich", "Zurich"}
-SWISS_CITIES = {"Basel", "Bern", "Geneva", "Lausanne", "Lucerne"}
+MAIN_LIST_CITIES = {"Munich"}
 ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, Basel, Bern, Geneva, Lausanne, Lucerne
 
 
-def find_matching_city(location: str, candidate_cities: list[str] | None = None) -> str | None:
-    """
-    Returns the name of the first approved city whose keywords are
-    found in `location`, or None if the location doesn't confirm any
-    of them. Checks against ALL_APPROVED_CITIES by default.
-    """
-    if not location:
+def find_matching_city(location, candidate_cities=None):
+    if not location or EXCLUDED_LOCATION.search(location):
+        return None
+    if candidate_cities is not None and 'Munich' not in candidate_cities:
         return None
     loc = location.lower()
-    for city in candidate_cities or ALL_APPROVED_CITIES:
-        if any(kw in loc for kw in CITY_KEYWORDS.get(city, [city.lower()])):
-            return city
+    for kw in CITY_KEYWORDS['Munich']:
+        if re.search(r'(?<!\w)' + re.escape(kw) + r'(?!\w)', loc):
+            return 'Munich'
     return None
 
-
 def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
-    """
-    Just the title check, no location decision — exists so main.py can
-    enrich blank-location postings (see scrape_all_any_city) BEFORE
-    the location filter runs, rather than after. Location filtering
-    only ever discards, never adds information, so doing it first
-    would permanently lose postings whose real location just wasn't
-    in the initial scrape yet.
-    """
     must_match = cv_profile.get("title_must_match", [])
     must_not_match = cv_profile.get("title_must_not_match", [])
     return [
@@ -240,14 +81,6 @@ def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any])
 
 
 def resolve_city_for_job(job: dict[str, Any], search_text: str | None = None) -> str | None:
-    """
-    Determines and tags matched_city on a single already title-matched
-    job. Searches search_text if given (e.g. an enriched full-page
-    text blob), otherwise falls back to job["location"] — lets main.py
-    search a richer text without that raw text ending up as the job's
-    displayed location. Returns the matched city name, or None if
-    nothing matched.
-    """
     matched_city = find_matching_city(search_text if search_text is not None else job.get("location", ""))
     if matched_city is None:
         return None
@@ -256,17 +89,6 @@ def resolve_city_for_job(job: dict[str, Any], search_text: str | None = None) ->
 
 
 def extract_location_snippet(text: str, matched_city: str, window: int = 30) -> str:
-    """
-    For a job whose location was recovered from a full page-text blob
-    (see main.py's enrichment step) rather than a clean structured
-    field, pulls a short window of text around wherever the matched
-    city's keyword was actually found — so the tracker's Location
-    column shows something readable ("...role based in Zurich,
-    Switzerland, reporting to...") instead of the entire fetched page.
-    Falls back to just the city name if no keyword position is found
-    (shouldn't happen if matched_city really came from this text, but
-    defensive regardless).
-    """
     loc = text.lower()
     for kw in CITY_KEYWORDS.get(matched_city, [matched_city.lower()]):
         idx = loc.find(kw)
@@ -281,13 +103,6 @@ def extract_location_snippet(text: str, matched_city: str, window: int = 30) -> 
 def filter_by_title_and_any_city(
     jobs: list[dict[str, Any]], cv_profile: dict[str, Any]
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
-    """
-    Convenience wrapper combining filter_by_title_only +
-    resolve_city_for_job in one call, for callers that don't need the
-    enrich-before-filtering behavior (e.g. tests). main.py's real
-    pipeline calls the two pieces separately instead — see
-    scrape_all_any_city and its docstring for why.
-    """
     title_matched = filter_by_title_only(jobs, cv_profile)
     kept = [job for job in title_matched if resolve_city_for_job(job) is not None]
     stats = {"title_matched": len(title_matched), "location_confirmed": len(kept)}
@@ -310,8 +125,6 @@ def score_job_1_to_10(description: str, title: str, keywords: list[dict[str, Any
 
 
 def score_jobs(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
-    """Adds relevance_score to every job in place. Does not filter
-    anything out — score is for ranking/sorting only."""
     keywords = cv_profile.get("scoring_keywords", [])
     ceiling = cv_profile.get("score_ceiling", DEFAULT_SCORE_CEILING)
     for job in jobs:

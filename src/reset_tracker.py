@@ -1,11 +1,3 @@
-"""
-Archives the current tracker (both sheets — "Jobs" and "Swiss Cities"
-— together as one file, plus any inert leftover sheets from a
-previous scope) and starts a fresh one.
-Run manually with:  python -m src.reset_tracker
-Or automatically via .github/workflows/monthly_reset.yml on the 1st
-of each month.
-"""
 
 from __future__ import annotations
 
