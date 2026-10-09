@@ -1,5 +1,3 @@
-# Full replacement based on the previous 256-entry expansion.
-# Munich is a regional scraper bucket. See accompanying notes for actual areas.
 companies:
 - name: BMW Group
   city: Munich
