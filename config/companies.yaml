@@ -1,7 +1,5 @@
-# Expanded employer candidate list.
-# Existing employer records retained; missing earlier candidates and further employers added.
-# Munich is a tracker label; filter actual vacancy workplaces.
-# Live scraper extraction and 25-minute driving times are NOT verified.
+# Full replacement based on the previous 256-entry expansion.
+# Munich is a regional scraper bucket. See accompanying notes for actual areas.
 companies:
 - name: BMW Group
   city: Munich
@@ -1142,4 +1140,254 @@ companies:
   city: Munich
   careers_url: https://zrg.wd3.myworkdayjobs.com/teleclinic-jobs
   ats: workday
+  board_token: ''
+- name: Blackwave
+  city: Munich
+  careers_url: https://blackwave.jobs.personio.de/
+  ats: personio
+  board_token: blackwave
+- name: INELTA Sensorsysteme
+  city: Munich
+  careers_url: https://www.inelta.de/jobs/offene-stellen
+  ats: auto
+  board_token: ''
+- name: Jochen Schweizer Arena
+  city: Munich
+  careers_url: https://jochen-schweizer-arena.onapply.de/
+  ats: auto
+  board_token: ''
+- name: Develey
+  city: Munich
+  careers_url: https://www.develey.com/de/karriere/Stellenangebote
+  ats: auto
+  board_token: ''
+- name: Mars Wrigley
+  city: Munich
+  careers_url: https://careers.mars.com/de/de/unterhaching
+  ats: auto
+  board_token: ''
+- name: Vincotech
+  city: Munich
+  careers_url: https://www.vincotech.com/career/open-positions/
+  ats: auto
+  board_token: ''
+- name: Panasonic Industry Europe
+  city: Munich
+  careers_url: https://industry.panasonic.eu/de/karriere/job-listing
+  ats: auto
+  board_token: ''
+- name: TE Connectivity
+  city: Munich
+  careers_url: https://careers.te.com/
+  ats: auto
+  board_token: ''
+- name: SES
+  city: Munich
+  careers_url: https://careers.ses.com/go/Munich/4312401/
+  ats: auto
+  board_token: ''
+- name: Sportec Solutions
+  city: Munich
+  careers_url: https://sportec-solutions.jobs.personio.de/
+  ats: personio
+  board_token: sportec-solutions
+- name: smartvillage
+  city: Munich
+  careers_url: https://smartvillage.jobs.personio.de/
+  ats: personio
+  board_token: smartvillage
+- name: EMERAM Capital Partners
+  city: Munich
+  careers_url: https://emeram-capital-partners-gmbh.jobs.personio.de/job/1312230?language=de
+  ats: personio
+  board_token: emeram-capital-partners-gmbh
+- name: Crewmeister
+  city: Munich
+  careers_url: https://crewmeister.com/de/your-career
+  ats: auto
+  board_token: ''
+- name: Jochen Schweizer mydays Group
+  city: Munich
+  careers_url: https://career.jsmd-group.com/en/jobs/
+  ats: auto
+  board_token: ''
+- name: Werksviertel-Mitte
+  city: Munich
+  careers_url: https://www.werksviertel-mitte.de/karriere/
+  ats: auto
+  board_token: ''
+- name: Eventfabrik Muenchen
+  city: Munich
+  careers_url: https://www.eventfabrik-muenchen.de/karriere/
+  ats: auto
+  board_token: ''
+- name: Werksviertel Versicherung
+  city: Munich
+  careers_url: https://www.werksviertel-versicherung.de/de/unternehmen/karriere.php
+  ats: auto
+  board_token: ''
+- name: Fortlane Partners
+  city: Munich
+  careers_url: https://join.fortlane.com/de/
+  ats: auto
+  board_token: ''
+- name: PDV.group
+  city: Munich
+  careers_url: https://karriere.pdv.group/jobs/63950193/Sales-Manager-m-w-d-B2B-Software-Vertrieb-bei-PDV-blue/
+  ats: auto
+  board_token: ''
+- name: HTM Group
+  city: Munich
+  careers_url: https://www.heristo-karriere.de/heristo-gruppe/htm-group
+  ats: auto
+  board_token: ''
+- name: ASAMBEAUTY
+  city: Munich
+  careers_url: https://www.asambeauty.com/de-de/karriere
+  ats: auto
+  board_token: ''
+- name: TPSH Group
+  city: Munich
+  careers_url: https://tpsh-group.de/home/karriere/
+  ats: auto
+  board_token: ''
+- name: Golding Capital Partners
+  city: Munich
+  careers_url: https://recruiting.goldingcapital.com/
+  ats: auto
+  board_token: ''
+- name: BVT Unternehmensgruppe
+  city: Munich
+  careers_url: https://www.bvt.de/unternehmensgruppe/karriere
+  ats: auto
+  board_token: ''
+- name: Berylls Group
+  city: Munich
+  careers_url: https://berylls-group.com/karriere/
+  ats: auto
+  board_token: ''
+- name: Bayerische Versorgungskammer
+  city: Munich
+  careers_url: https://www.versorgungskammer.de/jobs
+  ats: auto
+  board_token: ''
+- name: Omnicare
+  city: Munich
+  careers_url: https://omnicare.jobs.personio.de/?language=de
+  ats: personio
+  board_token: omnicare
+- name: revel8
+  city: Munich
+  careers_url: https://revel8.jobs.personio.de/?language=de
+  ats: personio
+  board_token: revel8
+- name: ERC System
+  city: Munich
+  careers_url: https://www.erc-system.com/careers
+  ats: auto
+  board_token: ''
+- name: ArianeGroup
+  city: Munich
+  careers_url: https://www.ariane.group/en/careers/
+  ats: auto
+  board_token: ''
+- name: nebumind
+  city: Munich
+  careers_url: https://www.nebumind.com/career/
+  ats: auto
+  board_token: ''
+- name: APWORKS
+  city: Munich
+  careers_url: https://www.apworks.de/de/careers
+  ats: auto
+  board_token: ''
+- name: SelectCode
+  city: Munich
+  careers_url: https://www.selectcode.de/jobs
+  ats: auto
+  board_token: ''
+- name: HY-LINE Group
+  city: Munich
+  careers_url: https://hylinegroup.recruitee.com/
+  ats: auto
+  board_token: ''
+- name: HUBER+SUHNER
+  city: Munich
+  careers_url: https://recruiting.hubersuhner.com/Jobs/All?lang=de
+  ats: auto
+  board_token: ''
+- name: IC Cash Services
+  city: Munich
+  careers_url: https://www.iccash.de/karriere/
+  ats: auto
+  board_token: ''
+- name: ndF neue deutsche Filmgesellschaft
+  city: Munich
+  careers_url: https://www.ndf.de/karriere/
+  ats: auto
+  board_token: ''
+- name: ALAIKA Advisory
+  city: Munich
+  careers_url: https://www.alaika-advisory.com/careers
+  ats: auto
+  board_token: ''
+- name: InsurTech Hub Munich
+  city: Munich
+  careers_url: https://www.insurtech-munich.com/ueber-uns/career/
+  ats: auto
+  board_token: ''
+- name: WERK1.Bayern
+  city: Munich
+  careers_url: https://www.werk1.com/das-werk1/karriere/
+  ats: auto
+  board_token: ''
+- name: werkkraft
+  city: Munich
+  careers_url: https://www.werksviertel-mitte.de/stellenangebote/energiemanager-mwd/
+  ats: auto
+  board_token: ''
+- name: BelForm
+  city: Munich
+  careers_url: https://belform.de/karriere
+  ats: auto
+  board_token: ''
+- name: Vantis
+  city: Munich
+  careers_url: https://vantis.jobs.personio.de/
+  ats: auto
+  board_token: ''
+- name: Kertos
+  city: Munich
+  careers_url: https://www.kertos.io/en/jobs
+  ats: auto
+  board_token: ''
+- name: Luminovo
+  city: Munich
+  careers_url: https://luminovo.com/careers
+  ats: auto
+  board_token: ''
+- name: Tacto
+  city: Munich
+  careers_url: https://jobs.ashbyhq.com/tacto
+  ats: auto
+  board_token: ''
+- name: VoiceLine
+  city: Munich
+  careers_url: https://voiceline.ai/de/about
+  ats: auto
+  board_token: ''
+- name: HENN
+  city: Munich
+  careers_url: https://www.henn.com/en/careers
+  ats: auto
+  board_token: ''
+- name: Muenchen Klinik
+  city: Munich
+  careers_url: https://www.muenchen-klinik.de/stellenmarkt/
+  ats: auto
+  board_token: ''
+- name: Dr. Lubos Kliniken
+  city: Munich
+  careers_url: https://www.lubos-kliniken.de/karriere/stellenangebote/
+  ats: auto
   board_token: ''
