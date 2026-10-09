@@ -66,6 +66,14 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import urlparse
 
+# RECENCY_PATCH_V1
+from src.job_recency import parse_posted, today_local
+
+def normalize_fresh_posted(value):
+    observed = today_local()
+    parsed = parse_posted(value, today=observed, allow_relative=True)
+    return parsed.isoformat() if parsed is not None and parsed <= observed else value
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -132,7 +140,7 @@ def scrape_greenhouse(company_name: str, board_token: str = "") -> list[dict[str
         desc_html = job.get("content", "") or ""
         desc_text = BeautifulSoup(desc_html, "html.parser").get_text(" ", strip=True)
         posted = ""
-        raw_date = job.get("updated_at") or job.get("first_published") or ""
+        raw_date = job.get("first_published") or ""
         if raw_date:
             try:
                 posted = _iso(datetime.fromisoformat(raw_date.replace("Z", "+00:00")))
@@ -416,7 +424,7 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
             jobs.append({"title": (posting.get("title") or "").strip(),
                          "location": posting.get("locationsText", ""),
                          "url": base + path,
-                         "description": "", "posted_date": posting.get("postedOn", "")})
+                         "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", ""))})
         if not added:
             raise RuntimeError("Workday repeated a page; pagination incomplete")
         offset += len(page)

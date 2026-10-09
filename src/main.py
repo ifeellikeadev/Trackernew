@@ -53,6 +53,8 @@ from src.matcher import (
     filter_by_title_only, resolve_city_for_job, extract_location_snippet,
     score_jobs, MAIN_LIST_CITIES, SWISS_CITIES,
 )
+# RECENCY_PATCH_V1
+from src.job_recency import filter_recent_jobs
 from src.tracker import update_tracker, update_swiss_tracker
 from src.generate_html import generate as generate_html
 
@@ -115,6 +117,7 @@ def scrape_all_any_city(companies: list[dict], cv_profile: dict) -> tuple[list[d
         name = company["name"]
         try:
             raw_jobs = scrape_company(company)
+            raw_jobs = filter_recent_jobs(raw_jobs)
         except Exception as exc:  # extra safety net at the orchestration level
             logger.error("FAILED  %-35s %s", name, exc)
             error_count += 1
@@ -221,12 +224,12 @@ def run() -> None:
         counts["title_matched"], counts["location_confirmed"],
     )
     logger.info(
-        "Jobs sheet (Munich/Zurich): %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
+        "Jobs sheet (Munich/Zurich): %d new rows added, %d already tracked, %d pruned (age/score; score floor %d), %d total rows",
         main_summary["added"], main_summary["already_tracked"], main_summary["pruned"],
         cv_profile.get("main_min_score", 0), main_summary["total_rows"],
     )
     logger.info(
-        "Swiss Cities sheet: %d new rows added, %d already tracked, %d pruned (below score %d), %d total rows",
+        "Swiss Cities sheet: %d new rows added, %d already tracked, %d pruned (age/score; score floor %d), %d total rows",
         swiss_summary["added"], swiss_summary["already_tracked"], swiss_summary["pruned"],
         cv_profile.get("swiss_min_score", 0), swiss_summary["total_rows"],
     )

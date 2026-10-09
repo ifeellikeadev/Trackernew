@@ -61,6 +61,8 @@ import datetime as dt
 from pathlib import Path
 from typing import Any, Callable
 
+# RECENCY_PATCH_V1
+from src.job_recency import filter_recent_jobs, prune_old_rows
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
 from openpyxl.utils import get_column_letter
@@ -261,6 +263,8 @@ def _update_sheet(
     min_score: int = 0,
 ) -> dict[str, int]:
     ws = wb[sheet_name]
+    new_jobs = filter_recent_jobs(new_jobs)
+    age_pruned = prune_old_rows(ws, columns)
     existing_urls = _existing_urls(ws, columns)
 
     added = 0
@@ -278,7 +282,7 @@ def _update_sheet(
         existing_urls.add(url)
         added += 1
 
-    pruned = _prune_below_score(ws, columns, min_score)
+    pruned = age_pruned + _prune_below_score(ws, columns, min_score)
     _sort_by_relevance(ws, columns, fill, newly_added_urls)
     return {"added": added, "already_tracked": already_tracked, "pruned": pruned, "total_rows": ws.max_row - 1}
 
