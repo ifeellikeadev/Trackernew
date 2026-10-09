@@ -1,13 +1,16 @@
+"""Munich-region location matching without a driving-time or distance cutoff.
+A regional town list still excludes unrelated locations; it is not a commute assessment.
+"""
 
 from __future__ import annotations
 
 from typing import Any
 import re
-from src.job_scope import EXCLUDED_LOCATION
+EXCLUDED_LOCATION = re.compile(r"\b(?:zurich|zürich|zuerich|switzerland|schweiz|suisse|svizzera|basel|basle|bern|berne|geneva|genève|geneve|lausanne|lucerne|luzern|zug|winterthur|kloten|wallisellen|dübendorf|duebendorf|opfikon|adliswil|horgen|dietikon|uster|regensdorf|schlieren|volketswil|wetzikon|thalwil)\b", re.I)
 
 DEFAULT_SCORE_CEILING = 15
 
-CITY_KEYWORDS = {'Munich': ['munich', 'münchen', 'muenchen', 'ottobrunn', 'taufkirchen', 'unterhaching', 'neubiberg', 'haar', 'putzbrunn', 'poing', 'aschheim', 'kirchheim', 'feldkirchen', 'ismaning', 'unterföhring', 'unterfoehring', 'garching', 'erding', 'fürstenfeldbruck', 'hallbergmoos', 'freising', 'vaterstetten', 'bogenhausen', 'werksviertel', 'lehel', 'altstadt']}
+CITY_KEYWORDS = {'Munich': ['munich', 'münchen', 'muenchen', 'ottobrunn', 'taufkirchen', 'unterhaching', 'neubiberg', 'haar', 'putzbrunn', 'vaterstetten', 'parsdorf', 'poing', 'aschheim', 'kirchheim', 'feldkirchen', 'ismaning', 'unterföhring', 'unterfoehring', 'garching', 'freising', 'erding', 'hallbergmoos', 'fürstenfeldbruck', 'fuerstenfeldbruck', 'dachau', 'unterschleißheim', 'unterschleissheim', 'oberschleißheim', 'oberschleissheim', 'gilching', 'oberpfaffenhofen', 'weßling', 'wessling', 'germering', 'gräfelfing', 'graefelfing', 'planegg', 'martinsried', 'krailling', 'puchheim', 'starnberg', 'holzkirchen', 'grünwald', 'gruenwald', 'pullach', 'baierbrunn', 'höhenkirchen', 'hoehenkirchen', 'siegertsbrunn', 'brunnthal', 'sauerlach', 'hohenbrunn', 'bogenhausen', 'werksviertel', 'lehel', 'altstadt', 'haidhausen', 'berg am laim', 'obersendling', 'trudering', 'riem', 'schwabing']}
 
 def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
     t = title.lower()
@@ -18,18 +21,12 @@ def title_matches(title: str, must_match: list[str], must_not_match: list[str] |
     return True
 
 
-def location_status(location: str, expected_city: str) -> str:
+def location_status(location, expected_city):
     if not location:
-        return "unconfirmed"
-    loc = location.lower()
-    if EXCLUDED_LOCATION.search(loc):
-        return "mismatch"
-    expected_keywords = CITY_KEYWORDS.get(expected_city, [expected_city.lower()])
-    if any(kw in loc for kw in expected_keywords):
-        return "confirmed"
-    return "mismatch"
-    return "unconfirmed"
-
+        return 'unconfirmed'
+    if expected_city != 'Munich' or EXCLUDED_LOCATION.search(location):
+        return 'mismatch'
+    return 'confirmed' if find_matching_city(location) else 'unconfirmed'
 
 def filter_by_title_and_location(
     jobs: list[dict[str, Any]], cv_profile: dict[str, Any], expected_city: str = ""
@@ -57,6 +54,7 @@ def filter_by_title_and_location(
 
 
 MAIN_LIST_CITIES = {"Munich"}
+SWISS_CITIES = set()  # Compatibility only; no approved Swiss targets.
 ALL_APPROVED_CITIES = list(CITY_KEYWORDS.keys())  # Munich, Zurich, Basel, Bern, Geneva, Lausanne, Lucerne
 
 
@@ -66,10 +64,7 @@ def find_matching_city(location, candidate_cities=None):
     if candidate_cities is not None and 'Munich' not in candidate_cities:
         return None
     loc = location.lower()
-    for kw in CITY_KEYWORDS['Munich']:
-        if re.search(r'(?<!\w)' + re.escape(kw) + r'(?!\w)', loc):
-            return 'Munich'
-    return None
+    return 'Munich' if any(re.search(r'(?<!\w)' + re.escape(kw) + r'(?!\w)', loc) for kw in CITY_KEYWORDS['Munich']) else None
 
 def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
     must_match = cv_profile.get("title_must_match", [])
