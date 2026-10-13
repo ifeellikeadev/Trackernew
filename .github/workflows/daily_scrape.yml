@@ -13,6 +13,9 @@ concurrency:
   cancel-in-progress: false
 jobs:
   scrape:
+    permissions:
+      contents: write
+      pages: read
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
@@ -69,3 +72,27 @@ jobs:
           git commit -m "Daily job scrape update"
           git pull --rebase --autostash origin main
           git push
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Prepare public site files
+        run: |
+          mkdir -p public-site
+          cp docs/index.html public-site/index.html
+      - name: Upload public site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public-site
+  deploy:
+    needs: scrape
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy tracker website
+        id: deployment
+        uses: actions/deploy-pages@v4
