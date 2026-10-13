@@ -5,6 +5,8 @@ import datetime as dt
 from pathlib import Path
 
 import yaml
+from urllib.parse import urlparse
+from src.location_priority import area_priority, sort_key
 from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
@@ -36,6 +38,7 @@ def _escape(value) -> str:
         .replace("<", "&lt;")
         .replace(">", "&gt;")
         .replace('"', "&quot;")
+        .replace("'", "&#x27;")
     )
 
 
@@ -43,13 +46,14 @@ def _render_table(
     ws: Worksheet | None, columns: list[str], new_row_fill, empty_message: str, row_class: str,
 ) -> tuple[str, int]:
     if ws is None or ws.max_row < 2:
-        return f"<tr><td colspan='{len(columns)}'>{_escape(empty_message)}</td></tr>", 0
+        return f"<tr><td colspan='{len([c for c in columns if c != 'URL']) + 1}'>{_escape(empty_message)}</td></tr>", 0
 
     url_col = columns.index("URL") + 1
     title_col = columns.index("Job Title")
 
     rows_html_parts = []
-    for row in range(2, ws.max_row + 1):
+    ordered_rows = sorted(range(2, ws.max_row + 1), key=lambda row: sort_key(ws.cell(row, columns.index('Location') + 1).value, ws.cell(row, columns.index('Relevance Score (1-10)') + 1).value))
+    for row in ordered_rows:
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         if all(v is None for v in values):
             continue  # skip fully-empty rows
@@ -57,9 +61,12 @@ def _render_table(
         if not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
             continue
         is_highlighted = _rgb_matches(ws.cell(row=row, column=1), new_row_fill)
-        url = values[url_col - 1] or "#"
+        url = str(values[url_col - 1] or "#")
+        if urlparse(url).scheme not in ("http", "https"):
+            url = "#"
 
-        cells = []
+        rank, area = area_priority(record.get('Location'))
+        cells = [f"<td>{_escape('Preferred: ' + area if rank == 0 else area)}</td>"]
         for i, val in enumerate(values):
             if i == title_col and url and url != "#":
                 cells.append(f"<td><a href='{_escape(url)}' target='_blank' rel='noopener'>{_escape(val)}</a></td>")
@@ -70,13 +77,13 @@ def _render_table(
         cls = f" class='{row_class}'" if is_highlighted else ""
         rows_html_parts.append(f"<tr{cls}>{''.join(cells)}</tr>")
 
-    rows_html = "\n".join(rows_html_parts) if rows_html_parts else f"<tr><td colspan='{len(columns)}'>{_escape(empty_message)}</td></tr>"
+    rows_html = "\n".join(rows_html_parts) if rows_html_parts else f"<tr><td colspan='{len([c for c in columns if c != 'URL']) + 1}'>{_escape(empty_message)}</td></tr>"
     return rows_html, len(rows_html_parts)
 
 
 def _section_html(title: str, columns: list[str], rows_html: str, total: int, legend_color: str, legend_label: str) -> str:
     display_columns = [c for c in columns if c != "URL"]
-    header_html = "".join(f"<th>{_escape(c)}</th>" for c in display_columns)
+    header_html = "<th>Area priority</th>" + "".join(f"<th>{_escape(c)}</th>" for c in display_columns)
     return f"""
 <h2>{_escape(title)}</h2>
 <div class="meta">
@@ -111,10 +118,10 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
     jobs_rows_html, jobs_total = _render_table(
         jobs_ws, COLUMNS, NEW_ROW_FILL, "No data yet — the scraper hasn't run.", "new-row"
     )
-    jobs_title = "Munich area" + (f" (score {main_min_score}+ only)" if main_min_score else "")
+    jobs_title = "Munich metropolitan region" + (f" (score {main_min_score}+ only)" if main_min_score else "")
 
     jobs_section = _section_html(
-        jobs_title, COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added since your last check"
+        jobs_title, COLUMNS, jobs_rows_html, jobs_total, "#D1FAE5", "added in the latest tracker update"
     )
     updated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
@@ -149,7 +156,8 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 </head>
 <body>
 <h1>Job Tracker</h1>
-<div class="page-meta">last updated {updated}</div>
+<div class="page-meta">page generated {updated}</div>
+<p>Preferred areas first, then other Munich locations, then wider-region locations. Relevance sorts within each group. No commute cutoff. Priority uses vacancy location text only.</p>
 {jobs_section}
 
 </body>

@@ -82,6 +82,8 @@ def run():
     profile=load_yaml(CV_PROFILE_FILE);reset_headless_budget()
     companies=load_yaml(COMPANIES_FILE).get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
     jobs,counts,reports=scrape_all_any_city(companies,profile)
+    if not reports or all(row['status'] in ('ERROR', 'FAILED_OR_BLOCKED', 'EMPTY_UNVERIFIED') for row in reports):
+        raise RuntimeError('No usable source results; existing tracker and webpage retained.')
     summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0))
     generate_html();append_to_page(reports,ROOT/'docs/index.html')
     logger.info('Run counts: %s | Tracker: %s',counts,summary)

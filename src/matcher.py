@@ -5,12 +5,15 @@ A regional town list still excludes unrelated locations; it is not a commute ass
 from __future__ import annotations
 
 from typing import Any
+from src.location_priority import REGIONAL_LABELS, MUNICH_LABELS, contains
 import re
 EXCLUDED_LOCATION = re.compile(r"\b(?:zurich|zürich|zuerich|switzerland|schweiz|suisse|svizzera|basel|basle|bern|berne|geneva|genève|geneve|lausanne|lucerne|luzern|zug|winterthur|kloten|wallisellen|dübendorf|duebendorf|opfikon|adliswil|horgen|dietikon|uster|regensdorf|schlieren|volketswil|wetzikon|thalwil)\b", re.I)
 
 DEFAULT_SCORE_CEILING = 15
 
 CITY_KEYWORDS = {'Munich': ['munich', 'münchen', 'muenchen', 'ottobrunn', 'taufkirchen', 'unterhaching', 'neubiberg', 'haar', 'putzbrunn', 'vaterstetten', 'parsdorf', 'poing', 'aschheim', 'kirchheim', 'feldkirchen', 'ismaning', 'unterföhring', 'unterfoehring', 'garching', 'freising', 'erding', 'hallbergmoos', 'fürstenfeldbruck', 'fuerstenfeldbruck', 'dachau', 'unterschleißheim', 'unterschleissheim', 'oberschleißheim', 'oberschleissheim', 'gilching', 'oberpfaffenhofen', 'weßling', 'wessling', 'germering', 'gräfelfing', 'graefelfing', 'planegg', 'martinsried', 'krailling', 'puchheim', 'starnberg', 'holzkirchen', 'grünwald', 'gruenwald', 'pullach', 'baierbrunn', 'höhenkirchen', 'hoehenkirchen', 'siegertsbrunn', 'brunnthal', 'sauerlach', 'hohenbrunn', 'bogenhausen', 'werksviertel', 'lehel', 'altstadt', 'haidhausen', 'berg am laim', 'obersendling', 'trudering', 'riem', 'schwabing']}
+
+CITY_KEYWORDS['Munich'] = list(dict.fromkeys(CITY_KEYWORDS['Munich'] + REGIONAL_LABELS + MUNICH_LABELS))
 
 def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
     t = title.lower()
@@ -64,7 +67,7 @@ def find_matching_city(location, candidate_cities=None):
     if candidate_cities is not None and 'Munich' not in candidate_cities:
         return None
     loc = location.lower()
-    return 'Munich' if any(re.search(r'(?<!\w)' + re.escape(kw) + r'(?!\w)', loc) for kw in CITY_KEYWORDS['Munich']) else None
+    return 'Munich' if any(contains(loc, kw) for kw in CITY_KEYWORDS['Munich']) else None
 
 def filter_by_title_only(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
     must_match = cv_profile.get("title_must_match", [])

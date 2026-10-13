@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from src.job_scope import allowed_job
+from src.location_priority import sort_key
 from src.job_recency import filter_recent_jobs, prune_old_rows
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
@@ -99,7 +100,7 @@ def load_or_create(path: Path) -> Workbook:
         return _new_workbook()
 
     wb = load_workbook(path)
-    _migrate_sheet(wb, "Jobs", COLUMNS, COLUMN_WIDTHS, 0)
+    _ensure_sheet(wb, "Jobs", COLUMNS, COLUMN_WIDTHS, 0)
     # Active workbook is Munich-only; historical archives are not modified.
     for name in list(wb.sheetnames):
         if any(term in name.lower() for term in ('swiss', 'zurich', 'zuerich', 'zürich', 'switzerland')):
@@ -149,7 +150,7 @@ def _sort_by_relevance(
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         rows.append(values)
 
-    rows.sort(key=lambda v: (v[score_col] if isinstance(v[score_col], (int, float)) else 0), reverse=True)
+    rows.sort(key=lambda v: sort_key(v[columns.index('Location')], v[score_col]))
 
     for row in range(2, ws.max_row + 1):
         for col in range(1, len(columns) + 1):
@@ -215,7 +216,12 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 
     wb = load_or_create(path)
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
     path.parent.mkdir(parents=True, exist_ok=True)
-    wb.save(path)
+    temporary = path.with_name(path.stem + ".pending.xlsx")
+    try:
+        wb.save(temporary)
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
     return summary
 
 
