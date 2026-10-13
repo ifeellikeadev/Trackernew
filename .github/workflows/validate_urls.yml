@@ -6,9 +6,12 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,4 +22,15 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run URL validator
-        run: python -m src.validate_urls
+        run: |
+          set -o pipefail
+          mkdir -p diagnostics
+          python -m src.validate_urls 2>&1 | tee diagnostics/url-validation.log
+      - name: Save URL validation log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: url-validation-${{ github.run_id }}
+          path: diagnostics/url-validation.log
+          if-no-files-found: warn
+          retention-days: 14

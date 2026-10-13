@@ -14,6 +14,7 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -32,14 +33,39 @@ jobs:
       - name: Install headless browser (for JS-rendered career sites)
         run: python -m playwright install --with-deps chromium
 
+      - name: Check source syntax and installed dependencies
+        run: |
+          python -m compileall -q src
+          python -m pip check
       - name: Run scraper
-        run: python -m src.main
+        run: |
+          set -o pipefail
+          mkdir -p diagnostics
+          rm -f docs/scraper_health.json
+          python -m src.main 2>&1 | tee diagnostics/scrape.log
+      - name: Save diagnostic report even after failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraper-diagnostics-${{ github.run_id }}
+          path: |
+            diagnostics/scrape.log
+            docs/scraper_health.json
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Commit updated tracker
         run: |
           git config user.name "job-scraper-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/job_tracker.xlsx docs/index.html
-          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Daily job scrape update"
+          if [ -f docs/scraper_health.json ]; then
+            git add docs/scraper_health.json
+          fi
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Daily job scrape update"
           git pull --rebase --autostash origin main
           git push
