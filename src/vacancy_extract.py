@@ -47,7 +47,6 @@ def dedupe(jobs):
 
 def html_jobs(html,url):
     structured=structured_jobs(html,url)
-    if structured:return structured
     soup=BeautifulSoup(html,'html.parser');jobs=[]
     path_hint=re.compile(r'/(?:jobs?|positions?|postings?|vacancies|stellenangebote|job-detail|o)/[^/?#]+',re.I)
     nav=re.compile(r'^(?:all |view |search |open |our )?(?:jobs|careers|positions|vacancies|stellenangebote|karriere)(?: now)?$',re.I)
@@ -56,7 +55,7 @@ def html_jobs(html,url):
         if not 6<=len(title)<=180 or nav.match(title) or urlparse(target).scheme not in ('http','https'):continue
         if not path_hint.search(urlparse(target).path):continue
         jobs.append(dict(title=title,location='',url=target,description='',posted_date='',_extraction='html_link_unverified'))
-    return dedupe(jobs)
+    return dedupe(structured + jobs)
 
 def ashby_jobs(data):
     if not isinstance(data,dict) or not isinstance(data.get('jobs'),list):raise ValueError('Ashby jobs response shape invalid')

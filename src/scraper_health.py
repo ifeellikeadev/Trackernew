@@ -42,6 +42,21 @@ def finish(row,error=None):
     elif not row['raw_candidates']:row['status']='EMPTY_UNVERIFIED'
     elif row['eligible']:row['status']='MATCHES_FOUND'
     else:row['status']='NO_MATCHES_IN_EXTRACTED_RESULTS'
+    text=' '.join(row['issues']).lower()
+    if '429' in text:category,action='RATE_LIMITED','Reduce repeated requests; respect rate limits. Do not bypass blocks.'
+    elif 'certificate' in text or 'sslerror' in text:category,action='TLS_ERROR','Verify official URL/certificate. Keep TLS verification enabled.'
+    elif 'name_not_resolved' in text or 'nameresolutionerror' in text:category,action='DNS_ERROR','Verify domain; a single run cannot prove a permanent outage.'
+    elif '404' in text:category,action='URL_OR_BOARD_NOT_FOUND','Verify careers URL or board token against the employer site.'
+    elif '403' in text or '405' in text or '406' in text:category,action='HTTP_ACCESS_ERROR','Check supported public careers source; do not assume no vacancies.'
+    elif 'pagination' in text:category,action='INCOMPLETE_PAGINATION','Some pages may be missing. Review pagination response and totals.'
+    elif 'budget exhausted' in text:category,action='BROWSER_BUDGET_EXHAUSTED','Browser fallback was skipped; extraction coverage unverified.'
+    elif 'headless' in text or 'browser' in text:category,action='BROWSER_ERROR','Review browser navigation/rendering warning.'
+    elif error:category,action='EXTRACTION_ERROR','Inspect exception and source response.'
+    elif not row['raw_candidates']:category,action='EMPTY_UNVERIFIED','No extracted vacancies; source coverage needs verification.'
+    elif row.get('unverified_candidates',0):category,action='LINK_EXTRACTION_UNVERIFIED','Candidates include HTML links; extraction is not certified complete.'
+    elif row['eligible']:category,action='MATCHES_FOUND','Matches extracted; completeness still unverified.'
+    else:category,action='FILTERED_RESULTS','Review rejected-title samples and date/location/score counts.'
+    row['diagnosis']=category;row['recommended_action']=action
     return row
 
 def save_report(rows,path):
@@ -51,12 +66,14 @@ def save_report(rows,path):
 def append_to_page(rows,path):
     path=Path(path)
     if not path.exists():return
-    cols=['company','status','raw_candidates','date_rejected','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
+    cols=['company','status','diagnosis','raw_candidates','date_rejected','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
     headers=''.join('<th>'+html.escape(c.replace('_',' ').title())+'</th>' for c in cols)
     body=[]
     for row in rows:
         cells=''.join('<td>'+html.escape(str(row.get(c,'')))+'</td>' for c in cols)
-        details=html.escape('; '.join(row['issues']) or 'No captured HTTP/browser warnings')
+        details=html.escape((row.get('recommended_action','')+' | '+('; '.join(row['issues']) or 'No captured HTTP/browser warnings')))
+        samples=html.escape('; '.join(row.get('title_rejected_samples',[])))
+        details += '<br>Rejected-title examples: '+samples if samples else ''
         body.append('<tr>'+cells+'<td>'+details+'</td></tr>')
     section='<h2>Scraper health</h2><p>Empty does not prove no vacancies. Eligible counts precede tracker deduplication. Link candidates may be unverified. Warnings include detail-page requests.</p><div class="scroll-wrap"><table><thead><tr>'+headers+'<th>Issues</th></tr></thead><tbody>'+''.join(body)+'</tbody></table></div>'
     text=path.read_text(encoding='utf-8');path.write_text(text.replace('</body>',section+'</body>'),encoding='utf-8')

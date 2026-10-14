@@ -36,10 +36,13 @@ def scrape_all_any_city(companies,cv_profile):
         try:
             with observe(row):
                 raw=scrape_company(company);row['raw_candidates']=len(raw)
+                row['sample_titles']=[str(j.get('title',''))[:160] for j in raw[:8]]
+                row['unverified_candidates']=sum(j.get('_extraction')=='html_link_unverified' for j in raw)
                 row['methods']=sorted({j.get('_extraction','existing_ats_adapter') for j in raw})
                 # Reject known old dates before title filtering; undated stay.
                 recent=filter_recent_jobs(raw);row['date_rejected']=len(raw)-len(recent)
                 titled=filter_by_title_only(recent,cv_profile);row['title_rejected']=len(recent)-len(titled)
+                row['title_rejected_samples']=[str(j.get('title',''))[:160] for j in recent if j not in titled][:8]
                 counts['title_matched']+=len(titled)
                 confirmed=[]
                 for job in titled:
@@ -48,7 +51,7 @@ def scrape_all_any_city(companies,cv_profile):
                     if job.get('url') and (not job.get('location') or not job.get('description') or not job.get('posted_date')):
                         url=job['url']
                         if url not in detail_cache:
-                            detail_cache[url]=fetch_job_details(url);row['detail_fetches']+=1
+                            detail_cache[url]=fetch_job_details(job.get('_detail_api_url') or url);row['detail_fetches']+=1
                         details,text=detail_cache[url]
                         for field in ('location','description','posted_date'):
                             if not job.get(field) and details.get(field):job[field]=details[field]

@@ -64,7 +64,8 @@ import re
 import time
 from datetime import datetime, timedelta, timezone
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin, parse_qs
+import html as html_lib
 
 # RECENCY_PATCH_V1
 from src.job_recency import parse_posted, today_local
@@ -96,9 +97,16 @@ _TRAILING_WORDS_TO_STRIP = [
 ]
 
 
+_GET_CACHE = {}
+
 def _safe_get(url: str, **kwargs) -> requests.Response | None:
+    key = (url, repr(sorted(kwargs.items())))
+    if key in _GET_CACHE:
+        if _GET_CACHE[key] is None:logger.warning("Cached unsuccessful request: %s", url)
+        return _GET_CACHE[key]
     try:
         resp = requests.get(url, headers=HEADERS, timeout=TIMEOUT, **kwargs)
+        _GET_CACHE[key] = resp if resp.status_code < 400 else None
         if resp.status_code >= 400:
             logger.warning("GET %s -> HTTP %s", url, resp.status_code)
             return None
@@ -210,6 +218,8 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
         if not isinstance(page, list):
             raise ValueError("SmartRecruiters content must be a list")
         if not page:
+            if data.get("totalFound") is not None and offset < int(data["totalFound"]):
+                logger.warning("SmartRecruiters incomplete pagination: retrieved %s of %s", offset, data["totalFound"])
             return jobs
         added = 0
         for job in page:
@@ -218,19 +228,9 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
                 continue
             seen.add(ident)
             added += 1
-            details = {}
-            detail_resp = _safe_get(base + "/" + quote(ident, safe=''))
-            if detail_resp is not None:
-                try:
-                    details = detail_resp.json()
-                except ValueError:
-                    pass
-            if not isinstance(details, dict):
-                details = {}
-            loc = details.get("location") or job.get("location") or {}
-            ad = details.get("jobAd") or {}
-            sections = ad.get("sections", {}) if isinstance(ad, dict) else {}
-            desc = " ".join(str(v.get("text", "")) for v in sections.values() if isinstance(v, dict)) if isinstance(sections, dict) else ""
+            # Fetch descriptions only for date/title survivors in main.py.
+            loc = job.get("location") or {}
+            desc = ""
             raw_date = job.get("releasedDate") or ""
             posted = ""
             if raw_date:
@@ -238,14 +238,15 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
                     posted = _iso(datetime.fromisoformat(raw_date.replace("Z", "+00:00")))
                 except ValueError:
                     pass
-            candidate = details.get("jobAdUrl") or job.get("jobAdUrl") or ""
+            candidate = job.get("jobAdUrl") or ""
             if not isinstance(candidate, str) or not candidate.startswith(("https://", "http://")):
                 candidate = f"https://jobs.smartrecruiters.com/{quote(token, safe='')}/{quote(ident, safe='')}"
             jobs.append({"title": (job.get("name") or "").strip(),
                          "location": ", ".join(str(loc[k]) for k in ("city", "country") if loc.get(k)),
                          "url": candidate,
                          "description": BeautifulSoup(desc, "html.parser").get_text(" ", strip=True),
-                         "posted_date": posted})
+                         "posted_date": posted, "_extraction": "smartrecruiters_api",
+                         "_detail_api_url": base + "/" + quote(ident, safe="")})
         if not added:
             raise RuntimeError("SmartRecruiters repeated a page; pagination incomplete")
         offset += len(page)
@@ -413,6 +414,8 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
         if not isinstance(page, list):
             raise ValueError("Workday jobPostings must be a list")
         if not page:
+            if data.get("total") is not None and offset < int(data["total"]):
+                logger.warning("Workday incomplete pagination: retrieved %s of %s", offset, data["total"])
             return jobs
         added = 0
         for posting in page:
@@ -527,6 +530,7 @@ def reset_headless_budget() -> None:
     """Call once per full run (see main.py) so the budget doesn't leak across runs."""
     global _headless_time_used
     _headless_time_used = 0.0
+    _GET_CACHE.clear()
 
 
 def headless_budget_remaining() -> float:
@@ -548,6 +552,7 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
     global _headless_time_used
 
     if headless_budget_remaining() <= 0:
+        logger.warning("Browser budget exhausted; coverage unverified for %s", company_name)
         return []
 
     start = time.monotonic()
@@ -558,16 +563,21 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
             browser = p.chromium.launch()
             try:
                 page = browser.new_page(user_agent=HEADERS["User-Agent"])
-                page.goto(careers_url, timeout=15000, wait_until="domcontentloaded")
+                response = page.goto(careers_url, timeout=15000, wait_until="domcontentloaded")
+                if response is not None and response.status >= 400:
+                    logger.warning("Browser HTTP %s %s", response.status, page.url)
+                    _headless_time_used += time.monotonic() - start
+                    return []
                 try:
                     page.wait_for_selector("a[href*='/job'], a[href*='/position'], a[href*='/posting']", timeout=5000)
                 except Exception:
                     pass
                 # Bounded scroll to trigger lazy-loaded cards; not full pagination.
                 for _ in range(2):
-                    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    page.evaluate("() => { const root = document.scrollingElement || document.documentElement || document.body; if (root) window.scrollTo(0, root.scrollHeight); }")
                     page.wait_for_timeout(500)
                 html = page.content()
+                final_url = page.url
             finally:
                 browser.close()
     except Exception as exc:
@@ -577,7 +587,7 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
     _headless_time_used += time.monotonic() - start
 
     from src.vacancy_extract import html_jobs
-    return html_jobs(html, careers_url)
+    return html_jobs(html, final_url)
 
 
 # --------------------------------------------------------------------------
@@ -605,7 +615,7 @@ def scrape_ashby(company_name, board_token=''):
 
 _PLATFORM_URL_PATTERNS = {
     "ashby": re.compile(r"https?://jobs\.ashbyhq\.com/([\w-]+)"),
-    "greenhouse": re.compile(r"https?://(?:boards|job-boards)(?:\.eu)?\.greenhouse\.io/([\w-]+)"),
+    "greenhouse": re.compile(r"https?://(?:boards|job-boards)(?:\.eu)?\.greenhouse\.io/((?!embed(?:/|$))[\w-]+)"),
     "lever": re.compile(r"https?://jobs\.lever\.co/([\w-]+)"),
     "personio": re.compile(r"https?://([\w-]+)\.jobs\.personio\.(?:de|com)"),
     "smartrecruiters": re.compile(r"https?://(?:jobs|careers)\.smartrecruiters\.com/([\w-]+)"),
@@ -625,46 +635,38 @@ _PLATFORM_SCRAPERS = {
 _GENERIC_JOB_BOARD_HINT = re.compile(r"jobs\.|careers\.|/careers|/jobs", re.IGNORECASE)
 
 
-def discover_real_careers_url(vanity_url: str) -> tuple[str | None, str | None, str | None]:
-    """
-    Fetches vanity_url and looks for the REAL job-board URL in two
-    places: where the request ends up after redirects, and anywhere in
-    the page's raw HTML (an "Apply"/"View Jobs" button very often
-    points at the real platform even with no server-side redirect).
-
-    Returns (discovered_url, platform, token):
-      - A known platform matched: (url, "greenhouse"/"lever"/etc, the
-        extracted board token) — enough to call that platform's own
-        fast, structured scraper directly with the CORRECT token,
-        rather than guessing one from the company name.
-      - Workday matched: (url, "workday", None) — scrape_workday takes
-        the full URL, not a separate token.
-      - A different domain was found but doesn't match any known
-        platform: (url, None, None) — still worth trying as a plain
-        URL (generic scraper, or headless as a last resort) even
-        though we don't know what platform runs it.
-      - Nothing found: (None, None, None).
-    """
-    try:
-        resp = requests.get(vanity_url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True)
-    except requests.RequestException:
+def platform_from_url(url):
+    parsed = urlparse(html_lib.unescape(url))
+    host = (parsed.hostname or '').lower()
+    if host in ('boards.greenhouse.io', 'job-boards.greenhouse.io', 'boards.eu.greenhouse.io', 'job-boards.eu.greenhouse.io'):
+        parts = parsed.path.strip('/').split('/')
+        token = parse_qs(parsed.query).get('for', [''])[0] if parts[0] == 'embed' else parts[0]
+        if token and token != 'embed' and re.fullmatch(r'[\w-]+', token):
+            return url, 'greenhouse', token
         return None, None, None
+    for platform, pattern in _PLATFORM_URL_PATTERNS.items():
+        match = pattern.search(url)
+        if match:return url, platform, match.group(1)
+    if _WORKDAY_URL_RE.search(url):return url, 'workday', None
+    return None, None, None
 
-    for space in (resp.url, resp.text):
-        for platform, pattern in _PLATFORM_URL_PATTERNS.items():
-            m = pattern.search(space)
-            if m:
-                return m.group(0), platform, m.group(1)
-        wm = _WORKDAY_URL_RE.search(space)
-        if wm:
-            return wm.group(0), "workday", None
-
-    vanity_domain = urlparse(vanity_url).netloc
-    for m in re.finditer(r'href=["\']((https?://)[^"\']+)["\']', resp.text):
-        candidate = m.group(1)
-        if urlparse(candidate).netloc != vanity_domain and _GENERIC_JOB_BOARD_HINT.search(candidate):
-            return candidate, None, None
-
+def discover_real_careers_url(vanity_url):
+    resp = _safe_get(vanity_url, allow_redirects=True)
+    if resp is None:return None, None, None
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    candidates = [resp.url]
+    for tag in soup.find_all(['a', 'iframe', 'script']):
+        target = tag.get('href') or tag.get('src')
+        if target:candidates.append(urljoin(resp.url, html_lib.unescape(target)))
+    candidates += re.findall(r'https?://[^\s"<>\']+', html_lib.unescape(resp.text))
+    for candidate in candidates:
+        found = platform_from_url(candidate)
+        if found[0]:return found
+    for candidate in candidates:
+        path = urlparse(candidate).path.lower()
+        if candidate.rstrip('/') == vanity_url.rstrip('/'):continue
+        if path.endswith(('.pdf','.png','.jpg','.js','.css')) or any(x in path for x in ('privacy','datenschutz','legal')):continue
+        if _GENERIC_JOB_BOARD_HINT.search(candidate):return candidate, None, None
     return None, None, None
 
 
@@ -709,7 +711,10 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         if candidate:
             best_result = candidate
 
-    if len(best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW or headless_budget_remaining() <= 0:
+    if len(best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
+        return best_result
+    if headless_budget_remaining() <= 0:
+        logger.warning("Browser budget exhausted; coverage unverified for %s", company_name)
         return best_result
 
     headless_result = scrape_headless(company_name, best_url)
@@ -771,9 +776,9 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "auto":
             for platform, pattern in _PLATFORM_URL_PATTERNS.items():
-                match = pattern.search(careers_url)
-                if match:
-                    result = _PLATFORM_SCRAPERS[platform](name, token or match.group(1))
+                found_url, found_platform, found_token = platform_from_url(careers_url)
+                if found_platform == platform:
+                    result = _PLATFORM_SCRAPERS[platform](name, token or found_token)
                     if result:
                         return result
                     return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
@@ -794,6 +799,12 @@ def fetch_job_details(url):
     resp = _safe_get(url)
     if resp is None:
         return {}, ''
+    if urlparse(url).hostname == 'api.smartrecruiters.com':
+        data = resp.json()
+        sections = (data.get('jobAd') or {}).get('sections') or {}
+        desc = ' '.join(plain(section.get('text','')) for section in sections.values() if isinstance(section,dict))
+        loc = data.get('location') or {}
+        return {'description': desc, 'location': ', '.join(str(loc[k]) for k in ('city','country') if loc.get(k)), 'posted_date': normalize_fresh_posted(data.get('releasedDate',''))}, desc
     jobs = structured_jobs(resp.text, resp.url or url)
     # Only trust one identifiable vacancy, not a board containing many jobs.
     details = jobs[0] if len(jobs) == 1 else {}
