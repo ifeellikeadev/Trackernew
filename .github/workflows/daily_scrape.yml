@@ -78,6 +78,9 @@ jobs:
         run: |
           mkdir -p public-site
           cp docs/index.html public-site/index.html
+          if [ -f docs/scraper_health.json ]; then
+            cp docs/scraper_health.json public-site/scraper_health.json
+          fi
       - name: Upload public site
         uses: actions/upload-pages-artifact@v4
         with:
