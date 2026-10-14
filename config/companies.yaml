@@ -236,7 +236,7 @@ companies:
   board_token: ''
 - name: Dermapharm
   city: Munich
-  careers_url: https://www.dermapharm.de/karriere
+  careers_url: https://jobs.dermapharm.com/en/
   ats: auto
   board_token: ''
 - name: Telefonica Germany O2
@@ -306,9 +306,9 @@ companies:
   board_token: isaraerospace
 - name: Proxima Fusion
   city: Munich
-  careers_url: https://www.proximafusion.com/careers
-  ats: auto
-  board_token: ''
+  careers_url: https://jobs.ashbyhq.com/proxima-fusion
+  ats: ashby
+  board_token: proxima-fusion
 - name: ITM Isotopen Technologien Muenchen
   city: Munich
   careers_url: https://www.itm-radiopharma.com/en/career/
@@ -346,9 +346,9 @@ companies:
   board_token: ''
 - name: Entrix
   city: Munich
-  careers_url: https://www.entrix.energy/careers
-  ats: auto
-  board_token: ''
+  careers_url: https://entrix.jobs.personio.com/?language=en
+  ats: personio
+  board_token: entrix
 - name: Egym
   city: Munich
   careers_url: https://egym.com/de/karriere
