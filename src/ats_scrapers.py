@@ -420,7 +420,7 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
             advertised_total = int(data['total'])
         if not page:
             completion = 'empty_page'
-            if advertised_total is not None and offset < advertised_total:
+            if advertised_total is not None and len(jobs) < advertised_total:
                 logger.warning("Workday incomplete pagination: retrieved %s of advertised %s", offset, advertised_total)
             break
         added = 0
@@ -432,8 +432,12 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
                          "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
                          "_extraction": "workday_api"})
         if not added:
-            completion = 'repeated_page'
-            logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
+            if advertised_total is not None and len(jobs) >= advertised_total:
+                completion = 'advertised_total_reached'
+                logger.info("Workday probe repeated after advertised total: %s unique candidates", len(jobs))
+            else:
+                completion = 'repeated_page'
+                logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
             break
         offset += len(page)
         # Probe beyond a reported total to detect feeds reporting page-sized totals.
@@ -702,6 +706,8 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     Only runs any of this if current_result is already thin — a
     healthy result never pays any of these costs.
     """
+    if current_result and all(j.get('_extraction') in ('ashby_api', 'workday_api', 'smartrecruiters_api') for j in current_result):
+        return current_result
     if len(current_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return current_result
 
@@ -711,12 +717,16 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     discovered_url, platform, token = discover_real_careers_url(careers_url)
     if discovered_url:
         best_url = discovered_url
-        if platform in _PLATFORM_SCRAPERS:
-            candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
-        elif platform == "workday":
-            candidate = scrape_workday(company_name, discovered_url)
-        else:
-            candidate = scrape_generic(company_name, discovered_url)
+        try:
+            if platform in _PLATFORM_SCRAPERS:
+                candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
+            elif platform == "workday":
+                candidate = scrape_workday(company_name, discovered_url)
+            else:
+                candidate = scrape_generic(company_name, discovered_url)
+        except Exception as exc:
+            logger.warning("Discovered adapter failed for %s; retaining candidates: %s", company_name, exc)
+            candidate = []
         # Same reasoning as the headless case below: any NON-EMPTY
         # result from here wins outright, not just a bigger one — a
         # real platform's own API (or a retry against the actually-
@@ -724,6 +734,8 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         # fewer raw entries than whatever junk the thin result had.
         if candidate:
             best_result = candidate
+            if platform in _PLATFORM_SCRAPERS or platform == "workday":
+                return candidate
 
     if len(best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return best_result
@@ -732,7 +744,8 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         return best_result
 
     headless_result = scrape_headless(company_name, best_url)
-    return headless_result if headless_result else best_result
+    from src.vacancy_extract import dedupe
+    return dedupe(headless_result + best_result)
 
 
 # Kept as an alias: _maybe_headless_upgrade was the name used before
