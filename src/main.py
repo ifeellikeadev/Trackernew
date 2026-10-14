@@ -36,8 +36,29 @@ def scrape_all_any_city(companies,cv_profile):
         try:
             with observe(row):
                 raw=scrape_company(company);row['raw_candidates']=len(raw)
+                row['pagination'] = next((j['_pagination'] for j in raw if j.get('_pagination')), {})
+                row['title_recovered'] = 0
+                row['title_unresolved'] = 0
+                recovery_budget = 20
+                for candidate in raw:
+                    if not candidate.get('_needs_title'):continue
+                    if recovery_budget <= 0:
+                        row['title_unresolved'] += 1
+                        continue
+                    recovery_budget -= 1
+                    url = candidate['url']
+                    if url not in detail_cache:
+                        detail_cache[url] = fetch_job_details(url)
+                        row['detail_fetches'] += 1
+                    details, _ = detail_cache[url]
+                    if details.get('title'):
+                        for field in ('title','location','description','posted_date'):
+                            if not candidate.get(field) and details.get(field):candidate[field] = details[field]
+                        candidate.pop('_needs_title', None)
+                        row['title_recovered'] += 1
+                    else:row['title_unresolved'] += 1
                 row['sample_titles']=[str(j.get('title',''))[:160] for j in raw[:8]]
-                row['unverified_candidates']=sum(j.get('_extraction')=='html_link_unverified' for j in raw)
+                row['unverified_candidates']=sum(str(j.get('_extraction','')).endswith('_unverified') for j in raw)
                 row['methods']=sorted({j.get('_extraction','existing_ats_adapter') for j in raw})
                 # Reject known old dates before title filtering; undated stay.
                 recent=filter_recent_jobs(raw);row['date_rejected']=len(raw)-len(recent)

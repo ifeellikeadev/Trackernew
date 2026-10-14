@@ -406,36 +406,43 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
     api_url = f"https://{tenant}.{dc}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs"
     jobs, seen, offset = [], set(), 0
     base = f"https://{tenant}.{dc}.myworkdayjobs.com/{site}"
+    pages = 0
+    advertised_total = None
+    completion = 'safety_limit'
     for _ in range(500):
-        resp = requests.post(api_url, json={"limit": 20, "offset": offset, "searchText": ""}, headers=HEADERS, timeout=TIMEOUT)
+        resp = requests.post(api_url, json={"limit": 20, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=TIMEOUT)
         resp.raise_for_status()
         data = resp.json()
         page = data.get("jobPostings", [])
-        if not isinstance(page, list):
-            raise ValueError("Workday jobPostings must be a list")
+        if not isinstance(page, list):raise ValueError("Workday jobPostings must be a list")
+        pages += 1
+        if data.get('total') is not None:
+            advertised_total = int(data['total'])
         if not page:
-            if data.get("total") is not None and offset < int(data["total"]):
-                logger.warning("Workday incomplete pagination: retrieved %s of %s", offset, data["total"])
-            return jobs
+            completion = 'empty_page'
+            if advertised_total is not None and offset < advertised_total:
+                logger.warning("Workday incomplete pagination: retrieved %s of advertised %s", offset, advertised_total)
+            break
         added = 0
         for posting in page:
             path = posting.get("externalPath") or ""
-            if not path or path in seen:
-                continue
-            seen.add(path)
-            added += 1
-            jobs.append({"title": (posting.get("title") or "").strip(),
-                         "location": posting.get("locationsText", ""),
-                         "url": base + path,
-                         "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", ""))})
+            if not path or path in seen:continue
+            seen.add(path);added += 1
+            jobs.append({"title": (posting.get("title") or "").strip(), "location": posting.get("locationsText", ""),
+                         "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
+                         "_extraction": "workday_api"})
         if not added:
-            raise RuntimeError("Workday repeated a page; pagination incomplete")
+            completion = 'repeated_page'
+            logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
+            break
         offset += len(page)
-        total = data.get("total")
-        if total is not None and offset >= int(total):
-            return jobs
-    raise RuntimeError("Workday pagination safety limit reached")
-
+        # Probe beyond a reported total to detect feeds reporting page-sized totals.
+    else:
+        logger.warning("Workday incomplete pagination: safety limit reached; retaining partial results")
+    for job in jobs:
+        job['_pagination'] = {'pages': pages, 'advertised_total': advertised_total, 'unique_candidates': len(jobs), 'completion': completion}
+    logger.info("Workday pagination %s: pages=%s advertised_total=%s unique=%s completion=%s", company_name, pages, advertised_total, len(jobs), completion)
+    return jobs
 
 # --------------------------------------------------------------------------
 # Description enrichment (fetch the job's OWN posting page)
@@ -576,7 +583,14 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
                 for _ in range(2):
                     page.evaluate("() => { const root = document.scrollingElement || document.documentElement || document.body; if (root) window.scrollTo(0, root.scrollHeight); }")
                     page.wait_for_timeout(500)
-                html = page.content()
+                html = None
+                for attempt in range(3):
+                    try:
+                        html = page.content()
+                        break
+                    except Exception:
+                        if attempt == 2:raise
+                        page.wait_for_timeout(500)
                 final_url = page.url
             finally:
                 browser.close()
@@ -795,7 +809,7 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def fetch_job_details(url):
-    from src.vacancy_extract import structured_jobs, plain
+    from src.vacancy_extract import structured_jobs, plain, detail_title
     resp = _safe_get(url)
     if resp is None:
         return {}, ''
@@ -808,6 +822,9 @@ def fetch_job_details(url):
     jobs = structured_jobs(resp.text, resp.url or url)
     # Only trust one identifiable vacancy, not a board containing many jobs.
     details = jobs[0] if len(jobs) == 1 else {}
+    if not jobs:
+        recovered = detail_title(resp.text)
+        if recovered:details = {'title': recovered}
     soup = BeautifulSoup(resp.text, 'html.parser')
     for tag in soup(['script','style','nav','footer','header']):tag.decompose()
     return details, soup.get_text(' ',strip=True)[:10000]

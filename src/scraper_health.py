@@ -66,12 +66,14 @@ def save_report(rows,path):
 def append_to_page(rows,path):
     path=Path(path)
     if not path.exists():return
-    cols=['company','status','diagnosis','raw_candidates','date_rejected','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
+    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
     headers=''.join('<th>'+html.escape(c.replace('_',' ').title())+'</th>' for c in cols)
     body=[]
     for row in rows:
         cells=''.join('<td>'+html.escape(str(row.get(c,'')))+'</td>' for c in cols)
         details=html.escape((row.get('recommended_action','')+' | '+('; '.join(row['issues']) or 'No captured HTTP/browser warnings')))
+        if row.get('pagination'):
+            details += '<br>Pagination: ' + html.escape(json.dumps(row['pagination']))
         samples=html.escape('; '.join(row.get('title_rejected_samples',[])))
         details += '<br>Rejected-title examples: '+samples if samples else ''
         body.append('<tr>'+cells+'<td>'+details+'</td></tr>')
