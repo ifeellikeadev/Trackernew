@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T09:53:00.933468+00:00",
+  "generated_at": "2026-10-14T11:01:48.902495+00:00",
   "scope": "This reports extracted candidates, not proof that every vacancy was retrieved. Empty is not a certified no-vacancy result. Eligible is before tracker deduplication.",
   "companies": [
     {
@@ -17,7 +17,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.94,
+      "seconds": 9.26,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -42,7 +42,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.03,
+      "seconds": 8.48,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -70,38 +70,38 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.99,
+      "seconds": 4.52,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 1,
       "sample_titles": [
         "",
-        "Elektrotechniker (w/m/d)",
-        "Working Student (f/m/d) - Portfolio Management",
-        "Supplier Quality and Development Engineer (f/m/d) - Machining Processes",
+        "Werkstudent (w/m/d) Environmental & Sustainability",
         "FACTS Installation Cost & Tender Engineer (f/m/d)",
+        "Working Student (f/m/d) - Portfolio Management",
+        "Werkstudent (w/m/d) f\u00fcr EMV-Design von HVDC und FACTS Anlagen",
+        "Field Service Techniker Elektrotechnik (m/w/d)",
         "Field Engineer (f/m/d)",
-        "Service Owner German Payroll SAP HCM (f/m/d)",
-        "Werkstudent (w/m/d) - Human Resources"
+        "Elektrotechniker (w/m/d)"
       ],
       "unverified_candidates": 21,
       "title_rejected_samples": [
         "",
-        "Elektrotechniker (w/m/d)",
-        "Working Student (f/m/d) - Portfolio Management",
-        "Supplier Quality and Development Engineer (f/m/d) - Machining Processes",
+        "Werkstudent (w/m/d) Environmental & Sustainability",
         "FACTS Installation Cost & Tender Engineer (f/m/d)",
+        "Working Student (f/m/d) - Portfolio Management",
+        "Werkstudent (w/m/d) f\u00fcr EMV-Design von HVDC und FACTS Anlagen",
+        "Field Service Techniker Elektrotechnik (m/w/d)",
         "Field Engineer (f/m/d)",
-        "Service Owner German Payroll SAP HCM (f/m/d)",
-        "Werkstudent (w/m/d) - Human Resources"
+        "Elektrotechniker (w/m/d)"
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Siemens Healthineers",
       "url": "https://www.siemens-healthineers.com/careers",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 41,
       "raw_candidates": 509,
       "date_rejected": 69,
@@ -114,15 +114,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 509 repeated a page; retaining 509 unique candidates"
-      ],
-      "seconds": 41.74,
+      "issues": [],
+      "seconds": 40.81,
       "pagination": {
         "pages": 27,
         "advertised_total": 509,
         "unique_candidates": 509,
-        "completion": "repeated_page"
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -147,8 +145,8 @@
         "Foundation AI Research Scientist",
         "Manufacturing Technician (Day Shift)"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Infineon Technologies",
@@ -165,7 +163,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.53,
+      "seconds": 7.49,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -190,7 +188,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.26,
+      "seconds": 11.1,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -215,7 +213,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 2.95,
+      "seconds": 3.21,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -240,7 +238,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.53,
+      "seconds": 10.25,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -269,7 +267,7 @@
         "GET https://careers.ams-osram.com/en/ams-osram-career/ -> HTTP 403",
         "Browser HTTP 403 https://careers.ams-osram.com/en/ams-osram-career/"
       ],
-      "seconds": 2.57,
+      "seconds": 2.49,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -294,7 +292,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 6.57,
+      "seconds": 5.81,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -321,30 +319,30 @@
         "smartrecruiters_api"
       ],
       "issues": [],
-      "seconds": 0.6,
+      "seconds": 0.55,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Ausbildung Fachinformatiker:in - Systemintegration",
+        "Ausbildung Industriekauffrau/-mann",
+        "Ausbildung Fachinformatiker:in - Anwendungsentwicklung",
         "Application Consultant - Image Guided Surgery (IGS) / Madrid & Malaga",
         "Gym Trainer:in",
         "Application Consultant",
         "Biomedical Engineer (Support Specialist)",
-        "Biomedical Engineer (Clinical Specialist)",
-        "Ausbildung Industriekauffrau/-mann",
-        "Ausbildung Kauffrau/-mann f\u00fcr Marketingkommunikation",
-        "Ausbildung Fachkraft f\u00fcr Lagerlogistik"
+        "Biomedical Engineer (Clinical Specialist)"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Ausbildung Fachinformatiker:in - Systemintegration",
+        "Ausbildung Industriekauffrau/-mann",
+        "Ausbildung Fachinformatiker:in - Anwendungsentwicklung",
         "Application Consultant - Image Guided Surgery (IGS) / Madrid & Malaga",
         "Gym Trainer:in",
         "Application Consultant",
         "Biomedical Engineer (Support Specialist)",
-        "Biomedical Engineer (Clinical Specialist)",
-        "Ausbildung Industriekauffrau/-mann",
-        "Ausbildung Kauffrau/-mann f\u00fcr Marketingkommunikation",
-        "Ausbildung Fachkraft f\u00fcr Lagerlogistik"
+        "Biomedical Engineer (Clinical Specialist)"
       ],
       "diagnosis": "FILTERED_RESULTS",
       "recommended_action": "Review rejected-title samples and date/location/score counts."
@@ -366,7 +364,7 @@
         "html_card_unverified"
       ],
       "issues": [],
-      "seconds": 2.79,
+      "seconds": 2.11,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -405,7 +403,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.48,
+      "seconds": 10.54,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -430,7 +428,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.6,
+      "seconds": 8.71,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -455,7 +453,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.57,
+      "seconds": 7.19,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -468,11 +466,11 @@
     {
       "company": "Airbus",
       "url": "https://www.airbus.com/en/careers",
-      "status": "PARTIAL_OR_WARNING",
-      "requests": 163,
-      "raw_candidates": 1992,
-      "date_rejected": 282,
-      "title_rejected": 1650,
+      "status": "MATCHES_FOUND",
+      "requests": 162,
+      "raw_candidates": 2000,
+      "date_rejected": 280,
+      "title_rejected": 1660,
       "location_rejected": 59,
       "score_rejected": 0,
       "eligible": 1,
@@ -481,41 +479,39 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 2020 repeated a page; retaining 1992 unique candidates"
-      ],
-      "seconds": 220.64,
+      "issues": [],
+      "seconds": 212.39,
       "pagination": {
-        "pages": 102,
+        "pages": 101,
         "advertised_total": 2000,
-        "unique_candidates": 1992,
-        "completion": "repeated_page"
+        "unique_candidates": 2000,
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Manufacturing Engineering Representative (f/m)",
-        "IT-Experte Backup & Storage (d/f/m)",
-        "Mitarbeiter Galvanik (all genders)",
-        "STAGE 2027 - Employment Marketing Specialist (M/F)",
-        "STAGE 2026 - Monteur/\u00e9diteur vid\u00e9o pour r\u00e9seaux sociaux (F/H)",
-        "EGSE Commodity Buyer \u2013 Satellite Constellations (m/f)",
-        "Software & Systems Engineer (d/w/m)",
-        "Software Architect specializing in embedded avionics software (d/f/m)"
+        "STAGE 2027 - Tests automatis\u00e9s et diagnostics num\u00e9riques pour \u00e9crans de cockpit (F/H)",
+        "Airworthiness Assurance Engineer",
+        "MRTT Communication System Designer Engineer",
+        "IT in Operational Technologies Specialist",
+        "Patent Attorney",
+        "Stage 2027 - Modernisation du processus t\u00e9l\u00e9chargement",
+        "STAGE 2027 - Digitalisation d'atelier de maintenance m\u00e9canique (ALL GENDER)",
+        "Qualiticien - Quality Line Side - Saint Eloi"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
-        "Manufacturing Engineering Representative (f/m)",
-        "IT-Experte Backup & Storage (d/f/m)",
-        "Mitarbeiter Galvanik (all genders)",
-        "STAGE 2027 - Employment Marketing Specialist (M/F)",
-        "STAGE 2026 - Monteur/\u00e9diteur vid\u00e9o pour r\u00e9seaux sociaux (F/H)",
-        "EGSE Commodity Buyer \u2013 Satellite Constellations (m/f)",
-        "Software & Systems Engineer (d/w/m)",
-        "Software Architect specializing in embedded avionics software (d/f/m)"
+        "STAGE 2027 - Tests automatis\u00e9s et diagnostics num\u00e9riques pour \u00e9crans de cockpit (F/H)",
+        "Airworthiness Assurance Engineer",
+        "MRTT Communication System Designer Engineer",
+        "IT in Operational Technologies Specialist",
+        "Patent Attorney",
+        "Stage 2027 - Modernisation du processus t\u00e9l\u00e9chargement",
+        "STAGE 2027 - Digitalisation d'atelier de maintenance m\u00e9canique (ALL GENDER)",
+        "Qualiticien - Quality Line Side - Saint Eloi"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "MATCHES_FOUND",
+      "recommended_action": "Matches extracted; completeness still unverified."
     },
     {
       "company": "Hensoldt",
@@ -534,7 +530,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 4.39,
+      "seconds": 4.18,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -567,9 +563,9 @@
       "url": "https://new.diehl.com/career/en/jobs-application/job-offers/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 1,
-      "raw_candidates": 7,
+      "raw_candidates": 11,
       "date_rejected": 0,
-      "title_rejected": 7,
+      "title_rejected": 11,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
@@ -579,28 +575,30 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.47,
+      "seconds": 2.6,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Diehl Defence Kooperatives Studium Electrical System Engineering (m/w/d) f\u00fcr 2027 14.10.2026 Training/Studies, Manufacturing/Production Heilbronn",
+        "Diehl Aviation M\u0171szaki Csoportvezet\u0151 (Ny\u00edrb\u00e1tor) 14.10.2026 Manufacturing/Production Ny\u00edrb\u00e1tor",
+        "Diehl Defence Portfolio- & Transformationsmanager (m/w/d) Operations 13.10.2026 Strategy/Consulting \u00dcberlingen am Bodensee",
         "Diehl Metering Sales Coordinator (m/f/d) part-time - Sales Office Esbjerg 13.10.2026 Sales/Customer Service Esbjerg \u00d8",
+        "Diehl Metering Technik Utrzymania Obiekt\u00f3w (K/M) 13.10.2026 Administration Bazanowice",
+        "Diehl Defence SAP FI/CO-Modulentwickler  (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf",
         "Diehl Defence SAP Solution Architect (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf",
-        "Diehl Defence SAP Berechtigung & Compliance Administrator (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf",
-        "Diehl Controls Head of PM Europe (m/w/d) 13.10.2026 Research/Development/Engineering Wangen im Allg\u00e4u",
-        "Diehl Controls Ingenieur (m/w/d) Qualit\u00e4tssicherung 13.10.2026 Quality Management Wangen im Allg\u00e4u",
-        "Diehl Controls Ingenieur (m/w/d) Qualit\u00e4tsplanung - befristet f\u00fcr 2 Jahre 13.10.2026 Quality Management Wangen im Allg\u00e4u",
-        "Diehl Defence Leiter (m/w/d) EHS Management 13.10.2026 Other L\u00fcbben"
+        "Diehl Defence SAP Berechtigung & Compliance Administrator (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf"
       ],
-      "unverified_candidates": 7,
+      "unverified_candidates": 11,
       "title_rejected_samples": [
+        "Diehl Defence Kooperatives Studium Electrical System Engineering (m/w/d) f\u00fcr 2027 14.10.2026 Training/Studies, Manufacturing/Production Heilbronn",
+        "Diehl Aviation M\u0171szaki Csoportvezet\u0151 (Ny\u00edrb\u00e1tor) 14.10.2026 Manufacturing/Production Ny\u00edrb\u00e1tor",
+        "Diehl Defence Portfolio- & Transformationsmanager (m/w/d) Operations 13.10.2026 Strategy/Consulting \u00dcberlingen am Bodensee",
         "Diehl Metering Sales Coordinator (m/f/d) part-time - Sales Office Esbjerg 13.10.2026 Sales/Customer Service Esbjerg \u00d8",
+        "Diehl Metering Technik Utrzymania Obiekt\u00f3w (K/M) 13.10.2026 Administration Bazanowice",
+        "Diehl Defence SAP FI/CO-Modulentwickler  (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf",
         "Diehl Defence SAP Solution Architect (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf",
-        "Diehl Defence SAP Berechtigung & Compliance Administrator (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf",
-        "Diehl Controls Head of PM Europe (m/w/d) 13.10.2026 Research/Development/Engineering Wangen im Allg\u00e4u",
-        "Diehl Controls Ingenieur (m/w/d) Qualit\u00e4tssicherung 13.10.2026 Quality Management Wangen im Allg\u00e4u",
-        "Diehl Controls Ingenieur (m/w/d) Qualit\u00e4tsplanung - befristet f\u00fcr 2 Jahre 13.10.2026 Quality Management Wangen im Allg\u00e4u",
-        "Diehl Defence Leiter (m/w/d) EHS Management 13.10.2026 Other L\u00fcbben"
+        "Diehl Defence SAP Berechtigung & Compliance Administrator (m/w/d) 13.10.2026 Information Technology Dunningen-Seedorf"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -620,7 +618,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.0,
+      "seconds": 8.37,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -670,7 +668,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.08,
+      "seconds": 10.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -695,7 +693,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 14.25,
+      "seconds": 13.84,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -720,7 +718,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.04,
+      "seconds": 8.27,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -736,34 +734,30 @@
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 3,
       "raw_candidates": 3,
-      "date_rejected": 0,
-      "title_rejected": 3,
+      "date_rejected": 3,
+      "title_rejected": 0,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
       "detail_fetches": 0,
       "methods": [
-        "html_link_unverified"
+        "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 2.4,
+      "seconds": 1.86,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Claims Specialist USA",
-        "Customer Service Specialist USA",
-        "Frontend Engineer Israel"
+        "Claims Specialist",
+        "Customer Service Specialist",
+        "Frontend Engineer"
       ],
-      "unverified_candidates": 3,
-      "title_rejected_samples": [
-        "Claims Specialist USA",
-        "Customer Service Specialist USA",
-        "Frontend Engineer Israel"
-      ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "unverified_candidates": 0,
+      "title_rejected_samples": [],
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "HypoVereinsbank UniCredit",
@@ -784,7 +778,7 @@
         "GET https://www.hypovereinsbank.de/hvb/karriere -> HTTP 403",
         "Browser HTTP 403 https://www.hypovereinsbank.de/hvb/karriere"
       ],
-      "seconds": 2.22,
+      "seconds": 2.15,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -813,7 +807,7 @@
         "GET https://www.bayernlb.de/internet/en/karriere/index.jsp -> HTTP 404",
         "Browser HTTP 404 https://www.bayernlb.de/internet/en/karriere/index.jsp"
       ],
-      "seconds": 5.39,
+      "seconds": 4.58,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -842,7 +836,7 @@
         "GET https://www.versicherungskammer-bayern.de/karriere -> HTTP 405",
         "Browser HTTP 405 https://www.vkb.de/karriere"
       ],
-      "seconds": 2.79,
+      "seconds": 2.72,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -867,7 +861,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.99,
+      "seconds": 9.88,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -894,9 +888,9 @@
       "issues": [
         "HTTP 403 https://www.eon.com/en/careers.html",
         "GET https://www.eon.com/en/careers.html -> HTTP 403",
-        "Browser HTTP 403 https://www.eon.com/en/careers.html?__cf_chl_rt_tk=VV8PWH_b2Vy4J7OkcBAnfxTBJ7phsCYV8kCUGOrKtxA-1791969308-1.0.1.1-LKyMJZBrqGm2prpjzzcs_9t1oG9sCQjosnnsb3p2EEU"
+        "Browser HTTP 403 https://www.eon.com/en/careers.html?__cf_chl_rt_tk=LYzJMcURcQzmW7UGUfhRK25ITBE_qHbguQix5SPE3Dg-1791973518-1.0.1.1-v3SWE0zGpE2wN3sptQVHf3Vv1a.9LT6bU90vBbFUVzc"
       ],
-      "seconds": 0.76,
+      "seconds": 0.63,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -923,23 +917,23 @@
       "issues": [
         "HTTP 403 https://www.tennet.eu/careers",
         "GET https://www.tennet.eu/careers -> HTTP 403",
-        "Browser HTTP 404 https://www.tennet.eu/careers"
+        "Browser HTTP 403 https://www.tennet.eu/careers?__cf_chl_rt_tk=0HJLBw0_b7DUOH8ykdcGLPmOPvYEG3sLGlgPx1Lz9CY-1791973520-1.0.1.1-8wLrsQ2c3qoubQVA4EhpA4eoPVHVSqdRqUoDrwTIDNA"
       ],
-      "seconds": 4.65,
+      "seconds": 0.89,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [],
       "unverified_candidates": 0,
       "title_rejected_samples": [],
-      "diagnosis": "URL_OR_BOARD_NOT_FOUND",
-      "recommended_action": "Verify careers URL or board token against the employer site."
+      "diagnosis": "HTTP_ACCESS_ERROR",
+      "recommended_action": "Check supported public careers source; do not assume no vacancies."
     },
     {
       "company": "Google Munich",
       "url": "https://www.google.com/about/careers/applications/jobs/results/?location=Munich",
-      "status": "PARTIAL_OR_WARNING",
-      "requests": 21,
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
+      "requests": 5,
       "raw_candidates": 22,
       "date_rejected": 0,
       "title_rejected": 22,
@@ -947,77 +941,39 @@
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
-      "detail_fetches": 20,
+      "detail_fetches": 4,
       "methods": [
-        "detail_link_unverified"
+        "detail_link_unverified",
+        "html_card_unverified"
       ],
-      "issues": [
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/121015869928022726-senior-ux-designer-chrome?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/121015869928022726-senior-ux-designer-chrome?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/94333351241884358-senior-customer-engineer-workspace-gcp-nordics?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/94333351241884358-senior-customer-engineer-workspace-gcp-nordics?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/134776333111567046-pixel-manager-channel-sales-and-activations-german?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/134776333111567046-pixel-manager-channel-sales-and-activations-german?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/108100624096076486-ai-innovation-engineer-google-cloud?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/108100624096076486-ai-innovation-engineer-google-cloud?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/132609715384263366-gtm-strategy-and-operations-manager?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/132609715384263366-gtm-strategy-and-operations-manager?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/122418168160232134-video-sales-lead-youtube-dach-german-english?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/122418168160232134-video-sales-lead-youtube-dach-german-english?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/86733690079453894-student-researcher-2027?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/86733690079453894-student-researcher-2027?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/83173971792405190-product-deployment-engineer-manager-measurement-and-data-science-english-german?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/83173971792405190-product-deployment-engineer-manager-measurement-and-data-science-english-german?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/78601461562254022-field-sales-representative-fsi-insurance-google-cloud?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/78601461562254022-field-sales-representative-fsi-insurance-google-cloud?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/113996950621037254-customer-engineer-digital-natives?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/113996950621037254-customer-engineer-digital-natives?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/80437283055903430-principal-architect-google-cloud?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/80437283055903430-principal-architect-google-cloud?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/120915533049537222-senior-industry-manager-automotive-large-customer-sales?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/120915533049537222-senior-industry-manager-automotive-large-customer-sales?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/121465074115060422-technical-account-manager-google-cloud-consulting-english-german?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/121465074115060422-technical-account-manager-google-cloud-consulting-english-german?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/102966907669226182-account-executive-looker-google-cloud?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/102966907669226182-account-executive-looker-google-cloud?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/110652706548261574-technical-safety-and-fire-engineering-lead?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/110652706548261574-technical-safety-and-fire-engineering-lead?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/130793096689394374-senior-customer-engineer-digital-natives?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/130793096689394374-senior-customer-engineer-digital-natives?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/109189301668848326-staff-software-engineer-site-reliability-engineering-google-cloud?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/109189301668848326-staff-software-engineer-site-reliability-engineering-google-cloud?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/110637888911090374-analytical-consultant-digital-first?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/110637888911090374-analytical-consultant-digital-first?location=Munich -> HTTP 404",
-        "HTTP 404 https://www.google.com/about/careers/applications/jobs/results/jobs/results/121542894627496646-product-manager-i-chrome-privacy?location=Munich",
-        "GET https://www.google.com/about/careers/applications/jobs/results/jobs/results/121542894627496646-product-manager-i-chrome-privacy?location=Munich -> HTTP 404"
-      ],
-      "seconds": 4.18,
+      "issues": [],
+      "seconds": 2.25,
       "pagination": {},
       "title_recovered": 0,
-      "title_unresolved": 22,
+      "title_unresolved": 4,
       "sample_titles": [
         "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
+        "Learn more about Senior UX Designer, Chrome",
+        "Learn more about Senior Customer Engineer, Workspace, GCP, Nordics",
+        "Learn more about Pixel Manager, Channel Sales and Activations (German)",
+        "Learn more about AI Innovation Engineer, Google Cloud",
+        "Learn more about GTM Strategy and Operations Manager",
+        "Learn more about Video Sales Lead, YouTube DACH (German, English)",
         ""
       ],
       "unverified_candidates": 22,
       "title_rejected_samples": [
         "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
+        "Learn more about Senior UX Designer, Chrome",
+        "Learn more about Senior Customer Engineer, Workspace, GCP, Nordics",
+        "Learn more about Pixel Manager, Channel Sales and Activations (German)",
+        "Learn more about AI Innovation Engineer, Google Cloud",
+        "Learn more about GTM Strategy and Operations Manager",
+        "Learn more about Video Sales Lead, YouTube DACH (German, English)",
         ""
       ],
-      "diagnosis": "URL_OR_BOARD_NOT_FOUND",
-      "recommended_action": "Verify careers URL or board token against the employer site."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Microsoft Germany",
@@ -1034,7 +990,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.29,
+      "seconds": 7.68,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1061,7 +1017,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 8.83,
+      "seconds": 8.3,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1106,7 +1062,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 8.96,
+      "seconds": 9.78,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1139,30 +1095,30 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 9.19,
+      "seconds": 7.57,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Consultant Data & AI - Public Security & Safety (w/m/d) Berlin, Stuttgart, Koeln, Hamburg, Frankfurt + 8 Business Analysis Unbefristet Berufserfahrene",
-        "Projektingenieur Elektrotechnik (w/m/d) in Erlangen Muenchen Products & Systems Engineering Befristet Berufserfahrene",
-        "Consultant Data Analytics - Public Security & Safety (w/m/d) Muenchen, Stuttgart, Koeln, Hamburg, Frankfurt + 8 Business Analysis Unbefristet Berufserfahrene",
-        "Consultant IT-Sicherheit - Public Security & Safety (w/m/d) Koeln, Stuttgart, Hamburg, Frankfurt, Nuernberg + 8 Business Analysis Unbefristet Berufserfahrene",
-        "Marketing Manager (w/m/d) Stuttgart Marketing & Communications Befristet Berufserfahrene",
-        "Senior Consultant / (Senior) Manager Digital Procurement - Contract Lifecycle Management (m/w/d) Berlin, Frankfurt, Koeln, Stuttgart, Muenchen Strategy & Transf",
-        "IT Validation Consultant (w/m/d) Wolfsburg, Dortmund, Muenchen, Hannover, Erfurt + 9 Business Analysis Unbefristet Berufserfahrene",
-        "AI Platform Engineer (w/m/d) Dortmund, Erfurt, Hannover, Nuernberg, Luebeck + 9 SaaS Solutions Unbefristet Berufserfahrene"
+        "Consultant Data & AI - Public Security & Safety (w/m/d) Stuttgart, Koeln, Hamburg, Frankfurt, Nuernberg + 8 Business Analysis Unbefristet Berufserfahrene",
+        "IT Validation Consultant (w/m/d) Dortmund, Muenchen, Wolfsburg, Frankfurt, Duesseldorf + 9 Business Analysis Unbefristet Berufserfahrene",
+        "AI Platform Engineer (w/m/d) Dortmund, Erfurt, Luebeck, Frankfurt, Muenchen + 9 SaaS Solutions Unbefristet Berufserfahrene",
+        "IT Architect Defense (w/m/d) Muenchen, Stuttgart, Koeln, Hamburg, Frankfurt + 8 Architecture Unbefristet Berufserfahrene",
+        "Salesforce Technical Consultant Financial Services (w/m/d) Berlin, Duesseldorf, Hannover, Frankfurt, Hamburg + 3 SaaS Solutions Unbefristet Berufserfahrene",
+        "Senior Consultant / (Senior) Manager Digital Procurement - Contract Lifecycle Management (m/w/d) Frankfurt, Berlin, Koeln, Stuttgart, Muenchen Strategy & Transf",
+        "(Senior) Business Analyst Asset Financing & Leasing (w/m/d) Berlin, Duesseldorf, Hannover, Frankfurt, Hamburg + 3 Business Analysis Unbefristet Berufserfahrene",
+        "Senior Cloud Architect (w/m/d) Berlin, Stuttgart, Koeln, Hamburg, Frankfurt + 4 Architecture Unbefristet Berufserfahrene"
       ],
       "unverified_candidates": 11,
       "title_rejected_samples": [
-        "Consultant Data & AI - Public Security & Safety (w/m/d) Berlin, Stuttgart, Koeln, Hamburg, Frankfurt + 8 Business Analysis Unbefristet Berufserfahrene",
-        "Projektingenieur Elektrotechnik (w/m/d) in Erlangen Muenchen Products & Systems Engineering Befristet Berufserfahrene",
-        "Consultant Data Analytics - Public Security & Safety (w/m/d) Muenchen, Stuttgart, Koeln, Hamburg, Frankfurt + 8 Business Analysis Unbefristet Berufserfahrene",
-        "Consultant IT-Sicherheit - Public Security & Safety (w/m/d) Koeln, Stuttgart, Hamburg, Frankfurt, Nuernberg + 8 Business Analysis Unbefristet Berufserfahrene",
-        "Marketing Manager (w/m/d) Stuttgart Marketing & Communications Befristet Berufserfahrene",
-        "Senior Consultant / (Senior) Manager Digital Procurement - Contract Lifecycle Management (m/w/d) Berlin, Frankfurt, Koeln, Stuttgart, Muenchen Strategy & Transf",
-        "IT Validation Consultant (w/m/d) Wolfsburg, Dortmund, Muenchen, Hannover, Erfurt + 9 Business Analysis Unbefristet Berufserfahrene",
-        "AI Platform Engineer (w/m/d) Dortmund, Erfurt, Hannover, Nuernberg, Luebeck + 9 SaaS Solutions Unbefristet Berufserfahrene"
+        "Consultant Data & AI - Public Security & Safety (w/m/d) Stuttgart, Koeln, Hamburg, Frankfurt, Nuernberg + 8 Business Analysis Unbefristet Berufserfahrene",
+        "IT Validation Consultant (w/m/d) Dortmund, Muenchen, Wolfsburg, Frankfurt, Duesseldorf + 9 Business Analysis Unbefristet Berufserfahrene",
+        "AI Platform Engineer (w/m/d) Dortmund, Erfurt, Luebeck, Frankfurt, Muenchen + 9 SaaS Solutions Unbefristet Berufserfahrene",
+        "IT Architect Defense (w/m/d) Muenchen, Stuttgart, Koeln, Hamburg, Frankfurt + 8 Architecture Unbefristet Berufserfahrene",
+        "Salesforce Technical Consultant Financial Services (w/m/d) Berlin, Duesseldorf, Hannover, Frankfurt, Hamburg + 3 SaaS Solutions Unbefristet Berufserfahrene",
+        "Senior Consultant / (Senior) Manager Digital Procurement - Contract Lifecycle Management (m/w/d) Frankfurt, Berlin, Koeln, Stuttgart, Muenchen Strategy & Transf",
+        "(Senior) Business Analyst Asset Financing & Leasing (w/m/d) Berlin, Duesseldorf, Hannover, Frankfurt, Hamburg + 3 Business Analysis Unbefristet Berufserfahrene",
+        "Senior Cloud Architect (w/m/d) Berlin, Stuttgart, Koeln, Hamburg, Frankfurt + 4 Architecture Unbefristet Berufserfahrene"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -1182,7 +1138,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.75,
+      "seconds": 9.57,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1207,7 +1163,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.47,
+      "seconds": 7.44,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1232,7 +1188,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.37,
+      "seconds": 5.33,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1260,7 +1216,7 @@
         "html_card_unverified"
       ],
       "issues": [],
-      "seconds": 15.35,
+      "seconds": 15.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 1,
@@ -1273,8 +1229,8 @@
         "",
         "_customtax-careerlevel_"
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Nemetschek",
@@ -1293,7 +1249,7 @@
         "html_card_unverified"
       ],
       "issues": [],
-      "seconds": 4.89,
+      "seconds": 4.49,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1330,7 +1286,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 2.98,
+      "seconds": 2.3,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1363,9 +1319,9 @@
       "url": "https://careers.amgen.com/",
       "status": "PARTIAL_OR_WARNING",
       "requests": 94,
-      "raw_candidates": 1706,
+      "raw_candidates": 1704,
       "date_rejected": 161,
-      "title_rejected": 1539,
+      "title_rejected": 1537,
       "location_rejected": 6,
       "score_rejected": 0,
       "eligible": 0,
@@ -1375,37 +1331,37 @@
         "workday_api"
       ],
       "issues": [
-        "Workday incomplete pagination: offset 1707 repeated a page; retaining 1706 unique candidates"
+        "Workday incomplete pagination: offset 1705 repeated a page; retaining 1704 unique candidates"
       ],
-      "seconds": 74.97,
+      "seconds": 73.11,
       "pagination": {
         "pages": 87,
-        "advertised_total": 1707,
-        "unique_candidates": 1706,
+        "advertised_total": 1705,
+        "unique_candidates": 1704,
         "completion": "repeated_page"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Medical Information Specialist",
         "Value Access & Policy Head (Singapore/Malaysia)",
         "Business Unit Head - Oncology, Hematology & Rare Disease (Singapore/Malaysia)",
         "\u5317\u6d77\u9053\u672d\u5e4c\u30a8\u30ea\u30a2Sales\u62c5\u5f53\u8005",
         "Data Scientist  (US Value & Access Insights)",
         "Senior Machine Learning Engineer",
         "Undergrad Co-op \u2013 Interactive Developer / Immersive Course Programmer for Manufacturing",
-        "Undergrad Co-op - Quality, Manufacturing, Operations and/or Engineering",
-        "Engineer I"
+        "Undergrad Co-op - Quality, Manufacturing, Operations and/or Engineering"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Medical Information Specialist",
         "Value Access & Policy Head (Singapore/Malaysia)",
         "Business Unit Head - Oncology, Hematology & Rare Disease (Singapore/Malaysia)",
         "\u5317\u6d77\u9053\u672d\u5e4c\u30a8\u30ea\u30a2Sales\u62c5\u5f53\u8005",
         "Data Scientist  (US Value & Access Insights)",
         "Senior Machine Learning Engineer",
         "Undergrad Co-op \u2013 Interactive Developer / Immersive Course Programmer for Manufacturing",
-        "Undergrad Co-op - Quality, Manufacturing, Operations and/or Engineering",
-        "Engineer I"
+        "Undergrad Co-op - Quality, Manufacturing, Operations and/or Engineering"
       ],
       "diagnosis": "INCOMPLETE_PAGINATION",
       "recommended_action": "Some pages may be missing. Review pagination response and totals."
@@ -1425,7 +1381,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.32,
+      "seconds": 5.68,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1450,7 +1406,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 6.63,
+      "seconds": 6.31,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1463,7 +1419,7 @@
     {
       "company": "Immatics",
       "url": "https://immatics.com/jobs-us/",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 5,
       "raw_candidates": 15,
       "date_rejected": 3,
@@ -1476,15 +1432,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 15 repeated a page; retaining 15 unique candidates"
-      ],
-      "seconds": 4.14,
+      "issues": [],
+      "seconds": 4.78,
       "pagination": {
         "pages": 2,
         "advertised_total": 15,
         "unique_candidates": 15,
-        "completion": "repeated_page"
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1509,8 +1463,8 @@
         "Executive Director,  IT Commercial",
         "Senior Facilities Coordinator"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "MorphoSys",
@@ -1527,7 +1481,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.97,
+      "seconds": 8.16,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1552,7 +1506,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.37,
+      "seconds": 9.06,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1577,7 +1531,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.57,
+      "seconds": 5.44,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1604,7 +1558,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 3.54,
+      "seconds": 3.37,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1649,7 +1603,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.15,
+      "seconds": 0.14,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1693,7 +1647,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 4.27,
+      "seconds": 4.24,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1724,7 +1678,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 2.41,
+      "seconds": 2.16,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1753,7 +1707,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.73,
+      "seconds": 9.79,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1768,9 +1722,9 @@
       "url": "https://flix.careers/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 5,
-      "raw_candidates": 95,
+      "raw_candidates": 97,
       "date_rejected": 0,
-      "title_rejected": 93,
+      "title_rejected": 95,
       "location_rejected": 2,
       "score_rejected": 0,
       "eligible": 0,
@@ -1780,7 +1734,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 5.51,
+      "seconds": 8.37,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1794,7 +1748,7 @@
         "Associate Ground Operations - Hyderabad (Contractual) Hyderabad Fixed Term",
         "Automation Solutions Engineer (Celonis) (m/f/d) Lisbon Regular"
       ],
-      "unverified_candidates": 95,
+      "unverified_candidates": 97,
       "title_rejected_samples": [
         "Account Manager New York Regular",
         "Accounts Payable Accountant (m/f/d) Sofia Regular",
@@ -1813,9 +1767,9 @@
       "url": "https://careers.celonis.com/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 8,
-      "raw_candidates": 191,
+      "raw_candidates": 188,
       "date_rejected": 0,
-      "title_rejected": 186,
+      "title_rejected": 183,
       "location_rejected": 5,
       "score_rejected": 0,
       "eligible": 0,
@@ -1825,7 +1779,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 4.08,
+      "seconds": 8.15,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -1839,7 +1793,7 @@
         "Senior Value Engineer - Growth & Scale Accounts",
         "Senior Process Optimisation Consultant - Growth & Scale Accounts"
       ],
-      "unverified_candidates": 191,
+      "unverified_candidates": 188,
       "title_rejected_samples": [
         "Principal Enterprise Architect - AI & SAP Integrations",
         "Senior Value Engineer - Brazil Market",
@@ -1871,7 +1825,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 37.89,
+      "seconds": 37.29,
       "pagination": {},
       "title_recovered": 15,
       "title_unresolved": 1,
@@ -1896,27 +1850,28 @@
         "Technical Support Specialist (UAV)",
         "Training Manager (m/f/d)"
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Tytan Technologies",
       "url": "https://www.tytan-technologies.com/careers",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 21,
-      "raw_candidates": 46,
+      "raw_candidates": 47,
       "date_rejected": 18,
-      "title_rejected": 28,
+      "title_rejected": 29,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
       "detail_fetches": 20,
       "methods": [
-        "detail_link_unverified"
+        "detail_link_unverified",
+        "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 16.29,
+      "seconds": 15.26,
       "pagination": {},
       "title_recovered": 20,
       "title_unresolved": 26,
@@ -1930,7 +1885,7 @@
         "Governmental & Public Affairs Internship/Working Student -  (f/m/d)",
         "Field Solutions Engineer (f/m/d)"
       ],
-      "unverified_candidates": 46,
+      "unverified_candidates": 47,
       "title_rejected_samples": [
         "Customer Success Manager - Land Domain (m/f/d)",
         "Solutions Architect Working Student (m/f/d)",
@@ -1941,8 +1896,8 @@
         "",
         ""
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Alpine Eagle",
@@ -2002,7 +1957,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.08,
+      "seconds": 1.17,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2040,7 +1995,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.17,
+      "seconds": 0.15,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2085,7 +2040,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.43,
+      "seconds": 0.38,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2177,7 +2132,7 @@
         "GET https://www.itm-radiopharma.com/en/career/ -> HTTP 404",
         "Browser HTTP 404 https://www.itm-radiopharma.com/en/career/"
       ],
-      "seconds": 4.01,
+      "seconds": 4.04,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2206,7 +2161,7 @@
         "GET https://www.personio.com/career/ -> HTTP 429",
         "Browser HTTP 429 https://www.personio.com/career/"
       ],
-      "seconds": 0.73,
+      "seconds": 0.65,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2233,7 +2188,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 8.6,
+      "seconds": 2.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2265,7 +2220,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.48,
+      "seconds": 1.45,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2306,7 +2261,7 @@
         "smartrecruiters_api"
       ],
       "issues": [],
-      "seconds": 3.6,
+      "seconds": 3.53,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2353,7 +2308,7 @@
         "GET https://tubulis.com/careers/ -> HTTP 404",
         "Browser HTTP 404 https://tubulis.com/careers/"
       ],
-      "seconds": 7.07,
+      "seconds": 7.9,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2380,7 +2335,7 @@
         "ashby_api"
       ],
       "issues": [],
-      "seconds": 1.05,
+      "seconds": 0.97,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2415,7 +2370,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.5,
+      "seconds": 1.28,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2451,7 +2406,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.07,
+      "seconds": 4.19,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2464,7 +2419,7 @@
     {
       "company": "Contentserv",
       "url": "https://www.contentserv.com/careers/",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 15,
       "raw_candidates": 104,
       "date_rejected": 7,
@@ -2477,15 +2432,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 104 repeated a page; retaining 104 unique candidates"
-      ],
-      "seconds": 6.62,
+      "issues": [],
+      "seconds": 6.34,
       "pagination": {
         "pages": 7,
         "advertised_total": 104,
         "unique_candidates": 104,
-        "completion": "repeated_page"
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2510,8 +2463,8 @@
         "Global Senior Payroll Analyst",
         "Senior Revenue Accountant/Manager"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Freeletics",
@@ -2532,7 +2485,7 @@
         "GET https://www.freeletics.com/en/careers/ -> HTTP 404",
         "Browser HTTP 404 https://www.freeletics.com/en/careers/"
       ],
-      "seconds": 2.75,
+      "seconds": 2.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2559,7 +2512,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 2.29,
+      "seconds": 2.45,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2606,7 +2559,7 @@
         "GET https://www.buildingradar.com/careers -> HTTP 404",
         "Browser HTTP 404 https://www.buildingradar.com/careers"
       ],
-      "seconds": 1.83,
+      "seconds": 1.62,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2633,7 +2586,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.77,
+      "seconds": 0.75,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2663,7 +2616,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.94,
+      "seconds": 12.24,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2692,7 +2645,7 @@
         "GET https://www.interhyp.de/karriere/ -> HTTP 404",
         "Browser HTTP 404 https://www.interhyp.de/karriere/"
       ],
-      "seconds": 2.97,
+      "seconds": 2.67,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2719,7 +2672,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 5.45,
+      "seconds": 5.1,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2762,7 +2715,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.31,
+      "seconds": 12.08,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2789,7 +2742,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 4.63,
+      "seconds": 4.3,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2832,7 +2785,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 4.85,
+      "seconds": 4.76,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2859,7 +2812,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 10.86,
+      "seconds": 3.72,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2886,7 +2839,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 15.84,
+      "seconds": 15.79,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2913,9 +2866,9 @@
       "issues": [
         "HTTP 403 https://www.tuvsud.com/en/careers",
         "GET https://www.tuvsud.com/en/careers -> HTTP 403",
-        "Browser HTTP 403 https://www.tuvsud.com/en/careers?__cf_chl_rt_tk=RcVYDLaH9nifd5S4GKeZYjYDKW4G1gLGx1.ZkFauSzk-1791969735-1.0.1.1-zrUHDDtzUuxPKrchytuzFJoxFVZPLmMhNd7oeyUFNyg"
+        "Browser HTTP 403 https://www.tuvsud.com/en/careers?__cf_chl_rt_tk=7OEglnrfOuMWkwk1.kTCMmMM5QDtLvPT.FXTo0z0lIM-1791973922-1.0.1.1-_odrSen2JlOPmwYcvDHAL3emIiA2yVch_dqWKtoPP6I"
       ],
-      "seconds": 0.8,
+      "seconds": 0.66,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2928,7 +2881,7 @@
     {
       "company": "EOS Electro Optical Systems",
       "url": "https://eosgroup.wd3.myworkdayjobs.com/en-US/eos",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 3,
       "raw_candidates": 32,
       "date_rejected": 3,
@@ -2941,15 +2894,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 32 repeated a page; retaining 32 unique candidates"
-      ],
-      "seconds": 3.15,
+      "issues": [],
+      "seconds": 3.16,
       "pagination": {
         "pages": 3,
         "advertised_total": 32,
         "unique_candidates": 32,
-        "completion": "repeated_page"
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -2974,8 +2925,8 @@
         "Product Safety Specialist (m/w/d)",
         "Senior Payroll Accountant (m/w/d)"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "MediaMarktSaturn",
@@ -2996,7 +2947,7 @@
         "GET https://www.mediamarktsaturn.com/en/careers -> HTTP 404",
         "Browser HTTP 404 https://www.ceconomy-mms.com/en/careers"
       ],
-      "seconds": 4.53,
+      "seconds": 4.76,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3025,7 +2976,7 @@
         "GET https://www.fujitsu.com/de/about/careers/ -> HTTP 429",
         "Browser HTTP 429 https://global.fujitsu/de-de/careers"
       ],
-      "seconds": 1.26,
+      "seconds": 1.09,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3050,7 +3001,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.41,
+      "seconds": 7.44,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3075,7 +3026,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 4.67,
+      "seconds": 4.77,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3104,7 +3055,7 @@
         "GET https://www.wackerneuson.com/en/career/ -> HTTP 404",
         "Browser HTTP 404 https://www.wackerneuson.com/en/career/"
       ],
-      "seconds": 4.34,
+      "seconds": 4.17,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3133,7 +3084,7 @@
         "GET https://www.baywa.com/en/career/ -> HTTP 404",
         "Browser HTTP 404 https://www.baywa.com/en/career/"
       ],
-      "seconds": 4.32,
+      "seconds": 4.61,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3158,7 +3109,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 14.6,
+      "seconds": 14.12,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3183,7 +3134,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.35,
+      "seconds": 7.9,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3208,7 +3159,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 6.85,
+      "seconds": 7.56,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3235,7 +3186,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 7.46,
+      "seconds": 7.74,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3272,7 +3223,7 @@
         "GET https://www.kraussmaffei.com/en/careers -> HTTP 404",
         "Browser HTTP 404 https://www.kraussmaffei.com/en/careers"
       ],
-      "seconds": 4.85,
+      "seconds": 7.54,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3297,7 +3248,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 13.07,
+      "seconds": 11.48,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3322,7 +3273,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.72,
+      "seconds": 4.57,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3347,7 +3298,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 3.89,
+      "seconds": 3.59,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3372,7 +3323,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.34,
+      "seconds": 8.69,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3387,9 +3338,9 @@
       "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
       "status": "PARTIAL_OR_WARNING",
       "requests": 150,
-      "raw_candidates": 2000,
+      "raw_candidates": 1998,
       "date_rejected": 243,
-      "title_rejected": 1708,
+      "title_rejected": 1706,
       "location_rejected": 49,
       "score_rejected": 0,
       "eligible": 0,
@@ -3399,37 +3350,37 @@
         "workday_api"
       ],
       "issues": [
-        "Workday incomplete pagination: offset 2000 repeated a page; retaining 2000 unique candidates"
+        "Workday incomplete pagination: offset 2000 repeated a page; retaining 1998 unique candidates"
       ],
-      "seconds": 116.16,
+      "seconds": 114.14,
       "pagination": {
         "pages": 101,
         "advertised_total": 2000,
-        "unique_candidates": 2000,
+        "unique_candidates": 1998,
         "completion": "repeated_page"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Developer Relations Manager - Manufacturing",
+        "Senior Software Developer, AI Networking",
+        "Data Processing Developer Technology Intern - 2027",
+        "Senior DevOps Engineer",
+        "System Software Engineer - Infrastructure",
         "System Software Engineering Intern, GPU - 2027",
         "Senior Silicon Product Definition Engineer",
-        "Advanced Development Engineering Student, GPU Networking",
-        "Software Engineer, NVLink",
-        "Senior Hardware Program Manager",
-        "Software Architect, AI Networking",
-        "Senior Site Reliability Engineering - Storage",
-        "IT Engineer"
+        "Mechanical Engineer"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Developer Relations Manager - Manufacturing",
+        "Senior Software Developer, AI Networking",
+        "Data Processing Developer Technology Intern - 2027",
+        "Senior DevOps Engineer",
+        "System Software Engineer - Infrastructure",
         "System Software Engineering Intern, GPU - 2027",
         "Senior Silicon Product Definition Engineer",
-        "Advanced Development Engineering Student, GPU Networking",
-        "Software Engineer, NVLink",
-        "Software Architect, AI Networking",
-        "Senior Site Reliability Engineering - Storage",
-        "IT Engineer",
-        "Public Sector Program Support"
+        "Mechanical Engineer"
       ],
       "diagnosis": "INCOMPLETE_PAGINATION",
       "recommended_action": "Some pages may be missing. Review pagination response and totals."
@@ -3437,10 +3388,10 @@
     {
       "company": "Intel Munich",
       "url": "https://jobs.intel.com/",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 44,
-      "raw_candidates": 703,
-      "date_rejected": 96,
+      "raw_candidates": 702,
+      "date_rejected": 95,
       "title_rejected": 601,
       "location_rejected": 6,
       "score_rejected": 0,
@@ -3450,15 +3401,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 703 repeated a page; retaining 703 unique candidates"
-      ],
-      "seconds": 32.98,
+      "issues": [],
+      "seconds": 33.82,
       "pagination": {
         "pages": 37,
-        "advertised_total": 703,
-        "unique_candidates": 703,
-        "completion": "repeated_page"
+        "advertised_total": 702,
+        "unique_candidates": 702,
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3483,8 +3432,8 @@
         "Senior Wet Etch Manufacturing Development Engineer",
         "Staff Chemical Mechanical Planarization (CMP) Engineer"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Texas Instruments Munich",
@@ -3501,7 +3450,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.8,
+      "seconds": 7.62,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3514,54 +3463,52 @@
     {
       "company": "Salesforce Munich",
       "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site",
-      "status": "PARTIAL_OR_WARNING",
-      "requests": 91,
-      "raw_candidates": 1534,
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
+      "requests": 92,
+      "raw_candidates": 1539,
       "date_rejected": 165,
-      "title_rejected": 1356,
-      "location_rejected": 13,
+      "title_rejected": 1360,
+      "location_rejected": 14,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
-      "detail_fetches": 13,
+      "detail_fetches": 14,
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 1534 repeated a page; retaining 1534 unique candidates"
-      ],
-      "seconds": 51.13,
+      "issues": [],
+      "seconds": 51.24,
       "pagination": {
         "pages": 78,
-        "advertised_total": 1534,
-        "unique_candidates": 1534,
-        "completion": "repeated_page"
+        "advertised_total": 1539,
+        "unique_candidates": 1539,
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Account Executive, Osaka Sales (SB)",
-        "Success Architect-Tableau",
-        "Account Executive, Data Cloud",
-        "AI Native Delivery Consultant",
-        "Account Executive, Regional Mid Market Sales (Nagoya)",
-        "Prime Named Account Executive",
-        "Cloud Account Executive  - Partner Cloud",
-        "Account Executive  - Apromore"
+        "Senior Technical Architect - German-Speaking",
+        "Software Engineering LMTS - Backend Distributed Systems",
+        "Technical Support Engineer - Spanish + English",
+        "Product Security Engineer",
+        "Remediation POD - Technical Architect",
+        "Marketing Cloud -Commercial Account Executive",
+        "Data Engineering Senior Associate- Finance",
+        "Remediation Pod - Senior Solution Architect"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
-        "Account Executive, Osaka Sales (SB)",
-        "Success Architect-Tableau",
-        "Account Executive, Data Cloud",
-        "AI Native Delivery Consultant",
-        "Account Executive, Regional Mid Market Sales (Nagoya)",
-        "Prime Named Account Executive",
-        "Cloud Account Executive  - Partner Cloud",
-        "Account Executive  - Apromore"
+        "Senior Technical Architect - German-Speaking",
+        "Software Engineering LMTS - Backend Distributed Systems",
+        "Technical Support Engineer - Spanish + English",
+        "Product Security Engineer",
+        "Remediation POD - Technical Architect",
+        "Marketing Cloud -Commercial Account Executive",
+        "Data Engineering Senior Associate- Finance",
+        "Remediation Pod - Senior Solution Architect"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "SAP Munich",
@@ -3580,24 +3527,24 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.38,
+      "seconds": 0.41,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Business Process Consultant - SF",
-        "Diploma Student / Intern",
-        "Diploma Student / Intern",
-        "SAP HANA - Cloud Database Developer",
-        "Copy of SAP iXp Intern - Technical Quality Manager | Services Engagement"
+        "GTM Design & Planning Partner",
+        "IT Business Services Consultant",
+        "Diploma Student / Intern - Business Transformation Intern",
+        "Business Process Consultant - SuccessFactors / Smart Recruiters",
+        "Business Process Consultant - SF"
       ],
       "unverified_candidates": 5,
       "title_rejected_samples": [
-        "Business Process Consultant - SF",
-        "Diploma Student / Intern",
-        "Diploma Student / Intern",
-        "SAP HANA - Cloud Database Developer",
-        "Copy of SAP iXp Intern - Technical Quality Manager | Services Engagement"
+        "GTM Design & Planning Partner",
+        "IT Business Services Consultant",
+        "Diploma Student / Intern - Business Transformation Intern",
+        "Business Process Consultant - SuccessFactors / Smart Recruiters",
+        "Business Process Consultant - SF"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -3617,7 +3564,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.55,
+      "seconds": 10.32,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3630,7 +3577,7 @@
     {
       "company": "Adobe Munich",
       "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 23,
       "raw_candidates": 331,
       "date_rejected": 235,
@@ -3643,15 +3590,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 331 repeated a page; retaining 331 unique candidates"
-      ],
-      "seconds": 15.91,
+      "issues": [],
+      "seconds": 15.21,
       "pagination": {
         "pages": 18,
         "advertised_total": 331,
         "unique_candidates": 331,
-        "completion": "repeated_page"
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3676,17 +3621,17 @@
         "Staff Security Data Engineer",
         "Procurement - Technology - Cloud Category Manager"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Workday Munich",
       "url": "https://workday.wd5.myworkdayjobs.com/Workday",
-      "status": "PARTIAL_OR_WARNING",
-      "requests": 27,
-      "raw_candidates": 394,
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
+      "requests": 26,
+      "raw_candidates": 392,
       "date_rejected": 42,
-      "title_rejected": 347,
+      "title_rejected": 345,
       "location_rejected": 5,
       "score_rejected": 0,
       "eligible": 0,
@@ -3695,50 +3640,48 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 413 repeated a page; retaining 394 unique candidates"
-      ],
-      "seconds": 56.2,
+      "issues": [],
+      "seconds": 46.64,
       "pagination": {
-        "pages": 22,
-        "advertised_total": 393,
-        "unique_candidates": 394,
-        "completion": "repeated_page"
+        "pages": 21,
+        "advertised_total": 392,
+        "unique_candidates": 392,
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Cybersecurity Engineer, Workday SIRT",
+        "Customer Support Analyst (HCM, Talent, Compensation & Benefits)",
+        "Customer Support Analyst (Financials & Payroll)",
         "Incident Command and Observability Lead",
         "Principal PATTS Consultant, State & Local Government",
-        "Customer Support Analyst (HCM, Compensation & Benefits)",
         "Senior Software Development Engineer",
         "Sr. Associate Support Engineer (AI & ML Application Support)",
-        "Customer Support Analyst (Financials & Payroll)",
-        "Principal Grants Management Implementation Consultant, State & Local Government",
-        "Sr Principal, Product Manager"
+        "Principal Grants Management Implementation Consultant, State & Local Government"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Cybersecurity Engineer, Workday SIRT",
+        "Customer Support Analyst (HCM, Talent, Compensation & Benefits)",
+        "Customer Support Analyst (Financials & Payroll)",
         "Incident Command and Observability Lead",
         "Principal PATTS Consultant, State & Local Government",
-        "Customer Support Analyst (HCM, Compensation & Benefits)",
         "Senior Software Development Engineer",
         "Sr. Associate Support Engineer (AI & ML Application Support)",
-        "Customer Support Analyst (Financials & Payroll)",
-        "Principal Grants Management Implementation Consultant, State & Local Government",
-        "Sr Principal, Product Manager"
+        "Principal Grants Management Implementation Consultant, State & Local Government"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "ServiceNow Munich",
       "url": "https://careers.smartrecruiters.com/servicenow",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 16,
-      "raw_candidates": 672,
-      "date_rejected": 339,
-      "title_rejected": 324,
+      "raw_candidates": 674,
+      "date_rejected": 337,
+      "title_rejected": 328,
       "location_rejected": 9,
       "score_rejected": 0,
       "eligible": 0,
@@ -3748,30 +3691,30 @@
         "smartrecruiters_api"
       ],
       "issues": [],
-      "seconds": 8.59,
+      "seconds": 8.46,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Director, Product Management, Microsoft Product Partnership",
+        "Senior Staff Software Engineer - Agentic AI",
+        "Advisory Solution Consultant, Telco Industry",
+        "Software Engineer",
         "Advisory Solution Consultant - BFSI",
         "Sr Staff Product Security Engineer - Product Security Incident Response Team (PSIRT)",
         "Staff AI Security Specialist",
-        "Staff Software Engineer - Product Security",
-        "Principal AI Security Engineer",
-        "Sr Advisory Solution Consultant ( Armis / Veza )",
-        "Senior Commercial Growth AE French & Arabic",
-        "Enterprise Account Executive - Manufacturing"
+        "Staff Software Engineer - Product Security"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Director, Product Management, Microsoft Product Partnership",
+        "Senior Staff Software Engineer - Agentic AI",
+        "Advisory Solution Consultant, Telco Industry",
+        "Software Engineer",
         "Advisory Solution Consultant - BFSI",
         "Sr Staff Product Security Engineer - Product Security Incident Response Team (PSIRT)",
         "Staff AI Security Specialist",
-        "Staff Software Engineer - Product Security",
-        "Principal AI Security Engineer",
-        "Sr Advisory Solution Consultant ( Armis / Veza )",
-        "Senior Commercial Growth AE French & Arabic",
-        "Enterprise Account Executive - Manufacturing"
+        "Staff Software Engineer - Product Security"
       ],
       "diagnosis": "FILTERED_RESULTS",
       "recommended_action": "Review rejected-title samples and date/location/score counts."
@@ -3791,7 +3734,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.85,
+      "seconds": 12.28,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3816,7 +3759,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 13.95,
+      "seconds": 13.02,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3830,7 +3773,7 @@
       "company": "Sixt",
       "url": "https://www.sixt.jobs/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
-      "requests": 1,
+      "requests": 6,
       "raw_candidates": 5,
       "date_rejected": 0,
       "title_rejected": 5,
@@ -3838,29 +3781,29 @@
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
-      "detail_fetches": 0,
+      "detail_fetches": 5,
       "methods": [
-        "html_link_unverified"
+        "detail_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.57,
+      "seconds": 6.74,
       "pagination": {},
-      "title_recovered": 0,
+      "title_recovered": 5,
       "title_unresolved": 0,
       "sample_titles": [
-        "View",
-        "View",
-        "View",
-        "View",
-        "View"
+        "Senior Branch Manager - Inverness Airport",
+        "Sales Executive - Luton Airport",
+        "Royal Holloway Job Fair - Management Trainee",
+        "Royal Holloway Job Fair - Sales Executive",
+        "Part Time Sales Executive - Heathrow Airport"
       ],
       "unverified_candidates": 5,
       "title_rejected_samples": [
-        "View",
-        "View",
-        "View",
-        "View",
-        "View"
+        "Senior Branch Manager - Inverness Airport",
+        "Sales Executive - Luton Airport",
+        "Royal Holloway Job Fair - Management Trainee",
+        "Royal Holloway Job Fair - Sales Executive",
+        "Part Time Sales Executive - Heathrow Airport"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -3880,7 +3823,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.02,
+      "seconds": 11.44,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3905,7 +3848,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.59,
+      "seconds": 12.14,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3930,7 +3873,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.47,
+      "seconds": 7.68,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3957,7 +3900,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 2.76,
+      "seconds": 2.18,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -3996,7 +3939,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.01,
+      "seconds": 4.16,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4021,7 +3964,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.82,
+      "seconds": 8.08,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4046,7 +3989,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.55,
+      "seconds": 7.24,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4073,7 +4016,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 8.77,
+      "seconds": 8.05,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4092,11 +4035,11 @@
     {
       "company": "Bristol Myers Squibb Munich",
       "url": "https://careers.bms.com/",
-      "status": "PARTIAL_OR_WARNING",
-      "requests": 44,
-      "raw_candidates": 720,
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
+      "requests": 45,
+      "raw_candidates": 721,
       "date_rejected": 109,
-      "title_rejected": 605,
+      "title_rejected": 606,
       "location_rejected": 6,
       "score_rejected": 0,
       "eligible": 0,
@@ -4105,41 +4048,39 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 720 repeated a page; retaining 720 unique candidates"
-      ],
-      "seconds": 37.5,
+      "issues": [],
+      "seconds": 36.69,
       "pagination": {
-        "pages": 37,
-        "advertised_total": 720,
-        "unique_candidates": 720,
-        "completion": "repeated_page"
+        "pages": 38,
+        "advertised_total": 721,
+        "unique_candidates": 721,
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Director, Global Clinical Physician Late HOCT",
         "Account Executive",
         "IO Marketing Manager",
         "Senior Manager, APAC, Media and Science comms",
         "Submission Senior Specialist",
         "Senior Manager, Payroll Process Design",
         "Senior Bioprocess Associate",
-        "Senior Scientist, Nonclinical Safety, Cell Therapy",
-        "RayzeBio Safety MD Senior Director"
+        "Senior Scientist, Nonclinical Safety, Cell Therapy"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Director, Global Clinical Physician Late HOCT",
         "Account Executive",
         "IO Marketing Manager",
         "Senior Manager, APAC, Media and Science comms",
         "Submission Senior Specialist",
         "Senior Manager, Payroll Process Design",
         "Senior Bioprocess Associate",
-        "Senior Scientist, Nonclinical Safety, Cell Therapy",
-        "RayzeBio Safety MD Senior Director"
+        "Senior Scientist, Nonclinical Safety, Cell Therapy"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Thermo Fisher Scientific Munich",
@@ -4156,7 +4097,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 4.45,
+      "seconds": 5.17,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4171,9 +4112,9 @@
       "url": "https://careers.stryker.com/",
       "status": "PARTIAL_OR_WARNING",
       "requests": 99,
-      "raw_candidates": 1480,
+      "raw_candidates": 1481,
       "date_rejected": 185,
-      "title_rejected": 1273,
+      "title_rejected": 1274,
       "location_rejected": 22,
       "score_rejected": 0,
       "eligible": 0,
@@ -4183,13 +4124,13 @@
         "workday_api"
       ],
       "issues": [
-        "Workday incomplete pagination: offset 1481 repeated a page; retaining 1480 unique candidates"
+        "Workday incomplete pagination: offset 1482 repeated a page; retaining 1481 unique candidates"
       ],
-      "seconds": 84.11,
+      "seconds": 79.83,
       "pagination": {
         "pages": 76,
-        "advertised_total": 1481,
-        "unique_candidates": 1480,
+        "advertised_total": 1482,
+        "unique_candidates": 1481,
         "completion": "repeated_page"
       },
       "title_recovered": 0,
@@ -4213,7 +4154,7 @@
         "Lead Specialist, Marketing Communications, Neurovascular (APAC)",
         "Infimier de bloc op\u00e9ratoire - Paris Ouest (H/F)",
         "Manager, Strategy & Business Development, APAC Neurovascular (KISA)",
-        "Intern"
+        "Manufacturing Engineering Manager"
       ],
       "diagnosis": "INCOMPLETE_PAGINATION",
       "recommended_action": "Some pages may be missing. Review pagination response and totals."
@@ -4233,7 +4174,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.57,
+      "seconds": 9.77,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4258,7 +4199,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 3.39,
+      "seconds": 3.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4287,7 +4228,7 @@
         "GET https://www.holidu.com/careers/list -> HTTP 403",
         "Browser HTTP 403 https://www.holidu.com/careers/list"
       ],
-      "seconds": 0.58,
+      "seconds": 0.81,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4314,7 +4255,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.13,
+      "seconds": 0.17,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4354,7 +4295,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 3.5,
+      "seconds": 3.22,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4381,7 +4322,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.86,
+      "seconds": 1.55,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4417,7 +4358,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.08,
+      "seconds": 8.56,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4442,7 +4383,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.1,
+      "seconds": 8.31,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4469,7 +4410,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 2.63,
+      "seconds": 2.35,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4510,7 +4451,7 @@
         "jsonld"
       ],
       "issues": [],
-      "seconds": 7.55,
+      "seconds": 7.11,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4529,9 +4470,9 @@
       "url": "https://idnow.io/careers/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 1,
-      "raw_candidates": 11,
+      "raw_candidates": 12,
       "date_rejected": 0,
-      "title_rejected": 11,
+      "title_rejected": 12,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
@@ -4541,7 +4482,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.24,
+      "seconds": 1.43,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4551,20 +4492,20 @@
         "(Senior) Product Manager,Trust Platform \u2013 Modules (f/m/d)",
         "AI Platform Engineer (f/m/d)",
         "Head of CSM (f/m/d)",
+        "Human Resource Generalist \u2013 2-years temporary contract (f/m/d)",
         "Product Owner \u2013 Trust Services (eIDAS2, EUDI Wallet & Trust Platform) (f/m/d)",
-        "Senior Product Manager (f/m/d)",
-        "Senior QA Engineer (f/m/d)"
+        "Senior Product Manager (f/m/d)"
       ],
-      "unverified_candidates": 11,
+      "unverified_candidates": 12,
       "title_rejected_samples": [
         "(Senior) Product Manager, Trust Platform- Core (f/m/d)",
         "(Senior) Product Manager, Trust Platform- Digital Identities (f/m/d) \u2013 1 year fixed contract",
         "(Senior) Product Manager,Trust Platform \u2013 Modules (f/m/d)",
         "AI Platform Engineer (f/m/d)",
         "Head of CSM (f/m/d)",
+        "Human Resource Generalist \u2013 2-years temporary contract (f/m/d)",
         "Product Owner \u2013 Trust Services (eIDAS2, EUDI Wallet & Trust Platform) (f/m/d)",
-        "Senior Product Manager (f/m/d)",
-        "Senior QA Engineer (f/m/d)"
+        "Senior Product Manager (f/m/d)"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -4584,7 +4525,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.55,
+      "seconds": 9.15,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4597,36 +4538,42 @@
     {
       "company": "Veridos",
       "url": "https://careers.gi-de.com/Veridos/?locale=de_DE",
-      "status": "EMPTY_UNVERIFIED",
-      "requests": 3,
-      "raw_candidates": 0,
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
+      "requests": 4,
+      "raw_candidates": 1,
       "date_rejected": 0,
-      "title_rejected": 0,
+      "title_rejected": 1,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
-      "detail_fetches": 0,
-      "methods": [],
+      "detail_fetches": 1,
+      "methods": [
+        "detail_link_unverified"
+      ],
       "issues": [],
-      "seconds": 7.88,
+      "seconds": 9.43,
       "pagination": {},
       "title_recovered": 0,
-      "title_unresolved": 0,
-      "sample_titles": [],
-      "unverified_candidates": 0,
-      "title_rejected_samples": [],
-      "diagnosis": "EMPTY_UNVERIFIED",
-      "recommended_action": "No extracted vacancies; source coverage needs verification."
+      "title_unresolved": 1,
+      "sample_titles": [
+        ""
+      ],
+      "unverified_candidates": 1,
+      "title_rejected_samples": [
+        ""
+      ],
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Accenture",
       "url": "https://www.accenture.com/de-de/careers",
       "status": "PARTIAL_OR_WARNING",
       "requests": 116,
-      "raw_candidates": 1740,
+      "raw_candidates": 1973,
       "date_rejected": 62,
-      "title_rejected": 1665,
+      "title_rejected": 1898,
       "location_rejected": 13,
       "score_rejected": 0,
       "eligible": 0,
@@ -4636,37 +4583,37 @@
         "workday_api"
       ],
       "issues": [
-        "Workday incomplete pagination: offset 2000 repeated a page; retaining 1740 unique candidates"
+        "Workday incomplete pagination: offset 2000 repeated a page; retaining 1973 unique candidates"
       ],
-      "seconds": 240.43,
+      "seconds": 237.35,
       "pagination": {
         "pages": 101,
         "advertised_total": 2000,
-        "unique_candidates": 1740,
+        "unique_candidates": 1973,
         "completion": "repeated_page"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Applied AI Engineer (all genders)",
+        "Software Engineer - Leeds",
+        "Junior Analyst in Automotive team",
         "Threat Monitoring Lead",
         "Salesforce Developer (OmniStudio)",
         "Generative AI Software Engineer Specialist (all genders)",
         "AI Deployment Engineering Manager (all genders)",
-        "Analytics and Modeling Analyst",
-        "AI/ML Senior Manager Engineer",
-        "Consultor(a) SAP Billing/FICA/WM/CRM (Utilities/CCS/ISU)",
-        "Analista Cont\u00e1bil - Ingl\u00eas Avan\u00e7ado - H\u00edbrido"
+        "Analytics and Modeling Analyst"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Applied AI Engineer (all genders)",
+        "Software Engineer - Leeds",
+        "Junior Analyst in Automotive team",
         "Threat Monitoring Lead",
         "Salesforce Developer (OmniStudio)",
         "Generative AI Software Engineer Specialist (all genders)",
         "AI Deployment Engineering Manager (all genders)",
-        "Analytics and Modeling Analyst",
-        "AI/ML Senior Manager Engineer",
-        "Consultor(a) SAP Billing/FICA/WM/CRM (Utilities/CCS/ISU)",
-        "Analista Cont\u00e1bil - Ingl\u00eas Avan\u00e7ado - H\u00edbrido"
+        "Analytics and Modeling Analyst"
       ],
       "diagnosis": "INCOMPLETE_PAGINATION",
       "recommended_action": "Some pages may be missing. Review pagination response and totals."
@@ -4686,7 +4633,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 6.0,
+      "seconds": 5.61,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4701,31 +4648,34 @@
       "url": "https://careers.bcg.com/global/en/locations/germany-austria/jobs-in-munich",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 4,
-      "raw_candidates": 3,
+      "raw_candidates": 4,
       "date_rejected": 0,
-      "title_rejected": 2,
+      "title_rejected": 3,
       "location_rejected": 1,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
       "detail_fetches": 1,
       "methods": [
+        "html_card_unverified",
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 6.69,
+      "seconds": 5.81,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
         "Consultant, Internship MBA, United States",
         "Consultant, Advanced Degree, United States",
-        "Expert Consultant /Project Leader, CFO Excellence"
+        "Expert Consultant /Project Leader, CFO Excellence",
+        "Dein Einstieg als Consultant"
       ],
-      "unverified_candidates": 3,
+      "unverified_candidates": 4,
       "title_rejected_samples": [
         "Consultant, Internship MBA, United States",
-        "Consultant, Advanced Degree, United States"
+        "Consultant, Advanced Degree, United States",
+        "Dein Einstieg als Consultant"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -4745,7 +4695,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.01,
+      "seconds": 7.8,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4770,7 +4720,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.72,
+      "seconds": 8.86,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4797,7 +4747,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 4.63,
+      "seconds": 4.86,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4840,7 +4790,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.57,
+      "seconds": 8.17,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4867,7 +4817,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.85,
+      "seconds": 0.97,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -4932,24 +4882,24 @@
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
-      "detail_fetches": 0,
+      "detail_fetches": 1,
       "methods": [
-        "html_link_unverified"
+        "detail_link_unverified"
       ],
       "issues": [],
-      "seconds": 5.63,
+      "seconds": 5.78,
       "pagination": {},
       "title_recovered": 0,
-      "title_unresolved": 0,
+      "title_unresolved": 1,
       "sample_titles": [
-        "hier"
+        ""
       ],
       "unverified_candidates": 1,
       "title_rejected_samples": [
-        "hier"
+        ""
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Scout24",
@@ -4968,7 +4918,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.9,
+      "seconds": 1.82,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5013,7 +4963,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.8,
+      "seconds": 1.55,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5043,33 +4993,34 @@
       "company": "zooplus",
       "url": "https://careers.zooplus.com/",
       "status": "MATCHES_FOUND",
-      "requests": 5,
+      "requests": 4,
       "raw_candidates": 4,
       "date_rejected": 0,
-      "title_rejected": 2,
+      "title_rejected": 3,
       "location_rejected": 0,
-      "score_rejected": 1,
+      "score_rejected": 0,
       "eligible": 1,
       "unknown_dates": 0,
-      "detail_fetches": 2,
+      "detail_fetches": 1,
       "methods": [
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 7.41,
+      "seconds": 6.04,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Programme Manager - Supply Chain Optimization (All Genders) Munich, Germany Vendor Management & Supply Full-time",
-        "Senior\u00a0Loyalty Program Manager (All Genders) Munich, Germany Sales & Marketing Full-time",
-        "Working Student App Growth & Marketing (All Genders) London, United Kingdom Vendor Management & Supply Full-time",
-        "Invoice Inspector - 1.5 Years Maternity Cover (All Genders) Vienna, Austria Finance Full-time"
+        "Senior Software Engineer Java/Kotlin  (All Genders) Krakow, Poland Product & Tech Full-time",
+        "Product Owner - SEO & Product Content Platforms (All Genders) Krakow, Poland Product & Tech Full-time",
+        "Product Owner - SEO & Product Content Platforms (All Genders) Munich, Germany Product & Tech Full-time",
+        "Programme Manager - Supply Chain Optimization (All Genders) Munich, Germany Vendor Management & Supply Full-time"
       ],
       "unverified_candidates": 4,
       "title_rejected_samples": [
-        "Working Student App Growth & Marketing (All Genders) London, United Kingdom Vendor Management & Supply Full-time",
-        "Invoice Inspector - 1.5 Years Maternity Cover (All Genders) Vienna, Austria Finance Full-time"
+        "Senior Software Engineer Java/Kotlin  (All Genders) Krakow, Poland Product & Tech Full-time",
+        "Product Owner - SEO & Product Content Platforms (All Genders) Krakow, Poland Product & Tech Full-time",
+        "Product Owner - SEO & Product Content Platforms (All Genders) Munich, Germany Product & Tech Full-time"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -5091,7 +5042,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.91,
+      "seconds": 1.74,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5134,7 +5085,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.83,
+      "seconds": 7.67,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5159,7 +5110,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.99,
+      "seconds": 12.5,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5187,7 +5138,7 @@
         "HTTP 406 https://www.msg.group/de/karriere/",
         "GET https://www.msg.group/de/karriere/ -> HTTP 406"
       ],
-      "seconds": 8.81,
+      "seconds": 8.89,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5214,7 +5165,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.97,
+      "seconds": 1.01,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5253,7 +5204,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.47,
+      "seconds": 10.99,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5280,7 +5231,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 5.52,
+      "seconds": 5.46,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5325,7 +5276,7 @@
         "jsonld"
       ],
       "issues": [],
-      "seconds": 5.17,
+      "seconds": 5.21,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5352,7 +5303,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 6.26,
+      "seconds": 6.47,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5377,7 +5328,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.54,
+      "seconds": 11.62,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5402,7 +5353,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.87,
+      "seconds": 5.22,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5429,7 +5380,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.09,
+      "seconds": 1.18,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5469,7 +5420,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.66,
+      "seconds": 0.97,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5506,7 +5457,7 @@
         "GET https://voltstorage.jobs.personio.de/?language=en -> HTTP 404",
         "Browser HTTP 404 https://voltstorage.jobs.personio.de/?language=en"
       ],
-      "seconds": 2.4,
+      "seconds": 1.51,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5533,7 +5484,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.0,
+      "seconds": 1.03,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5569,7 +5520,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.57,
+      "seconds": 10.3,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5594,7 +5545,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.0,
+      "seconds": 4.83,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5619,7 +5570,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 3.38,
+      "seconds": 2.65,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5646,7 +5597,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.15,
+      "seconds": 1.13,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5685,7 +5636,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.37,
+      "seconds": 10.43,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5712,7 +5663,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.91,
+      "seconds": 0.9,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5745,7 +5696,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.7,
+      "seconds": 1.1,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5774,7 +5725,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.77,
+      "seconds": 9.45,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5790,32 +5741,29 @@
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 3,
       "raw_candidates": 2,
-      "date_rejected": 0,
-      "title_rejected": 2,
+      "date_rejected": 2,
+      "title_rejected": 0,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
       "detail_fetches": 0,
       "methods": [
-        "html_link_unverified"
+        "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 4.56,
+      "seconds": 1.29,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Skip to main content",
-        "Back to job"
+        "Game Project Team Lead (w/m/d)",
+        "Senior Frontend Developer (w/m/d)"
       ],
-      "unverified_candidates": 2,
-      "title_rejected_samples": [
-        "Skip to main content",
-        "Back to job"
-      ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "unverified_candidates": 0,
+      "title_rejected_samples": [],
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Schweitzer Fachinformationen",
@@ -5832,7 +5780,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.14,
+      "seconds": 14.03,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5857,7 +5805,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.51,
+      "seconds": 9.3,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5886,7 +5834,7 @@
         "GET https://karriere.hanser.de/ -> HTTP 403",
         "Browser HTTP 403 https://karriere.hanser.de/"
       ],
-      "seconds": 3.07,
+      "seconds": 3.26,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5901,9 +5849,9 @@
       "url": "https://www.sueddeutsche.de/jobs/stellenanzeigen/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 1,
-      "raw_candidates": 13,
+      "raw_candidates": 15,
       "date_rejected": 0,
-      "title_rejected": 13,
+      "title_rejected": 15,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
@@ -5913,7 +5861,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 1.38,
+      "seconds": 1.22,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -5927,7 +5875,7 @@
         "Volont\u00e4r (w/m/d) mit dem Schwerpunkt Wirtschaft S\u00fcddeutsche Zeitung GmbH M\u00fcnchen Befristete Anstellung Berufseinsteiger Vollzeit Redaktion/ Lektorat",
         "Volont\u00e4r (w/m/d) mit dem Schwerpunkt Politikjournalismus bei der S\u00fcddeutschen Zeitung S\u00fcddeutsche Zeitung GmbH M\u00fcnchen Befristete Anstellung Berufseinsteiger Vo"
       ],
-      "unverified_candidates": 13,
+      "unverified_candidates": 15,
       "title_rejected_samples": [
         "Praktikant (m/w/d) bei jetzt S\u00fcddeutsche Zeitung GmbH M\u00fcnchen Befristete Anstellung Berufseinsteiger Vollzeit Redaktion/ Lektorat",
         "Praktikant (m/w/d) in einer Redaktion der S\u00fcddeutschen Zeitung S\u00fcddeutsche Zeitung GmbH M\u00fcnchen Befristete Anstellung Berufseinsteiger Vollzeit Redaktion/ Lekto",
@@ -5959,7 +5907,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 17.37,
+      "seconds": 16.15,
       "pagination": {},
       "title_recovered": 2,
       "title_unresolved": 8,
@@ -5984,8 +5932,8 @@
         "",
         "Journalistisches Sch\u00fclerpraktikum beim BR Franken (w/m/d)"
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Sky Deutschland",
@@ -6004,7 +5952,7 @@
       "issues": [
         "Headless render failed for Sky Deutschland: Page.goto: Timeout 15000ms exceeded.\nCall log:\n  - navigating to \"https://karriere.sky.de/de/de/jobs#main\", waiting until \"domcontentloaded\"\n"
       ],
-      "seconds": 17.03,
+      "seconds": 16.99,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6019,9 +5967,9 @@
       "url": "https://careers.dazn.com/munich",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 4,
-      "raw_candidates": 125,
+      "raw_candidates": 124,
       "date_rejected": 1,
-      "title_rejected": 124,
+      "title_rejected": 123,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
@@ -6031,7 +5979,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 7.64,
+      "seconds": 7.69,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6045,7 +5993,7 @@
         "Affiliate Account Manager",
         "Affiliate Account Manager"
       ],
-      "unverified_candidates": 125,
+      "unverified_candidates": 124,
       "title_rejected_samples": [
         "Account Executive",
         "Account Executive",
@@ -6074,7 +6022,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 4.4,
+      "seconds": 3.63,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6101,7 +6049,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.3,
+      "seconds": 1.28,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6138,7 +6086,7 @@
         "html_card_unverified"
       ],
       "issues": [],
-      "seconds": 1.92,
+      "seconds": 1.97,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6183,7 +6131,7 @@
         "html_card_unverified"
       ],
       "issues": [],
-      "seconds": 7.63,
+      "seconds": 7.69,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6214,7 +6162,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 18.36,
+      "seconds": 18.13,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6239,7 +6187,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.0,
+      "seconds": 10.82,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6264,7 +6212,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 3.72,
+      "seconds": 3.68,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6289,7 +6237,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.15,
+      "seconds": 11.08,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6316,7 +6264,7 @@
         "ashby_api"
       ],
       "issues": [],
-      "seconds": 0.09,
+      "seconds": 0.1,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6361,30 +6309,30 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.15,
+      "seconds": 0.16,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Werkstudent/ Studentische Aushilfe (m/w/d) im Fr\u00fchst\u00fcck Germany The Cloud One Munich-Hauptbahnhof Working student immediately",
+        "Fr\u00fchst\u00fccksmitarbeiter (m/w/d) Germany Motel One Munich-Parkstadt Schwabing Full-time from 10/14/2026",
         "Hausmeister (m/w/d) Germany Motel One Munich-East Side Full-time from 10/31/2026",
         "Empfangsmitarbeiter mit Nachtdienst (m/w/d) Germany Motel One Munich-Parkstadt Schwabing Full-time & part-time possible immediately",
         "Fr\u00fchst\u00fccksmitarbeiter (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time & part-time possible immediately",
         "Barmitarbeiter (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately",
         "Public Cleaner (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately",
-        "Haustechniker (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately",
-        "Hotel Manager (m/w/d) Germany Motel One Munich-Sendlinger Tor Full-time from 10/31/2026",
-        "Manager\u202fIT \u2013 Schwerpunkt Workplace & Microsoft 365 (m/w/d) Germany Motel One Munich Headoffice Full-time immediately"
+        "Haustechniker (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately"
       ],
       "unverified_candidates": 8,
       "title_rejected_samples": [
+        "Werkstudent/ Studentische Aushilfe (m/w/d) im Fr\u00fchst\u00fcck Germany The Cloud One Munich-Hauptbahnhof Working student immediately",
+        "Fr\u00fchst\u00fccksmitarbeiter (m/w/d) Germany Motel One Munich-Parkstadt Schwabing Full-time from 10/14/2026",
         "Hausmeister (m/w/d) Germany Motel One Munich-East Side Full-time from 10/31/2026",
         "Empfangsmitarbeiter mit Nachtdienst (m/w/d) Germany Motel One Munich-Parkstadt Schwabing Full-time & part-time possible immediately",
         "Fr\u00fchst\u00fccksmitarbeiter (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time & part-time possible immediately",
         "Barmitarbeiter (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately",
         "Public Cleaner (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately",
-        "Haustechniker (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately",
-        "Hotel Manager (m/w/d) Germany Motel One Munich-Sendlinger Tor Full-time from 10/31/2026",
-        "Manager\u202fIT \u2013 Schwerpunkt Workplace & Microsoft 365 (m/w/d) Germany Motel One Munich Headoffice Full-time immediately"
+        "Haustechniker (m/w/d) Germany Motel One Munich-Deutsches Museum Full-time immediately"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -6406,7 +6354,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 10.1,
+      "seconds": 10.06,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6440,34 +6388,30 @@
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 2,
       "raw_candidates": 3,
-      "date_rejected": 0,
-      "title_rejected": 3,
+      "date_rejected": 3,
+      "title_rejected": 0,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
       "detail_fetches": 0,
       "methods": [
-        "html_link_unverified"
+        "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 4.88,
+      "seconds": 2.49,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Claims Specialist USA",
-        "Customer Service Specialist USA",
-        "Frontend Engineer Israel"
+        "Claims Specialist",
+        "Customer Service Specialist",
+        "Frontend Engineer"
       ],
-      "unverified_candidates": 3,
-      "title_rejected_samples": [
-        "Claims Specialist USA",
-        "Customer Service Specialist USA",
-        "Frontend Engineer Israel"
-      ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "unverified_candidates": 0,
+      "title_rejected_samples": [],
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "WWK Versicherungen",
@@ -6486,7 +6430,7 @@
         "detail_link_unverified"
       ],
       "issues": [],
-      "seconds": 5.79,
+      "seconds": 5.69,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 1,
@@ -6497,8 +6441,8 @@
       "title_rejected_samples": [
         ""
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "LV 1871",
@@ -6517,7 +6461,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.96,
+      "seconds": 0.87,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6562,7 +6506,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 10.64,
+      "seconds": 10.53,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6599,7 +6543,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 5.75,
+      "seconds": 5.21,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6627,7 +6571,7 @@
         "html_card_unverified"
       ],
       "issues": [],
-      "seconds": 7.24,
+      "seconds": 4.3,
       "pagination": {},
       "title_recovered": 3,
       "title_unresolved": 1,
@@ -6643,17 +6587,17 @@
         "",
         "Sales & Development Underwriter (gn) - Commercial Lines"
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "State Street",
       "url": "https://careers.statestreet.com/",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 91,
-      "raw_candidates": 1228,
-      "date_rejected": 196,
-      "title_rejected": 1006,
+      "raw_candidates": 1237,
+      "date_rejected": 195,
+      "title_rejected": 1016,
       "location_rejected": 26,
       "score_rejected": 0,
       "eligible": 0,
@@ -6662,41 +6606,39 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 1230 repeated a page; retaining 1228 unique candidates"
-      ],
-      "seconds": 64.54,
+      "issues": [],
+      "seconds": 62.55,
       "pagination": {
         "pages": 63,
-        "advertised_total": 1230,
-        "unique_candidates": 1228,
-        "completion": "repeated_page"
+        "advertised_total": 1237,
+        "unique_candidates": 1237,
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
+        "Core Operations, Associate 2",
+        "TPRM Ongoing Monitoring Manager, Officer",
+        "Alpha Data Operations - Assistant Manager",
+        "Alpha Data Services \u2013 Product Dependency Lead \u2013 Vice President",
+        "Transfer Agent - Daily Operations, Associate 1",
+        "Alternative Ops Fund Accounting, Associate 2",
         "Alternative Ops Fund Accounting, Senior Associate",
-        "Alternative Ops Fund Accounting, Senior Associate",
-        "Corporate Actions, Associate 1",
-        "Software Engineering & Development, AVP",
-        "Alpha Professional Development Program - Entry level- London July 2027",
-        "Facilitation Officer",
-        "Financial Reporting, Senior Associate",
-        "Core Operations, Associate 2"
+        "ServiceNow Developer - Officer"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
+        "Core Operations, Associate 2",
+        "TPRM Ongoing Monitoring Manager, Officer",
+        "Alpha Data Operations - Assistant Manager",
+        "Alpha Data Services \u2013 Product Dependency Lead \u2013 Vice President",
+        "Transfer Agent - Daily Operations, Associate 1",
+        "Alternative Ops Fund Accounting, Associate 2",
         "Alternative Ops Fund Accounting, Senior Associate",
-        "Alternative Ops Fund Accounting, Senior Associate",
-        "Corporate Actions, Associate 1",
-        "Software Engineering & Development, AVP",
-        "Alpha Professional Development Program - Entry level- London July 2027",
-        "Facilitation Officer",
-        "Financial Reporting, Senior Associate",
-        "Core Operations, Associate 2"
+        "ServiceNow Developer - Officer"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "BNP Paribas",
@@ -6717,7 +6659,7 @@
         "GET https://group.bnpparibas/en/careers/all-job-offers/munich -> HTTP 403",
         "Browser HTTP 403 https://group.bnpparibas/en/careers/all-job-offers/munich"
       ],
-      "seconds": 0.83,
+      "seconds": 1.06,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6742,7 +6684,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.68,
+      "seconds": 7.64,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6769,7 +6711,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.95,
+      "seconds": 1.11,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6800,7 +6742,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.8,
+      "seconds": 0.85,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6832,7 +6774,7 @@
         "ashby_api"
       ],
       "issues": [],
-      "seconds": 2.25,
+      "seconds": 1.94,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6873,7 +6815,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.94,
+      "seconds": 1.13,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6907,7 +6849,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.84,
+      "seconds": 0.72,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6934,7 +6876,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 7.23,
+      "seconds": 7.01,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -6961,7 +6903,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.21,
+      "seconds": 0.42,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7008,7 +6950,7 @@
         "GET https://helsing.ai/de/jobs -> HTTP 429",
         "Browser HTTP 429 https://helsing.ai/de/jobs"
       ],
-      "seconds": 0.75,
+      "seconds": 0.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7035,7 +6977,7 @@
         "ashby_api"
       ],
       "issues": [],
-      "seconds": 0.4,
+      "seconds": 0.41,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7079,7 +7021,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.21,
+      "seconds": 0.18,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7124,7 +7066,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.05,
+      "seconds": 1.01,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7162,7 +7104,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.76,
+      "seconds": 0.87,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7197,7 +7139,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.46,
+      "seconds": 10.61,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7224,7 +7166,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.09,
+      "seconds": 1.16,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7262,7 +7204,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.91,
+      "seconds": 0.65,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7298,7 +7240,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.98,
+      "seconds": 0.99,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7331,7 +7273,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.94,
+      "seconds": 1.05,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7360,7 +7302,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.79,
+      "seconds": 0.76,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7390,7 +7332,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.11,
+      "seconds": 1.22,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7432,7 +7374,7 @@
         "GET https://tangany.jobs.personio.de/?language=de -> HTTP 404",
         "Browser HTTP 404 https://tangany.jobs.personio.de/?language=de"
       ],
-      "seconds": 2.11,
+      "seconds": 1.38,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7495,7 +7437,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 2.49,
+      "seconds": 0.74,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7527,7 +7469,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.36,
+      "seconds": 1.57,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7626,7 +7568,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 2.38,
+      "seconds": 2.6,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7664,7 +7606,7 @@
         "workday_api"
       ],
       "issues": [],
-      "seconds": 1.66,
+      "seconds": 1.88,
       "pagination": {
         "pages": 2,
         "advertised_total": 10,
@@ -7714,7 +7656,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.23,
+      "seconds": 1.28,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7754,7 +7696,7 @@
         "detail_link_unverified"
       ],
       "issues": [],
-      "seconds": 15.63,
+      "seconds": 14.6,
       "pagination": {},
       "title_recovered": 1,
       "title_unresolved": 3,
@@ -7771,8 +7713,8 @@
         "",
         ""
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Jochen Schweizer Arena",
@@ -7789,7 +7731,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.7,
+      "seconds": 8.65,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7814,7 +7756,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.79,
+      "seconds": 9.7,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7841,7 +7783,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 7.38,
+      "seconds": 6.61,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7872,7 +7814,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.55,
+      "seconds": 9.0,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7897,7 +7839,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 11.36,
+      "seconds": 9.49,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7922,7 +7864,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.35,
+      "seconds": 9.26,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -7949,15 +7891,15 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 3.72,
+      "seconds": 3.29,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
         "Senior Engineer, Resource Optimization & Algorithm, IRIS2",
+        "Senior Engineer, Network Orchestration Lead, IRIS2",
         "Senior MCC Engineer, IRIS2",
         "(Senior) Engineer, Software IVV Test & Integration, IRIS2",
-        "Senior Engineer, Network Orchestration Lead, IRIS2",
         "Senior Engineer, IRIS2 Facilities",
         "Change & Configuration Management Specialist, IRIS2 Programme Office",
         "Project Manager, Reporting & Governance Manager, IRIS2 Programme Office",
@@ -7966,9 +7908,9 @@
       "unverified_candidates": 15,
       "title_rejected_samples": [
         "Senior Engineer, Resource Optimization & Algorithm, IRIS2",
+        "Senior Engineer, Network Orchestration Lead, IRIS2",
         "Senior MCC Engineer, IRIS2",
         "(Senior) Engineer, Software IVV Test & Integration, IRIS2",
-        "Senior Engineer, Network Orchestration Lead, IRIS2",
         "Senior Engineer, IRIS2 Facilities",
         "Change & Configuration Management Specialist, IRIS2 Programme Office",
         "(Senior) Engineer, Constellation Simulation, IRIS2",
@@ -7982,9 +7924,9 @@
       "url": "https://sportec-solutions.jobs.personio.de/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 1,
-      "raw_candidates": 16,
+      "raw_candidates": 17,
       "date_rejected": 15,
-      "title_rejected": 1,
+      "title_rejected": 2,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
@@ -7994,7 +7936,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.06,
+      "seconds": 0.93,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8006,11 +7948,12 @@
         "HR Generalist & Event Data Operator (m/f/d)",
         "Initiativbewerbung",
         "IT- / 2nd Level-Support (m/w/d) im Fu\u00dfballdaten-Livebetrieb - Teilzeit (50%)",
-        "Spielbeobachter (m/w/d) \u2013 Fu\u00dfball schauen ohne Schuldgef\u00fchle! \u2013 Minijob / Midijob"
+        "Payroll Specialist / Payroll Manager"
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [
-        "HR Generalist & Event Data Operator (m/f/d)"
+        "HR Generalist & Event Data Operator (m/f/d)",
+        "Payroll Specialist / Payroll Manager"
       ],
       "diagnosis": "FILTERED_RESULTS",
       "recommended_action": "Review rejected-title samples and date/location/score counts."
@@ -8032,7 +7975,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.24,
+      "seconds": 1.17,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8103,7 +8046,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.43,
+      "seconds": 0.32,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8136,7 +8079,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 7.88,
+      "seconds": 7.51,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8156,10 +8099,10 @@
       "company": "Werksviertel-Mitte",
       "url": "https://www.werksviertel-mitte.de/karriere/",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
-      "requests": 2,
-      "raw_candidates": 1,
+      "requests": 1,
+      "raw_candidates": 5,
       "date_rejected": 0,
-      "title_rejected": 1,
+      "title_rejected": 5,
       "location_rejected": 0,
       "score_rejected": 0,
       "eligible": 0,
@@ -8169,16 +8112,24 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 10.1,
+      "seconds": 0.82,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [
-        "Stellenangebot Eventmanger Eigenevent (m/w/d)"
+        "Stellenangebot Eventmanger Eigenevent (m/w/d)",
+        "Stellenangebot Reinigungskraft (m/w/d) f\u00fcrs Au\u00dfengel\u00e4nde",
+        "Stellenangebot M\u00fcllfahrer (m/w/d)",
+        "Stellenangebot Kursleiter (m/w/d)",
+        "Stellenangebot Anlagenmechaniker / Installateur f\u00fcr Heizung, K\u00e4lte, L\u00fcftung, Sanit\u00e4r (M/W/D)"
       ],
-      "unverified_candidates": 1,
+      "unverified_candidates": 5,
       "title_rejected_samples": [
-        "Stellenangebot Eventmanger Eigenevent (m/w/d)"
+        "Stellenangebot Eventmanger Eigenevent (m/w/d)",
+        "Stellenangebot Reinigungskraft (m/w/d) f\u00fcrs Au\u00dfengel\u00e4nde",
+        "Stellenangebot M\u00fcllfahrer (m/w/d)",
+        "Stellenangebot Kursleiter (m/w/d)",
+        "Stellenangebot Anlagenmechaniker / Installateur f\u00fcr Heizung, K\u00e4lte, L\u00fcftung, Sanit\u00e4r (M/W/D)"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -8198,7 +8149,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.9,
+      "seconds": 9.11,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8223,7 +8174,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.21,
+      "seconds": 10.24,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8248,7 +8199,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.7,
+      "seconds": 12.35,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8302,7 +8253,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 4.35,
+      "seconds": 4.22,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8329,7 +8280,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 3.07,
+      "seconds": 2.5,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8367,7 +8318,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 12.93,
+      "seconds": 16.49,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8392,7 +8343,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.41,
+      "seconds": 8.53,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8417,7 +8368,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.63,
+      "seconds": 9.78,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8442,7 +8393,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 15.95,
+      "seconds": 16.1,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8467,7 +8418,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 6.9,
+      "seconds": 7.4,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8494,7 +8445,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.0,
+      "seconds": 0.92,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8527,7 +8478,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 0.81,
+      "seconds": 1.01,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8569,7 +8520,7 @@
         "jsonld"
       ],
       "issues": [],
-      "seconds": 0.18,
+      "seconds": 0.23,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8600,7 +8551,7 @@
     {
       "company": "ArianeGroup",
       "url": "https://www.ariane.group/en/careers/",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 13,
       "raw_candidates": 143,
       "date_rejected": 19,
@@ -8613,15 +8564,13 @@
       "methods": [
         "workday_api"
       ],
-      "issues": [
-        "Workday incomplete pagination: offset 143 repeated a page; retaining 143 unique candidates"
-      ],
-      "seconds": 11.34,
+      "issues": [],
+      "seconds": 12.19,
       "pagination": {
         "pages": 9,
         "advertised_total": 143,
         "unique_candidates": 143,
-        "completion": "repeated_page"
+        "completion": "advertised_total_reached"
       },
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8646,8 +8595,8 @@
         "Fachkraft im Bereich \"Reinheitslabor Raumfahrtkomponenten",
         "Flight Software System Engineer (m/w/d)"
       ],
-      "diagnosis": "INCOMPLETE_PAGINATION",
-      "recommended_action": "Some pages may be missing. Review pagination response and totals."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "nebumind",
@@ -8664,7 +8613,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.14,
+      "seconds": 8.81,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8689,7 +8638,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 8.04,
+      "seconds": 7.42,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8714,7 +8663,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 3.2,
+      "seconds": 2.93,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8741,7 +8690,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 0.81,
+      "seconds": 0.88,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8766,7 +8715,7 @@
       "company": "HUBER+SUHNER",
       "url": "https://recruiting.hubersuhner.com/Jobs/All?lang=de",
       "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
-      "requests": 5,
+      "requests": 4,
       "raw_candidates": 51,
       "date_rejected": 0,
       "title_rejected": 48,
@@ -8774,36 +8723,35 @@
       "score_rejected": 0,
       "eligible": 0,
       "unknown_dates": 0,
-      "detail_fetches": 4,
+      "detail_fetches": 3,
       "methods": [
-        "detail_link_unverified",
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 6.66,
+      "seconds": 5.24,
       "pagination": {},
       "title_recovered": 0,
-      "title_unresolved": 1,
+      "title_unresolved": 0,
       "sample_titles": [
+        "Show-Hide Actionbar",
         "CNC Swiss Lathe Operator",
         "Shift Supervisor",
         "Head of Production Engineering",
         "Key Account Manager Aerospace and Defence DACH",
         "Project Manager (Maternity Cover)",
         "SharePoint Online & Document Management Engineer (f/m)",
-        "Anlagenf\u00fchrer Extrusion",
-        "Technik Obs\u0142ugi Obiektu (k/m)"
+        "Anlagenf\u00fchrer Extrusion"
       ],
       "unverified_candidates": 51,
       "title_rejected_samples": [
+        "Show-Hide Actionbar",
         "CNC Swiss Lathe Operator",
         "Shift Supervisor",
         "Head of Production Engineering",
         "Key Account Manager Aerospace and Defence DACH",
         "SharePoint Online & Document Management Engineer (f/m)",
         "Anlagenf\u00fchrer Extrusion",
-        "Technik Obs\u0142ugi Obiektu (k/m)",
-        "HR Specialist (f/m)"
+        "Technik Obs\u0142ugi Obiektu (k/m)"
       ],
       "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
       "recommended_action": "Candidates include HTML links; extraction is not certified complete."
@@ -8811,7 +8759,7 @@
     {
       "company": "IC Cash Services",
       "url": "https://www.iccash.de/karriere/",
-      "status": "FAILED_OR_BLOCKED",
+      "status": "EMPTY_UNVERIFIED",
       "requests": 2,
       "raw_candidates": 0,
       "date_rejected": 0,
@@ -8822,18 +8770,16 @@
       "unknown_dates": 0,
       "detail_fetches": 0,
       "methods": [],
-      "issues": [
-        "Headless render failed for IC Cash Services: Page.goto: Timeout 15000ms exceeded.\nCall log:\n  - navigating to \"https://www.iccash.de/karriere/\", waiting until \"domcontentloaded\"\n"
-      ],
-      "seconds": 16.74,
+      "issues": [],
+      "seconds": 9.44,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [],
       "unverified_candidates": 0,
       "title_rejected_samples": [],
-      "diagnosis": "BROWSER_ERROR",
-      "recommended_action": "Review browser navigation/rendering warning."
+      "diagnosis": "EMPTY_UNVERIFIED",
+      "recommended_action": "No extracted vacancies; source coverage needs verification."
     },
     {
       "company": "ndF neue deutsche Filmgesellschaft",
@@ -8850,7 +8796,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 10.36,
+      "seconds": 10.61,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8877,7 +8823,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.91,
+      "seconds": 1.56,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8913,7 +8859,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 14.19,
+      "seconds": 12.34,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8938,7 +8884,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 13.23,
+      "seconds": 10.23,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8967,7 +8913,7 @@
         "GET https://www.werksviertel-mitte.de/stellenangebote/energiemanager-mwd/ -> HTTP 404",
         "Browser HTTP 404 https://www.werksviertel-mitte.de/stellenangebote/energiemanager-mwd/"
       ],
-      "seconds": 5.13,
+      "seconds": 5.38,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -8992,7 +8938,7 @@
       "detail_fetches": 0,
       "methods": [],
       "issues": [],
-      "seconds": 9.8,
+      "seconds": 9.48,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -9019,7 +8965,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.17,
+      "seconds": 1.31,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -9059,7 +9005,7 @@
         "existing_ats_adapter"
       ],
       "issues": [],
-      "seconds": 1.81,
+      "seconds": 1.71,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -9078,7 +9024,7 @@
     {
       "company": "Luminovo",
       "url": "https://luminovo.com/careers",
-      "status": "PARTIAL_OR_WARNING",
+      "status": "NO_MATCHES_IN_EXTRACTED_RESULTS",
       "requests": 3,
       "raw_candidates": 4,
       "date_rejected": 4,
@@ -9091,10 +9037,8 @@
       "methods": [
         "ashby_api"
       ],
-      "issues": [
-        "Browser budget exhausted; coverage unverified for Luminovo"
-      ],
-      "seconds": 1.45,
+      "issues": [],
+      "seconds": 0.83,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -9106,8 +9050,8 @@
       ],
       "unverified_candidates": 0,
       "title_rejected_samples": [],
-      "diagnosis": "BROWSER_BUDGET_EXHAUSTED",
-      "recommended_action": "Browser fallback was skipped; extraction coverage unverified."
+      "diagnosis": "FILTERED_RESULTS",
+      "recommended_action": "Review rejected-title samples and date/location/score counts."
     },
     {
       "company": "Tacto",
@@ -9126,7 +9070,7 @@
         "ashby_api"
       ],
       "issues": [],
-      "seconds": 0.08,
+      "seconds": 0.07,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
@@ -9148,38 +9092,57 @@
     {
       "company": "VoiceLine",
       "url": "https://voiceline.ai/de/about",
-      "status": "FAILED_OR_BLOCKED",
-      "requests": 4,
-      "raw_candidates": 0,
+      "status": "PARTIAL_OR_WARNING",
+      "requests": 5,
+      "raw_candidates": 22,
       "date_rejected": 0,
-      "title_rejected": 0,
+      "title_rejected": 21,
       "location_rejected": 0,
       "score_rejected": 0,
-      "eligible": 0,
+      "eligible": 1,
       "unknown_dates": 0,
-      "detail_fetches": 0,
-      "methods": [],
+      "detail_fetches": 1,
+      "methods": [
+        "html_link_unverified"
+      ],
       "issues": [
         "HTTP 404 https://voiceline.jobs.personio.de/xml",
         "GET https://voiceline.jobs.personio.de/xml -> HTTP 404",
         "HTTP 404 https://voiceline.jobs.personio.com/xml",
-        "GET https://voiceline.jobs.personio.com/xml -> HTTP 404",
-        "Browser budget exhausted; coverage unverified for VoiceLine"
+        "GET https://voiceline.jobs.personio.com/xml -> HTTP 404"
       ],
-      "seconds": 2.35,
+      "seconds": 4.73,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
-      "sample_titles": [],
-      "unverified_candidates": 0,
-      "title_rejected_samples": [],
+      "sample_titles": [
+        "Senior Customer Success Manager (f/m/d) M\u00fcnchen Vollzeit Festanstellung",
+        "Business Solutions Architect (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Senior Project Manager Customer Implementations (m/w/d) M\u00fcnchen Vollzeit Festanstellung",
+        "Product Designer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Senior Product Designer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Forward Deployed Engineer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Infrastructure & Security Engineer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Junior Product Engineer (f/m/d) M\u00fcnchen Vollzeit Festanstellung"
+      ],
+      "unverified_candidates": 22,
+      "title_rejected_samples": [
+        "Senior Customer Success Manager (f/m/d) M\u00fcnchen Vollzeit Festanstellung",
+        "Business Solutions Architect (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Product Designer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Senior Product Designer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Forward Deployed Engineer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Infrastructure & Security Engineer (f/m/d) M\u00fcnchen Full-time Permanent employee",
+        "Junior Product Engineer (f/m/d) M\u00fcnchen Vollzeit Festanstellung",
+        "Full Stack Engineering Lead (f/m/d) M\u00fcnchen Full-time Permanent employee"
+      ],
       "diagnosis": "URL_OR_BOARD_NOT_FOUND",
       "recommended_action": "Verify careers URL or board token against the employer site."
     },
     {
       "company": "HENN",
       "url": "https://www.henn.com/en/careers",
-      "status": "FAILED_OR_BLOCKED",
+      "status": "EMPTY_UNVERIFIED",
       "requests": 3,
       "raw_candidates": 0,
       "date_rejected": 0,
@@ -9190,23 +9153,21 @@
       "unknown_dates": 0,
       "detail_fetches": 0,
       "methods": [],
-      "issues": [
-        "Browser budget exhausted; coverage unverified for HENN"
-      ],
-      "seconds": 2.97,
+      "issues": [],
+      "seconds": 11.55,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [],
       "unverified_candidates": 0,
       "title_rejected_samples": [],
-      "diagnosis": "BROWSER_BUDGET_EXHAUSTED",
-      "recommended_action": "Browser fallback was skipped; extraction coverage unverified."
+      "diagnosis": "EMPTY_UNVERIFIED",
+      "recommended_action": "No extracted vacancies; source coverage needs verification."
     },
     {
       "company": "Muenchen Klinik",
       "url": "https://www.muenchen-klinik.de/stellenmarkt/",
-      "status": "FAILED_OR_BLOCKED",
+      "status": "EMPTY_UNVERIFIED",
       "requests": 3,
       "raw_candidates": 0,
       "date_rejected": 0,
@@ -9217,18 +9178,16 @@
       "unknown_dates": 0,
       "detail_fetches": 0,
       "methods": [],
-      "issues": [
-        "Browser budget exhausted; coverage unverified for Muenchen Klinik"
-      ],
-      "seconds": 2.56,
+      "issues": [],
+      "seconds": 5.44,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
       "sample_titles": [],
       "unverified_candidates": 0,
       "title_rejected_samples": [],
-      "diagnosis": "BROWSER_BUDGET_EXHAUSTED",
-      "recommended_action": "Browser fallback was skipped; extraction coverage unverified."
+      "diagnosis": "EMPTY_UNVERIFIED",
+      "recommended_action": "No extracted vacancies; source coverage needs verification."
     },
     {
       "company": "Dr. Lubos Kliniken",
@@ -9248,7 +9207,7 @@
         "html_link_unverified"
       ],
       "issues": [],
-      "seconds": 26.52,
+      "seconds": 25.35,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 7,
@@ -9273,8 +9232,8 @@
         "",
         ""
       ],
-      "diagnosis": "LINK_EXTRACTION_UNVERIFIED",
-      "recommended_action": "Candidates include HTML links; extraction is not certified complete."
+      "diagnosis": "UNRESOLVED_JOB_TITLES",
+      "recommended_action": "Some detail links have no recovered vacancy title; inspect extraction and detail responses."
     },
     {
       "company": "Robert Walters Germany",
@@ -9293,11 +9252,10 @@
         "html_link_unverified"
       ],
       "issues": [
-        "Browser budget exhausted; coverage unverified for Robert Walters Germany",
         "HTTP 403 https://www.robertwalters.de/en/informationtechnology/jobs/itprojectmanager/1908519-technical-project-manager-mwd-embedded-software.html",
         "GET https://www.robertwalters.de/en/informationtechnology/jobs/itprojectmanager/1908519-technical-project-manager-mwd-embedded-software.html -> HTTP 403"
       ],
-      "seconds": 5.02,
+      "seconds": 7.37,
       "pagination": {},
       "title_recovered": 0,
       "title_unresolved": 0,
