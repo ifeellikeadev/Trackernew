@@ -33,17 +33,20 @@ def observe(row):
     finally:logger.removeHandler(handler)
 
 def new_row(company):
-    return dict(company=company['name'],url=company.get('careers_url',''),status='',requests=0,raw_candidates=0,date_rejected=0,title_rejected=0,location_rejected=0,score_rejected=0,eligible=0,unknown_dates=0,detail_fetches=0,methods=[],issues=[],seconds=0)
+    return dict(company=company['name'],url=company.get('careers_url',''),status='',requests=0,raw_candidates=0,date_rejected=0,extraction_unresolved=0,title_rejected=0,location_rejected=0,score_rejected=0,eligible=0,unknown_dates=0,detail_fetches=0,methods=[],issues=[],seconds=0)
 
 def finish(row,error=None):
     row['issues']=list(dict.fromkeys(row['issues']))
     if error:row['status']='ERROR';row['issues'].append(str(error)[:300])
+    elif row['raw_candidates'] and row.get('title_unresolved',0)>=row['raw_candidates']:row['status']='EXTRACTION_INCOMPLETE'
     elif row['issues']:row['status']='PARTIAL_OR_WARNING' if row['raw_candidates'] else 'FAILED_OR_BLOCKED'
     elif not row['raw_candidates']:row['status']='EMPTY_UNVERIFIED'
+    elif row.get('title_unresolved',0):row['status']='PARTIAL_OR_WARNING'
     elif row['eligible']:row['status']='MATCHES_FOUND'
     else:row['status']='NO_MATCHES_IN_EXTRACTED_RESULTS'
     text=' '.join(row['issues']).lower()
-    if '429' in text:category,action='RATE_LIMITED','Reduce repeated requests; respect rate limits. Do not bypass blocks.'
+    if row.get('title_unresolved',0):category,action='UNRESOLVED_JOB_TITLES','Some job titles could not be extracted. These are extraction gaps, not rejected job preferences. Review unresolved URL examples.'
+    elif '429' in text:category,action='RATE_LIMITED','Reduce repeated requests; respect rate limits. Do not bypass blocks.'
     elif 'certificate' in text or 'sslerror' in text:category,action='TLS_ERROR','Verify official URL/certificate. Keep TLS verification enabled.'
     elif 'name_not_resolved' in text or 'nameresolutionerror' in text:category,action='DNS_ERROR','Verify domain; a single run cannot prove a permanent outage.'
     elif '404' in text:category,action='URL_OR_BOARD_NOT_FOUND','Verify careers URL or board token against the employer site.'
@@ -67,7 +70,7 @@ def save_report(rows,path):
 def append_to_page(rows,path):
     path=Path(path)
     if not path.exists():return
-    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
+    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','extraction_unresolved','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
     headers=''.join('<th>'+html.escape(c.replace('_',' ').title())+'</th>' for c in cols)
     body=[]
     for row in rows:
@@ -75,8 +78,10 @@ def append_to_page(rows,path):
         details=html.escape((row.get('recommended_action','')+' | '+('; '.join(row['issues']) or 'No captured HTTP/browser warnings')))
         if row.get('pagination'):
             details += '<br>Pagination: ' + html.escape(json.dumps(row['pagination']))
+        if row.get('unresolved_samples'):
+            details += '<br>Unresolved examples: ' + html.escape(json.dumps(row['unresolved_samples'],ensure_ascii=False))
         samples=html.escape('; '.join(row.get('title_rejected_samples',[])))
         details += '<br>Rejected-title examples: '+samples if samples else ''
         body.append('<tr>'+cells+'<td>'+details+'</td></tr>')
-    section='<h2>Scraper health</h2><p>Empty does not prove no vacancies. Eligible counts precede tracker deduplication. Link candidates may be unverified. Warnings include detail-page requests.</p><div class="scroll-wrap"><table><thead><tr>'+headers+'<th>Issues</th></tr></thead><tbody>'+''.join(body)+'</tbody></table></div>'
+    section='<h2>Scraper health</h2><p>Empty does not prove no vacancies. Eligible counts precede tracker deduplication. Link candidates may be unverified. Unresolved titles are extraction gaps, not title-filter rejections. Warnings include detail-page requests.</p><div class="scroll-wrap"><table><thead><tr>'+headers+'<th>Issues</th></tr></thead><tbody>'+''.join(body)+'</tbody></table></div>'
     text=path.read_text(encoding='utf-8');path.write_text(text.replace('</body>',section+'</body>'),encoding='utf-8')

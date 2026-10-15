@@ -4,7 +4,7 @@ Limits and stopping reasons are recorded; extraction is not a coverage certifica
 import json,logging,re,time
 from urllib.parse import urlparse,urljoin,parse_qs,urlencode,urlunparse
 from bs4 import BeautifulSoup
-from src.vacancy_extract import html_jobs,structured_jobs,plain,dedupe,usable_title,ROLE,clean_label
+from src.vacancy_extract import html_jobs,structured_jobs,plain,dedupe,usable_title,ROLE,clean_label,resolve_job_url,document_base,location as structured_location
 logger=logging.getLogger('job_scraper.ats')
 MAX_PAGES=200
 SOURCE_SECONDS=150
@@ -23,18 +23,21 @@ def json_records(data,url,collection=False,depth=0):
     if isinstance(data,list):
         for item in data:out.extend(json_records(item,url,collection,depth+1))
     elif isinstance(data,dict):
-        title=data.get('jobTitle') or data.get('title') or (data.get('name') if collection else '')
-        target=data.get('jobUrl') or data.get('job_url') or data.get('public_url') or data.get('url')
+        title=data.get('jobTitle') or data.get('job_title') or data.get('title') or (data.get('name') if collection else '')
+        target=data.get('jobUrl') or data.get('job_url') or data.get('absolute_url') or data.get('public_url') or data.get('url')
         if collection and not target and urlparse(url).hostname in ('jobs.infineon.com','jobs.siemens.com','www.jobs.siemens.com') and data.get('id'):
             ident=str(data['id'])
             if re.fullmatch(r'\d+',ident):target=urljoin(url,'/careers/job/'+ident)
         if isinstance(title,str) and usable_title(clean_label(title)) and isinstance(target,str):
-            target=urljoin(url,target)
+            target=resolve_job_url(url,target)
             if job_url(target) and (collection or data.get('jobId') or data.get('jobSeqNo')):
                 locations=[]
                 for key in ('location','locations','multi_location','multi_location_array'):
                     val=data.get(key)
                     if isinstance(val,str):locations.append(val)
+                    elif isinstance(val,dict):
+                        text=structured_location(val) or ', '.join(str(val[k]) for k in ('city','state','country') if isinstance(val.get(k),str))
+                        if text:locations.append(text)
                     elif isinstance(val,list):
                         for loc in val:
                             if isinstance(loc,str):locations.append(loc)
@@ -81,9 +84,9 @@ def card_location(anchor):
 
 def extract_page(html,url):
     out=structured_jobs(html,url)+embedded_jobs(html,url)
-    soup=BeautifulSoup(html,'html.parser')
+    soup=BeautifulSoup(html,'html.parser');base=document_base(soup,url)
     for a in soup.find_all('a',href=True):
-        target=urljoin(url,a['href']);q=parse_qs(urlparse(target).query)
+        target=resolve_job_url(base,a['href']);q=parse_qs(urlparse(target).query)
         is_iabg=urlparse(target).hostname=='jobboerse.iabg.de' and 'jobOfferId' in q
         is_mtu=urlparse(target).hostname in ('www.mtu.de','mtu.de') and bool(re.search(r'/(?:stellenanzeige|job-posting)/[^/]+',urlparse(target).path))
         is_card=a.get('class') and any(x in ('jobTitle-link','job-title-link') for x in a.get('class',[]))
@@ -164,6 +167,8 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
                     candidate=urljoin(page_url,anchor['href'])
                     if urlparse(candidate).hostname==urlparse(page_url).hostname and candidate not in seen and not anchor['href'].startswith(('#','javascript:')):
                         current=candidate;break
+        if not current and not page_jobs and pages==1 and urlparse(page_url).hostname=='careers.allianz.com' and '/de/de/' in page_url:
+            current=page_url.replace('/de/de/','/global/en/',1)
     if current and pages>=max_pages:reason='page_limit'
     elif current and time.monotonic()-started>=seconds:reason='time_limit'
     stats={'reader':'public_html','pages':pages,'unique_candidates':len(jobs),'completion':reason}
@@ -206,12 +211,19 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                 while pages<MAX_PAGES and time.monotonic()-started<seconds:
                     try:html=page.content()
                     except Exception:page.wait_for_timeout(300);html=page.content()
-                    found=extract_page(html,page.url);before=len(jobs);jobs=dedupe(jobs+network_jobs+found);pages+=1
+                    found=extract_page(html,page.url)
+                    for frame in page.frames:
+                        if frame==page.main_frame:continue
+                        parsed_frame=urlparse(frame.url)
+                        if parsed_frame.scheme!='https' or not re.search(r'jobs|career|recruit|dvinci|onlyfy|softgarden|personio',parsed_frame.hostname or '',re.I):continue
+                        try:found.extend(extract_page(frame.content(),frame.url))
+                        except Exception:pass
+                    before=len(jobs);jobs=dedupe(jobs+network_jobs+found);pages+=1
                     signature=tuple(j['url'] for j in found)
                     stagnant=stagnant+1 if signature==previous else 0;previous=signature
                     if stagnant>=2:reason='repeated_page';break
                     control=None
-                    for selector in ('a[rel="next"]','button[aria-label*="Next"]','button[aria-label*="next"]','a[aria-label*="Next"]','button[aria-label*="Weiter"]','button[aria-label*="Nächste"]','button:has-text("Load more")','button:has-text("Show more jobs")','button:has-text("Mehr Stellen")','button:has-text("Next")','a:has-text("Next")','a:has-text("Weiter")','button:has-text("Stellen suchen")','button:has-text("Search Jobs")'):
+                    for selector in ('a[rel="next"]','button[aria-label*="next" i]','a[aria-label*="next" i]','button[title*="next" i]','[role="button"][aria-label*="next" i]','button[aria-label*="nächste" i]','button[aria-label*="Next"]','button[aria-label*="next"]','a[aria-label*="Next"]','button[aria-label*="Weiter"]','button[aria-label*="Nächste"]','button:has-text("Load more")','button:has-text("Show more jobs")','button:has-text("Mehr Stellen")','button:has-text("Next")','a:has-text("Next")','a:has-text("Weiter")','button:has-text("Stellen suchen")','button:has-text("Search Jobs")'):
                         candidates=page.locator(selector)
                         for index in range(min(candidates.count(),4)):
                             candidate=candidates.nth(index)
@@ -257,12 +269,14 @@ def scrape_eightfold(name,url,domain,get,max_pages=500,seconds=SOURCE_SECONDS):
         if not new:reason='repeated_or_unreadable_page';break
         for j in new:j['_extraction']='eightfold_public_api';seen.add(j['url'])
         jobs.extend(new);start+=len(positions)
+        if total is not None and total>10 and len(jobs)>=total:
+            reason='reported_total_reached';break
     if pages>=max_pages:reason='page_limit'
     elif time.monotonic()-began>=seconds:reason='time_limit'
     if reason=='empty_page' and total is not None and len(jobs)<total:
         reason='count_mismatch'
     stats={'reader':'eightfold_public_api','pages':pages,'advertised_total':total,'unique_candidates':len(jobs),'completion':reason}
-    if reason!='empty_page' or not jobs:
+    if reason not in ('empty_page','reported_total_reached') or not jobs:
         logger.warning('Eightfold pagination %s: %s',name,json.dumps(stats))
         if not jobs:
             return scrape_html_board(name,url,get)

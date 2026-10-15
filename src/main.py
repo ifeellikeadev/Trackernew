@@ -6,6 +6,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from src.ats_scrapers import scrape_company,fetch_job_details,reset_headless_budget
 from src.matcher import filter_by_title_only,resolve_city_for_job,extract_location_snippet,score_jobs
 from src.job_recency import filter_recent_jobs,parse_posted
+from src.vacancy_extract import usable_title
 from src.tracker import update_tracker
 from src.generate_html import generate as generate_html
 from src.scraper_health import observe,new_row,finish,save_report,append_to_page
@@ -30,6 +31,15 @@ def excluded(company):
 def scrape_all_any_city(companies,cv_profile):
     jobs=[];reports=[];counts={'ok':0,'empty':0,'errored':0,'total':0,'title_matched':0,'location_confirmed':0}
     detail_cache={}
+    def cached_details(url,row):
+        if not url:return {},''
+        if url not in detail_cache:
+            row['detail_fetches']+=1
+            try:detail_cache[url]=fetch_job_details(url)
+            except Exception as exc:
+                row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180])
+                detail_cache[url]=({},'')
+        return detail_cache[url]
     for company in companies:
         if excluded(company):continue
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
@@ -41,39 +51,38 @@ def scrape_all_any_city(companies,cv_profile):
                 row['title_unresolved'] = 0
                 recovery_budget = 60
                 for candidate in raw:
-                    if not candidate.get('_needs_title'):continue
+                    if usable_title(candidate.get('title','')) and not candidate.get('_needs_title'):continue
                     if recovery_budget <= 0:
                         row['title_unresolved'] += 1
                         continue
                     recovery_budget -= 1
-                    url = candidate['url']
-                    if url not in detail_cache:
-                        detail_cache[url] = fetch_job_details(url)
-                        row['detail_fetches'] += 1
-                    details, _ = detail_cache[url]
-                    if details.get('title'):
-                        for field in ('title','location','description','posted_date'):
+                    url = candidate.get('_detail_api_url') or candidate.get('url','')
+                    details, _ = cached_details(url,row)
+                    if usable_title(details.get('title','')):
+                        candidate['title']=details['title']
+                        for field in ('location','description','posted_date'):
                             if not candidate.get(field) and details.get(field):candidate[field] = details[field]
                         candidate.pop('_needs_title', None)
                         row['title_recovered'] += 1
                     else:row['title_unresolved'] += 1
+                row['unresolved_samples']=[{'url':j.get('url',''),'label':j.get('title','')} for j in raw if j.get('_needs_title') or not usable_title(j.get('title',''))][:8]
                 row['sample_titles']=[str(j.get('title',''))[:160] for j in raw[:8]]
                 row['unverified_candidates']=sum(str(j.get('_extraction','')).endswith('_unverified') for j in raw)
                 row['methods']=sorted({j.get('_extraction','existing_ats_adapter') for j in raw})
                 # Reject known old dates before title filtering; undated stay.
                 recent=filter_recent_jobs(raw);row['date_rejected']=len(raw)-len(recent)
-                titled=filter_by_title_only(recent,cv_profile);row['title_rejected']=len(recent)-len(titled)
-                row['title_rejected_samples']=[str(j.get('title',''))[:160] for j in recent if j not in titled][:8]
+                readable=[j for j in recent if usable_title(j.get('title','')) and not j.get('_needs_title')]
+                row['extraction_unresolved']=len(recent)-len(readable)
+                titled=filter_by_title_only(readable,cv_profile);row['title_rejected']=len(readable)-len(titled)
+                row['title_rejected_samples']=[str(j.get('title',''))[:160] for j in readable if j not in titled][:8]
                 counts['title_matched']+=len(titled)
                 confirmed=[]
                 for job in titled:
                     text=None
                     # Fetch once per URL only for survivors missing useful fields.
                     if job.get('url') and (not job.get('location') or not job.get('description') or not job.get('posted_date')):
-                        url=job['url']
-                        if url not in detail_cache:
-                            detail_cache[url]=fetch_job_details(job.get('_detail_api_url') or url);row['detail_fetches']+=1
-                        details,text=detail_cache[url]
+                        url=job.get('_detail_api_url') or job['url']
+                        details,text=cached_details(url,row)
                         for field in ('location','description','posted_date'):
                             if not job.get(field) and details.get(field):job[field]=details[field]
                     # Structured detail may supply a previously unknown old date.
@@ -97,7 +106,7 @@ def scrape_all_any_city(companies,cv_profile):
         except Exception as exc:
             error=exc;counts['errored']+=1;logger.exception('FAILED %s',company['name'])
         row['seconds']=round(time.monotonic()-start,2);finish(row,error);reports.append(row)
-        logger.info('HEALTH %s | %s | raw=%d date=%d title=%d location=%d score=%d eligible=%d',company['name'],row['status'],row['raw_candidates'],row['date_rejected'],row['title_rejected'],row['location_rejected'],row['score_rejected'],row['eligible'])
+        logger.info('HEALTH %s | %s | raw=%d date=%d unresolved=%d title=%d location=%d score=%d eligible=%d',company['name'],row['status'],row['raw_candidates'],row['date_rejected'],row['extraction_unresolved'],row['title_rejected'],row['location_rejected'],row['score_rejected'],row['eligible'])
         time.sleep(.3)
     save_report(reports,HEALTH_FILE)
     return jobs,counts,reports
@@ -106,7 +115,7 @@ def run():
     profile=load_yaml(CV_PROFILE_FILE);reset_headless_budget()
     companies=load_yaml(COMPANIES_FILE).get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
     jobs,counts,reports=scrape_all_any_city(companies,profile)
-    if not reports or all(row['status'] in ('ERROR', 'FAILED_OR_BLOCKED', 'EMPTY_UNVERIFIED') for row in reports):
+    if not reports or all(row['status'] in ('ERROR', 'FAILED_OR_BLOCKED', 'EMPTY_UNVERIFIED', 'EXTRACTION_INCOMPLETE') for row in reports):
         raise RuntimeError('No usable source results; existing tracker and webpage retained.')
     summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0))
     generate_html();append_to_page(reports,ROOT/'docs/index.html')

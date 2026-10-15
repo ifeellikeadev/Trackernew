@@ -43,6 +43,23 @@ def usable_title(title):
     title = clean_label(title)
     return bool(3<=len(title)<=200 and not NAV.fullmatch(title) and not APPLY.fullmatch(title))
 
+def resolve_job_url(base, target):
+    """Resolve observed links, including Google's app-root-relative results links."""
+    if not isinstance(target, str) or not target.strip():return ''
+    target=target.strip()
+    parsed=urlparse(base)
+    if parsed.hostname in ('google.com','www.google.com','careers.google.com') and target.startswith('jobs/results/') and '/jobs/results' in parsed.path:
+        root=parsed.path.split('/jobs/results',1)[0]
+        return urljoin(base,root+'/'+target)
+    return urljoin(base,target)
+
+def document_base(soup,url):
+    tag=soup.find('base',href=True)
+    if tag:
+        target=urljoin(url,tag['href'])
+        if urlparse(target).scheme in ('http','https') and urlparse(target).hostname==urlparse(url).hostname:return target
+    return url
+
 def structured_jobs(html,url):
     soup=BeautifulSoup(html,'html.parser');jobs=[]
     for script in soup.find_all('script',type='application/ld+json'):
@@ -51,33 +68,47 @@ def structured_jobs(html,url):
         for item in items:
             title=plain(item.get('title'));target=item.get('url') or (url if len(items)==1 else '')
             if not usable_title(title) or not isinstance(target,str) or not target:continue
-            target=urljoin(url,target)
+            target=resolve_job_url(document_base(soup,url),target)
             if urlparse(target).scheme not in ('http','https'):continue
             jobs.append(dict(title=title,location=location(item.get('jobLocation')),url=target,description=plain(item.get('description')),posted_date=item.get('datePosted') or '',_extraction='jsonld'))
     return dedupe(jobs)
 
 def dedupe(jobs):
-    result=[];seen=set()
-    for j in jobs:
-        key=j.get('url','').split('#')[0]
-        if key and key not in seen:seen.add(key);result.append(j)
+    """Keep stable order and enrich duplicate URLs instead of losing richer cards."""
+    result=[];seen={}
+    for original in jobs:
+        key=str(original.get('url','')).split('#')[0]
+        if not key:continue
+        if key not in seen:
+            item=dict(original);seen[key]=item;result.append(item);continue
+        item=seen[key]
+        if usable_title(original.get('title','')) and (not usable_title(item.get('title','')) or item.get('_needs_title')):
+            item['title']=original['title'];item.pop('_needs_title',None)
+        for field in ('location','description','posted_date','_detail_api_url','_pagination'):
+            if not item.get(field) and original.get(field):item[field]=original[field]
+        if original.get('_extraction') in ('jsonld','public_embedded_jobs'):
+            item['_extraction']=original['_extraction']
     return result
 
 def card_title(anchor):
     # Recover a nearby title only from a small card, not the whole job board.
     for parent in list(anchor.parents)[:3]:
         if parent.name in ('body','html','nav','footer','header'):break
-        headings=parent.select('h2,h3,h4,[itemprop="title"],.job-title,.position-title')
+        headings=parent.select('h2,h3,h4,h5,h6,[itemprop="title"],.job-title,.position-title,[data-ph-at-id="job-link"],.jobTitle')
         valid=list(dict.fromkeys(clean_label(h.get_text(' ',strip=True)) for h in headings if usable_title(h.get_text(' ',strip=True))))
         if len(valid)==1:return valid[0],parent
         if len(valid)>1:break
     return '',None
 
 def html_jobs(html,url):
-    structured=structured_jobs(html,url);soup=BeautifulSoup(html,'html.parser');jobs=[]
+    structured=structured_jobs(html,url);soup=BeautifulSoup(html,'html.parser');jobs=[];base=document_base(soup,url)
     for a in soup.find_all('a',href=True):
         if a.find_parent(['nav','footer','header']):continue
-        target=urljoin(url,a['href']);parsed=urlparse(target);title=anchor_label(a)
+        target=resolve_job_url(base,a['href']);parsed=urlparse(target);title=anchor_label(a)
+        if not usable_title(title):
+            for attr in ('title','aria-label'):
+                label=clean_label(a.get(attr,''))
+                if usable_title(label) and ROLE.search(label):title=label;break
         if parsed.scheme not in ('http','https') or parsed.path.lower().endswith(('.pdf','.png','.jpg','.css','.js')) or BAD_PATH.search(parsed.path):continue
         if NAV.fullmatch(title):continue
         query=parse_qs(parsed.query)
@@ -95,7 +126,7 @@ def html_jobs(html,url):
         if card is None:
             for parent in list(a.parents)[:3]:
                 if parent.name in ('body','html','main'):break
-                links={link.get('href') for link in parent.select('a[href]') if DETAIL.search(urlparse(urljoin(url,link.get('href',''))).path)}
+                links={link.get('href') for link in parent.select('a[href]') if DETAIL.search(urlparse(resolve_job_url(base,link.get('href',''))).path)}
                 if len(links)>1:break
                 if parent.select_one('[itemprop="jobLocation"],.job-location,.position-location,[data-testid="job-location"],[data-ph-at-id="job-location"]'):
                     card=parent;break

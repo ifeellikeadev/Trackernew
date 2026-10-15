@@ -252,12 +252,14 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
                          "posted_date": posted, "_extraction": "smartrecruiters_api",
                          "_detail_api_url": base + "/" + quote(ident, safe="")})
         if not added:
-            raise RuntimeError("SmartRecruiters repeated a page; pagination incomplete")
+            logger.warning("SmartRecruiters incomplete pagination: repeated page; retaining %s candidates", len(jobs))
+            return jobs
         offset += len(page)
         total = data.get("totalFound")
         if total is not None and offset >= int(total):
             return jobs
-    raise RuntimeError("SmartRecruiters pagination safety limit reached")
+    logger.warning("SmartRecruiters incomplete pagination: safety limit; retaining %s candidates", len(jobs))
+    return jobs
 
 
 # --------------------------------------------------------------------------
@@ -336,7 +338,7 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
 # Workday
 # --------------------------------------------------------------------------
 _WORKDAY_URL_RE = re.compile(
-    r"https?://([\w-]+)\.(wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([\w-]+)"
+    r"https?://([\w-]+)\.(wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[a-z]{2}/)?((?!wday(?:/|$))[\w-]+)", re.I
 )
 
 
@@ -361,19 +363,12 @@ def _discover_workday_url(careers_url: str) -> str | None:
     was found (a real signal that the company likely isn't on Workday
     at all, whatever the config guessed).
     """
-    try:
-        resp = requests.get(careers_url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True)
-    except requests.RequestException:
-        return None
-
-    if _WORKDAY_URL_RE.search(resp.url):
-        return resp.url
-
-    match = _WORKDAY_URL_RE.search(resp.text)
-    if match:
-        return match.group(0)
-
-    return None
+    resp = _safe_get(careers_url, allow_redirects=True)
+    if resp is None:return None
+    if _WORKDAY_URL_RE.search(resp.url):return resp.url
+    source = html_lib.unescape(resp.text).replace('\\/', '/')
+    match = _WORKDAY_URL_RE.search(source)
+    return match.group(0) if match else None
 
 
 def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
@@ -426,7 +421,9 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
             break
         pages += 1
         if data.get('total') is not None:
-            advertised_total = int(data['total'])
+            try:advertised_total = int(data['total'])
+            except (ValueError,TypeError):
+                logger.warning('Workday invalid advertised total for %s', company_name)
         if not page:
             completion = 'empty_page'
             if advertised_total is not None and offset < advertised_total:
@@ -441,11 +438,18 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
                          "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
                          "_extraction": "workday_api"})
         if not added:
-            completion = 'repeated_page'
-            logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
+            if advertised_total is not None and len(jobs) >= advertised_total:
+                completion = 'reported_total_reached'
+            else:
+                completion = 'repeated_page'
+                logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
             break
         offset += len(page)
-        # Probe beyond a reported total to detect feeds reporting page-sized totals.
+        # Stop at a multi-page reported total. Probe a page-sized total once:
+        # some feeds have reported only the first page's size as their total.
+        if advertised_total is not None and advertised_total > 20 and len(jobs) >= advertised_total:
+            completion = 'reported_total_reached'
+            break
     else:
         logger.warning("Workday incomplete pagination: safety limit reached; retaining partial results")
     for job in jobs:
@@ -711,7 +715,9 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     Only runs any of this if current_result is already thin — a
     healthy result never pays any of these costs.
     """
-    if len(current_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
+    from src.vacancy_extract import usable_title
+    usable = sum(usable_title(j.get('title','')) and not j.get('_needs_title') for j in current_result)
+    if usable >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return current_result
 
     best_result = current_result
@@ -720,12 +726,16 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     discovered_url, platform, token = discover_real_careers_url(careers_url)
     if discovered_url:
         best_url = discovered_url
-        if platform in _PLATFORM_SCRAPERS:
-            candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
-        elif platform == "workday":
-            candidate = scrape_workday(company_name, discovered_url)
-        else:
-            candidate = scrape_generic(company_name, discovered_url)
+        try:
+            if platform in _PLATFORM_SCRAPERS:
+                candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
+            elif platform == "workday":
+                candidate = scrape_workday(company_name, discovered_url)
+            else:
+                candidate = scrape_generic(company_name, discovered_url)
+        except Exception as exc:
+            logger.warning('Discovered board failed for %s; keeping existing candidates: %s',company_name,str(exc)[:200])
+            candidate = []
         # Same reasoning as the headless case below: any NON-EMPTY
         # result from here wins outright, not just a bigger one — a
         # real platform's own API (or a retry against the actually-
@@ -734,14 +744,15 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         if candidate:
             best_result = candidate
 
-    if len(best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
+    if sum(usable_title(j.get('title','')) and not j.get('_needs_title') for j in best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return best_result
     if headless_budget_remaining() <= 0:
         logger.warning("Browser budget exhausted; coverage unverified for %s", company_name)
         return best_result
 
     headless_result = scrape_headless(company_name, best_url)
-    return headless_result if headless_result else best_result
+    from src.vacancy_extract import dedupe
+    return dedupe(best_result + headless_result)
 
 
 # Kept as an alias: _maybe_headless_upgrade was the name used before
