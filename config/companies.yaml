@@ -272,8 +272,8 @@ companies:
 - name: Celonis
   city: Munich
   careers_url: https://careers.celonis.com/
-  ats: auto
-  board_token: ''
+  ats: greenhouse
+  board_token: celonis
 - name: Quantum Systems
   city: Munich
   careers_url: https://career.quantum-systems.com/
