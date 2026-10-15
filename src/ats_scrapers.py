@@ -212,11 +212,15 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
     for _ in range(200):
         resp = _safe_get(base, params={"limit": 100, "offset": offset})
         if resp is None:
-            raise RuntimeError(f"SmartRecruiters feed unavailable at offset {offset}")
-        data = resp.json()
-        page = data.get("content", [])
-        if not isinstance(page, list):
-            raise ValueError("SmartRecruiters content must be a list")
+            logger.warning("SmartRecruiters incomplete pagination at offset %s; retaining %s candidates", offset, len(jobs))
+            return jobs
+        try:
+            data = resp.json()
+            page = data.get("content", [])
+            if not isinstance(page, list):raise ValueError("SmartRecruiters content must be a list")
+        except (ValueError, TypeError, AttributeError) as exc:
+            logger.warning("SmartRecruiters incomplete pagination at offset %s: %s; retaining %s candidates", offset, str(exc)[:200], len(jobs))
+            return jobs
         if not page:
             if data.get("totalFound") is not None and offset < int(data["totalFound"]):
                 logger.warning("SmartRecruiters incomplete pagination: retrieved %s of %s", offset, data["totalFound"])
@@ -410,17 +414,22 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
     advertised_total = None
     completion = 'safety_limit'
     for _ in range(500):
-        resp = requests.post(api_url, json={"limit": 20, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=TIMEOUT)
-        resp.raise_for_status()
-        data = resp.json()
-        page = data.get("jobPostings", [])
-        if not isinstance(page, list):raise ValueError("Workday jobPostings must be a list")
+        try:
+            resp = requests.post(api_url, json={"limit": 20, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=TIMEOUT)
+            resp.raise_for_status()
+            data = resp.json()
+            page = data.get("jobPostings", [])
+            if not isinstance(page, list):raise ValueError("Workday jobPostings must be a list")
+        except (requests.RequestException, ValueError, TypeError, AttributeError) as exc:
+            completion = 'request_or_schema_failure'
+            logger.warning("Workday incomplete pagination at offset %s: %s; retaining %s candidates", offset, str(exc)[:200], len(jobs))
+            break
         pages += 1
         if data.get('total') is not None:
             advertised_total = int(data['total'])
         if not page:
             completion = 'empty_page'
-            if advertised_total is not None and len(jobs) < advertised_total:
+            if advertised_total is not None and offset < advertised_total:
                 logger.warning("Workday incomplete pagination: retrieved %s of advertised %s", offset, advertised_total)
             break
         added = 0
@@ -432,12 +441,8 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
                          "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
                          "_extraction": "workday_api"})
         if not added:
-            if advertised_total is not None and len(jobs) >= advertised_total:
-                completion = 'advertised_total_reached'
-                logger.info("Workday probe repeated after advertised total: %s unique candidates", len(jobs))
-            else:
-                completion = 'repeated_page'
-                logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
+            completion = 'repeated_page'
+            logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
             break
         offset += len(page)
         # Probe beyond a reported total to detect feeds reporting page-sized totals.
@@ -497,11 +502,11 @@ JOB_LINK_HINTS = re.compile(
 
 
 def scrape_generic(company_name, careers_url):
-    from src.vacancy_extract import html_jobs
+    from src.public_boards import extract_page
     resp = _safe_get(careers_url)
     if resp is None:
         return []
-    return html_jobs(resp.text, resp.url or careers_url)
+    return extract_page(resp.text, resp.url or careers_url)
 
 
 # --------------------------------------------------------------------------
@@ -604,8 +609,8 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
         return []
     _headless_time_used += time.monotonic() - start
 
-    from src.vacancy_extract import html_jobs
-    return html_jobs(html, final_url)
+    from src.public_boards import extract_page
+    return extract_page(html, final_url)
 
 
 # --------------------------------------------------------------------------
@@ -706,8 +711,6 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     Only runs any of this if current_result is already thin — a
     healthy result never pays any of these costs.
     """
-    if current_result and all(j.get('_extraction') in ('ashby_api', 'workday_api', 'smartrecruiters_api') for j in current_result):
-        return current_result
     if len(current_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return current_result
 
@@ -717,16 +720,12 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     discovered_url, platform, token = discover_real_careers_url(careers_url)
     if discovered_url:
         best_url = discovered_url
-        try:
-            if platform in _PLATFORM_SCRAPERS:
-                candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
-            elif platform == "workday":
-                candidate = scrape_workday(company_name, discovered_url)
-            else:
-                candidate = scrape_generic(company_name, discovered_url)
-        except Exception as exc:
-            logger.warning("Discovered adapter failed for %s; retaining candidates: %s", company_name, exc)
-            candidate = []
+        if platform in _PLATFORM_SCRAPERS:
+            candidate = _PLATFORM_SCRAPERS[platform](company_name, token or "")
+        elif platform == "workday":
+            candidate = scrape_workday(company_name, discovered_url)
+        else:
+            candidate = scrape_generic(company_name, discovered_url)
         # Same reasoning as the headless case below: any NON-EMPTY
         # result from here wins outright, not just a bigger one — a
         # real platform's own API (or a retry against the actually-
@@ -734,8 +733,6 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         # fewer raw entries than whatever junk the thin result had.
         if candidate:
             best_result = candidate
-            if platform in _PLATFORM_SCRAPERS or platform == "workday":
-                return candidate
 
     if len(best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return best_result
@@ -744,8 +741,7 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         return best_result
 
     headless_result = scrape_headless(company_name, best_url)
-    from src.vacancy_extract import dedupe
-    return dedupe(headless_result + best_result)
+    return headless_result if headless_result else best_result
 
 
 # Kept as an alias: _maybe_headless_upgrade was the name used before
@@ -773,6 +769,12 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
     token = company.get("board_token") or ""
 
     try:
+        if ats == "public_board":
+            from src.public_boards import scrape_html_board
+            return scrape_html_board(name, careers_url, _safe_get)
+        if ats == "eightfold":
+            from src.public_boards import scrape_eightfold
+            return scrape_eightfold(name, careers_url, token, _safe_get)
         if ats == "ashby":
             match = _PLATFORM_URL_PATTERNS["ashby"].search(careers_url)
             return scrape_ashby(name, token or (match.group(1) if match else ""))
@@ -839,5 +841,17 @@ def fetch_job_details(url):
         recovered = detail_title(resp.text)
         if recovered:details = {'title': recovered}
     soup = BeautifulSoup(resp.text, 'html.parser')
+    if not details.get('location'):
+        location_tag = soup.select_one('[itemprop="jobLocation"],.job-location,.jobLocation,.job-location-label,[data-ph-at-id="job-location"],[data-testid="job-location"]')
+        if location_tag:
+            details['location'] = location_tag.get_text(' ', strip=True)
+        else:
+            for label in soup.select('dt,th'):
+                if label.get_text(' ', strip=True).lower().rstrip(':') in ('standort','standorte','location','locations','arbeitsort'):
+                    value = label.find_next_sibling(['dd','td'])
+                    if value:details['location'] = value.get_text(' ', strip=True);break
+    if not details.get('posted_date'):
+        posted = soup.select_one('[itemprop="datePosted"]')
+        if posted:details['posted_date'] = posted.get('content') or posted.get('datetime') or posted.get_text(' ',strip=True)
     for tag in soup(['script','style','nav','footer','header']):tag.decompose()
     return details, soup.get_text(' ',strip=True)[:10000]

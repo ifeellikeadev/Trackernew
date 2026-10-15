@@ -39,7 +39,7 @@ def scrape_all_any_city(companies,cv_profile):
                 row['pagination'] = next((j['_pagination'] for j in raw if j.get('_pagination')), {})
                 row['title_recovered'] = 0
                 row['title_unresolved'] = 0
-                recovery_budget = 20
+                recovery_budget = 60
                 for candidate in raw:
                     if not candidate.get('_needs_title'):continue
                     if recovery_budget <= 0:
