@@ -7,8 +7,8 @@ companies:
 - name: Siemens
   city: Munich
   careers_url: https://jobs.siemens.com/careers
-  ats: auto
-  board_token: ''
+  ats: eightfold
+  board_token: siemens.com
 - name: Siemens Energy
   city: Munich
   careers_url: https://jobs.siemens-energy.com/en_US/jobs/SearchJobsGermany
@@ -22,12 +22,12 @@ companies:
 - name: Infineon Technologies
   city: Munich
   careers_url: https://jobs.infineon.com/careers
-  ats: auto
-  board_token: ''
+  ats: eightfold
+  board_token: infineon.com
 - name: MTU Aero Engines
   city: Munich
-  careers_url: https://www.mtu.de/careers/
-  ats: auto
+  careers_url: https://www.mtu.de/de/karriere/jobboerse/
+  ats: public_board
   board_token: ''
 - name: Linde
   city: Munich
@@ -101,8 +101,8 @@ companies:
   board_token: ''
 - name: IABG
   city: Munich
-  careers_url: https://www.iabg.de/en/careers
-  ats: auto
+  careers_url: https://jobboerse.iabg.de/engage/jobexchange/searchJobOffersQuick.do?languageChanged=true&j=myjobexchange
+  ats: public_board
   board_token: ''
 - name: ESG Elektroniksystem- und Logistik
   city: Munich
@@ -111,8 +111,8 @@ companies:
   board_token: ''
 - name: Allianz
   city: Munich
-  careers_url: https://careers.allianz.com/
-  ats: auto
+  careers_url: https://careers.allianz.com/de/de/search-results?s=1
+  ats: public_board
   board_token: ''
 - name: Munich Re
   city: Munich
@@ -126,13 +126,13 @@ companies:
   board_token: ''
 - name: BayernLB
   city: Munich
-  careers_url: https://www.bayernlb.de/internet/en/karriere/index.jsp
-  ats: auto
+  careers_url: https://jobs.bayernlb.de/?currentPage=1&pageSize=12
+  ats: public_board
   board_token: ''
 - name: Versicherungskammer Bayern
   city: Munich
-  careers_url: https://www.versicherungskammer-bayern.de/karriere
-  ats: auto
+  careers_url: https://stellenangebote.vkb.de/
+  ats: public_board
   board_token: ''
 - name: Stadtwerke Muenchen
   city: Munich
@@ -311,8 +311,8 @@ companies:
   board_token: proxima-fusion
 - name: ITM Isotopen Technologien Muenchen
   city: Munich
-  careers_url: https://www.itm-radiopharma.com/en/career/
-  ats: auto
+  careers_url: https://itm.onlyfy.jobs/
+  ats: public_board
   board_token: ''
 - name: Personio
   city: Munich
@@ -336,9 +336,9 @@ companies:
   board_token: ''
 - name: Tubulis
   city: Munich
-  careers_url: https://tubulis.com/careers/
-  ats: auto
-  board_token: ''
+  careers_url: https://tubulis-gmbh.jobs.personio.com/?language=en
+  ats: personio
+  board_token: tubulis-gmbh
 - name: Orbem
   city: Munich
   careers_url: https://orbem.ai/careers/
@@ -371,9 +371,9 @@ companies:
   board_token: ''
 - name: Building Radar
   city: Munich
-  careers_url: https://www.buildingradar.com/careers
-  ats: auto
-  board_token: ''
+  careers_url: https://building-radar.jobs.personio.de/?language=en
+  ats: personio
+  board_token: building-radar
 - name: Tado
   city: Munich
   careers_url: https://tado.jobs.personio.de/?language=en
@@ -386,8 +386,8 @@ companies:
   board_token: ''
 - name: Interhyp
   city: Munich
-  careers_url: https://www.interhyp.de/karriere/
-  ats: auto
+  careers_url: https://jobs.interhyp.de/search
+  ats: public_board
   board_token: ''
 - name: NavVis
   city: Munich
@@ -406,9 +406,9 @@ companies:
   board_token: ''
 - name: Ottonova
   city: Munich
-  careers_url: https://www.ottonova.de/karriere
-  ats: auto
-  board_token: ''
+  careers_url: https://ottonova.jobs.personio.de/
+  ats: personio
+  board_token: ottonova
 - name: SimScale
   city: Munich
   careers_url: https://www.simscale.com/careers/
@@ -431,8 +431,8 @@ companies:
   board_token: ''
 - name: MediaMarktSaturn
   city: Munich
-  careers_url: https://www.mediamarktsaturn.com/en/careers
-  ats: auto
+  careers_url: https://careers.mediamarktsaturn.com/MediaMarktSaturn/content/letsgo/?locale=de_DE
+  ats: public_board
   board_token: ''
 - name: Fujitsu Germany
   city: Munich
@@ -451,13 +451,13 @@ companies:
   board_token: ''
 - name: Wacker Neuson
   city: Munich
-  careers_url: https://www.wackerneuson.com/en/career/
-  ats: auto
+  careers_url: https://wackerneusongroup.com/en/careers/current-job-openings
+  ats: public_board
   board_token: ''
 - name: BayWa
   city: Munich
-  careers_url: https://www.baywa.com/en/career/
-  ats: auto
+  careers_url: https://www.baywa.com/jobs
+  ats: public_board
   board_token: ''
 - name: EY Germany
   city: Munich
@@ -481,8 +481,8 @@ companies:
   board_token: ''
 - name: KraussMaffei
   city: Munich
-  careers_url: https://www.kraussmaffei.com/en/careers
-  ats: auto
+  careers_url: https://jobs.kraussmaffei.com/?locale=de_DE
+  ats: public_board
   board_token: ''
 - name: Siltronic
   city: Munich
@@ -491,8 +491,8 @@ companies:
   board_token: ''
 - name: BayWa r.e.
   city: Munich
-  careers_url: https://careers.baywa-re.com/en/
-  ats: auto
+  careers_url: https://bayware.wd3.myworkdayjobs.com/jobsatbayware
+  ats: workday
   board_token: ''
 - name: Apple Munich
   city: Munich
@@ -1041,9 +1041,9 @@ companies:
   board_token: ''
 - name: Helsing
   city: Munich
-  careers_url: https://helsing.ai/de/jobs
-  ats: auto
-  board_token: ''
+  careers_url: https://helsing.ai/jobs
+  ats: greenhouse
+  board_token: helsing
 - name: RobCo
   city: Munich
   careers_url: https://www.rob.co/careers
@@ -1101,9 +1101,9 @@ companies:
   board_token: green-flexibility
 - name: Tangany
   city: Munich
-  careers_url: https://tangany.jobs.personio.de/?language=de
-  ats: personio
-  board_token: tangany
+  careers_url: https://join.com/companies/tangany
+  ats: public_board
+  board_token: ''
 - name: TNG Technology Consulting
   city: Munich
   careers_url: https://tngtech.jobs.personio.de/?language=de
