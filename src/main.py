@@ -1,4 +1,4 @@
-"""Synchronous Munich-region pipeline with auditable filtering and review queue."""
+"""Synchronous Munich-region pipeline with auditable filtering and confirmed-location results only."""
 import logging,re,sys,time
 from collections import Counter
 from pathlib import Path
@@ -66,7 +66,7 @@ def scrape_all_any_city(companies,cv_profile):
     for company in companies:
         if excluded(company):continue
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
-        row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],location_review=[],location_review_omitted=0,title_rejection_details=[])
+        row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],title_rejection_details=[])
         try:
             with observe(row):
                 extracted=scrape_company(company)
@@ -117,10 +117,6 @@ def scrape_all_any_city(companies,cv_profile):
                         continue
                     if loc['status']=='unconfirmed':
                         row['location_unconfirmed']+=1
-                        if len(row['location_review'])<200:
-                            score_jobs([job],cv_profile)
-                            row['location_review'].append({'title':job['title'],'url':job['url'],'score':job.get('relevance_score',0),'posted_date':job.get('posted_date',''),**loc})
-                        else:row['location_review_omitted']+=1
                         continue
                     job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None);confirmed.append(job)
                 counts['location_confirmed']+=len(confirmed);score_jobs(confirmed,cv_profile)

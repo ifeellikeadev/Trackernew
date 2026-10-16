@@ -11,6 +11,7 @@ from openpyxl import load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
 from src.job_scope import allowed_job
+from src.matcher import excluded_seniority
 from src.tracker import (
     COLUMNS, NEW_ROW_FILL,
 )
@@ -58,7 +59,7 @@ def _render_table(
         if all(v is None for v in values):
             continue  # skip fully-empty rows
         record = dict(zip(columns, values))
-        if not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
+        if excluded_seniority(record.get('Job Title')) or not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
             continue
         is_highlighted = _rgb_matches(ws.cell(row=row, column=1), new_row_fill)
         url = str(values[url_col - 1] or "#")

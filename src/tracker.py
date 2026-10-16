@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from src.job_scope import allowed_job
+from src.matcher import excluded_seniority
 from src.location_priority import sort_key
 from src.job_recency import filter_recent_jobs, prune_old_rows
 from openpyxl import Workbook, load_workbook
@@ -108,7 +109,7 @@ def load_or_create(path: Path) -> Workbook:
     ws = wb['Jobs']
     for row in range(ws.max_row, 1, -1):
         record = {col: ws.cell(row, i + 1).value for i, col in enumerate(COLUMNS)}
-        if not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
+        if excluded_seniority(record.get('Job Title')) or not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
             ws.delete_rows(row)
     return wb
 
@@ -176,7 +177,7 @@ def _update_sheet(
     min_score: int = 0,
 ) -> dict[str, int]:
     ws = wb[sheet_name]
-    new_jobs = [j for j in filter_recent_jobs(new_jobs) if allowed_job(j)]
+    new_jobs = [j for j in filter_recent_jobs(new_jobs) if allowed_job(j) and not excluded_seniority(j.get('title'))]
     age_pruned = prune_old_rows(ws, columns)
     existing_urls = _existing_urls(ws, columns)
 

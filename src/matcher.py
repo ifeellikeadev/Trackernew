@@ -25,7 +25,16 @@ def normalized_title(value):
     text=re.sub(r'\b(programme|program)\s*manager\b',r'\1 manager',text)
     return text.strip()
 
+def excluded_seniority(title):
+    """Explicit junior/entry-level title labels only; never description mentions."""
+    import unicodedata
+    text=unicodedata.normalize('NFKC',str(title or '')).casefold()
+    text=''.join(c for c in text if unicodedata.category(c)!='Cf')
+    text=re.sub(r'[\s\u2010-\u2015_-]+',' ',text)
+    return bool(re.search(r'(?<!\w)(?:junior|jr\.?|entry\s*level|berufseinsteiger(?:in|innen)?)(?!\w)',text))
+
 def title_decision(title,must_match,must_not_match=None):
+    if excluded_seniority(title):return {'keep':False,'reason':'excluded_junior_seniority','term':'junior / entry-level'}
     text=normalized_title(title)
     excluded=next((term for term in (must_not_match or []) if normalized_title(term) in text),None)
     included=next((term for term in must_match if normalized_title(term) in text),None)

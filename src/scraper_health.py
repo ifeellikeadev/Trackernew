@@ -46,7 +46,7 @@ def finish(row,error=None):
     else:row['status']='NO_MATCHES_IN_EXTRACTED_RESULTS'
     text=' '.join(row['issues']).lower()
     if row.get('title_unresolved',0):category,action='UNRESOLVED_JOB_TITLES','Some job titles could not be extracted. These are extraction gaps, not rejected job preferences. Review unresolved URL examples.'
-    elif row.get('location_unconfirmed',0):category,action='LOCATION_NEEDS_REVIEW','Title/date survivors have unconfirmed locations. Review the separate queue; these are not confirmed Munich jobs.'
+    elif row.get('location_unconfirmed',0):category,action='LOCATION_NEEDS_REVIEW','Title/date survivors have unconfirmed locations. Unconfirmed locations are excluded from the board. Counts remain available for diagnostics.'
     elif '429' in text:category,action='RATE_LIMITED','Reduce repeated requests; respect rate limits. Do not bypass blocks.'
     elif 'certificate' in text or 'sslerror' in text:category,action='TLS_ERROR','Verify official URL/certificate. Keep TLS verification enabled.'
     elif 'name_not_resolved' in text or 'nameresolutionerror' in text:category,action='DNS_ERROR','Verify domain; a single run cannot prove a permanent outage.'
@@ -87,14 +87,4 @@ def append_to_page(rows,path):
         details += '<br>Rejected-title examples: '+samples if samples else ''
         body.append('<tr>'+cells+'<td>'+details+'</td></tr>')
     section='<h2>Scraper health</h2><p>Empty does not prove no vacancies. Eligible counts precede tracker deduplication. Link candidates may be unverified. Unresolved titles are extraction gaps, not title-filter rejections. Warnings include detail-page requests.</p><div class="scroll-wrap"><table><thead><tr>'+headers+'<th>Issues</th></tr></thead><tbody>'+''.join(body)+'</tbody></table></div>'
-    review=[]
-    from urllib.parse import urlparse
-    for row in rows:
-        for job in row.get('location_review',[]):
-            url=job.get('url','')
-            if urlparse(url).scheme not in ('http','https'):continue
-            link='<a href="'+html.escape(url,quote=True)+'" target="_blank" rel="noopener">'+html.escape(job.get('title',''))+'</a>'
-            review.append('<tr><td>'+html.escape(row['company'])+'</td><td>'+link+'</td><td>'+html.escape(job.get('evidence','') or 'Unknown')+'</td><td>'+html.escape(job.get('reason',''))+'</td><td>'+html.escape(str(job.get('score','')))+'</td></tr>')
-    if review:
-        section='<h2>Location needs review</h2><p>These title/date survivors are NOT confirmed Munich matches and are not added to the workbook. Score is informational; some may be below your main-list threshold. No workplace is inferred from company headquarters.</p><div class="scroll-wrap"><table><thead><tr><th>Company</th><th>Job</th><th>Location evidence</th><th>Reason</th><th>Score</th></tr></thead><tbody>'+''.join(review)+'</tbody></table></div>'+section
     text=path.read_text(encoding='utf-8');path.write_text(text.replace('</body>',section+'</body>'),encoding='utf-8')
