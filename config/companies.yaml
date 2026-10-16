@@ -1389,3 +1389,113 @@ companies:
   careers_url: https://www.lubos-kliniken.de/karriere/stellenangebote/
   ats: auto
   board_token: ''
+- name: Membrain GmbH
+  city: Munich
+  careers_url: https://membrain.jobs.personio.de/?language=en
+  ats: personio
+  board_token: membrain
+- name: InoNet Computer GmbH
+  city: Munich
+  careers_url: https://inonet-computer-gmbh.jobs.personio.de/
+  ats: personio
+  board_token: inonet-computer-gmbh
+- name: RidersDeal
+  city: Munich
+  careers_url: https://ridersdeal.jobs.personio.com/
+  ats: personio
+  board_token: ridersdeal
+- name: appliedAI
+  city: Munich
+  careers_url: https://appliedai.jobs.personio.de/?language=en
+  ats: personio
+  board_token: appliedai
+- name: StudySmarter
+  city: Munich
+  careers_url: https://studysmarter.jobs.personio.com/
+  ats: personio
+  board_token: studysmarter
+- name: feld.energy
+  city: Munich
+  careers_url: https://feld-energy.jobs.personio.com/
+  ats: personio
+  board_token: feld-energy
+- name: Capmo
+  city: Munich
+  careers_url: https://capmo.jobs.personio.de/?language=en
+  ats: personio
+  board_token: capmo
+- name: Flowers-Software GmbH
+  city: Munich
+  careers_url: https://flowers-software-gmbh.jobs.personio.de/?language=en
+  ats: personio
+  board_token: flowers-software-gmbh
+- name: Filics GmbH
+  city: Munich
+  careers_url: https://filics.jobs.personio.de/?language=en
+  ats: personio
+  board_token: filics
+- name: OroraTech GmbH
+  city: Munich
+  careers_url: https://ororatech.jobs.personio.de/?language=en
+  ats: personio
+  board_token: ororatech
+- name: happybrush GmbH
+  city: Munich
+  careers_url: https://happybrush.jobs.personio.de/
+  ats: personio
+  board_token: happybrush
+- name: MaibornWolff
+  city: Munich
+  careers_url: https://maibornwolff.jobs.personio.de/?language=en
+  ats: personio
+  board_token: maibornwolff
+- name: Alexander Thamm GmbH
+  city: Munich
+  careers_url: https://alexander-thamm-gmbh.jobs.personio.de/?language=en
+  ats: personio
+  board_token: alexander-thamm-gmbh
+- name: Demodesk
+  city: Munich
+  careers_url: https://demodesk-gmbh.jobs.personio.de/?language=en
+  ats: personio
+  board_token: demodesk-gmbh
+- name: yoummday GmbH
+  city: Munich
+  careers_url: https://yoummday-gmbh.jobs.personio.com/
+  ats: personio
+  board_token: yoummday-gmbh
+- name: planqc GmbH
+  city: Munich
+  careers_url: https://planqc-gmbh.jobs.personio.com/
+  ats: personio
+  board_token: planqc-gmbh
+- name: nuuEnergy
+  city: Munich
+  careers_url: https://nuuenergy.jobs.personio.com/
+  ats: personio
+  board_token: nuuenergy
+- name: Leibniz-Rechenzentrum (LRZ)
+  city: Munich
+  careers_url: https://lrz.jobs.personio.com/?language=de
+  ats: personio
+  board_token: lrz
+- name: FRAMOS
+  city: Munich
+  careers_url: https://framos.jobs.personio.de/
+  ats: personio
+  board_token: framos
+- name: iteratec
+  city: Munich
+  careers_url: https://jobs.iteratec.com/
+  ats: public_board
+  board_token: ''
+- name: Retorio GmbH
+  city: Munich
+  careers_url: https://join.com/companies/retoriocom
+  ats: public_board
+  board_token: ''
+- name: HAT.tec
+  city: Munich
+  careers_url: https://www.hattec.de/career/
+  ats: public_board
+  board_token: ''
