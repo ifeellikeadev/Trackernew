@@ -41,11 +41,12 @@ def finish(row,error=None):
     elif row['raw_candidates'] and row.get('title_unresolved',0)>=row['raw_candidates']:row['status']='EXTRACTION_INCOMPLETE'
     elif row['issues']:row['status']='PARTIAL_OR_WARNING' if row['raw_candidates'] else 'FAILED_OR_BLOCKED'
     elif not row['raw_candidates']:row['status']='EMPTY_UNVERIFIED'
-    elif row.get('title_unresolved',0):row['status']='PARTIAL_OR_WARNING'
+    elif row.get('title_unresolved',0) or row.get('location_unconfirmed',0):row['status']='PARTIAL_OR_WARNING'
     elif row['eligible']:row['status']='MATCHES_FOUND'
     else:row['status']='NO_MATCHES_IN_EXTRACTED_RESULTS'
     text=' '.join(row['issues']).lower()
     if row.get('title_unresolved',0):category,action='UNRESOLVED_JOB_TITLES','Some job titles could not be extracted. These are extraction gaps, not rejected job preferences. Review unresolved URL examples.'
+    elif row.get('location_unconfirmed',0):category,action='LOCATION_NEEDS_REVIEW','Title/date survivors have unconfirmed locations. Review the separate queue; these are not confirmed Munich jobs.'
     elif '429' in text:category,action='RATE_LIMITED','Reduce repeated requests; respect rate limits. Do not bypass blocks.'
     elif 'certificate' in text or 'sslerror' in text:category,action='TLS_ERROR','Verify official URL/certificate. Keep TLS verification enabled.'
     elif 'name_not_resolved' in text or 'nameresolutionerror' in text:category,action='DNS_ERROR','Verify domain; a single run cannot prove a permanent outage.'
@@ -70,7 +71,7 @@ def save_report(rows,path):
 def append_to_page(rows,path):
     path=Path(path)
     if not path.exists():return
-    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','extraction_unresolved','title_rejected','location_rejected','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
+    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','extraction_unresolved','title_rejected','location_rejected','location_unconfirmed','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
     headers=''.join('<th>'+html.escape(c.replace('_',' ').title())+'</th>' for c in cols)
     body=[]
     for row in rows:
@@ -80,8 +81,20 @@ def append_to_page(rows,path):
             details += '<br>Pagination: ' + html.escape(json.dumps(row['pagination']))
         if row.get('unresolved_samples'):
             details += '<br>Unresolved examples: ' + html.escape(json.dumps(row['unresolved_samples'],ensure_ascii=False))
+        for key in ('date_decisions','date_rejected_samples','date_kept_samples','location_rejected_samples','title_rejection_details','score_rejected_samples'):
+            if row.get(key):details += '<br>'+html.escape(key.replace('_',' ').title())+': '+html.escape(json.dumps(row[key],ensure_ascii=False))
         samples=html.escape('; '.join(row.get('title_rejected_samples',[])))
         details += '<br>Rejected-title examples: '+samples if samples else ''
         body.append('<tr>'+cells+'<td>'+details+'</td></tr>')
     section='<h2>Scraper health</h2><p>Empty does not prove no vacancies. Eligible counts precede tracker deduplication. Link candidates may be unverified. Unresolved titles are extraction gaps, not title-filter rejections. Warnings include detail-page requests.</p><div class="scroll-wrap"><table><thead><tr>'+headers+'<th>Issues</th></tr></thead><tbody>'+''.join(body)+'</tbody></table></div>'
+    review=[]
+    from urllib.parse import urlparse
+    for row in rows:
+        for job in row.get('location_review',[]):
+            url=job.get('url','')
+            if urlparse(url).scheme not in ('http','https'):continue
+            link='<a href="'+html.escape(url,quote=True)+'" target="_blank" rel="noopener">'+html.escape(job.get('title',''))+'</a>'
+            review.append('<tr><td>'+html.escape(row['company'])+'</td><td>'+link+'</td><td>'+html.escape(job.get('evidence','') or 'Unknown')+'</td><td>'+html.escape(job.get('reason',''))+'</td><td>'+html.escape(str(job.get('score','')))+'</td></tr>')
+    if review:
+        section='<h2>Location needs review</h2><p>These title/date survivors are NOT confirmed Munich matches and are not added to the workbook. Score is informational; some may be below your main-list threshold. No workplace is inferred from company headquarters.</p><div class="scroll-wrap"><table><thead><tr><th>Company</th><th>Job</th><th>Location evidence</th><th>Reason</th><th>Score</th></tr></thead><tbody>'+''.join(review)+'</tbody></table></div>'+section
     text=path.read_text(encoding='utf-8');path.write_text(text.replace('</body>',section+'</body>'),encoding='utf-8')

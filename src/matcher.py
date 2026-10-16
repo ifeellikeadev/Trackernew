@@ -15,14 +15,39 @@ CITY_KEYWORDS = {'Munich': ['munich', 'münchen', 'muenchen', 'ottobrunn', 'tauf
 
 CITY_KEYWORDS['Munich'] = list(dict.fromkeys(CITY_KEYWORDS['Munich'] + REGIONAL_LABELS + MUNICH_LABELS))
 
-def title_matches(title: str, must_match: list[str], must_not_match: list[str] | None = None) -> bool:
-    t = title.lower()
-    if not any(term.lower() in t for term in must_match):
-        return False
-    if must_not_match and any(term.lower() in t for term in must_not_match):
-        return False
-    return True
+def normalized_title(value):
+    import unicodedata
+    text=unicodedata.normalize('NFKC',str(value or '')).casefold()
+    text=re.sub(r'[\s\-\u2010-\u2015_]+',' ',text)
+    # Equivalent spelling only, not new occupational categories.
+    text=re.sub(r'\bprojekt\s+(manager|leiter)(in)?\b',r'projekt\1\2',text)
+    text=re.sub(r'\bproject\s*manager\b','project manager',text)
+    text=re.sub(r'\b(programme|program)\s*manager\b',r'\1 manager',text)
+    return text.strip()
 
+def title_decision(title,must_match,must_not_match=None):
+    text=normalized_title(title)
+    excluded=next((term for term in (must_not_match or []) if normalized_title(term) in text),None)
+    included=next((term for term in must_match if normalized_title(term) in text),None)
+    if excluded:return {'keep':False,'reason':'excluded_title_term','term':excluded}
+    return {'keep':bool(included),'reason':'matched_title_term' if included else 'no_requested_title_term','term':included or ''}
+
+def title_matches(title,must_match,must_not_match=None):
+    return title_decision(title,must_match,must_not_match)['keep']
+
+OUTSIDE_LOCATION=re.compile(r'\b(?:berlin|hamburg|frankfurt|stuttgart|dresden|leipzig|bremen|hannover|cologne|köln|koeln|düsseldorf|duesseldorf|nürnberg|nuernberg|nuremberg|karlsruhe|mannheim|london|paris|vienna|wien|graz|amsterdam|warsaw|prague|poland|czech|united states|united kingdom|india|china|singapore|canada|australia)\b',re.I)
+
+def location_decision(job):
+    # Only explicit vacancy location fields, never corporate/footer/body mentions.
+    evidence=str(job.get('location') or '').strip()
+    if EXCLUDED_LOCATION.search(evidence):return {'status':'excluded','reason':'excluded_swiss_location','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
+    if find_matching_city(evidence):return {'status':'confirmed','reason':'explicit_region_match','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
+    if not evidence:return {'status':'unconfirmed','reason':'missing_location','evidence':'','source':'none'}
+    if OUTSIDE_LOCATION.search(evidence) and not re.search(r'available in|multiple|various|remote|\+\s*\d+',evidence,re.I):return {'status':'outside','reason':'explicit_outside_location','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
+    if re.search(r'available in|\+\s*\d+|multiple|various|remote|hybrid|deutschland|germany|europe|emea',evidence,re.I):
+        return {'status':'unconfirmed','reason':'broad_remote_or_multiple_location','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
+    if OUTSIDE_LOCATION.search(evidence):return {'status':'outside','reason':'explicit_outside_location','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
+    return {'status':'unconfirmed','reason':'unrecognised_location_needs_review','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
 
 def location_status(location, expected_city):
     if not location:

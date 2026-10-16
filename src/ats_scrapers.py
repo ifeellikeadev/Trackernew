@@ -98,6 +98,7 @@ _TRAILING_WORDS_TO_STRIP = [
 
 
 _GET_CACHE = {}
+_HTTP_STATUS = {}
 
 def _safe_get(url: str, **kwargs) -> requests.Response | None:
     key = (url, repr(sorted(kwargs.items())))
@@ -106,15 +107,23 @@ def _safe_get(url: str, **kwargs) -> requests.Response | None:
         return _GET_CACHE[key]
     try:
         resp = requests.get(url, headers=HEADERS, timeout=TIMEOUT, **kwargs)
+        _HTTP_STATUS[url]=resp.status_code
         _GET_CACHE[key] = resp if resp.status_code < 400 else None
         if resp.status_code >= 400:
             logger.warning("GET %s -> HTTP %s", url, resp.status_code)
             return None
         return resp
     except requests.RequestException as exc:
+        _GET_CACHE[key]=None
         logger.warning("GET %s failed: %s", url, exc)
         return None
 
+
+_safe_get.last_status=lambda url:_HTTP_STATUS.get(url)
+
+def stamp_date(job, raw, field, kind='publication', source=''):
+    job.update(_date_raw=raw or '',_date_field=field,_date_kind=kind,_date_source=source or job.get('url',''),_date_observed_on=today_local().isoformat())
+    return job
 
 def _slugify(name: str) -> str:
     """Best-effort guess at a company's board token from its display name."""
@@ -163,6 +172,7 @@ def scrape_greenhouse(company_name: str, board_token: str = "") -> list[dict[str
                 "posted_date": posted,
             }
         )
+        stamp_date(jobs[-1],raw_date,'first_published')
     return jobs
 
 
@@ -198,6 +208,8 @@ def scrape_lever(company_name: str, board_token: str = "") -> list[dict[str, Any
                 "posted_date": posted,
             }
         )
+        stamp_date(jobs[-1],created_ms,'createdAt','creation_unverified')
+        jobs[-1]['posted_date']=''
     return jobs
 
 
@@ -251,6 +263,7 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
                          "description": BeautifulSoup(desc, "html.parser").get_text(" ", strip=True),
                          "posted_date": posted, "_extraction": "smartrecruiters_api",
                          "_detail_api_url": base + "/" + quote(ident, safe="")})
+            stamp_date(jobs[-1],raw_date,'releasedDate')
         if not added:
             logger.warning("SmartRecruiters incomplete pagination: repeated page; retaining %s candidates", len(jobs))
             return jobs
@@ -307,10 +320,17 @@ def _parse_personio_xml(resp, token: str, domain: str) -> list[dict[str, Any]]:
                 "posted_date": posted,
             }
         )
+        published=position.find('publishedAt') or position.find('published_at')
+        if published and published.text:
+            jobs[-1]['posted_date']=published.text.strip()
+            stamp_date(jobs[-1],published.text.strip(),published.name)
+        else:
+            stamp_date(jobs[-1],created.text.strip() if created else '',created.name if created else 'none','creation_unverified')
+            jobs[-1]['posted_date']=''
     return jobs
 
 
-def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
+def scrape_personio(company_name: str, board_token: str = "", preferred_domain: str = "de") -> list[dict[str, Any]]:
     """
     Personio hosts company job boards on BOTH {token}.jobs.personio.de
     AND {token}.jobs.personio.com, depending on the company's own
@@ -323,7 +343,7 @@ def scrape_personio(company_name: str, board_token: str = "") -> list[dict[str, 
     if .de returns nothing.
     """
     token = board_token or _slugify(company_name)
-    for domain in ("de", "com"):
+    for domain in dict.fromkeys((preferred_domain,"de","com")):
         url = f"https://{token}.jobs.personio.{domain}/xml"
         resp = _safe_get(url)
         if resp is None:
@@ -408,9 +428,14 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
     pages = 0
     advertised_total = None
     completion = 'safety_limit'
+    request_limit=20
+    repeated_recovery=False
+    source_started=time.monotonic()
     for _ in range(500):
+        if time.monotonic()-source_started>=150:
+            completion='time_limit';logger.warning('Workday incomplete pagination: time limit; retaining %s candidates',len(jobs));break
         try:
-            resp = requests.post(api_url, json={"limit": 20, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=TIMEOUT)
+            resp = requests.post(api_url, json={"limit": request_limit, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=TIMEOUT)
             resp.raise_for_status()
             data = resp.json()
             page = data.get("jobPostings", [])
@@ -437,9 +462,14 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
             jobs.append({"title": (posting.get("title") or "").strip(), "location": posting.get("locationsText", ""),
                          "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
                          "_extraction": "workday_api"})
+            stamp_date(jobs[-1],posting.get("postedOn", ""),"postedOn")
         if not added:
             if advertised_total is not None and len(jobs) >= advertised_total:
                 completion = 'reported_total_reached'
+            elif not repeated_recovery and offset>0 and len(page)!=request_limit:
+                request_limit=len(page);repeated_recovery=True
+                logger.info('Workday retry with observed page size %s at offset %s',request_limit,offset)
+                continue
             else:
                 completion = 'repeated_page'
                 logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
@@ -551,6 +581,7 @@ def reset_headless_budget() -> None:
     global _headless_time_used
     _headless_time_used = 0.0
     _GET_CACHE.clear()
+    _HTTP_STATUS.clear()
 
 
 def headless_budget_remaining() -> float:
@@ -750,6 +781,9 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         logger.warning("Browser budget exhausted; coverage unverified for %s", company_name)
         return best_result
 
+    if _HTTP_STATUS.get(best_url) in (401,403,429):
+        logger.warning('Access/rate limit for %s; no browser retry against the same URL',company_name)
+        return best_result
     headless_result = scrape_headless(company_name, best_url)
     from src.vacancy_extract import dedupe
     return dedupe(best_result + headless_result)
@@ -780,6 +814,12 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
     token = company.get("board_token") or ""
 
     try:
+        if ats == "jsonld_feed":
+            from src.source_adapters import scrape_jsonld_feed
+            return scrape_jsonld_feed(name,careers_url,_safe_get)
+        if ats == "amazon":
+            from src.source_adapters import scrape_amazon
+            return scrape_amazon(name,careers_url,_safe_get)
         if ats == "public_board":
             from src.public_boards import scrape_html_board
             return scrape_html_board(name, careers_url, _safe_get)
@@ -805,10 +845,11 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "personio":
-            result = scrape_personio(name, token)
-            if result:
-                return result
-            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
+            preferred='com' if '.jobs.personio.com' in careers_url else 'de'
+            result = scrape_personio(name, token, preferred)
+            if result:return result
+            from src.public_boards import scrape_html_board
+            return scrape_html_board(name,careers_url,_safe_get)
         if ats == "workday":
             result = scrape_workday(name, careers_url)
             if result:
@@ -844,7 +885,7 @@ def fetch_job_details(url):
         sections = (data.get('jobAd') or {}).get('sections') or {}
         desc = ' '.join(plain(section.get('text','')) for section in sections.values() if isinstance(section,dict))
         loc = data.get('location') or {}
-        return {'description': desc, 'location': ', '.join(str(loc[k]) for k in ('city','country') if loc.get(k)), 'posted_date': normalize_fresh_posted(data.get('releasedDate',''))}, desc
+        return {'description': desc, 'location': ', '.join(str(loc[k]) for k in ('city','country') if loc.get(k)), 'posted_date': normalize_fresh_posted(data.get('releasedDate','')),'_date_raw':data.get('releasedDate',''),'_date_field':'releasedDate','_date_kind':'publication','_date_source':url}, desc
     jobs = structured_jobs(resp.text, resp.url or url)
     # Only trust one identifiable vacancy, not a board containing many jobs.
     details = jobs[0] if len(jobs) == 1 else {}
@@ -855,7 +896,8 @@ def fetch_job_details(url):
     if not details.get('location'):
         location_tag = soup.select_one('[itemprop="jobLocation"],.job-location,.jobLocation,.job-location-label,[data-ph-at-id="job-location"],[data-testid="job-location"]')
         if location_tag:
-            details['location'] = location_tag.get_text(' ', strip=True)
+            details['location'] = location_tag.get('content') or location_tag.get_text(' ', strip=True)
+            details['_location_source']='detail_explicit_location'
         else:
             for label in soup.select('dt,th'):
                 if label.get_text(' ', strip=True).lower().rstrip(':') in ('standort','standorte','location','locations','arbeitsort'):
@@ -863,6 +905,8 @@ def fetch_job_details(url):
                     if value:details['location'] = value.get_text(' ', strip=True);break
     if not details.get('posted_date'):
         posted = soup.select_one('[itemprop="datePosted"]')
-        if posted:details['posted_date'] = posted.get('content') or posted.get('datetime') or posted.get_text(' ',strip=True)
+        if posted:
+            details['posted_date'] = posted.get('content') or posted.get('datetime') or posted.get_text(' ',strip=True)
+            stamp_date(details,details['posted_date'],'datePosted',source=url)
     for tag in soup(['script','style','nav','footer','header']):tag.decompose()
     return details, soup.get_text(' ',strip=True)[:10000]

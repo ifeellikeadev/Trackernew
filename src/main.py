@@ -1,12 +1,13 @@
-"""Munich-region scrape with per-company diagnostics and structured enrichment."""
+"""Synchronous Munich-region pipeline with auditable filtering and review queue."""
 import logging,re,sys,time
+from collections import Counter
 from pathlib import Path
 import yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from src.ats_scrapers import scrape_company,fetch_job_details,reset_headless_budget
-from src.matcher import filter_by_title_only,resolve_city_for_job,extract_location_snippet,score_jobs
-from src.job_recency import filter_recent_jobs,parse_posted
-from src.vacancy_extract import usable_title
+from src.matcher import title_decision,location_decision,score_jobs
+from src.job_recency import filter_recent_jobs,parse_posted,date_decision
+from src.vacancy_extract import usable_title,dedupe,is_vacancy_url
 from src.tracker import update_tracker
 from src.generate_html import generate as generate_html
 from src.scraper_health import observe,new_row,finish,save_report,append_to_page
@@ -18,15 +19,38 @@ JOB_BOARDS_FILE=ROOT/'config/job_boards.yaml'
 CV_PROFILE_FILE=ROOT/'config/cv_profile.yaml'
 TRACKER_FILE=ROOT/'data/job_tracker.xlsx'
 HEALTH_FILE=ROOT/'docs/scraper_health.json'
+DATE_FIELDS=('_date_raw','_date_field','_date_kind','_date_source','_date_observed_on')
 
 def load_yaml(path):
     if not path.exists():return {}
     return yaml.safe_load(path.read_text(encoding='utf-8')) or {}
 
 def excluded(company):
-    name=re.sub('[^a-z0-9]','',company.get('name','').lower())
-    url=company.get('careers_url','').lower()
+    name=re.sub('[^a-z0-9]','',company.get('name','').lower());url=company.get('careers_url','').lower()
     return any(v in name or v in url for v in ('randstad','michaelpage','michalpage')) or company.get('city','Munich')!='Munich'
+
+def enrich(job,details):
+    for field in ('location','description'):
+        if details.get(field) and (not job.get(field) or (field=='location' and location_decision(job)['status']=='unconfirmed')):
+            job[field]=details[field]
+            if field=='location':job['_location_source']=details.get('_location_source','detail_explicit_location')
+    if details.get('posted_date') and (not job.get('posted_date') or job.get('_date_kind')=='creation_unverified'):
+        job['posted_date']=details['posted_date']
+        for field in DATE_FIELDS:
+            job.pop(field,None)
+            if field in details:job[field]=details[field]
+
+def audit_date(row,job,stage):
+    decision=date_decision(job)
+    row['date_decisions'][decision['reason']]=row['date_decisions'].get(decision['reason'],0)+1
+    example={'title':job.get('title',''),'url':job.get('url',''),'stage':stage,**decision}
+    target='date_rejected_samples' if not decision['keep'] else 'date_kept_samples'
+    limit=20 if not decision['keep'] else 8
+    # Kept-date samples are stratified by reason so missing/uncertain dates
+    # cannot be hidden behind the first eight ordinary publication dates.
+    used=len(row[target]) if not decision['keep'] else sum(x['reason']==decision['reason'] for x in row[target])
+    if used<limit:row[target].append(example)
+    return decision
 
 def scrape_all_any_city(companies,cv_profile):
     jobs=[];reports=[];counts={'ok':0,'empty':0,'errored':0,'total':0,'title_matched':0,'location_confirmed':0}
@@ -37,77 +61,82 @@ def scrape_all_any_city(companies,cv_profile):
             row['detail_fetches']+=1
             try:detail_cache[url]=fetch_job_details(url)
             except Exception as exc:
-                row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180])
-                detail_cache[url]=({},'')
+                row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180]);detail_cache[url]=({},'')
         return detail_cache[url]
     for company in companies:
         if excluded(company):continue
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
+        row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],location_review=[],location_review_omitted=0,title_rejection_details=[])
         try:
             with observe(row):
-                raw=scrape_company(company);row['raw_candidates']=len(raw)
-                row['pagination'] = next((j['_pagination'] for j in raw if j.get('_pagination')), {})
-                row['title_recovered'] = 0
-                row['title_unresolved'] = 0
-                recovery_budget = 60
+                extracted=scrape_company(company)
+                valid=[j for j in extracted if is_vacancy_url(j.get('url',''))]
+                row['non_job_links_removed']=len(extracted)-len(valid)
+                raw=dedupe(valid);row['duplicate_candidates_removed']=len(valid)-len(raw);row['raw_candidates']=len(raw)
+                row['pagination']=next((j['_pagination'] for j in raw if j.get('_pagination')), {})
+                row['title_recovered']=0;row['title_unresolved']=0;recovery_budget=60
                 for candidate in raw:
                     if usable_title(candidate.get('title','')) and not candidate.get('_needs_title'):continue
-                    if recovery_budget <= 0:
-                        row['title_unresolved'] += 1
-                        continue
-                    recovery_budget -= 1
-                    url = candidate.get('_detail_api_url') or candidate.get('url','')
-                    details, _ = cached_details(url,row)
+                    if recovery_budget<=0:row['title_unresolved']+=1;continue
+                    recovery_budget-=1
+                    details,_=cached_details(candidate.get('_detail_api_url') or candidate.get('url',''),row)
                     if usable_title(details.get('title','')):
-                        candidate['title']=details['title']
-                        for field in ('location','description','posted_date'):
-                            if not candidate.get(field) and details.get(field):candidate[field] = details[field]
-                        candidate.pop('_needs_title', None)
-                        row['title_recovered'] += 1
-                    else:row['title_unresolved'] += 1
+                        candidate['title']=details['title'];enrich(candidate,details);candidate.pop('_needs_title',None);row['title_recovered']+=1
+                    else:row['title_unresolved']+=1
                 row['unresolved_samples']=[{'url':j.get('url',''),'label':j.get('title','')} for j in raw if j.get('_needs_title') or not usable_title(j.get('title',''))][:8]
                 row['sample_titles']=[str(j.get('title',''))[:160] for j in raw[:8]]
                 row['unverified_candidates']=sum(str(j.get('_extraction','')).endswith('_unverified') for j in raw)
                 row['methods']=sorted({j.get('_extraction','existing_ats_adapter') for j in raw})
-                # Reject known old dates before title filtering; undated stay.
-                recent=filter_recent_jobs(raw);row['date_rejected']=len(raw)-len(recent)
+                recent=[]
+                for job in raw:
+                    if audit_date(row,job,'list')['keep']:recent.extend(filter_recent_jobs([job]))
+                    else:row['date_rejected']+=1
                 readable=[j for j in recent if usable_title(j.get('title','')) and not j.get('_needs_title')]
                 row['extraction_unresolved']=len(recent)-len(readable)
-                titled=filter_by_title_only(readable,cv_profile);row['title_rejected']=len(readable)-len(titled)
-                row['title_rejected_samples']=[str(j.get('title',''))[:160] for j in readable if j not in titled][:8]
-                counts['title_matched']+=len(titled)
-                confirmed=[]
+                titled=[]
+                for job in readable:
+                    decision=title_decision(job['title'],cv_profile.get('title_must_match',[]),cv_profile.get('title_must_not_match',[]))
+                    if decision['keep']:titled.append(job)
+                    else:
+                        row['title_rejected']+=1
+                        if len(row['title_rejection_details'])<20:row['title_rejection_details'].append({'title':job['title'],'url':job['url'],**decision})
+                row['title_rejected_samples']=[j['title'] for j in row['title_rejection_details'][:8]]
+                counts['title_matched']+=len(titled);confirmed=[]
                 for job in titled:
-                    text=None
-                    # Fetch once per URL only for survivors missing useful fields.
-                    if job.get('url') and (not job.get('location') or not job.get('description') or not job.get('posted_date')):
-                        url=job.get('_detail_api_url') or job['url']
-                        details,text=cached_details(url,row)
-                        for field in ('location','description','posted_date'):
-                            if not job.get(field) and details.get(field):job[field]=details[field]
-                    # Structured detail may supply a previously unknown old date.
-                    dated=filter_recent_jobs([job])
-                    if not dated:row['date_rejected']+=1;continue
-                    job=dated[0]
-                    matched=resolve_city_for_job(job,search_text=text if not job.get('location') else None)
-                    if matched!='Munich':row['location_rejected']+=1;continue
-                    if not job.get('location') and text:job['location']=extract_location_snippet(text,matched)
-                    if not job.get('description') and text:job['description']=text
-                    job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None)
-                    confirmed.append(job)
-                counts['location_confirmed']+=len(confirmed)
-                score_jobs(confirmed,cv_profile)
-                floor=cv_profile.get('main_min_score',0)
-                eligible=[j for j in confirmed if j.get('relevance_score',0)>=floor]
+                    loc_before=location_decision(job)
+                    # Known outside/excluded locations do not need expensive details.
+                    if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or not job.get('description') or not job.get('posted_date')):
+                        details,_=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details)
+                    decision=audit_date(row,job,'after_detail')
+                    if not decision['keep']:row['date_rejected']+=1;continue
+                    job=filter_recent_jobs([job])[0]
+                    loc=location_decision(job)
+                    if loc['status'] in ('outside','excluded'):
+                        row['location_rejected']+=1
+                        if len(row['location_rejected_samples'])<20:row['location_rejected_samples'].append({'title':job['title'],'url':job['url'],**loc})
+                        continue
+                    if loc['status']=='unconfirmed':
+                        row['location_unconfirmed']+=1
+                        if len(row['location_review'])<200:
+                            score_jobs([job],cv_profile)
+                            row['location_review'].append({'title':job['title'],'url':job['url'],'score':job.get('relevance_score',0),'posted_date':job.get('posted_date',''),**loc})
+                        else:row['location_review_omitted']+=1
+                        continue
+                    job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None);confirmed.append(job)
+                counts['location_confirmed']+=len(confirmed);score_jobs(confirmed,cv_profile)
+                floor=cv_profile.get('main_min_score',0);eligible=[j for j in confirmed if j.get('relevance_score',0)>=floor]
                 row['score_rejected']=len(confirmed)-len(eligible);row['eligible']=len(eligible)
+                row['score_rejected_samples']=[{'title':j['title'],'url':j['url'],'score':j.get('relevance_score',0),'floor':floor} for j in confirmed if j not in eligible][:20]
                 row['unknown_dates']=sum(parse_posted(j.get('posted_date')) is None for j in eligible)
-                jobs.extend(eligible)
-                counts['ok' if raw else 'empty']+=1
+                jobs.extend(eligible);counts['ok' if raw else 'empty']+=1
         except Exception as exc:
             error=exc;counts['errored']+=1;logger.exception('FAILED %s',company['name'])
         row['seconds']=round(time.monotonic()-start,2);finish(row,error);reports.append(row)
-        logger.info('HEALTH %s | %s | raw=%d date=%d unresolved=%d title=%d location=%d score=%d eligible=%d',company['name'],row['status'],row['raw_candidates'],row['date_rejected'],row['extraction_unresolved'],row['title_rejected'],row['location_rejected'],row['score_rejected'],row['eligible'])
+        row['funnel_accounted']=sum(row.get(k,0) for k in ('date_rejected','extraction_unresolved','title_rejected','location_rejected','location_unconfirmed','score_rejected','eligible'))
+        row['funnel_balanced']=row['funnel_accounted']==row['raw_candidates']
+        logger.info('HEALTH %s | %s | raw=%d date=%d unresolved=%d title=%d outside=%d location_review=%d score=%d eligible=%d',company['name'],row['status'],row['raw_candidates'],row['date_rejected'],row['extraction_unresolved'],row['title_rejected'],row['location_rejected'],row['location_unconfirmed'],row['score_rejected'],row['eligible'])
         time.sleep(.3)
+    counts['source_statuses']=dict(Counter(row['status'] for row in reports))
     save_report(reports,HEALTH_FILE)
     return jobs,counts,reports
 
@@ -115,7 +144,7 @@ def run():
     profile=load_yaml(CV_PROFILE_FILE);reset_headless_budget()
     companies=load_yaml(COMPANIES_FILE).get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
     jobs,counts,reports=scrape_all_any_city(companies,profile)
-    if not reports or all(row['status'] in ('ERROR', 'FAILED_OR_BLOCKED', 'EMPTY_UNVERIFIED', 'EXTRACTION_INCOMPLETE') for row in reports):
+    if not reports or all(row['status'] in ('ERROR','FAILED_OR_BLOCKED','EMPTY_UNVERIFIED','EXTRACTION_INCOMPLETE') for row in reports):
         raise RuntimeError('No usable source results; existing tracker and webpage retained.')
     summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0))
     generate_html();append_to_page(reports,ROOT/'docs/index.html')

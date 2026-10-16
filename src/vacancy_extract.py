@@ -1,6 +1,6 @@
 """Evidence-based vacancy extraction; unknown dates and locations stay unknown."""
 import json,re
-from urllib.parse import urljoin,urlparse,parse_qs
+from urllib.parse import urljoin,urlparse,parse_qs,urlencode,urlunparse
 from bs4 import BeautifulSoup
 
 def plain(value):
@@ -23,11 +23,25 @@ def location(value):
     if not isinstance(address,dict):return ''
     return ', '.join(str(address[k]) for k in ('addressLocality','addressRegion','addressCountry') if isinstance(address.get(k),str))
 
-NAV = re.compile(r'^(?:contact(?: us)?|kontakt|faqs?(?:.*)?|support|help(?:.*)?|review accommodations.*|privacy.*|datenschutz.*|impressum|legal.*|cookie.*|sign in|log in|register|search(?: jobs)?|all jobs|view all jobs|careers|karriere|jobs|stellenangebote|open positions|job alerts?|talent community|benefits|our culture|about us|locations|saved jobs)$',re.I)
-APPLY = re.compile(r'^(?:apply(?: now| here| for this job)?|bewerben|jetzt bewerben|direkt bewerben|mehr erfahren|learn more|read more|details|view job|view details|job details)$',re.I)
+NAV = re.compile(r'^(?:contact(?: us)?|kontakt|faqs?(?:.*)?|support|help(?:.*)?|review accommodations.*|privacy.*|datenschutz.*|impressum|legal.*|cookie.*|sign in|log in|register|search(?: jobs)?|all jobs|view all jobs|careers|karriere|jobs|stellenangebote|open positions|job alerts?|talent community|benefits|our culture|about us|locations|saved jobs|actions|to the vacancies|apply unsolicited now|bewerberlogin|candidate login|my applications)$',re.I)
+APPLY = re.compile(r'^(?:apply(?: now| here| for this job)?|bewerben|jetzt bewerben|direkt bewerben|mehr erfahren|learn more|read more|details|view job|view details|job details|view|hier|here|to the complete job advertisement|zur stellenanzeige|zur stellenausschreibung|zur bewerbung|zur online bewerbung)$',re.I)
 ROLE = re.compile(r'\b(?:manager|management|engineer|engineering|consultant|specialist|analyst|coordinator|director|head|lead|developer|architect|officer|assistant|associate|buyer|intern|technician|scientist|designer|administrator|controller|accountant|nurse|sales|recruiter|werkstudent|praktikant|leiter|leitung|referent|berater|entwickler|projekt|mitarbeiter|sachbearbeiter|kaufmann|kauffrau|fachkraft|monteur|techniker|ingenieur)\w*\b',re.I)
 DETAIL = re.compile(r'/(?:jobs?|positions?|postings?|vacancies|stellenangebote|job-detail|o)/[^/?#]+',re.I)
-BAD_PATH = re.compile(r'(?:^|/)(?:contact|kontakt|faq|support|privacy|legal|accommodations|benefits|culture|alerts?|search|saved|login|register)(?:/|$)',re.I)
+BAD_PATH = re.compile(r'(?:^|/)(?:contact|kontakt|faq|support|privacy|legal|accommodations|benefits|culture|alerts?|search|saved|saved-jobs|login|register|hvhapply|apply|application|bewerbung|bewerben)(?:/|$)',re.I)
+
+def is_vacancy_url(url):
+    parsed=urlparse(str(url or ''));path=parsed.path.lower();query=parse_qs(parsed.query)
+    if parsed.scheme not in ('http','https') or BAD_PATH.search(path):return False
+    if path.endswith(('.pdf','.png','.jpg','.css','.js')):return False
+    if re.search(r'/(?:jobs|vacancies)/(?:all|results|search)/?$|/applications/?$',path):return False
+    if any(k.lower() in ('action','mode') and any(str(v).lower() in ('login','register','apply','application') for v in values) for k,values in query.items()):return False
+    return True
+
+def canonical_job_url(url):
+    parsed=urlparse(str(url or ''))
+    query=[(k,v) for k,values in parse_qs(parsed.query,keep_blank_values=True).items() for v in values if not k.lower().startswith(('utm_','gh_src')) and k.lower() not in ('source','ref','referral','trackingid','jsessionid')]
+    path=re.sub(r';jsessionid=[^/;?]+','',parsed.path,flags=re.I)
+    return urlunparse(parsed._replace(path=path,params='',query=urlencode(sorted(query)),fragment=''))
 
 def clean_label(value):
     text = re.sub(r'\s+', ' ', str(value or '')).strip()
@@ -70,21 +84,21 @@ def structured_jobs(html,url):
             if not usable_title(title) or not isinstance(target,str) or not target:continue
             target=resolve_job_url(document_base(soup,url),target)
             if urlparse(target).scheme not in ('http','https'):continue
-            jobs.append(dict(title=title,location=location(item.get('jobLocation')),url=target,description=plain(item.get('description')),posted_date=item.get('datePosted') or '',_extraction='jsonld'))
+            jobs.append(dict(title=title,location=location(item.get('jobLocation')),url=target,description=plain(item.get('description')),posted_date=item.get('datePosted') or '',_date_raw=item.get('datePosted') or '',_date_field='datePosted',_date_kind='publication',_date_source=url,_extraction='jsonld'))
     return dedupe(jobs)
 
 def dedupe(jobs):
     """Keep stable order and enrich duplicate URLs instead of losing richer cards."""
     result=[];seen={}
     for original in jobs:
-        key=str(original.get('url','')).split('#')[0]
+        key=('id',urlparse(str(original.get('url',''))).hostname,str(original['_job_id'])) if original.get('_job_id') else canonical_job_url(original.get('url',''))
         if not key:continue
         if key not in seen:
             item=dict(original);seen[key]=item;result.append(item);continue
         item=seen[key]
         if usable_title(original.get('title','')) and (not usable_title(item.get('title','')) or item.get('_needs_title')):
             item['title']=original['title'];item.pop('_needs_title',None)
-        for field in ('location','description','posted_date','_detail_api_url','_pagination'):
+        for field in ('location','description','posted_date','_detail_api_url','_pagination','_date_raw','_date_field','_date_kind','_date_source','_date_observed_on'):
             if not item.get(field) and original.get(field):item[field]=original[field]
         if original.get('_extraction') in ('jsonld','public_embedded_jobs'):
             item['_extraction']=original['_extraction']
@@ -111,6 +125,7 @@ def html_jobs(html,url):
                 if usable_title(label) and ROLE.search(label):title=label;break
         if parsed.scheme not in ('http','https') or parsed.path.lower().endswith(('.pdf','.png','.jpg','.css','.js')) or BAD_PATH.search(parsed.path):continue
         if NAV.fullmatch(title):continue
+        if not is_vacancy_url(target):continue
         query=parse_qs(parsed.query)
         detail=bool((parsed.hostname=='join.com' and re.search(r'/companies/[^/]+/\d+[-/]',parsed.path)) or DETAIL.search(parsed.path) or re.search(r'/(?:stellen|stelle|jobangebot|stellenanzeige|job-posting)/[^/]+|[-/]j\d+\.html$',parsed.path,re.I) or any(k.lower() in ('jobid','job_id','postingid','positionid','jobofferid','career_job_req_id') for k in query))
         if not detail:continue
@@ -150,5 +165,5 @@ def ashby_jobs(data):
     for j in data['jobs']:
         if j.get('isListed') is False or not j.get('title') or not j.get('jobUrl'):continue
         loc=[j.get('location','')]+[x.get('location','') for x in j.get('secondaryLocations',[]) if isinstance(x,dict)]
-        jobs.append(dict(title=j['title'],location='; '.join(filter(None,loc)),url=j['jobUrl'],description=j.get('descriptionPlain') or plain(j.get('descriptionHtml')),posted_date=j.get('publishedAt') or '',_extraction='ashby_api'))
+        jobs.append(dict(title=j['title'],location='; '.join(filter(None,loc)),url=j['jobUrl'],description=j.get('descriptionPlain') or plain(j.get('descriptionHtml')),posted_date=j.get('publishedAt') or '',_date_raw=j.get('publishedAt') or '',_date_field='publishedAt',_date_kind='publication',_date_source=j['jobUrl'],_extraction='ashby_api'))
     return dedupe(jobs)
