@@ -22,8 +22,10 @@ COLUMNS = [
     "Relevance Score (1-10)",
     "Location",
     "URL",
+    "Match Type",
+    "Match Reason",
 ]
-COLUMN_WIDTHS = [14, 22, 9, 40, 12, 30, 60]
+COLUMN_WIDTHS = [14, 22, 9, 40, 12, 30, 60, 18, 65]
 
 
 HEADER_ALIASES = {
@@ -190,6 +192,12 @@ def _update_sheet(
             continue
         if url in existing_urls:
             already_tracked += 1
+            url_col = columns.index("URL") + 1
+            for existing_row in range(2, ws.max_row + 1):
+                if ws.cell(existing_row, url_col).value == url:
+                    for key, label in (("match_type", "Match Type"), ("match_reason", "Match Reason")):
+                        if label in columns and job.get(key):ws.cell(existing_row, columns.index(label)+1).value = job[key]
+                    break
             continue
         ws.append(row_builder(job, url))
         newly_added_urls.add(url)
@@ -210,11 +218,19 @@ def _build_jobs_row(job: dict[str, Any], url: str) -> list:
         job.get("relevance_score", 1),
         job.get("location", ""),
         url,
+        job.get("match_type", ""),
+        job.get("match_reason", ""),
     ]
 
 
-def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0) -> dict[str, int]:
+def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 0, related_roles_enabled: bool = True) -> dict[str, int]:
     wb = load_or_create(path)
+    if not related_roles_enabled:
+        ws = wb["Jobs"]
+        match_col = COLUMNS.index("Match Type") + 1
+        for row in range(ws.max_row, 1, -1):
+            if ws.cell(row, match_col).value == "Related role":ws.delete_rows(row)
+        new_jobs = [j for j in new_jobs if j.get("match_type") != "Related role"]
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.stem + ".pending.xlsx")

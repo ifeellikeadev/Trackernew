@@ -6,7 +6,7 @@ import yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from src.ats_scrapers import scrape_company,fetch_job_details,reset_headless_budget
 from src.source_budget import source_budget
-from src.matcher import title_decision,location_decision,score_jobs
+from src.matcher import title_decision,location_decision,score_jobs,related_role_candidate,role_decision
 from src.job_recency import filter_recent_jobs,parse_posted,date_decision
 from src.vacancy_extract import usable_title,dedupe,is_vacancy_url
 from src.tracker import update_tracker
@@ -101,7 +101,15 @@ def scrape_all_any_city(companies,cv_profile):
                 row['extraction_unresolved']=len(recent)-len(readable)
                 titled=[]
                 for job in readable:
-                    decision=title_decision(job['title'],cv_profile.get('title_must_match',[]),cv_profile.get('title_must_not_match',[]))
+                    if related_role_candidate(job['title'],cv_profile) and location_decision(job)['status'] not in ('outside','excluded') and not job.get('description'):
+                        details,body=cached_details(job.get('_detail_api_url') or job.get('url',''),row)
+                        enrich(job,details)
+                        if not job.get('description') and body:job['description']=body
+                        row['related_detail_fetch_attempts']=row.get('related_detail_fetch_attempts',0)+1
+                    decision=role_decision(job,cv_profile)
+                    if decision['keep']:
+                        job['match_type']=decision['match_type'];job['match_reason']=decision['match_reason']
+                        if decision['match_type']=='Related role':row['related_roles_qualified']=row.get('related_roles_qualified',0)+1
                     if decision['keep']:titled.append(job)
                     else:
                         row['title_rejected']+=1
@@ -151,7 +159,7 @@ def run():
     jobs,counts,reports=scrape_all_any_city(companies,profile)
     if not reports or not any(row.get('raw_candidates',0)>row.get('extraction_unresolved',0) for row in reports) or all(row['status'] in ('ERROR','FAILED_OR_BLOCKED','EMPTY_UNVERIFIED','EXTRACTION_INCOMPLETE') for row in reports):
         raise RuntimeError('No usable source results; existing tracker and webpage retained.')
-    summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0))
+    summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0),related_roles_enabled=(profile.get('related_roles') or {}).get('enabled') is True)
     generate_html();append_to_page(reports,ROOT/'docs/index.html')
     logger.info('Run counts: %s | Tracker: %s',counts,summary)
 if __name__=='__main__':run()

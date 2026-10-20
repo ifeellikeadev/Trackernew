@@ -164,3 +164,39 @@ def score_jobs(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[d
             job.get("description", ""), job.get("title", ""), keywords, ceiling
         )
     return jobs
+
+
+# RELATED_ROLE_TRIAL_V1: does not change title_decision or keyword scoring.
+def _responsibility_text(value):
+    import html, unicodedata
+    text = html.unescape(str(value or '')).casefold()
+    text = text.replace('ä','ae').replace('ö','oe').replace('ü','ue').replace('ß','ss')
+    text = unicodedata.normalize('NFKC', text)
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', text)).strip()
+
+def related_role_candidate(title, profile):
+    settings = profile.get('related_roles') or {}
+    if settings.get('enabled') is not True:
+        return False
+    direct = title_decision(title, profile.get('title_must_match', []), profile.get('title_must_not_match', []))
+    if direct['keep'] or direct['reason'] != 'no_requested_title_term':
+        return False
+    text = normalized_title(title)
+    return any(re.search(pattern, text, re.I) for pattern in settings.get('candidate_title_patterns', []))
+
+def role_decision(job, profile):
+    direct = title_decision(job.get('title',''), profile.get('title_must_match', []), profile.get('title_must_not_match', []))
+    if direct['keep']:
+        return dict(direct, match_type='Direct role', match_reason='Title: '+direct['term'], groups=[])
+    if not related_role_candidate(job.get('title',''), profile):
+        return dict(direct, match_type='', match_reason='', groups=[])
+    settings = profile['related_roles']
+    text = _responsibility_text(job.get('description',''))
+    groups, evidence = [], {}
+    for group, terms in settings.get('responsibility_groups', {}).items():
+        hits = [term for term in terms if re.search(r'(?<!\w)'+re.escape(_responsibility_text(term))+r'(?!\w)', text)]
+        if hits:
+            groups.append(group); evidence[group] = hits
+    required = settings.get('required_any_group', [])
+    keep = len(groups) >= max(2, int(settings.get('min_responsibility_groups', 2))) and (not required or any(g in groups for g in required))
+    return dict(keep=keep, reason='related_responsibilities_match' if keep else ('related_description_missing' if not text else 'related_insufficient_evidence'), term='', match_type='Related role' if keep else '', match_reason='Responsibilities: '+', '.join(groups) if keep else '', groups=groups, evidence=evidence)

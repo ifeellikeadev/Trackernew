@@ -108,16 +108,19 @@ def _records(ws):
     from src.job_recency import parse_posted
     if ws is None:return []
     records=[]
+    profile=yaml.safe_load(CV_PROFILE_FILE.read_text(encoding="utf-8")) if CV_PROFILE_FILE.exists() else {}
+    related_enabled=((profile or {}).get("related_roles") or {}).get("enabled") is True
     for row in range(2,ws.max_row+1):
         record={col:ws.cell(row,i+1).value for i,col in enumerate(COLUMNS)}
         if all(v is None for v in record.values()):continue
         if excluded_seniority(record.get('Job Title')) or not allowed_job({'city':record.get('City'),'company':record.get('Company'),'url':record.get('URL'),'location':record.get('Location')}):continue
+        if record.get('Match Type')=='Related role' and not related_enabled:continue
         raw=record.get('Job Posted');posted=parse_posted(raw)
         score=record.get('Relevance Score (1-10)');score=score if isinstance(score,(int,float)) else 0
         rank,area=area_priority(record.get('Location'))
         url=str(record.get('URL') or '')
         if urlparse(url).scheme not in ('http','https') or not urlparse(url).netloc:url=''
-        records.append(dict(title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
+        records.append(dict(match_type=str(record.get('Match Type') or ''),match_reason=str(record.get('Match Reason') or ''),title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
     return sorted(records,key=lambda r:(r['rank'],-r['score']))
 
 STYLE = r"""
@@ -132,7 +135,8 @@ def _card(r,index):
     area={'Unterfoehring':'Unterföhring'}.get(r['area'],r['area'])
     date='Posted '+r['posted'] if r['posted'] else 'Posting date unknown'
     new="<span class='pill new'>New this update</span>" if r['new'] else ''
-    return f"""<article class='job-row'><div class='role'><h2>{title}</h2><p class='employer'>{e(r['company'])}</p>{new}</div><div class='workplace'><span class='mobile-label'>Workplace</span>{e(r['location'])}<span class='area-label'>{e(area)}</span></div><div><span class='mobile-label'>Keyword relevance</span><span class='score' title='Existing weighted keyword score, not a hiring probability'><b>{r['score']:g}</b>/10</span></div><div class='posted'>{e(date)}</div><div class='action'>{link}</div></article>"""
+    related=("<span class='pill preferred' title='"+e(r.get('match_reason',''))+"'>Related role</span><span class='area-label'>"+e(r.get('match_reason',''))+"</span>") if r.get('match_type')=='Related role' else ''
+    return f"""<article class='job-row'><div class='role'><h2>{title}</h2><p class='employer'>{e(r['company'])}</p>{new}{related}</div><div class='workplace'><span class='mobile-label'>Workplace</span>{e(r['location'])}<span class='area-label'>{e(area)}</span></div><div><span class='mobile-label'>Keyword relevance</span><span class='score' title='Existing weighted keyword score, not a hiring probability'><b>{r['score']:g}</b>/10</span></div><div class='posted'>{e(date)}</div><div class='action'>{link}</div></article>"""
 
 LIST_STYLE=r"""
 .shell{max-width:1340px;padding:25px 28px}.nav{max-width:1340px;padding:16px 28px}.list-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}.list-heading h1{font-size:27px;letter-spacing:-.8px;margin:0 0 5px}.list-heading p{margin:0;color:var(--muted);font-size:12px}.list-heading .stamp{font-size:11px;padding:9px 12px}.job-list{border:1px solid var(--line);border-radius:16px;background:white;overflow:hidden}.list-columns,.job-row{display:grid;grid-template-columns:minmax(0,2.6fr) minmax(0,1.3fr) 130px 150px 115px;gap:22px;align-items:center;padding:20px 24px}.list-columns{background:#edf3f4;padding-top:12px;padding-bottom:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.job-row{border-top:1px solid #e8eef1}.job-row:hover{background:#f7fbfa}.job-row h2{font-size:17px;line-height:1.45;letter-spacing:-.2px;margin:0 0 6px;overflow-wrap:anywhere}.job-row h2 a{color:var(--ink);text-decoration:none}.job-row h2 a:hover{text-decoration:underline}.job-row .employer{font-size:12px;margin:0 0 5px;font-weight:400}.workplace,.posted{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.area-label{display:block;font-size:10px;color:var(--accent);margin-top:5px}.action{text-align:right}.mobile-label{display:none}.health-panel{max-width:1284px}.score{display:inline-block}.scope-note{font-size:11px;color:var(--muted);margin-top:14px}.empty{border:0}.job-row .pill.new{font-size:10px;padding:2px 8px}@media(max-width:1050px){.list-columns,.job-row{grid-template-columns:minmax(0,2fr) minmax(0,1fr) 100px 125px;gap:15px}.list-columns span:last-child{display:none}.action{grid-column:1/-1;text-align:left}}@media(max-width:700px){.shell{padding:22px 16px}.nav{padding:14px 16px}.list-heading{display:block}.list-heading .stamp{display:inline-block;margin-top:12px}.list-columns{display:none}.job-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:20px 18px;gap:15px}.role{grid-column:1/-1}.job-row h2{font-size:18px}.mobile-label{display:block;font-size:10px;margin-bottom:6px;color:var(--muted)}.posted{grid-column:1/-1}.action{grid-column:1/-1}.health-panel{margin:0 16px 25px}.nav small{display:none}}
