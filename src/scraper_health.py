@@ -45,7 +45,8 @@ def finish(row,error=None):
     elif row['eligible']:row['status']='MATCHES_FOUND'
     else:row['status']='NO_MATCHES_IN_EXTRACTED_RESULTS'
     text=' '.join(row['issues']).lower()
-    if row.get('title_unresolved',0):category,action='UNRESOLVED_JOB_TITLES','Some job titles could not be extracted. These are extraction gaps, not rejected job preferences. Review unresolved URL examples.'
+    if row.get('runtime_budget',{}).get('expired'):category,action='SOURCE_TIME_BUDGET_EXHAUSTED','Source deadline reached. Partial candidates retained; remaining details skipped. Coverage is incomplete.'
+    elif row.get('title_unresolved',0):category,action='UNRESOLVED_JOB_TITLES','Some job titles could not be extracted. These are extraction gaps, not rejected job preferences. Review unresolved URL examples.'
     elif row.get('location_unconfirmed',0):category,action='LOCATION_NEEDS_REVIEW','Title/date survivors have unconfirmed locations. Unconfirmed locations are excluded from the board. Counts remain available for diagnostics.'
     elif '429' in text:category,action='RATE_LIMITED','Reduce repeated requests; respect rate limits. Do not bypass blocks.'
     elif 'certificate' in text or 'sslerror' in text:category,action='TLS_ERROR','Verify official URL/certificate. Keep TLS verification enabled.'
@@ -77,6 +78,8 @@ def append_to_page(rows,path):
     for row in rows:
         cells=''.join('<td>'+html.escape(str(row.get(c,'')))+'</td>' for c in cols)
         details=html.escape((row.get('recommended_action','')+' | '+('; '.join(row['issues']) or 'No captured HTTP/browser warnings')))
+        if row.get('runtime_budget'):
+            details += '<br>Runtime budget: ' + html.escape(json.dumps(row['runtime_budget']))
         if row.get('pagination'):
             details += '<br>Pagination: ' + html.escape(json.dumps(row['pagination']))
         if row.get('unresolved_samples'):

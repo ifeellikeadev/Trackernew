@@ -5,6 +5,7 @@ from pathlib import Path
 import yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from src.ats_scrapers import scrape_company,fetch_job_details,reset_headless_budget
+from src.source_budget import source_budget
 from src.matcher import title_decision,location_decision,score_jobs
 from src.job_recency import filter_recent_jobs,parse_posted,date_decision
 from src.vacancy_extract import usable_title,dedupe,is_vacancy_url
@@ -58,8 +59,11 @@ def scrape_all_any_city(companies,cv_profile):
     def cached_details(url,row):
         if not url:return {},''
         if url not in detail_cache:
+            if budget.remaining()<=0:
+                budget.expired=True;budget.detail_skipped+=1
+                return {},''
             row['detail_fetches']+=1
-            try:detail_cache[url]=fetch_job_details(url)
+            try:detail_cache[url]=budget.call(fetch_job_details,url,default=({},''),phase='job_detail')
             except Exception as exc:
                 row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180]);detail_cache[url]=({},'')
         return detail_cache[url]
@@ -68,8 +72,10 @@ def scrape_all_any_city(companies,cv_profile):
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
         row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],title_rejection_details=[])
         try:
-            with observe(row):
-                extracted=scrape_company(company)
+            with source_budget() as budget, observe(row):
+                extracted=budget.call(scrape_company,company,default=None,phase='listing')
+                if extracted is None:extracted=budget.candidates
+                budget.remember(extracted)
                 valid=[j for j in extracted if is_vacancy_url(j.get('url',''))]
                 row['non_job_links_removed']=len(extracted)-len(valid)
                 raw=dedupe(valid);row['duplicate_candidates_removed']=len(valid)-len(raw);row['raw_candidates']=len(raw)
@@ -127,6 +133,9 @@ def scrape_all_any_city(companies,cv_profile):
                 jobs.extend(eligible);counts['ok' if raw else 'empty']+=1
         except Exception as exc:
             error=exc;counts['errored']+=1;logger.exception('FAILED %s',company['name'])
+        row['runtime_budget']=budget.diagnostics()
+        if budget.expired:row['issues'].append('Source runtime budget exhausted; coverage incomplete; partial candidates retained and remaining details skipped.')
+        if not budget.enforced:row['issues'].append('Source deadline enforcement unavailable in this runtime; cooperative checks only.')
         row['seconds']=round(time.monotonic()-start,2);finish(row,error);reports.append(row)
         row['funnel_accounted']=sum(row.get(k,0) for k in ('date_rejected','extraction_unresolved','title_rejected','location_rejected','location_unconfirmed','score_rejected','eligible'))
         row['funnel_balanced']=row['funnel_accounted']==row['raw_candidates']
@@ -140,7 +149,7 @@ def run():
     profile=load_yaml(CV_PROFILE_FILE);reset_headless_budget()
     companies=load_yaml(COMPANIES_FILE).get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
     jobs,counts,reports=scrape_all_any_city(companies,profile)
-    if not reports or all(row['status'] in ('ERROR','FAILED_OR_BLOCKED','EMPTY_UNVERIFIED','EXTRACTION_INCOMPLETE') for row in reports):
+    if not reports or not any(row.get('raw_candidates',0)>row.get('extraction_unresolved',0) for row in reports) or all(row['status'] in ('ERROR','FAILED_OR_BLOCKED','EMPTY_UNVERIFIED','EXTRACTION_INCOMPLETE') for row in reports):
         raise RuntimeError('No usable source results; existing tracker and webpage retained.')
     summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0))
     generate_html();append_to_page(reports,ROOT/'docs/index.html')

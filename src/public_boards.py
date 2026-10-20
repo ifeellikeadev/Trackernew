@@ -2,6 +2,8 @@
 Limits and stopping reasons are recorded; extraction is not a coverage certificate.
 """
 import json,logging,re,time
+import requests
+from src.source_budget import checkpoint,request_timeout,current_budget
 from urllib.parse import urlparse,urljoin,parse_qs,urlencode,urlunparse
 from bs4 import BeautifulSoup
 from src.vacancy_extract import html_jobs,structured_jobs,plain,dedupe,usable_title,ROLE,clean_label,resolve_job_url,document_base,location as structured_location,is_vacancy_url
@@ -85,7 +87,8 @@ def card_location(anchor):
 
 def extract_page(html,url):
     from src.source_adapters import bmw_cards
-    out=structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)
+    from src.priority_boards import priority_cards
+    out=structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)
     soup=BeautifulSoup(html,'html.parser');base=document_base(soup,url)
     for a in soup.find_all('a',href=True):
         target=resolve_job_url(base,a['href']);q=parse_qs(urlparse(target).query)
@@ -104,18 +107,25 @@ def extract_page(html,url):
             parsed=urlparse(target);path=re.sub(r'(?:;|%3[Bb])jsessionid=[^/?;]+','',parsed.path)
             target=urlunparse(parsed._replace(path=path,params='',query=urlencode({'jobOfferId':q['jobOfferId'][0]})))
         out.append(dict(title=title,location=card_location(a),url=target,description='',posted_date='',_extraction='public_board_card_unverified'))
-    combined=dedupe(out+html_jobs(html,url))
+    from src.priority_boards import supplemental_cards
+    combined=dedupe(out+html_jobs(html,url)+supplemental_cards(html,url))
     for job in combined:
         parsed=urlparse(job['url']);query=parse_qs(parsed.query)
         if parsed.hostname=='jobboerse.iabg.de' and query.get('jobOfferId'):
             path=re.sub(r'(?:;|%3[Bb])jsessionid=[^/?;]+','',parsed.path)
             job['url']=urlunparse(parsed._replace(path=path,params='',query=urlencode({'jobOfferId':query['jobOfferId'][0]})))
+    for job in combined:
+        parsed=urlparse(job['url']);q=parse_qs(parsed.query)
+        if parsed.hostname=='jobboerse.iabg.de' and q.get('jobOfferId'):job['_job_id']=q['jobOfferId'][0]
+        elif parsed.hostname in ('careers.allianz.com','jobs.infineon.com'):
+            match=re.search(r'/job/([^/]+)',parsed.path)
+            if match:job['_job_id']=match.group(1)
     combined=dedupe(combined)
     if urlparse(url).hostname=='careers.allianz.com':
         # Prefer public detail pages to duplicate Apply links for the same req ID.
         ids={re.search(r'/job/([^/]+)',urlparse(j['url']).path).group(1) for j in combined if re.search(r'/job/([^/]+)',urlparse(j['url']).path)}
         combined=[j for j in combined if not (parse_qs(urlparse(j['url']).query).get('career_job_req_id',[''])[0] in ids)]
-    return [j for j in combined if is_vacancy_url(j.get('url',''))]
+    return checkpoint([j for j in combined if is_vacancy_url(j.get('url',''))])
 
 
 def next_link(html,url):
@@ -123,7 +133,7 @@ def next_link(html,url):
     for a in soup.find_all('a',href=True):
         rel=a.get('rel',[]);label=clean_label(a.get('aria-label') or a.get('title') or a.get_text(' ',strip=True))
         if 'disabled' in a.get('class',[]) or a.get('aria-disabled')=='true':continue
-        if 'next' in rel or re.fullmatch(r'(?:next(?: page)?|nächste(?: seite)?|naechste(?: seite)?|weiter|›|»|>)',label,re.I):
+        if 'next' in rel or re.fullmatch(r'(?:(?:go to )?next(?: page)?|nächste(?: seite)?|naechste(?: seite)?|weiter|›|»|>)',label,re.I):
             target=urljoin(url,a['href'])
             if urlparse(target).hostname==urlparse(url).hostname and urlparse(target).scheme in ('http','https') and not a['href'].startswith(('#','javascript:')):return target
     return None
@@ -136,7 +146,7 @@ def _tag(jobs,stats):
 
 def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
     """Follow actual public Next links; browser handles JS buttons if needed."""
-    started=time.monotonic();current=url;seen=set();jobs=[];cookies={};pages=0;reason='no_next_link_unverified'
+    started=time.monotonic();current=url;seen=set();jobs=[];cookies={};pages=0;reason='no_next_link_unverified';form_submitted=False;response=None
     while current and pages<max_pages and time.monotonic()-started<seconds:
         if current in seen:reason='repeated_url';break
         seen.add(current)
@@ -145,11 +155,31 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
         try:cookies.update(response.cookies.get_dict())
         except (AttributeError,TypeError):pass
         page_url=response.url or current;page_jobs=extract_page(response.text,page_url);pages+=1
-        before=len(jobs);jobs=dedupe(jobs+page_jobs)
+        before=len(jobs);jobs=dedupe(jobs+page_jobs);checkpoint(jobs)
         if pages>1 and page_jobs and len(jobs)==before:reason='repeated_jobs';break
         if pages>1 and not page_jobs:
             reason='empty_page_unverified';break
         current=next_link(response.text,page_url)
+        if not page_jobs and not current and not form_submitted:
+            from src.priority_boards import public_search_form
+            form=public_search_form(response.text,page_url)
+            if form:
+                action,method,fields=form;form_submitted=True
+                if method=='get':
+                    parsed=urlparse(action);query=parse_qs(parsed.query)
+                    for key,value in fields:query[key]=[value]
+                    candidate=urlunparse(parsed._replace(query=urlencode(query,doseq=True)))
+                    if candidate not in seen:current=candidate
+                elif method=='post':
+                    from src.ats_scrapers import HEADERS
+                    posted=requests.post(action,data=fields,cookies=cookies,headers=HEADERS,timeout=request_timeout(20))
+                    if posted.status_code>=400:
+                        logger.warning('IABG public search form HTTP %s',posted.status_code)
+                    else:
+                        jobs=dedupe(jobs+extract_page(posted.text,posted.url or action));checkpoint(jobs)
+                        cookies.update(posted.cookies.get_dict())
+                        current=next_link(posted.text,posted.url or action)
+
         if not current and urlparse(page_url).hostname=='careers.allianz.com' and 'search-results' in urlparse(page_url).path and page_jobs:
             parsed=urlparse(page_url);query=parse_qs(parsed.query)
             # Public Allianz search uses ten-result pages; embedded related jobs must not inflate the offset.
@@ -179,7 +209,8 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
     # No login, stealth, certificate disabling or CAPTCHA handling is attempted.
     blocked_status=getattr(get,'last_status',lambda u:None)(url)
     if reason in ('no_next_link_unverified','request_failed') and blocked_status not in (401,403,429):
-        rendered,render_stats=browse_public_board(name,page_url if pages else url,seconds=BROWSER_SECONDS)
+        remaining=current_budget().remaining() if current_budget() else BROWSER_SECONDS
+        rendered,render_stats=browse_public_board(name,page_url if pages else url,seconds=min(BROWSER_SECONDS,remaining))
         jobs=dedupe(jobs+rendered);stats['browser']=render_stats;stats['unique_candidates']=len(jobs)
     if reason!='no_next_link_unverified':logger.warning('Board pagination %s: %s; retained %s candidates',name,reason,len(jobs))
     logger.warning('Board coverage unverified for %s: %s',name,json.dumps(stats))
@@ -188,6 +219,7 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
 
 def browse_public_board(name,url,seconds=BROWSER_SECONDS):
     started=time.monotonic();jobs=[];pages=0;reason='no_next_control_unverified';browser=None
+    if seconds<=0:return [],{'pages':0,'completion':'source_budget_exhausted','unique_candidates':0}
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
@@ -201,7 +233,7 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                         if parsed.hostname!=urlparse(url).hostname:return
                         if not re.search(r'/api/apply/v2/jobs(?:/|$)|/widgets(?:/|$)|/jobs/search(?:/|$)',parsed.path):return
                         if resp.status!=200 or 'json' not in resp.headers.get('content-type',''):return
-                        network_jobs.extend(json_records(resp.json(),url))
+                        network_jobs.extend(json_records(resp.json(),url));checkpoint(network_jobs)
                     except Exception:
                         pass  # Optional public-feed observation must not abort DOM extraction.
                 page.on('response',capture_public_jobs)
@@ -216,32 +248,38 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                     try:html=page.content()
                     except Exception:page.wait_for_timeout(300);html=page.content()
                     found=extract_page(html,page.url)
+                    if not found and not search_submitted and urlparse(page.url).hostname=='jobboerse.iabg.de':
+                        from src.priority_boards import public_search_form
+                        if public_search_form(html,page.url):
+                            search_submitted=True
+                            submits=page.locator('form[action*="searchJobOffers"] button[type="submit"],form[action*="searchJobOffers"] input[type="submit"]')
+                            if submits.count() and submits.first.is_visible() and submits.first.is_enabled():
+                                submits.first.click(timeout=2500);page.wait_for_timeout(700);continue
                     for frame in page.frames:
                         if frame==page.main_frame:continue
                         parsed_frame=urlparse(frame.url)
                         if parsed_frame.scheme!='https' or not re.search(r'jobs|career|recruit|dvinci|onlyfy|softgarden|personio',parsed_frame.hostname or '',re.I):continue
                         try:found.extend(extract_page(frame.content(),frame.url))
                         except Exception:pass
-                    before=len(jobs);jobs=dedupe(jobs+network_jobs+found);pages+=1
+                    before=len(jobs);jobs=dedupe(jobs+network_jobs+found);checkpoint(jobs);pages+=1
                     signature=tuple(j['url'] for j in found)
                     stagnant=stagnant+1 if signature==previous else 0;previous=signature
                     if stagnant>=2:reason='repeated_page';break
                     control=None
-                    selectors=('a[rel="next"]','button[aria-label*="next" i]','a[aria-label*="next" i]','button[title*="next" i]','[role="button"][aria-label*="next" i]','button[aria-label*="nächste" i]','button[aria-label*="Next"]','button[aria-label*="next"]','a[aria-label*="Next"]','button[aria-label*="Weiter"]','button[aria-label*="Nächste"]','button:has-text("Load more")','button:has-text("Show more jobs")','button:has-text("Mehr Stellen")','button:has-text("Next")','a:has-text("Next")','a:has-text("Weiter")','button:has-text("Show more jobs")','button:has-text("Weitere Jobs anzeigen")','button:has-text("Mehr anzeigen")')
+                    selectors='a[rel="next"],button[aria-label*="next" i],a[aria-label*="next" i],[role="button"][aria-label*="next" i],button[title*="next" i],button[aria-label*="nächste" i],button[aria-label*="weiter" i],button:has-text("Load more"),button:has-text("Show more jobs"),button:has-text("Weitere Jobs anzeigen"),button:has-text("Mehr Stellen"),button:has-text("Mehr anzeigen"),button:has-text("Next"),a:has-text("Next"),a:has-text("Weiter")'
                     contexts=[page]+[frame for frame in page.frames if frame!=page.main_frame and urlparse(frame.url).scheme=='https' and re.search(r'jobs|career|recruit|dvinci|onlyfy|softgarden|personio',urlparse(frame.url).hostname or '',re.I)]
                     for context in contexts:
-                      for selector in selectors:
-                        candidates=context.locator(selector)
-                        for index in range(min(candidates.count(),4)):
+                        candidates=context.locator(selectors)
+                        for index in range(min(candidates.count(),8)):
                             candidate=candidates.nth(index)
-                            if candidate.is_visible() and candidate.is_enabled() and candidate.get_attribute('aria-disabled')!='true':control=candidate;break
+                            if candidate.is_visible() and candidate.is_enabled() and candidate.get_attribute('aria-disabled')!='true':
+                                control=candidate;break
                         if control is not None:break
-                      if control is not None:break
                     if control is None:
                         # Trigger ordinary lazy loading once; never assume this is full pagination.
                         page.evaluate('() => { const r=document.scrollingElement || document.documentElement; if(r) window.scrollTo(0,r.scrollHeight); }')
                         page.wait_for_timeout(700)
-                        extra=extract_page(page.content(),page.url);jobs=dedupe(jobs+network_jobs+extra)
+                        extra=extract_page(page.content(),page.url);jobs=dedupe(jobs+network_jobs+extra);checkpoint(jobs)
                         reason='no_next_control_unverified';break
                     try:
                         control.click(timeout=2500)
@@ -251,7 +289,10 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                     # concluding that the server repeated a page.
                     for wait_attempt in range(4):
                         page.wait_for_timeout(700)
-                        try:advanced=extract_page(page.content(),page.url)
+                        try:
+                            advanced=extract_page(page.content(),page.url)
+                            for frame in contexts[1:]:advanced.extend(extract_page(frame.content(),frame.url))
+                            advanced=dedupe(advanced+network_jobs);checkpoint(advanced)
                         except Exception:continue
                         if tuple(j['url'] for j in advanced)!=signature:break
                 if time.monotonic()-started>=seconds:reason='time_limit'
@@ -286,7 +327,7 @@ def scrape_eightfold(name,url,domain,get,max_pages=500,seconds=SOURCE_SECONDS):
         found=json_records({'positions':positions},url);new=[j for j in found if j['url'] not in seen]
         if not new:reason='repeated_or_unreadable_page';break
         for j in new:j['_extraction']='eightfold_public_api';seen.add(j['url'])
-        jobs.extend(new);start+=len(positions)
+        jobs.extend(new);checkpoint(jobs);start+=len(positions)
         if total is not None and total>10 and len(jobs)>=total:
             reason='reported_total_reached';break
     if pages>=max_pages:reason='page_limit'
@@ -296,6 +337,9 @@ def scrape_eightfold(name,url,domain,get,max_pages=500,seconds=SOURCE_SECONDS):
     stats={'reader':'eightfold_public_api','pages':pages,'advertised_total':total,'unique_candidates':len(jobs),'completion':reason}
     if reason not in ('empty_page','reported_total_reached') or not jobs:
         logger.warning('Eightfold pagination %s: %s',name,json.dumps(stats))
-        if not jobs:
-            return scrape_html_board(name,url,get)
+        # Recover incomplete API pages too, not just an entirely empty API.
+        rendered=scrape_html_board(name,url,get)
+        browser_stats=next((j.get('_pagination') for j in rendered if j.get('_pagination')), {})
+        jobs=dedupe(jobs+rendered);checkpoint(jobs)
+        stats['fallback']=browser_stats;stats['unique_candidates']=len(jobs)
     return _tag(jobs,stats)

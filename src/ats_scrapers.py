@@ -76,6 +76,7 @@ def normalize_fresh_posted(value):
     return parsed.isoformat() if parsed is not None and parsed <= observed else value
 
 import requests
+from src.source_budget import checkpoint,request_timeout
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger("job_scraper.ats")
@@ -101,22 +102,45 @@ _GET_CACHE = {}
 _HTTP_STATUS = {}
 
 def _safe_get(url: str, **kwargs) -> requests.Response | None:
-    key = (url, repr(sorted(kwargs.items())))
+    """Cache within this run; retry one transient GET failure within the source budget.
+    Never retry access denial, rate limits, certificate errors or permanent 4xx.
+    """
+    from src.source_budget import current_budget
+    key=(url,repr(sorted(kwargs.items())))
     if key in _GET_CACHE:
-        if _GET_CACHE[key] is None:logger.warning("Cached unsuccessful request: %s", url)
+        if _GET_CACHE[key] is None:logger.warning('Cached unsuccessful request: %s',url)
         return _GET_CACHE[key]
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=TIMEOUT, **kwargs)
-        _HTTP_STATUS[url]=resp.status_code
-        _GET_CACHE[key] = resp if resp.status_code < 400 else None
-        if resp.status_code >= 400:
-            logger.warning("GET %s -> HTTP %s", url, resp.status_code)
-            return None
-        return resp
-    except requests.RequestException as exc:
-        _GET_CACHE[key]=None
-        logger.warning("GET %s failed: %s", url, exc)
-        return None
+    for attempt in range(2):
+        try:
+            options=dict(kwargs);headers=options.pop('headers',HEADERS)
+            timeout=options.pop('timeout',TIMEOUT)
+            if not isinstance(timeout,(int,float)):timeout=TIMEOUT
+            resp=requests.get(url,headers=headers,timeout=request_timeout(timeout),**options)
+            _HTTP_STATUS[url]=resp.status_code
+            transient=resp.status_code in (500,502,503,504)
+            if resp.status_code<400:
+                _GET_CACHE[key]=resp;return resp
+            logger.warning('GET %s -> HTTP %s',url,resp.status_code)
+            if not transient or attempt:return _cache_failed(key)
+        except requests.exceptions.SSLError as exc:
+            logger.warning('GET %s certificate failure; no retry: %s',url,exc)
+            return _cache_failed(key)
+        except (requests.exceptions.Timeout,requests.exceptions.ConnectionError) as exc:
+            logger.warning('GET %s transient request failure: %s',url,exc)
+            if attempt:return _cache_failed(key)
+        except requests.RequestException as exc:
+            logger.warning('GET %s failed: %s',url,exc);return _cache_failed(key)
+        budget=current_budget()
+        if budget and budget.remaining()<3:
+            logger.warning('GET retry skipped: insufficient source budget: %s',url)
+            return _cache_failed(key)
+        logger.warning('Retrying transient GET once after 1 second: %s',url)
+        time.sleep(1)
+    return _cache_failed(key)
+
+def _cache_failed(key):
+    _GET_CACHE[key]=None
+    return None
 
 
 _safe_get.last_status=lambda url:_HTTP_STATUS.get(url)
@@ -264,6 +288,7 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
                          "posted_date": posted, "_extraction": "smartrecruiters_api",
                          "_detail_api_url": base + "/" + quote(ident, safe="")})
             stamp_date(jobs[-1],raw_date,'releasedDate')
+        checkpoint(jobs)
         if not added:
             logger.warning("SmartRecruiters incomplete pagination: repeated page; retaining %s candidates", len(jobs))
             return jobs
@@ -351,6 +376,11 @@ def scrape_personio(company_name: str, board_token: str = "", preferred_domain: 
         jobs = _parse_personio_xml(resp, token, domain)
         if jobs:
             return jobs
+    from src.public_boards import scrape_html_board
+    for domain in dict.fromkeys((preferred_domain,'de','com')):
+        board=f'https://{token}.jobs.personio.{domain}/?language=en'
+        result=scrape_html_board(company_name,board,_safe_get)
+        if result:return result
     return []
 
 
@@ -435,7 +465,7 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
         if time.monotonic()-source_started>=150:
             completion='time_limit';logger.warning('Workday incomplete pagination: time limit; retaining %s candidates',len(jobs));break
         try:
-            resp = requests.post(api_url, json={"limit": request_limit, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=TIMEOUT)
+            resp = requests.post(api_url, json={"limit": request_limit, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=request_timeout(TIMEOUT))
             resp.raise_for_status()
             data = resp.json()
             page = data.get("jobPostings", [])
@@ -463,6 +493,7 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
                          "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
                          "_extraction": "workday_api"})
             stamp_date(jobs[-1],posting.get("postedOn", ""),"postedOn")
+        checkpoint(jobs)
         if not added:
             if advertised_total is not None and len(jobs) >= advertised_total:
                 completion = 'reported_total_reached'
@@ -540,7 +571,7 @@ def scrape_generic(company_name, careers_url):
     resp = _safe_get(careers_url)
     if resp is None:
         return []
-    return extract_page(resp.text, resp.url or careers_url)
+    return checkpoint(extract_page(resp.text, resp.url or careers_url))
 
 
 # --------------------------------------------------------------------------
@@ -645,7 +676,7 @@ def scrape_headless(company_name: str, careers_url: str) -> list[dict[str, Any]]
     _headless_time_used += time.monotonic() - start
 
     from src.public_boards import extract_page
-    return extract_page(html, final_url)
+    return checkpoint(extract_page(html, final_url))
 
 
 # --------------------------------------------------------------------------
@@ -717,6 +748,7 @@ def discover_real_careers_url(vanity_url):
         target = tag.get('href') or tag.get('src')
         if target:candidates.append(urljoin(resp.url, html_lib.unescape(target)))
     candidates += re.findall(r'https?://[^\s"<>\']+', html_lib.unescape(resp.text))
+    candidates=[c for c in candidates if urlparse(c).scheme in ('http','https') and not urlparse(c).path.lower().endswith(('.pdf','.png','.jpg','.js','.css')) and not any(x in urlparse(c).path.lower() for x in ('privacy','datenschutz','legal'))]
     for candidate in candidates:
         found = platform_from_url(candidate)
         if found[0]:return found
@@ -814,12 +846,28 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
     token = company.get("board_token") or ""
 
     try:
+        host=urlparse(careers_url).hostname or ''
+        if host in ('freeletics.com','www.freeletics.com') and urlparse(careers_url).path.rstrip('/') in ('/en/careers','/de/careers'):
+            logger.warning('Using verified Freeletics careers entry instead of stale /careers URL; extraction remains unverified')
+            careers_url='https://www.freeletics.com/de/corporate/jobs/'
+        if name.casefold().strip()=='hat.tec' and host in ('hattec.de','www.hattec.de'):
+            from src.public_boards import scrape_html_board
+            result=scrape_html_board(name,careers_url,_safe_get)
+            if result:return result
+            logger.warning('HAT.tec official page empty: trying public HRlab employer board; coverage unverified')
+            return scrape_html_board(name,'https://app.hrlab.de/de/jobs/hattec',_safe_get)
+        if host=='app.hrlab.de':
+            from src.public_boards import scrape_html_board
+            return scrape_html_board(name,careers_url,_safe_get)
         if ats == "jsonld_feed":
             from src.source_adapters import scrape_jsonld_feed
             return scrape_jsonld_feed(name,careers_url,_safe_get)
         if ats == "amazon":
             from src.source_adapters import scrape_amazon
             return scrape_amazon(name,careers_url,_safe_get)
+        if urlparse(careers_url).hostname in ('jobboerse.iabg.de','careers.allianz.com'):
+            from src.priority_boards import scrape_priority_board
+            return scrape_priority_board(name,careers_url,_safe_get)
         if ats == "public_board":
             from src.public_boards import scrape_html_board
             return scrape_html_board(name, careers_url, _safe_get)
@@ -903,6 +951,10 @@ def fetch_job_details(url):
                 if label.get_text(' ', strip=True).lower().rstrip(':') in ('standort','standorte','location','locations','arbeitsort'):
                     value = label.find_next_sibling(['dd','td'])
                     if value:details['location'] = value.get_text(' ', strip=True);break
+    if not details.get('location'):
+        from src.priority_boards import priority_detail_location
+        explicit=priority_detail_location(resp.text,resp.url or url)
+        if explicit:details['location']=explicit;details['_location_source']='detail_explicit_location'
     if not details.get('posted_date'):
         posted = soup.select_one('[itemprop="datePosted"]')
         if posted:

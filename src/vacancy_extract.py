@@ -23,7 +23,7 @@ def location(value):
     if not isinstance(address,dict):return ''
     return ', '.join(str(address[k]) for k in ('addressLocality','addressRegion','addressCountry') if isinstance(address.get(k),str))
 
-NAV = re.compile(r'^(?:contact(?: us)?|kontakt|faqs?(?:.*)?|support|help(?:.*)?|review accommodations.*|privacy.*|datenschutz.*|impressum|legal.*|cookie.*|sign in|log in|register|search(?: jobs)?|all jobs|view all jobs|careers|karriere|jobs|stellenangebote|open positions|job alerts?|talent community|benefits|our culture|about us|locations|saved jobs|actions|to the vacancies|apply unsolicited now|bewerberlogin|candidate login|my applications)$',re.I)
+NAV = re.compile(r'^(?:contact(?: us)?|kontakt|faqs?(?:.*)?|support|help(?:.*)?|review accommodations.*|privacy.*|datenschutz.*|impressum|legal(?: notice| information| disclaimer)?|cookie.*|sign in|log in|register|search(?: jobs)?|all jobs|view all jobs|careers|karriere|jobs|stellenangebote|open positions|job alerts?|talent community|benefits|our culture|about us|locations|saved jobs|actions|to the vacancies|apply unsolicited now|bewerberlogin|candidate login|my applications)$',re.I)
 APPLY = re.compile(r'^(?:apply(?: now| here| for this job)?|bewerben|jetzt bewerben|direkt bewerben|mehr erfahren|learn more|read more|details|view job|view details|job details|view|hier|here|to the complete job advertisement|zur stellenanzeige|zur stellenausschreibung|zur bewerbung|zur online bewerbung)$',re.I)
 ROLE = re.compile(r'\b(?:manager|management|engineer|engineering|consultant|specialist|analyst|coordinator|director|head|lead|developer|architect|officer|assistant|associate|buyer|intern|technician|scientist|designer|administrator|controller|accountant|nurse|sales|recruiter|werkstudent|praktikant|leiter|leitung|referent|berater|entwickler|projekt|mitarbeiter|sachbearbeiter|kaufmann|kauffrau|fachkraft|monteur|techniker|ingenieur)\w*\b',re.I)
 DETAIL = re.compile(r'/(?:jobs?|positions?|postings?|vacancies|stellenangebote|job-detail|o)/[^/?#]+',re.I)
@@ -33,6 +33,8 @@ def is_vacancy_url(url):
     parsed=urlparse(str(url or ''));path=parsed.path.lower();query=parse_qs(parsed.query)
     if parsed.scheme not in ('http','https') or BAD_PATH.search(path):return False
     if path.endswith(('.pdf','.png','.jpg','.css','.js')):return False
+    if re.search(r'/(?:jobs|careers|vacancies)/(?:page/\d+|results|search|saved)/?$',path):return False
+    if re.search(r'/(?:jobs|careers|vacancies)/?$',path) and any(k.lower() in ('page','start','offset') for k in query):return False
     if re.search(r'/(?:jobs|vacancies)/(?:all|results|search)/?$|/applications/?$',path):return False
     if any(k.lower() in ('action','mode') and any(str(v).lower() in ('login','register','apply','application') for v in values) for k,values in query.items()):return False
     return True
