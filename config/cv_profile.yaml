@@ -176,3 +176,75 @@ scoring_keywords:
   weight: 1
 - term: Verhandlung
   weight: 1
+
+# Set enabled to false to disable the related-role trial.
+related_roles:
+  enabled: true
+  min_responsibility_groups: 2
+  required_any_group:
+  - delivery
+  - governance
+  - transformation
+  candidate_title_patterns:
+  - \bconsultants?\b
+  - \bconsulting\b
+  - \b(?:unternehmens|management|organisations|prozess)?berater(?:in)?\b
+  - \badvis(?:or|er|ory)\b
+  - \btransformation (?:lead|manager)\b
+  responsibility_groups:
+    delivery:
+    - project delivery
+    - programme delivery
+    - program delivery
+    - project planning
+    - project management
+    - project implementation
+    - project coordination
+    - projektmanagement
+    - projektplanung
+    - projektsteuerung
+    - projektdurchfuehrung
+    - projektabwicklung
+    - projektleitung
+    governance:
+    - project governance
+    - programme governance
+    - program governance
+    - project portfolio
+    - portfolio management
+    - pmo
+    - projektportfolio
+    - projektcontrolling
+    risk_budget:
+    - budget management
+    - budget responsibility
+    - budget control
+    - financial control
+    - risk management
+    - dependency management
+    - risikomanagement
+    - budgetverantwortung
+    - budgetplanung
+    - kostenkontrolle
+    - abhaengigkeitsmanagement
+    stakeholders:
+    - stakeholder management
+    - stakeholder coordination
+    - cross-functional coordination
+    - cross functional teams
+    - stakeholdermanagement
+    - bereichsuebergreifende koordination
+    - interdisziplinaere teams
+    transformation:
+    - transformation implementation
+    - transformation delivery
+    - change management
+    - organisational transformation
+    - organizational transformation
+    - process improvement
+    - process optimisation
+    - process optimization
+    - organisationsentwicklung
+    - veraenderungsmanagement
+    - prozessoptimierung
+    - transformationsprojekte
