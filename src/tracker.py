@@ -1,14 +1,20 @@
-
+"""Consolidated tracker implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
+
+# ========================================================================
+# tracker: consolidated implementation
+# ========================================================================
+
+
 
 import datetime as dt
 from pathlib import Path
 from typing import Any, Callable
 
-from src.job_scope import allowed_job
-from src.matcher import excluded_seniority
-from src.location_priority import sort_key
-from src.job_recency import filter_recent_jobs, prune_old_rows
+from src.matching import allowed_job
+from src.matching import excluded_seniority
+from src.matching import sort_key
+from src.matching import filter_recent_jobs, prune_old_rows
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
 from openpyxl.utils import get_column_letter

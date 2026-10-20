@@ -1,5 +1,11 @@
-
+"""Consolidated validate_urls implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
+
+# ========================================================================
+# validate_urls: consolidated implementation
+# ========================================================================
+
+
 
 import sys
 import time
@@ -11,8 +17,8 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.job_scope import excluded_source
-from src.ats_scrapers import discover_real_careers_url
+from src.matching import excluded_source
+from src.scrapers import discover_real_careers_url
 
 ROOT = Path(__file__).resolve().parent.parent
 COMPANIES_FILE = ROOT / "config" / "companies.yaml"

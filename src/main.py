@@ -1,17 +1,23 @@
+"""Consolidated main implementation. See INSTALL.txt for migration details."""
+from __future__ import annotations
+
+# ========================================================================
+# main: consolidated implementation
+# ========================================================================
 """Synchronous Munich-region pipeline with auditable filtering and confirmed-location results only."""
 import logging,re,sys,time
 from collections import Counter
 from pathlib import Path
 import yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
-from src.ats_scrapers import scrape_company,fetch_job_details,reset_headless_budget
-from src.source_budget import source_budget
-from src.matcher import title_decision,location_decision,score_jobs,related_role_candidate,role_decision
-from src.job_recency import filter_recent_jobs,parse_posted,date_decision
-from src.vacancy_extract import usable_title,dedupe,is_vacancy_url
+from src.scrapers import scrape_company, fetch_job_details, reset_headless_budget
+from src.diagnostics import source_budget
+from src.matching import title_decision, location_decision, score_jobs, related_role_candidate, role_decision
+from src.matching import filter_recent_jobs, parse_posted, date_decision
+from src.extraction import usable_title, dedupe, is_vacancy_url
 from src.tracker import update_tracker
-from src.generate_html import generate as generate_html
-from src.scraper_health import observe,new_row,finish,save_report,append_to_page
+from src.website import generate as generate_html
+from src.diagnostics import observe, new_row, finish, save_report, append_to_page
 logging.basicConfig(level=logging.INFO,format='%(asctime)s [%(levelname)s] %(message)s')
 logger=logging.getLogger('job_scraper.main')
 ROOT=Path(__file__).resolve().parent.parent
