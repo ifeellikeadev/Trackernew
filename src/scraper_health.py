@@ -88,6 +88,15 @@ def append_to_page(rows,path):
             if row.get(key):details += '<br>'+html.escape(key.replace('_',' ').title())+': '+html.escape(json.dumps(row[key],ensure_ascii=False))
         samples=html.escape('; '.join(row.get('title_rejected_samples',[])))
         details += '<br>Rejected-title examples: '+samples if samples else ''
-        body.append('<tr>'+cells+'<td>'+details+'</td></tr>')
+        body.append('<tr>'+cells+'<td><details><summary>View diagnostics</summary><div>'+details+'</div></details></td></tr>')
     section='<h2>Scraper health</h2><p>Empty does not prove no vacancies. Eligible counts precede tracker deduplication. Link candidates may be unverified. Unresolved titles are extraction gaps, not title-filter rejections. Warnings include detail-page requests.</p><div class="scroll-wrap"><table><thead><tr>'+headers+'<th>Issues</th></tr></thead><tbody>'+''.join(body)+'</tbody></table></div>'
-    text=path.read_text(encoding='utf-8');path.write_text(text.replace('</body>',section+'</body>'),encoding='utf-8')
+    from collections import Counter
+    statuses=Counter(row.get('status','UNKNOWN') for row in rows)
+    badges=''.join('<span>'+html.escape(status.replace('_',' ').title())+': '+str(count)+'</span>' for status,count in sorted(statuses.items()))
+    section='<details id="scraper-health" class="health-panel"><summary>Source health &amp; diagnostics <span>'+str(len(rows))+' sources checked · expand for coverage details</span></summary><div class="health-content"><div class="health-stats">'+badges+'</div>'+section+'</div></details>'
+    text=path.read_text(encoding='utf-8')
+    # Replace an existing panel rather than duplicate it on repeated appends.
+    start='<!-- TRACKER_HEALTH_START -->';end='<!-- TRACKER_HEALTH_END -->'
+    if start in text and end in text:
+        a=text.index(start);b=text.index(end,a)+len(end);text=text[:a]+text[b:]
+    path.write_text(text.replace('</body>',start+section+end+'</body>'),encoding='utf-8')
