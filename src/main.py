@@ -140,9 +140,9 @@ def scrape_all_any_city(companies,cv_profile):
                         continue
                     job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None);confirmed.append(job)
                 counts['location_confirmed']+=len(confirmed);score_jobs(confirmed,cv_profile)
-                floor=cv_profile.get('main_min_score',0);eligible=[j for j in confirmed if j.get('relevance_score',0)>=floor]
+                floor=cv_profile.get('main_min_score',0);eligible=[j for j in confirmed if j.get('relevance_score',0)>=max(floor,7 if j.get('match_type')=='Related role' else 0)]
                 row['score_rejected']=len(confirmed)-len(eligible);row['eligible']=len(eligible)
-                row['score_rejected_samples']=[{'title':j['title'],'url':j['url'],'score':j.get('relevance_score',0),'floor':floor} for j in confirmed if j not in eligible][:20]
+                row['score_rejected_samples']=[{'title':j['title'],'url':j['url'],'score':j.get('relevance_score',0),'floor':max(floor,7 if j.get('match_type')=='Related role' else 0)} for j in confirmed if j not in eligible][:20]
                 row['unknown_dates']=sum(parse_posted(j.get('posted_date')) is None for j in eligible)
                 jobs.extend(eligible);counts['ok' if raw else 'empty']+=1
         except Exception as exc:

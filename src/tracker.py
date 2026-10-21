@@ -237,7 +237,20 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 
         for row in range(ws.max_row, 1, -1):
             if ws.cell(row, match_col).value == "Related role":ws.delete_rows(row)
         new_jobs = [j for j in new_jobs if j.get("match_type") != "Related role"]
+    # Related-role floor applies to new candidates and saved trial rows.
+    new_jobs = [j for j in new_jobs if j.get("match_type") != "Related role" or (isinstance(j.get("relevance_score"), (int, float)) and 7 <= j["relevance_score"] <= 10)]
+    ws = wb["Jobs"]
+    match_col = COLUMNS.index("Match Type") + 1
+    score_col = COLUMNS.index("Relevance Score (1-10)") + 1
+    related_pruned = 0
+    for row in range(ws.max_row, 1, -1):
+        score = ws.cell(row, score_col).value
+        if ws.cell(row, match_col).value == "Related role" and not (isinstance(score, (int, float)) and 7 <= score <= 10):
+            ws.delete_rows(row)
+            related_pruned += 1
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
+    summary["pruned"] += related_pruned
+    summary["related_score_pruned"] = related_pruned
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.stem + ".pending.xlsx")
     try:

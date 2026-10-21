@@ -121,6 +121,7 @@ def _records(ws):
         if record.get('Match Type')=='Related role' and not related_enabled:continue
         raw=record.get('Job Posted');posted=parse_posted(raw)
         score=record.get('Relevance Score (1-10)');score=score if isinstance(score,(int,float)) else 0
+        if record.get('Match Type')=='Related role' and not 7 <= score <= 10:continue
         rank,area=area_priority(record.get('Location'))
         url=str(record.get('URL') or '')
         if urlparse(url).scheme not in ('http','https') or not urlparse(url).netloc:url=''
