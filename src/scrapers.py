@@ -322,10 +322,100 @@ def card_location(anchor):
     return ''
 
 
+
+
+def coverage_cards(html, url):
+    """Explicit public cards for Avature and employer-owned Ashby embeds.
+
+    No location is inferred from the employer, search query or headquarters.
+    """
+    host=urlparse(url).hostname or ''
+    if host not in ('jobs.siemens.com','jobs.siemens-energy.com','www.yoummday.com','yoummday.com','jobs.infineon.com'):
+        return []
+    soup=BeautifulSoup(html,'html.parser');jobs=[]
+    for anchor in soup.select('a[href]'):
+        target=urljoin(url,anchor['href']);parsed=urlparse(target)
+        if parsed.hostname!=host:continue
+        is_avature=host.startswith('jobs.siemens') and bool(re.search(r'/JobDetail/(?:[^/?]+/)?\d+(?:/|$)',parsed.path,re.I))
+        is_embed=host.endswith('yoummday.com') and bool(parse_qs(parsed.query).get('ashby_jid'))
+        is_infineon=host=='jobs.infineon.com' and bool(re.search(r'/careers/job/\d+',parsed.path))
+        if not (is_avature or is_embed or is_infineon):continue
+        heading=anchor.select_one('h2,h3,h4,[itemprop="title"]')
+        lines=[clean_label(x) for x in anchor.get_text('\n',strip=True).splitlines() if clean_label(x)]
+        title=clean_label(heading.get_text(' ',strip=True)) if heading else (lines[0] if lines else '')
+        if not usable_title(title):continue
+        card=anchor
+        for parent in list(anchor.parents)[:5]:
+            if parent.name in ('body','html','main'):break
+            targets={urljoin(url,a['href']) for a in parent.select('a[href]') if re.search(r'/JobDetail/',a['href'],re.I) or 'ashby_jid=' in a['href']}
+            if len(targets)>1:break
+            if targets:card=parent
+        location=''
+        explicit=card.select_one('[itemprop="jobLocation"],.location,.job-location,[data-ph-at-id="job-location"],[data-testid="job-location"]')
+        if explicit:location=explicit.get('content') or explicit.get_text(' ',strip=True)
+        if not location and is_infineon and len(lines)>1:
+            candidate=lines[1]
+            if not re.match(r'^(?:HRC|Job.?ID|Hybrid|Remote|On.?site|Multiple locations)',candidate,re.I) and len(candidate)<=150:location=candidate
+        if not location:
+            for line in card.get_text('\n',strip=True).splitlines():
+                if is_avature and re.search(r'Job[- ]?ID\s*:',line,re.I):
+                    candidate=re.split(r'\s*[•|]\s*Job[- ]?ID\s*:',line,flags=re.I)[0].strip()
+                    if candidate and candidate!=line and not re.search(r'multiple locations|mehrere standorte',candidate,re.I):location=candidate
+                elif is_embed and '•' in line:
+                    pieces=[v.strip() for v in line.split('•')]
+                    # Employer cards explicitly use department / workplace / employment / mode.
+                    if len(pieces)>=3:location=pieces[1]
+        jobs.append(dict(title=title,url=target,location=location,description='',posted_date='',_location_source='explicit_public_card' if location else '',_extraction='avature_public_card' if is_avature else 'infineon_public_card' if is_infineon else 'employer_ashby_embed_card'))
+    return dedupe(jobs)
+
+
+def explicit_detail_locations(html):
+    """Read only explicitly labelled vacancy locations, never whole-body city hits."""
+    soup=BeautifulSoup(html,'html.parser');values=[]
+    for tag in soup.select('nav,header,footer,script,style'):tag.decompose()
+    selectors='[itemprop="jobLocation"],.job-location,.jobLocation,.job-location-label,[data-ph-at-id="job-location"],[data-testid="job-location"],.job-detail-location'
+    for node in soup.select(selectors):
+        text=clean_label(node.get('content') or node.get_text(' ',strip=True))
+        if text and len(text)<=250:values.append(text)
+    for label in soup.select('dt,th,label,span'):
+        if clean_label(label.get_text(' ',strip=True)).casefold().rstrip(':') not in ('standort','standorte','arbeitsort','location','locations','city','stadt'):continue
+        value=label.find_next_sibling(['dd','td','span','div','ul'])
+        if value:
+            text=clean_label(value.get_text(' ',strip=True))
+            if text and len(text)<=250 and not value.find(['form','button','h1','h2']):values.append(text)
+    return '; '.join(dict.fromkeys(values))
+
+
+def next_public_control(context):
+    """Choose one visible, enabled next/load-more element, not a multi-match locator."""
+    selectors=['a[rel="next"]','button[title*="next" i]','a[title*="next" i]','button[aria-label*="next" i]','a[aria-label*="next" i]','[role="button"][aria-label*="next" i]',
+               'button[aria-label*="nächste" i]','a[aria-label*="nächste" i]',
+               'button:has-text("Load more")','button:has-text("Show more jobs")','button:has-text("Mehr Stellen")',
+               'button:has-text("Mehr laden")','button:has-text("Next")','a:has-text("Next")',
+               'button:has-text("Weiter")','a:has-text("Weiter")','a:has-text("Nächste")']
+    for selector in selectors:
+        try:
+            found=context.locator(selector)
+            for i in range(min(found.count(),12)):
+                item=found.nth(i)
+                if item.is_visible() and item.is_enabled() and item.get_attribute('aria-disabled')!='true' and not item.get_attribute('disabled'):
+                    return item
+        except Exception:continue
+    return None
+
+
+def coverage_source(name, url):
+    """Verified public listing routes; no guessed API tokens or workplace claims."""
+    host=urlparse(url).hostname or '';name=name.casefold().strip()
+    if name=='siemens' and host=='jobs.siemens.com':return 'https://jobs.siemens.com/de_DE/externaljobs/SearchJobs'
+    if name=='yoummday' and (host.endswith('.personio.de') or host.endswith('.personio.com') or host in ('www.yoummday.com','yoummday.com')):return 'https://www.yoummday.com/de/jobs/'
+    if name=='allianz' and host=='careers.allianz.com' and 'search-results' not in urlparse(url).path:return 'https://careers.allianz.com/global/en/search-results'
+    return None
+
 def extract_page(html,url):
 
 
-    out=structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)
+    out=structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)+coverage_cards(html,url)
     soup=BeautifulSoup(html,'html.parser');base=document_base(soup,url)
     for a in soup.find_all('a',href=True):
         target=resolve_job_url(base,a['href']);q=parse_qs(urlparse(target).query)
@@ -370,7 +460,7 @@ def next_link(html,url):
     for a in soup.find_all('a',href=True):
         rel=a.get('rel',[]);label=clean_label(a.get('aria-label') or a.get('title') or a.get_text(' ',strip=True))
         if 'disabled' in a.get('class',[]) or a.get('aria-disabled')=='true':continue
-        if 'next' in rel or re.fullmatch(r'(?:(?:go to )?next(?: page)?|nächste(?: seite)?|naechste(?: seite)?|weiter|›|»|>)',label,re.I):
+        if 'next' in rel or re.fullmatch(r'(?:(?:(?:go to )?next(?: page)?|nächste(?: seite)?|naechste(?: seite)?|weiter)(?:\s*(?:>>|»|›|→))?|›|»|>)',label,re.I):
             target=urljoin(url,a['href'])
             if urlparse(target).hostname==urlparse(url).hostname and urlparse(target).scheme in ('http','https') and not a['href'].startswith(('#','javascript:')):return target
     return None
@@ -492,10 +582,12 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                             submits=page.locator('form[action*="searchJobOffers"] button[type="submit"],form[action*="searchJobOffers"] input[type="submit"]')
                             if submits.count() and submits.first.is_visible() and submits.first.is_enabled():
                                 submits.first.click(timeout=2500);page.wait_for_timeout(700);continue
+                    contexts=[page]
                     for frame in page.frames:
                         if frame==page.main_frame:continue
                         parsed_frame=urlparse(frame.url)
                         if parsed_frame.scheme!='https' or not re.search(r'jobs|career|recruit|dvinci|onlyfy|softgarden|personio',parsed_frame.hostname or '',re.I):continue
+                        contexts.append(frame)
                         try:found.extend(extract_page(frame.content(),frame.url))
                         except Exception:pass
                     before=len(jobs);jobs=dedupe(jobs+network_jobs+found);checkpoint(jobs);pages+=1
@@ -503,14 +595,8 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                     stagnant=stagnant+1 if signature==previous else 0;previous=signature
                     if stagnant>=2:reason='repeated_page';break
                     control=None
-                    selectors='a[rel="next"],button[aria-label*="next" i],a[aria-label*="next" i],[role="button"][aria-label*="next" i],button[title*="next" i],button[aria-label*="nächste" i],button[aria-label*="weiter" i],button:has-text("Load more"),button:has-text("Show more jobs"),button:has-text("Weitere Jobs anzeigen"),button:has-text("Mehr Stellen"),button:has-text("Mehr anzeigen"),button:has-text("Next"),a:has-text("Next"),a:has-text("Weiter")'
-                    contexts=[page]+[frame for frame in page.frames if frame!=page.main_frame and urlparse(frame.url).scheme=='https' and re.search(r'jobs|career|recruit|dvinci|onlyfy|softgarden|personio',urlparse(frame.url).hostname or '',re.I)]
                     for context in contexts:
-                        candidates=context.locator(selectors)
-                        for index in range(min(candidates.count(),8)):
-                            candidate=candidates.nth(index)
-                            if candidate.is_visible() and candidate.is_enabled() and candidate.get_attribute('aria-disabled')!='true':
-                                control=candidate;break
+                        control=next_public_control(context)
                         if control is not None:break
                     if control is None:
                         # Trigger ordinary lazy loading once; never assume this is full pagination.
@@ -1093,6 +1179,10 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
                 logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
             break
         offset += len(page)
+        if advertised_total is not None and advertised_total>20 and offset>=advertised_total and len(jobs)<advertised_total:
+            completion='advertised_range_exhausted_with_duplicates'
+            logger.warning('Workday incomplete coverage: advertised range exhausted, %s unique of %s; duplicate gap retained explicitly',len(jobs),advertised_total)
+            break
         # Stop at a multi-page reported total. Probe a page-sized total once:
         # some feeds have reported only the first page's size as their total.
         if advertised_total is not None and advertised_total > 20 and len(jobs) >= advertised_total:
@@ -1446,6 +1536,13 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
         if host=='app.hrlab.de':
 
             return scrape_html_board(name,careers_url,_safe_get)
+        replacement=coverage_source(name,careers_url)
+        if replacement:
+            logger.info('Using verified public listing route for %s: %s',name,replacement)
+            result=scrape_html_board(name,replacement,_safe_get)
+            if not result and host=='careers.allianz.com':
+                return scrape_html_board(name,'https://careers.allianz.com/de/de/search-results?keywords=M%C3%BCnchen',_safe_get)
+            return result
         if ats == "jsonld_feed":
 
             return scrape_jsonld_feed(name,careers_url,_safe_get)
@@ -1454,7 +1551,11 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
             return scrape_amazon(name,careers_url,_safe_get)
         if urlparse(careers_url).hostname in ('jobboerse.iabg.de','careers.allianz.com'):
 
-            return scrape_priority_board(name,careers_url,_safe_get)
+            result=scrape_priority_board(name,careers_url,_safe_get)
+            if not result and host=='careers.allianz.com':
+                logger.warning('Allianz listing empty; trying verified Munich keyword listing. This is targeted, not complete metropolitan coverage.')
+                return scrape_html_board(name,'https://careers.allianz.com/de/de/search-results?keywords=M%C3%BCnchen',_safe_get)
+            return result
         if ats == "public_board":
 
             return scrape_html_board(name, careers_url, _safe_get)
@@ -1528,6 +1629,9 @@ def fetch_job_details(url):
         recovered = detail_title(resp.text)
         if recovered:details = {'title': recovered}
     soup = BeautifulSoup(resp.text, 'html.parser')
+    if not details.get('location'):
+        explicit=explicit_detail_locations(resp.text)
+        if explicit:details['location']=explicit;details['_location_source']='detail_explicit_locations'
     if not details.get('location'):
         location_tag = soup.select_one('[itemprop="jobLocation"],.job-location,.jobLocation,.job-location-label,[data-ph-at-id="job-location"],[data-testid="job-location"]')
         if location_tag:

@@ -29,11 +29,11 @@ def location(value):
     if not isinstance(address,dict):return ''
     return ', '.join(str(address[k]) for k in ('addressLocality','addressRegion','addressCountry') if isinstance(address.get(k),str))
 
-NAV = re.compile(r'^(?:contact(?: us)?|kontakt|faqs?(?:.*)?|support|help(?:.*)?|review accommodations.*|privacy.*|datenschutz.*|impressum|legal(?: notice| information| disclaimer)?|cookie.*|sign in|log in|register|search(?: jobs)?|all jobs|view all jobs|careers|karriere|jobs|stellenangebote|open positions|job alerts?|talent community|benefits|our culture|about us|locations|saved jobs|actions|to the vacancies|apply unsolicited now|bewerberlogin|candidate login|my applications)$',re.I)
+NAV = re.compile(r'^(?:zum hauptinhalt springen|zum inhalt springen|skip to (?:main )?content|contact(?: us)?|kontakt|faqs?(?:.*)?|support|help(?:.*)?|review accommodations.*|privacy.*|datenschutz.*|impressum|legal(?: notice| information| disclaimer)?|cookie.*|sign in|log in|register|search(?: jobs)?|all jobs|view all jobs|careers|karriere|jobs|stellenangebote|open positions|job alerts?|talent community|benefits|our culture|about us|locations|saved jobs|actions|to the vacancies|apply unsolicited now|bewerberlogin|candidate login|my applications)$',re.I)
 APPLY = re.compile(r'^(?:apply(?: now| here| for this job)?|bewerben|jetzt bewerben|direkt bewerben|mehr erfahren|learn more|read more|details|view job|view details|job details|view|hier|here|to the complete job advertisement|zur stellenanzeige|zur stellenausschreibung|zur bewerbung|zur online bewerbung)$',re.I)
 ROLE = re.compile(r'\b(?:manager|management|engineer|engineering|consultant|specialist|analyst|coordinator|director|head|lead|developer|architect|officer|assistant|associate|buyer|intern|technician|scientist|designer|administrator|controller|accountant|nurse|sales|recruiter|werkstudent|praktikant|leiter|leitung|referent|berater|entwickler|projekt|mitarbeiter|sachbearbeiter|kaufmann|kauffrau|fachkraft|monteur|techniker|ingenieur)\w*\b',re.I)
 DETAIL = re.compile(r'/(?:jobs?|positions?|postings?|vacancies|stellenangebote|job-detail|o)/[^/?#]+',re.I)
-BAD_PATH = re.compile(r'(?:^|/)(?:contact|kontakt|faq|support|privacy|legal|accommodations|benefits|culture|alerts?|search|saved|saved-jobs|login|register|hvhapply|apply|application|bewerbung|bewerben)(?:/|$)',re.I)
+BAD_PATH = re.compile(r'(?:^|/)(?:zum hauptinhalt springen|zum inhalt springen|skip to (?:main )?content|contact|kontakt|faq|support|privacy|legal|accommodations|benefits|culture|alerts?|search|saved|saved-jobs|login|register|hvhapply|apply|application|bewerbung|bewerben)(?:/|$)',re.I)
 
 def is_vacancy_url(url):
     parsed=urlparse(str(url or ''));path=parsed.path.lower();query=parse_qs(parsed.query)
