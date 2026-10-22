@@ -1,13 +1,56 @@
+# Profile: Project / Programme Manager | Aerospace & Defence - Energy - IT
+# Matching is assumed to be case-insensitive substring matching, as in the original file.
+
 title_must_match:
+# --- Project / programme / delivery (EN) ---
 - project manager
 - programme manager
 - program manager
-- projektmanager
-- projektleiter
-- senior project manager
-- technical project manager
-- it project manager
+- project management
+- programme management
+- program management
+- project lead
+- program lead
+- programme lead
 - delivery manager
+- delivery lead
+- technical project manager
+- technical program manager
+- technical programme manager
+- it project manager
+- portfolio manager
+- pmo manager
+- pmo lead
+- head of pmo
+- implementation manager
+- project director
+- programme director
+- program director
+- project coordinator
+- transformation manager
+- transformation lead
+- business continuity manager
+- resilience manager
+# --- Project / programme (DE) ---
+- projektmanager
+- projektmanagerin
+- projektleiter
+- projektleiterin
+- projektleitung
+- projektmanagement
+- projektkoordinator
+- projektsteuerer
+- programmmanager
+- programm manager
+- programmleiter
+- programmleitung
+- programmmanagement
+- it-projektleiter
+- it-projektmanager
+- technischer projektleiter
+- portfoliomanager
+- pmo-leiter
+# --- Other languages (kept from original) ---
 - projektleder
 - prosjektleder
 - projektipäällikkö
@@ -16,13 +59,9 @@ title_must_match:
 - projectleider
 - chef de projet
 - gestionnaire de projet
-- project lead
-- program lead
-- delivery lead
-- portfolio manager
-- pmo manager
-- implementation manager
+
 title_must_not_match:
+# Construction / building trades (kept from original)
 - stadionbau
 - elektrotechnik
 - hochbau
@@ -41,15 +80,78 @@ title_must_not_match:
 - schlusselfertig
 - mieterausbau
 - dachgeschossausbau
+# More construction / facility / trades
+- bauprojekt
+- bauprojektleiter
+- projektleiter bau
+- baustelle
+- architekt
+- fassade
+- tga
+- haustechnik
+- anlagenmonteur
+- servicetechniker
+# Too junior for current level (Programme Manager, 5+ years)
+- junior
+- werkstudent
+- working student
+- praktikum
+- praktikant
+- internship
+- intern 
+- trainee
+- ausbildung
+- azubi
+- assistant
+- assistenz
+- hilfskraft
+# Unrelated project-manager flavours
+- clinical
+- klinische
+- pharma
+- event manager
+- eventmanager
+- marketing
+- vertrieb
+- sales
+- account manager
+- customer success
+- recruiter
+- recruiting
+- real estate
+- immobilien
+
 main_min_score: 3
 score_ceiling: 20
+
 scoring_keywords:
+# --- Aerospace & defence (weight 3-5) ---
 - term: aerospace
+  weight: 5
+- term: aviation
   weight: 5
 - term: Luft- und Raumfahrt
   weight: 5
 - term: Luftfahrt
   weight: 5
+- term: Raumfahrt
+  weight: 4
+- term: space industry
+  weight: 3
+- term: satellite
+  weight: 3
+- term: Satellit
+  weight: 3
+- term: aircraft
+  weight: 3
+- term: Luftfahrzeug
+  weight: 3
+- term: Flugzeug
+  weight: 3
+- term: EASA
+  weight: 3
+- term: Eurofighter
+  weight: 3
 - term: defence
   weight: 5
 - term: defense
@@ -60,35 +162,124 @@ scoring_keywords:
   weight: 5
 - term: Rüstung
   weight: 5
+- term: Bundeswehr
+  weight: 4
+- term: NATO
+  weight: 3
 - term: military
   weight: 4
 - term: Militär
   weight: 4
 - term: militärisch
   weight: 4
+- term: Airbus
+  weight: 3
+- term: Hensoldt
+  weight: 3
+- term: MBDA
+  weight: 3
+- term: Rheinmetall
+  weight: 3
+- term: KNDS
+  weight: 3
+# --- Energy, grid, regulation (weight 2-4) ---
 - term: energy
   weight: 2
 - term: Energie
   weight: 2
+- term: energy market
+  weight: 3
+- term: Energiemarkt
+  weight: 3
 - term: electricity market
-  weight: 3
+  weight: 4
 - term: Strommarkt
-  weight: 3
+  weight: 4
+- term: Electricity Market Regulation
+  weight: 4
 - term: grid
   weight: 2
 - term: Stromnetz
   weight: 2
 - term: Übertragungsnetz
+  weight: 3
+- term: transmission system operator
+  weight: 4
+- term: Übertragungsnetzbetreiber
+  weight: 4
+- term: TSO
+  weight: 3
+- term: ÜNB
+  weight: 3
+- term: Netzbetreiber
   weight: 2
+- term: ENTSO-E
+  weight: 3
+- term: ACER
+  weight: 2
+- term: Regional Coordination Centre
+  weight: 4
+- term: Regional Coordination Center
+  weight: 4
+- term: RCC
+  weight: 2
+- term: Amprion
+  weight: 3
+- term: TenneT
+  weight: 3
+- term: 50Hertz
+  weight: 3
+- term: TransnetBW
+  weight: 3
 - term: EU regulatory
+  weight: 3
+- term: EU regulation
+  weight: 3
+- term: EU-Verordnung
   weight: 3
 - term: regulatory compliance
   weight: 3
+- term: regulatory
+  weight: 2
 - term: regulatorische Anforderungen
   weight: 3
 - term: Regulatorik
   weight: 3
 - term: compliance
+  weight: 1
+# --- Resilience / crisis / critical infrastructure (weight 2-3) ---
+- term: crisis management
+  weight: 2
+- term: Krisenmanagement
+  weight: 2
+- term: business continuity
+  weight: 3
+- term: Business Continuity Management
+  weight: 3
+- term: Notfallmanagement
+  weight: 3
+- term: operational resilience
+  weight: 3
+- term: Resilienz
+  weight: 2
+- term: critical infrastructure
+  weight: 3
+- term: kritische Infrastruktur
+  weight: 3
+- term: KRITIS
+  weight: 3
+- term: NIS2
+  weight: 3
+- term: DORA
+  weight: 2
+# --- Project / programme management (weight 1-3) ---
+- term: programme management
+  weight: 3
+- term: program management
+  weight: 3
+- term: Programmmanagement
+  weight: 3
+- term: programme
   weight: 1
 - term: PMP
   weight: 2
@@ -96,6 +287,69 @@ scoring_keywords:
   weight: 1
 - term: PMI
   weight: 1
+- term: PMO
+  weight: 2
+- term: portfolio
+  weight: 1
+- term: IT project
+  weight: 2
+- term: IT-Projekt
+  weight: 2
+- term: IT solutions
+  weight: 1
+- term: IT-Lösung
+  weight: 1
+- term: IT infrastructure
+  weight: 2
+- term: IT-Infrastruktur
+  weight: 2
+- term: agile
+  weight: 1
+- term: agil
+  weight: 1
+- term: Scrum
+  weight: 1
+- term: waterfall
+  weight: 1
+- term: Wasserfallmethode
+  weight: 1
+- term: Wasserfallmodell
+  weight: 1
+- term: hybrid project management
+  weight: 1
+- term: hybrides Projektmanagement
+  weight: 1
+- term: transformation
+  weight: 2
+- term: Transformation
+  weight: 2
+- term: strategic initiatives
+  weight: 1
+- term: strategische Initiativen
+  weight: 1
+- term: change management
+  weight: 1
+- term: Veränderungsmanagement
+  weight: 1
+- term: process improvement
+  weight: 1
+- term: Prozessverbesserung
+  weight: 1
+- term: Prozessoptimierung
+  weight: 1
+- term: governance
+  weight: 1
+- term: Steering Committee
+  weight: 1
+- term: Lenkungsausschuss
+  weight: 1
+- term: KPI
+  weight: 1
+- term: SAP
+  weight: 1
+- term: Jira
+  weight: 1
+# --- Risk / stakeholders (weight 1-2) ---
 - term: risk management
   weight: 2
 - term: Risikomanagement
@@ -108,6 +362,13 @@ scoring_keywords:
   weight: 2
 - term: stakeholder
   weight: 1
+- term: cross-functional
+  weight: 1
+- term: funktionsübergreifend
+  weight: 1
+- term: bereichsübergreifend
+  weight: 1
+# --- Supply chain / procurement (weight 1-2, deliberately lower) ---
 - term: supply chain
   weight: 2
 - term: Lieferkette
@@ -117,55 +378,22 @@ scoring_keywords:
 - term: Beschaffung
   weight: 2
 - term: Einkauf
+  weight: 1
+- term: supplier audit
   weight: 2
-- term: crisis management
+- term: Lieferantenaudit
   weight: 2
-- term: Krisenmanagement
-  weight: 2
-- term: agile
-  weight: 1
-- term: agil
-  weight: 1
-- term: waterfall
-  weight: 1
-- term: Wasserfallmethode
-  weight: 1
-- term: Wasserfallmodell
-  weight: 1
-- term: IT project
-  weight: 2
-- term: IT-Projekt
-  weight: 2
-- term: IT solutions
-  weight: 1
-- term: IT-Lösung
-  weight: 1
-- term: process improvement
-  weight: 1
-- term: Prozessverbesserung
-  weight: 1
-- term: Prozessoptimierung
-  weight: 1
-- term: governance
-  weight: 1
-- term: SAP
-  weight: 1
-- term: Jira
-  weight: 1
-- term: cross-functional
-  weight: 1
-- term: funktionsübergreifend
-  weight: 1
-- term: bereichsübergreifend
-  weight: 1
 - term: tender
   weight: 1
 - term: Ausschreibung
+  weight: 1
+- term: Vergabe
   weight: 1
 - term: audit
   weight: 1
 - term: budget
   weight: 1
+# --- Leadership / soft skills (weight 1) ---
 - term: leadership
   weight: 1
 - term: Führungskompetenz
@@ -178,6 +406,8 @@ scoring_keywords:
   weight: 1
 
 # Set enabled to false to disable the related-role trial.
+# Catches consultant / advisor / coordinator-style titles whose text shows
+# project-delivery, governance or transformation responsibilities.
 related_roles:
   enabled: true
   min_responsibility_groups: 2
@@ -191,6 +421,12 @@ related_roles:
   - \b(?:unternehmens|management|organisations|prozess)?berater(?:in)?\b
   - \badvis(?:or|er|ory)\b
   - \btransformation (?:lead|manager)\b
+  - \bchange (?:lead|manager)\b
+  - \bproduct owners?\b
+  - \bpmo\b
+  - \bprojektkoordinator(?:in)?\b
+  - \bprojektsteuer(?:er|erin|ung)\b
+  - \bbusiness continuity\b
   responsibility_groups:
     delivery:
     - project delivery
@@ -198,14 +434,21 @@ related_roles:
     - program delivery
     - project planning
     - project management
+    - programme management
+    - program management
     - project implementation
     - project coordination
+    - it project delivery
     - projektmanagement
+    - programmmanagement
     - projektplanung
     - projektsteuerung
+    - programmsteuerung
     - projektdurchfuehrung
+    - projektdurchführung
     - projektabwicklung
     - projektleitung
+    - projektkoordination
     governance:
     - project governance
     - programme governance
@@ -213,20 +456,27 @@ related_roles:
     - project portfolio
     - portfolio management
     - pmo
+    - steering committee
+    - reporting to senior management
     - projektportfolio
     - projektcontrolling
+    - lenkungsausschuss
     risk_budget:
     - budget management
     - budget responsibility
     - budget control
+    - budget planning
     - financial control
     - risk management
     - dependency management
+    - crisis management
+    - business continuity
     - risikomanagement
     - budgetverantwortung
     - budgetplanung
     - kostenkontrolle
     - abhaengigkeitsmanagement
+    - krisenmanagement
     stakeholders:
     - stakeholder management
     - stakeholder coordination
@@ -234,17 +484,22 @@ related_roles:
     - cross functional teams
     - stakeholdermanagement
     - bereichsuebergreifende koordination
+    - bereichsübergreifende koordination
     - interdisziplinaere teams
+    - interdisziplinäre teams
     transformation:
     - transformation implementation
     - transformation delivery
     - change management
     - organisational transformation
     - organizational transformation
+    - strategic initiatives
     - process improvement
     - process optimisation
     - process optimization
     - organisationsentwicklung
     - veraenderungsmanagement
+    - veränderungsmanagement
     - prozessoptimierung
     - transformationsprojekte
+    - strategische initiativen
