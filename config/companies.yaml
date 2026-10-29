@@ -269,11 +269,6 @@ companies:
   careers_url: https://flix.careers/
   ats: auto
   board_token: ''
-#- name: Celonis
-#  city: Munich
-#  careers_url: https://careers.celonis.com/
-#  ats: greenhouse
-#  board_token: celonis
 - name: Quantum Systems
   city: Munich
   careers_url: https://career.quantum-systems.com/
