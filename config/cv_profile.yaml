@@ -1,8 +1,34 @@
-# Profile: Project / Programme Manager | Aerospace & Defence - Energy - IT
-# Matching is assumed to be case-insensitive substring matching, as in the original file.
+# Profile: Project / Programme Manager and Scrum Master | Energy - IT - Aerospace & Defence
+# Updated 2026-11-16 from Master Career Document - Template.docx.
+# Job-matching configuration: original schema, thresholds and related-role gate retained.
+# Assumption: case-insensitive substring title/keyword matching; regex related-role patterns.
+# Multilingual search terms are vacancy-discovery signals, not language-fluency claims.
+# Official title: Project Manager; programme management and Scrum Master duties documented.
+# Keywords describe relevant job contexts, not hands-on software/AI engineering expertise.
+# AI: practical AI-assisted personal tools and an internal Copilot action-prioritisation agent.
+# Object storage and data lakehouse reflect planned platform stages, not completed delivery.
+# Factual guardrails for any downstream CV tailoring:
+# - Mayday 2.0 / RCR Backup Location combined budget: approximately EUR 1.2m, not expenditure.
+# - Selected backup-location maximum approach: EUR 800k within that combined budget.
+# - Backup implementation ongoing, completion targeted June 2027.
+# - OPI: five vendors; about 35 contributors, not direct reports; lifetime budget >EUR 1.5m,
+#   not solely attributable to this tenure; currently SAT, completion targeted Q1 2027.
+# - DMP: five-person team including PM; PoC/data pipelines used for an actual report;
+#   about 10 analysts trained; EUR 150k annual savings estimated, not realised.
+# - DMP full target lakehouse planned Q1-Q2 2027, not delivered.
+# - TAP: nine-person team including PM; usable MVP November 2026; stable version Q1 2027 target.
+# - Training materials covered about 30 operators, not 30 verified certifications.
+# - Crisis training: about 15-16 members and two simulations; framework/room handed over.
+# - About 50 supplier audits coordinated; fleet sustainment proposal, not verified savings.
+# - German B1; French B2; English and Italian fluent. CV output preference: English, max 2 pages,
+#   always include a practical AI section. These comments do not add runtime configuration keys.
+# Removed unsupported specialist/employer bonuses; balanced current energy/IT and aerospace.
+# Broad substring exclusions narrowed to avoid rejecting international/internal PM titles.
+# Related-role regex word boundaries normalized; case-insensitive duplicate keywords removed.
+# Overlapping substring aliases may still accumulate scores in the existing consumer.
+# YAML/schema/regex checks performed; no tracker integration or scoring calibration claimed.
 
 title_must_match:
-# --- Project / programme / delivery (EN) ---
 - project manager
 - programme manager
 - program manager
@@ -14,6 +40,9 @@ title_must_match:
 - programme lead
 - delivery manager
 - delivery lead
+- technical project manager
+- technical program manager
+- technical programme manager
 - it project manager
 - portfolio manager
 - pmo manager
@@ -28,7 +57,6 @@ title_must_match:
 - transformation lead
 - business continuity manager
 - resilience manager
-# --- Project / programme (DE) ---
 - projektmanager
 - projektmanagerin
 - projektleiter
@@ -47,7 +75,6 @@ title_must_match:
 - technischer projektleiter
 - portfoliomanager
 - pmo-leiter
-# --- Other languages (kept from original) ---
 - projektleder
 - prosjektleder
 - projektipäällikkö
@@ -56,11 +83,15 @@ title_must_match:
 - projectleider
 - chef de projet
 - gestionnaire de projet
-
+- scrum master
+- scrum-master
+- agile project manager
+- agile delivery manager
+- agiler projektmanager
+- senior projektmanager
+- senior projektleiter
 title_must_not_match:
-# Construction / building trades (kept from original)
 - stadionbau
-- elektrotechnik
 - hochbau
 - wohnungsbau
 - museumsbau
@@ -77,32 +108,25 @@ title_must_not_match:
 - schlusselfertig
 - mieterausbau
 - dachgeschossausbau
-# More construction / facility / trades
 - bauprojekt
 - bauprojektleiter
 - projektleiter bau
 - baustelle
-- architekt
 - fassade
 - tga
 - haustechnik
 - anlagenmonteur
 - servicetechniker
-# Too junior for current level (Programme Manager, 5+ years)
 - junior
 - werkstudent
 - working student
 - praktikum
 - praktikant
 - internship
-- intern 
 - trainee
 - ausbildung
 - azubi
-- assistant
-- assistenz
 - hilfskraft
-# Unrelated project-manager flavours
 - clinical
 - klinische
 - pharma
@@ -117,27 +141,22 @@ title_must_not_match:
 - recruiting
 - real estate
 - immobilien
-
+- project assistant
+- projektassistenz
+- bauarchitekt
+- gebäudearchitekt
 main_min_score: 3
 score_ceiling: 20
-
 scoring_keywords:
-# --- Aerospace & defence (weight 3-5) ---
 - term: aerospace
-  weight: 5
+  weight: 3
 - term: aviation
-  weight: 5
+  weight: 3
 - term: Luft- und Raumfahrt
-  weight: 5
+  weight: 3
 - term: Luftfahrt
-  weight: 5
+  weight: 3
 - term: Raumfahrt
-  weight: 4
-- term: space industry
-  weight: 3
-- term: satellite
-  weight: 3
-- term: Satellit
   weight: 3
 - term: aircraft
   weight: 3
@@ -145,65 +164,48 @@ scoring_keywords:
   weight: 3
 - term: Flugzeug
   weight: 3
-- term: EASA
-  weight: 3
 - term: Eurofighter
   weight: 3
 - term: defence
-  weight: 5
+  weight: 3
 - term: defense
-  weight: 5
+  weight: 3
 - term: Verteidigung
-  weight: 5
+  weight: 3
 - term: Wehrtechnik
-  weight: 5
+  weight: 3
 - term: Rüstung
-  weight: 5
-- term: Bundeswehr
-  weight: 4
-- term: NATO
   weight: 3
 - term: military
-  weight: 4
+  weight: 3
 - term: Militär
-  weight: 4
+  weight: 3
 - term: militärisch
-  weight: 4
-- term: Airbus
   weight: 3
-- term: Hensoldt
-  weight: 3
-- term: MBDA
-  weight: 3
-- term: Rheinmetall
-  weight: 3
-- term: KNDS
-  weight: 3
-# --- Energy, grid, regulation (weight 2-4) ---
 - term: energy
-  weight: 2
+  weight: 3
 - term: Energie
-  weight: 2
+  weight: 3
 - term: energy market
   weight: 3
 - term: Energiemarkt
   weight: 3
 - term: electricity market
-  weight: 4
+  weight: 3
 - term: Strommarkt
-  weight: 4
+  weight: 3
 - term: Electricity Market Regulation
-  weight: 4
+  weight: 3
 - term: grid
-  weight: 2
+  weight: 3
 - term: Stromnetz
-  weight: 2
+  weight: 3
 - term: Übertragungsnetz
   weight: 3
 - term: transmission system operator
-  weight: 4
+  weight: 3
 - term: Übertragungsnetzbetreiber
-  weight: 4
+  weight: 3
 - term: TSO
   weight: 3
 - term: ÜNB
@@ -212,22 +214,12 @@ scoring_keywords:
   weight: 2
 - term: ENTSO-E
   weight: 3
-- term: ACER
-  weight: 2
 - term: Regional Coordination Centre
-  weight: 4
+  weight: 3
 - term: Regional Coordination Center
-  weight: 4
+  weight: 3
 - term: RCC
   weight: 2
-- term: Amprion
-  weight: 3
-- term: TenneT
-  weight: 3
-- term: 50Hertz
-  weight: 3
-- term: TransnetBW
-  weight: 3
 - term: EU regulatory
   weight: 3
 - term: EU regulation
@@ -244,7 +236,6 @@ scoring_keywords:
   weight: 3
 - term: compliance
   weight: 1
-# --- Resilience / crisis / critical infrastructure (weight 2-3) ---
 - term: crisis management
   weight: 2
 - term: Krisenmanagement
@@ -265,11 +256,6 @@ scoring_keywords:
   weight: 3
 - term: KRITIS
   weight: 3
-- term: NIS2
-  weight: 3
-- term: DORA
-  weight: 2
-# --- Project / programme management (weight 1-3) ---
 - term: programme management
   weight: 3
 - term: program management
@@ -289,36 +275,24 @@ scoring_keywords:
 - term: portfolio
   weight: 1
 - term: IT project
-  weight: 2
+  weight: 3
 - term: IT-Projekt
-  weight: 2
+  weight: 3
 - term: IT solutions
   weight: 1
 - term: IT-Lösung
   weight: 1
 - term: IT infrastructure
-  weight: 2
+  weight: 3
 - term: IT-Infrastruktur
-  weight: 2
+  weight: 3
 - term: agile
-  weight: 1
-- term: agil
-  weight: 1
-- term: Scrum
-  weight: 1
-- term: waterfall
-  weight: 1
-- term: Wasserfallmethode
-  weight: 1
-- term: Wasserfallmodell
-  weight: 1
-- term: hybrid project management
-  weight: 1
-- term: hybrides Projektmanagement
-  weight: 1
-- term: transformation
   weight: 2
-- term: Transformation
+- term: agil
+  weight: 2
+- term: Scrum
+  weight: 2
+- term: transformation
   weight: 2
 - term: strategic initiatives
   weight: 1
@@ -342,11 +316,8 @@ scoring_keywords:
   weight: 1
 - term: KPI
   weight: 1
-- term: SAP
-  weight: 1
 - term: Jira
   weight: 1
-# --- Risk / stakeholders (weight 1-2) ---
 - term: risk management
   weight: 2
 - term: Risikomanagement
@@ -365,7 +336,6 @@ scoring_keywords:
   weight: 1
 - term: bereichsübergreifend
   weight: 1
-# --- Supply chain / procurement (weight 1-2, deliberately lower) ---
 - term: supply chain
   weight: 2
 - term: Lieferkette
@@ -390,7 +360,6 @@ scoring_keywords:
   weight: 1
 - term: budget
   weight: 1
-# --- Leadership / soft skills (weight 1) ---
 - term: leadership
   weight: 1
 - term: Führungskompetenz
@@ -401,10 +370,194 @@ scoring_keywords:
   weight: 1
 - term: Verhandlung
   weight: 1
-
-# Set enabled to false to disable the related-role trial.
-# Catches consultant / advisor / coordinator-style titles whose text shows
-# project-delivery, governance or transformation responsibilities.
+- term: Clean Energy Package
+  weight: 4
+- term: electricity transmission
+  weight: 4
+- term: Stromübertragung
+  weight: 4
+- term: software delivery
+  weight: 3
+- term: software development project
+  weight: 3
+- term: Softwareentwicklungsprojekt
+  weight: 3
+- term: platform delivery
+  weight: 3
+- term: application platform
+  weight: 3
+- term: Anwendungsplattform
+  weight: 3
+- term: data management platform
+  weight: 3
+- term: data platform
+  weight: 3
+- term: Datenplattform
+  weight: 3
+- term: reporting modernisation
+  weight: 3
+- term: reporting modernization
+  weight: 3
+- term: multi-vendor
+  weight: 3
+- term: vendor management
+  weight: 3
+- term: Lieferantenmanagement
+  weight: 3
+- term: Scrum Master
+  weight: 3
+- term: Professional Scrum Master
+  weight: 3
+- term: PSM I
+  weight: 3
+- term: Scrumban
+  weight: 3
+- term: crisis preparedness
+  weight: 3
+- term: Krisenvorsorge
+  weight: 3
+- term: backup control room
+  weight: 3
+- term: fleet sustainment
+  weight: 3
+- term: obsolescence management
+  weight: 3
+- term: Obsoleszenzmanagement
+  weight: 3
+- term: full project lifecycle
+  weight: 2
+- term: project takeover
+  weight: 2
+- term: Projektübernahme
+  weight: 2
+- term: corporate initiatives
+  weight: 2
+- term: budget management
+  weight: 2
+- term: budget planning
+  weight: 2
+- term: financial planning
+  weight: 2
+- term: Finanzplanung
+  weight: 2
+- term: Budgetplanung
+  weight: 2
+- term: resource management
+  weight: 2
+- term: Ressourcenmanagement
+  weight: 2
+- term: supplier management
+  weight: 2
+- term: supplier evaluation
+  weight: 2
+- term: Lieferantenbewertung
+  weight: 2
+- term: procurement support
+  weight: 2
+- term: supplier invoices
+  weight: 2
+- term: requirements gathering
+  weight: 2
+- term: Anforderungsmanagement
+  weight: 2
+- term: options assessment
+  weight: 2
+- term: dependency management
+  weight: 2
+- term: Abhängigkeitsmanagement
+  weight: 2
+- term: contingency planning
+  weight: 2
+- term: Notfallplanung
+  weight: 2
+- term: quality gate
+  weight: 2
+- term: acceptance testing
+  weight: 2
+- term: site acceptance test
+  weight: 2
+- term: proof of concept
+  weight: 2
+- term: MVP
+  weight: 2
+- term: backlog
+  weight: 2
+- term: impediment removal
+  weight: 2
+- term: retrospective
+  weight: 2
+- term: training coordination
+  weight: 2
+- term: Schulungskoordination
+  weight: 2
+- term: operator training
+  weight: 2
+- term: service reporting
+  weight: 2
+- term: data collection automation
+  weight: 2
+- term: data pipeline
+  weight: 2
+- term: Datenpipeline
+  weight: 2
+- term: control room
+  weight: 2
+- term: Leitwarte
+  weight: 2
+- term: crisis simulation
+  weight: 2
+- term: Krisenübung
+  weight: 2
+- term: ERP reconciliation
+  weight: 2
+- term: inventory management
+  weight: 2
+- term: Bestandsmanagement
+  weight: 2
+- term: last-time buy
+  weight: 2
+- term: management reporting
+  weight: 2
+- term: GitLab
+  weight: 2
+- term: Excel
+  weight: 2
+- term: object storage
+  weight: 1
+- term: data lakehouse
+  weight: 1
+- term: working arrangements
+  weight: 1
+- term: service level agreement
+  weight: 1
+- term: root cause analysis
+  weight: 1
+- term: Ursachenanalyse
+  weight: 1
+- term: pivot table
+  weight: 1
+- term: Pivot-Tabelle
+  weight: 1
+- term: AI-assisted
+  weight: 1
+- term: AI adoption
+  weight: 1
+- term: generative AI
+  weight: 1
+- term: generative KI
+  weight: 1
+- term: Microsoft Copilot
+  weight: 1
+- term: Claude
+  weight: 1
+- term: workflow automation
+  weight: 1
+- term: Prozessautomatisierung
+  weight: 1
+- term: GitHub
+  weight: 1
+- term: GitHub Pages
+  weight: 1
 related_roles:
   enabled: true
   min_responsibility_groups: 2
@@ -424,6 +577,8 @@ related_roles:
   - \bprojektkoordinator(?:in)?\b
   - \bprojektsteuer(?:er|erin|ung)\b
   - \bbusiness continuity\b
+  - \bscrum[ -]?master\b
+  - \b(?:delivery|implementation) (?:consultant|coordinator)\b
   responsibility_groups:
     delivery:
     - project delivery
@@ -446,6 +601,17 @@ related_roles:
     - projektabwicklung
     - projektleitung
     - projektkoordination
+    - software delivery
+    - platform delivery
+    - agile delivery
+    - scrum master
+    - scrumban
+    - backlog coordination
+    - acceptance testing
+    - project closure
+    - formal handover
+    - Softwareentwicklung
+    - Projektabschluss
     governance:
     - project governance
     - programme governance
@@ -458,6 +624,12 @@ related_roles:
     - projektportfolio
     - projektcontrolling
     - lenkungsausschuss
+    - management reporting
+    - management decision support
+    - role clarification
+    - quality gates
+    - Managementberichterstattung
+    - Entscheidungsvorlagen
     risk_budget:
     - budget management
     - budget responsibility
@@ -474,6 +646,16 @@ related_roles:
     - kostenkontrolle
     - abhaengigkeitsmanagement
     - krisenmanagement
+    - financial planning
+    - resource management
+    - supplier management
+    - vendor management
+    - supplier evaluation
+    - procurement support
+    - contingency planning
+    - Finanzplanung
+    - Ressourcenmanagement
+    - Lieferantenmanagement
     stakeholders:
     - stakeholder management
     - stakeholder coordination
@@ -484,6 +666,13 @@ related_roles:
     - bereichsübergreifende koordination
     - interdisziplinaere teams
     - interdisziplinäre teams
+    - multi-vendor coordination
+    - cross-company alignment
+    - shareholder alignment
+    - training coordination
+    - cross-team alignment
+    - Lieferantenkoordination
+    - Schulungskoordination
     transformation:
     - transformation implementation
     - transformation delivery
@@ -500,3 +689,10 @@ related_roles:
     - prozessoptimierung
     - transformationsprojekte
     - strategische initiativen
+    - reporting modernisation
+    - reporting modernization
+    - data collection automation
+    - platform implementation
+    - workflow automation
+    - AI adoption
+    - Prozessautomatisierung
