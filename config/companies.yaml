@@ -9,7 +9,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Siemens
   city: Munich
   careers_url: https://jobs.siemens.com/careers
@@ -20,7 +27,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Siemens Energy
   city: Munich
   careers_url: https://jobs.siemens-energy.com/en_US/jobs/SearchJobsGermany
@@ -31,7 +45,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Siemens Healthineers
   city: Munich
   careers_url: https://www.siemens-healthineers.com/careers
@@ -42,7 +63,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Infineon Technologies
   city: Munich
   careers_url: https://jobs.infineon.com/careers
@@ -53,7 +81,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MTU Aero Engines
   city: Munich
   careers_url: https://www.mtu.de/de/karriere/jobboerse/
@@ -64,7 +99,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Linde
   city: Munich
   careers_url: https://www.lindecareers.com/en/search-jobs
@@ -75,7 +117,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Wacker Chemie
   city: Munich
   careers_url: https://www.wacker.com/cms/en-us/careers/overview.html
@@ -86,7 +135,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Osram
   city: Munich
   careers_url: https://careers.ams-osram.com/en/ams-osram-career/
@@ -97,7 +153,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Giesecke+Devrient
   city: Munich
   careers_url: https://www.gi-de.com/en/careers
@@ -108,7 +171,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Brainlab
   city: Munich
   careers_url: https://careers.smartrecruiters.com/brainlab
@@ -119,7 +189,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Rohde & Schwarz
   city: Munich
   careers_url: https://jobs.rohde-schwarz.com/
@@ -130,7 +207,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MAN Truck & Bus
   city: Munich
   careers_url: https://www.man.eu/de/en/career.html
@@ -141,7 +225,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Webasto
   city: Munich
   careers_url: https://www.webasto-group.com/en/career/
@@ -152,7 +243,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BSH Hausgeraete
   city: Munich
   careers_url: https://www.bsh-group.com/career
@@ -163,7 +261,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Airbus
   city: Munich
   careers_url: https://www.airbus.com/en/careers
@@ -174,7 +279,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Hensoldt
   city: Munich
   careers_url: https://jobs.hensoldt.net/go/Germany/9460255/
@@ -185,7 +297,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Diehl Defence
   city: Munich
   careers_url: https://new.diehl.com/career/en/jobs-application/job-offers/
@@ -196,7 +315,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: KNDS Deutschland
   city: Munich
   careers_url: https://www.knds.de/karriere/
@@ -207,7 +333,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: OHB System
   city: Munich
   careers_url: https://www.ohb.de/en/career
@@ -218,7 +351,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IABG
   city: Munich
   careers_url: https://jobboerse.iabg.de/engage/jobexchange/searchJobOffersQuick.do?languageChanged=true&j=myjobexchange
@@ -229,7 +369,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ESG Elektroniksystem- und Logistik
   city: Munich
   careers_url: https://www.esg.de/en/career/
@@ -240,7 +387,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Allianz
   city: Munich
   careers_url: https://careers.allianz.com/global/en/search-results
@@ -251,7 +405,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Munich Re
   city: Munich
   careers_url: https://careers.munichre.com/
@@ -262,7 +423,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HypoVereinsbank UniCredit
   city: Munich
   careers_url: https://www.hypovereinsbank.de/hvb/karriere
@@ -273,7 +441,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BayernLB
   city: Munich
   careers_url: https://jobs.bayernlb.de/?currentPage=1&pageSize=12
@@ -284,7 +459,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Versicherungskammer Bayern
   city: Munich
   careers_url: https://stellenangebote.vkb.de/
@@ -295,7 +477,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Stadtwerke Muenchen
   city: Munich
   careers_url: https://www.swm.de/karriere
@@ -306,7 +495,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: E.ON
   city: Munich
   careers_url: https://www.eon.com/en/careers.html
@@ -317,7 +513,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TenneT
   city: Munich
   careers_url: https://www.tennet.eu/careers
@@ -328,7 +531,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Google Munich
   city: Munich
   careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=Munich
@@ -339,7 +549,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Microsoft Germany
   city: Munich
   careers_url: https://careers.microsoft.com/
@@ -350,7 +567,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IBM Germany
   city: Munich
   careers_url: https://www.ibm.com/careers
@@ -361,7 +585,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Cisco Munich
   city: Munich
   careers_url: https://jobs.cisco.com/
@@ -372,7 +603,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Capgemini Germany
   city: Munich
   careers_url: https://www.capgemini.com/de-de/karriere/
@@ -383,7 +621,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: NTT DATA Germany
   city: Munich
   careers_url: https://de.nttdata.com/karriere
@@ -394,7 +639,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Qualcomm Munich
   city: Munich
   careers_url: https://www.qualcomm.com/company/careers
@@ -405,7 +657,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ProSiebenSat.1
   city: Munich
   careers_url: https://jobs.prosiebensat1.com/
@@ -416,7 +675,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Cancom
   city: Munich
   careers_url: https://www.cancom.de/karriere
@@ -427,7 +693,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Nemetschek
   city: Munich
   careers_url: https://careers.nemetschek.com/
@@ -438,7 +711,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ATOSS Software
   city: Munich
   careers_url: https://www.atoss.com/en/company/career/jobs
@@ -449,7 +729,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Amgen Munich
   city: Munich
   careers_url: https://careers.amgen.com/
@@ -460,7 +747,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Roche Munich
   city: Munich
   careers_url: https://careers.roche.com/
@@ -471,7 +765,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: GSK Munich
   city: Munich
   careers_url: https://jobs.gsk.com/
@@ -482,7 +783,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Immatics
   city: Munich
   careers_url: https://immatics.com/jobs-us/
@@ -493,7 +801,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MorphoSys
   city: Munich
   careers_url: https://www.morphosys.com/en/career
@@ -504,7 +819,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sandoz
   city: Munich
   careers_url: https://www.sandoz.com/careers
@@ -515,7 +837,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Dermapharm
   city: Munich
   careers_url: https://jobs.dermapharm.com/en/
@@ -526,7 +855,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Telefonica Germany O2
   city: Munich
   careers_url: https://www.telefonica.de/karriere.html
@@ -537,7 +873,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: commercetools
   city: Munich
   careers_url: https://job-boards.greenhouse.io/commercetools
@@ -548,7 +891,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Serviceplan Group
   city: Munich
   careers_url: https://www.house-of-communication.com/de/en/career.html
@@ -559,7 +909,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Mediaplus
   city: Munich
   careers_url: https://www.house-of-communication.com/de/en/career.html
@@ -570,7 +927,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: DB Schenker
   city: Munich
   careers_url: https://www.dbschenker.com/global/about/careers
@@ -581,7 +945,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: FlixMobility
   city: Munich
   careers_url: https://flix.careers/
@@ -592,7 +963,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Quantum Systems
   city: Munich
   careers_url: https://career.quantum-systems.com/
@@ -603,7 +981,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Tytan Technologies
   city: Munich
   careers_url: https://www.tytan-technologies.com/careers
@@ -614,7 +999,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Alpine Eagle
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/alpineeagle
@@ -625,7 +1017,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Reflex Aerospace
   city: Munich
   careers_url: https://reflex-aerospace-gmbh.jobs.personio.de/?language=en
@@ -636,7 +1035,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ARX Robotics
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/arxroboticsgmbh
@@ -647,7 +1053,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Isar Aerospace
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/isaraerospace
@@ -658,7 +1071,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Proxima Fusion
   city: Munich
   careers_url: https://jobs.ashbyhq.com/proxima-fusion
@@ -669,7 +1089,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ITM Isotopen Technologien Muenchen
   city: Munich
   careers_url: https://itm.onlyfy.jobs/
@@ -680,7 +1107,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Personio
   city: Munich
   careers_url: https://www.personio.com/career/
@@ -691,7 +1125,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Konux
   city: Munich
   careers_url: https://konux.com/careers/
@@ -702,7 +1143,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: FINN
   city: Munich
   careers_url: https://www.finn.com/en-DE/careers
@@ -713,7 +1161,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Scalable Capital
   city: Munich
   careers_url: https://scalable.capital/en/careers
@@ -724,7 +1179,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Tubulis
   city: Munich
   careers_url: https://tubulis-gmbh.jobs.personio.com/?language=en
@@ -735,7 +1197,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Orbem
   city: Munich
   careers_url: https://orbem.ai/careers/
@@ -746,7 +1215,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Entrix
   city: Munich
   careers_url: https://entrix.jobs.personio.com/?language=en
@@ -757,7 +1233,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Egym
   city: Munich
   careers_url: https://egym.com/de/karriere
@@ -768,7 +1251,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Contentserv
   city: Munich
   careers_url: https://www.contentserv.com/careers/
@@ -779,7 +1269,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Freeletics
   city: Munich
   careers_url: https://www.freeletics.com/en/corporate/jobs/
@@ -790,7 +1287,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: DeepDrive
   city: Munich
   careers_url: https://deepdrive.tech/careers/
@@ -801,7 +1305,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Building Radar
   city: Munich
   careers_url: https://building-radar.jobs.personio.de/?language=en
@@ -812,7 +1323,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Tado
   city: Munich
   careers_url: https://tado.jobs.personio.de/?language=en
@@ -823,7 +1341,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: CHECK24
   city: Munich
   careers_url: https://www.check24.de/jobs/
@@ -834,7 +1359,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Interhyp
   city: Munich
   careers_url: https://jobs.interhyp.de/search
@@ -845,7 +1377,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: NavVis
   city: Munich
   careers_url: https://www.navvis.com/careers
@@ -856,7 +1395,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Blickfeld
   city: Munich
   careers_url: https://www.blickfeld.com/careers/
@@ -867,7 +1413,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Marvel Fusion
   city: Munich
   careers_url: https://www.marvelfusion.com/careers/
@@ -878,7 +1431,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Ottonova
   city: Munich
   careers_url: https://ottonova.jobs.personio.de/
@@ -889,7 +1449,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: SimScale
   city: Munich
   careers_url: https://www.simscale.com/careers/
@@ -900,7 +1467,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Flughafen Muenchen
   city: Munich
   careers_url: https://www.munich-airport.com/careers
@@ -911,7 +1485,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TUEV SUED
   city: Munich
   careers_url: https://www.tuvsud.com/en/careers
@@ -922,7 +1503,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: EOS Electro Optical Systems
   city: Munich
   careers_url: https://eosgroup.wd3.myworkdayjobs.com/en-US/eos
@@ -933,7 +1521,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MediaMarktSaturn
   city: Munich
   careers_url: https://careers.mediamarktsaturn.com/MediaMarktSaturn/content/letsgo/?locale=de_DE
@@ -944,7 +1539,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Fujitsu Germany
   city: Munich
   careers_url: https://www.fujitsu.com/de/about/careers/
@@ -955,7 +1557,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Deutsche Pfandbriefbank
   city: Munich
   careers_url: https://www.pfandbriefbank.com/en/career.html
@@ -966,7 +1575,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Rodenstock
   city: Munich
   careers_url: https://www.rodenstock.com/career
@@ -977,7 +1593,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Wacker Neuson
   city: Munich
   careers_url: https://wackerneusongroup.com/en/careers/current-job-openings
@@ -988,7 +1611,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BayWa
   city: Munich
   careers_url: https://www.baywa.com/jobs
@@ -999,7 +1629,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: EY Germany
   city: Munich
   careers_url: https://careers.ey.com/
@@ -1010,7 +1647,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Deloitte Germany
   city: Munich
   careers_url: https://www2.deloitte.com/de/de/careers.html
@@ -1021,7 +1665,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: PwC Germany
   city: Munich
   careers_url: https://www.pwc.de/de/karriere.html
@@ -1032,7 +1683,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: KPMG Germany
   city: Munich
   careers_url: https://home.kpmg/de/en/home/careers.html
@@ -1043,7 +1701,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: KraussMaffei
   city: Munich
   careers_url: https://jobs.kraussmaffei.com/?locale=de_DE
@@ -1054,7 +1719,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Siltronic
   city: Munich
   careers_url: https://www.siltronic.com/en/career.html
@@ -1065,7 +1737,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BayWa r.e.
   city: Munich
   careers_url: https://bayware.wd3.myworkdayjobs.com/jobsatbayware
@@ -1076,7 +1755,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Apple Munich
   city: Munich
   careers_url: https://jobs.apple.com/en-us/search?location=munich-MUN
@@ -1087,7 +1773,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Amazon Munich
   city: Munich
   careers_url: https://www.amazon.jobs/en/search?country=DEU
@@ -1098,7 +1791,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Nvidia Munich
   city: Munich
   careers_url: https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite
@@ -1109,7 +1809,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Intel Munich
   city: Munich
   careers_url: https://jobs.intel.com/
@@ -1120,7 +1827,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Texas Instruments Munich
   city: Munich
   careers_url: https://careers.ti.com/
@@ -1131,7 +1845,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Salesforce Munich
   city: Munich
   careers_url: https://salesforce.wd12.myworkdayjobs.com/External_Career_Site
@@ -1142,7 +1863,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: SAP Munich
   city: Munich
   careers_url: https://jobs.sap.com/
@@ -1153,7 +1881,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Oracle Munich
   city: Munich
   careers_url: https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1
@@ -1164,7 +1899,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Adobe Munich
   city: Munich
   careers_url: https://adobe.wd5.myworkdayjobs.com/external_experienced
@@ -1175,7 +1917,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Workday Munich
   city: Munich
   careers_url: https://workday.wd5.myworkdayjobs.com/Workday
@@ -1186,7 +1935,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ServiceNow Munich
   city: Munich
   careers_url: https://careers.smartrecruiters.com/servicenow
@@ -1197,7 +1953,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Traton
   city: Munich
   careers_url: https://traton.com/en/career.html
@@ -1208,7 +1971,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Knorr-Bremse
   city: Munich
   careers_url: https://www.knorr-bremse.com/en/careers/
@@ -1219,7 +1989,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sixt
   city: Munich
   careers_url: https://www.sixt.jobs/
@@ -1230,7 +2007,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Bertrandt
   city: Munich
   careers_url: https://www.bertrandt.com/en/career
@@ -1241,7 +2025,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: EDAG Group
   city: Munich
   careers_url: https://www.edag.com/en/career
@@ -1252,7 +2043,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IAV
   city: Munich
   careers_url: https://career.iav.com/en
@@ -1263,7 +2061,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: FEV Group
   city: Munich
   careers_url: https://www.fev.com/en/career/
@@ -1274,7 +2079,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Magna International Munich
   city: Munich
   careers_url: https://www.magna.com/company/careers
@@ -1285,7 +2097,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Novartis Munich
   city: Munich
   careers_url: https://www.novartis.com/careers
@@ -1296,7 +2115,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: AstraZeneca Munich
   city: Munich
   careers_url: https://careers.astrazeneca.com/
@@ -1307,7 +2133,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sanofi Munich
   city: Munich
   careers_url: https://jobs.sanofi.com/
@@ -1318,7 +2151,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Bristol Myers Squibb Munich
   city: Munich
   careers_url: https://careers.bms.com/
@@ -1329,7 +2169,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Thermo Fisher Scientific Munich
   city: Munich
   careers_url: https://jobs.thermofisher.com/
@@ -1340,7 +2187,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Stryker Munich
   city: Munich
   careers_url: https://careers.stryker.com/
@@ -1351,7 +2205,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Zimmer Biomet Munich
   city: Munich
   careers_url: https://www.zimmerbiomet.eu/en/about-us/careers.html
@@ -1362,7 +2223,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Olympus Medical Munich
   city: Munich
   careers_url: https://www.olympus-europa.com/company/en/careers/
@@ -1373,7 +2241,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Holidu
   city: Munich
   careers_url: https://www.holidu.com/careers/list
@@ -1384,7 +2259,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Apaleo
   city: Munich
   careers_url: https://job-boards.greenhouse.io/apaleo
@@ -1395,7 +2277,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: DataGuard
   city: Munich
   careers_url: https://www.dataguard.com/careers/
@@ -1406,7 +2295,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: QPLIX
   city: Munich
   careers_url: https://www.qplix.com/career
@@ -1417,7 +2313,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Foodji
   city: Munich
   careers_url: https://foodji.recruitee.com/
@@ -1428,7 +2331,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: everdrop
   city: Munich
   careers_url: https://www.everdrop.de/en/about-us/jobs
@@ -1439,7 +2349,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: yfood
   city: Munich
   careers_url: https://yfood.com/en-eu/pages/career
@@ -1450,7 +2367,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IONITY
   city: Munich
   careers_url: https://www.ionity.eu/ionity/careers
@@ -1461,7 +2385,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IDnow
   city: Munich
   careers_url: https://idnow.io/careers/
@@ -1472,7 +2403,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Hoffmann Group
   city: Munich
   careers_url: https://career.hoffmann-group.com/stellenangebote.html
@@ -1483,7 +2421,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Veridos
   city: Munich
   careers_url: https://careers.gi-de.com/Veridos/?locale=de_DE
@@ -1494,7 +2439,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Accenture
   city: Munich
   careers_url: https://www.accenture.com/de-de/careers
@@ -1505,7 +2457,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Roland Berger
   city: Munich
   careers_url: https://www.rolandberger.com/en/Join/All-Jobs/
@@ -1516,7 +2475,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Boston Consulting Group
   city: Munich
   careers_url: https://careers.bcg.com/global/en/locations/germany-austria/jobs-in-munich
@@ -1527,7 +2493,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BCG Platinion
   city: Munich
   careers_url: https://www.bcgplatinion.com/careers?local=de
@@ -1538,7 +2511,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Bain & Company
   city: Munich
   careers_url: https://www.bain.com/de/careers/
@@ -1549,7 +2529,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: McKinsey & Company
   city: Munich
   careers_url: https://karriere.mckinsey.de/karriere/search-jobs
@@ -1560,7 +2547,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Oliver Wyman
   city: Munich
   careers_url: https://www.oliverwyman.com/careers.html
@@ -1571,7 +2565,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BearingPoint
   city: Munich
   careers_url: https://www.bearingpoint.com/de-de/karriere/stellenangebote/?country=DE
@@ -1582,7 +2583,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Capco
   city: Munich
   careers_url: https://www.capco.com/Careers
@@ -1593,7 +2601,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: d-fine
   city: Munich
   careers_url: https://www.d-fine.com/karriere/stellenportal/
@@ -1604,7 +2619,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Scout24
   city: Munich
   careers_url: https://www.scout24.com/karriere/jobs
@@ -1615,7 +2637,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: AutoScout24
   city: Munich
   careers_url: https://www.autoscout24.com/as24-career-pages/
@@ -1626,7 +2655,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: zooplus
   city: Munich
   careers_url: https://careers.zooplus.com/
@@ -1637,7 +2673,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Westwing
   city: Munich
   careers_url: https://westwing.jobs.personio.com/
@@ -1648,7 +2691,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Reply
   city: Munich
   careers_url: https://www.reply.com/de/about/careers/de
@@ -1659,7 +2709,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: adesso
   city: Munich
   careers_url: https://jobs.adesso-group.com/
@@ -1670,7 +2727,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: msg
   city: Munich
   careers_url: https://www.msg.group/de/karriere/
@@ -1681,7 +2745,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sopra Steria
   city: Munich
   careers_url: https://careers.soprasteria.de/jobs
@@ -1692,7 +2763,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: valantic
   city: Munich
   careers_url: https://www.valantic.com/de/karriere/
@@ -1703,7 +2781,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Messe Muenchen
   city: Munich
   careers_url: https://messe-muenchen.de/de/karriere/stellenanzeigen/
@@ -1714,7 +2799,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: GEMA
   city: Munich
   careers_url: https://jobs.gema.de/jobportal/gema/viewAusschreibungen.html
@@ -1725,7 +2817,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ADAC
   city: Munich
   careers_url: https://karriere.adac.de/jobangebote-stellenanzeigen.html
@@ -1736,7 +2835,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Daiichi Sankyo
   city: Munich
   careers_url: https://careers.daiichisankyo.com/
@@ -1747,7 +2853,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Octopus Energy Germany
   city: Munich
   careers_url: https://octopusenergy.de/karriere/offene-stellen
@@ -1758,7 +2871,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: The Mobility House
   city: Munich
   careers_url: https://tmh.jobs.personio.de/?language=de
@@ -1769,7 +2889,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TWAICE
   city: Munich
   careers_url: https://twaice.jobs.personio.com/
@@ -1780,7 +2907,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: VoltStorage
   city: Munich
   careers_url: https://voltstorage.jobs.personio.de/?language=en
@@ -1791,7 +2925,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: FTAPI
   city: Munich
   careers_url: https://ftapi.jobs.personio.de/
@@ -1802,7 +2943,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Retarus
   city: Munich
   careers_url: https://www.retarus.com/careers/
@@ -1813,7 +2961,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: SpaceNet
   city: Munich
   careers_url: https://www.space.net/stellenanzeigen/
@@ -1824,7 +2979,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Usercentrics
   city: Munich
   careers_url: https://apply.workable.com/usercentrics/
@@ -1835,7 +2997,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Speexx
   city: Munich
   careers_url: https://www.speexx.com/all-jobs/
@@ -1846,7 +3015,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Cobrainer
   city: Munich
   careers_url: https://cobrainer.jobs.personio.de/?language=de
@@ -1857,7 +3033,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Soley
   city: Munich
   careers_url: https://soley-gmbh.jobs.personio.de/?language=de
@@ -1868,7 +3051,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: VEACT
   city: Munich
   careers_url: https://veact.jobs.personio.de/
@@ -1879,7 +3069,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Schleich
   city: Munich
   careers_url: https://career.schleich-s.com/stellenangebote.html
@@ -1890,7 +3087,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Travian Games
   city: Munich
   careers_url: https://www.traviangames.com/en/career
@@ -1901,7 +3105,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Schweitzer Fachinformationen
   city: Munich
   careers_url: https://www.schweitzer-online.de/info/Jobs-und-Karriere/
@@ -1912,7 +3123,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: C.H.Beck
   city: Munich
   careers_url: https://karriere.chbeck.de/
@@ -1923,7 +3141,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Carl Hanser Verlag
   city: Munich
   careers_url: https://karriere.hanser.de/
@@ -1934,7 +3159,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sueddeutsche Zeitung
   city: Munich
   careers_url: https://www.sueddeutsche.de/jobs/stellenanzeigen/
@@ -1945,7 +3177,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Bayerischer Rundfunk
   city: Munich
   careers_url: https://jobs.br.de/Jobs
@@ -1956,7 +3195,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sky Deutschland
   city: Munich
   careers_url: https://karriere.sky.de/de/de/jobs
@@ -1967,7 +3213,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: DAZN
   city: Munich
   careers_url: https://careers.dazn.com/munich
@@ -1978,7 +3231,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Red Bull Germany
   city: Munich
   careers_url: https://jobs.redbull.com/de-de/results?locations=2
@@ -1989,7 +3249,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HolidayCheck
   city: Munich
   careers_url: https://holidaycheck.jobs.personio.de/
@@ -2000,7 +3267,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: PAYBACK Group
   city: Munich
   careers_url: https://jobs.payback.group/en_US/careers/SearchJobs
@@ -2011,7 +3285,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Loyalty Partner Solutions
   city: Munich
   careers_url: https://lpsolutions.com/career/
@@ -2022,7 +3303,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Hubert Burda Media
   city: Munich
   careers_url: https://www.burda.com/de/karriere/
@@ -2033,7 +3321,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BurdaForward
   city: Munich
   careers_url: https://www.burda-forward.de/en/career/jobs/
@@ -2044,7 +3339,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BurdaSolutions
   city: Munich
   careers_url: https://www.burdasolutions.com/karriere/
@@ -2055,7 +3357,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Burda Principal Investments
   city: Munich
   careers_url: https://www.burdaprincipalinvestments.com/careers/
@@ -2066,7 +3375,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Hawk
   city: Munich
   careers_url: https://jobs.ashbyhq.com/hawk
@@ -2077,7 +3393,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Motel One Group
   city: Munich
   careers_url: https://jobs.motel-one.com/en/jobsearch/location/germany/munich/
@@ -2088,7 +3411,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Generali Deutschland
   city: Munich
   careers_url: https://www.generali.de/karriere/jobboerse
@@ -2099,7 +3429,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MEAG
   city: Munich
   careers_url: https://careers.munichre.com/en/meag
@@ -2110,7 +3447,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: WWK Versicherungen
   city: Munich
   careers_url: https://wwk-karriere.dvinci-hr.com/de/jobs
@@ -2121,7 +3465,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: LV 1871
   city: Munich
   careers_url: https://lv1871.softgarden.io/
@@ -2132,7 +3483,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Muenchener Hypothekenbank
   city: Munich
   careers_url: https://karriere.mhb.de/stellenangebote
@@ -2143,7 +3501,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Stadtsparkasse Muenchen
   city: Munich
   careers_url: https://sskm.helixjobs.com/
@@ -2154,7 +3519,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Hiscox
   city: Munich
   careers_url: https://www.hiscox.de/ueber-hiscox/karriere/stellenangebote/
@@ -2165,7 +3537,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: State Street
   city: Munich
   careers_url: https://careers.statestreet.com/
@@ -2176,7 +3555,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BNP Paribas
   city: Munich
   careers_url: https://group.bnpparibas/en/careers/all-job-offers/munich
@@ -2187,7 +3573,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Ryte
   city: Munich
   careers_url: https://de.ryte.com/jobs/
@@ -2198,7 +3591,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: casavi
   city: Munich
   careers_url: https://casavi.jobs.personio.de/?language=en
@@ -2209,7 +3609,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Tanso
   city: Munich
   careers_url: https://tanso.jobs.personio.com/?language=de
@@ -2220,7 +3627,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Avelios Medical
   city: Munich
   careers_url: https://avelios.com/de/careers
@@ -2231,7 +3645,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Predium
   city: Munich
   careers_url: https://predium.jobs.personio.de/?language=en
@@ -2242,7 +3663,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Workpath
   city: Munich
   careers_url: https://workpath.jobs.personio.de/
@@ -2253,7 +3681,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Alasco
   city: Munich
   careers_url: https://www.alasco.com/careers
@@ -2264,7 +3699,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Avi Medical
   city: Munich
   careers_url: https://www.avimedical.com/en/jobs/
@@ -2275,7 +3717,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Helsing
   city: Munich
   careers_url: https://helsing.ai/jobs
@@ -2286,7 +3735,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: RobCo
   city: Munich
   careers_url: https://www.rob.co/careers
@@ -2297,7 +3753,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Agile Robots
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/agilerobotsse
@@ -2308,7 +3771,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: sewts
   city: Munich
   careers_url: https://sewts.jobs.personio.de/?language=de
@@ -2319,7 +3789,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Certivity
   city: Munich
   careers_url: https://certivity.jobs.personio.de/?language=en
@@ -2330,7 +3807,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IntraFind
   city: Munich
   careers_url: https://intrafind.com/en/career
@@ -2341,7 +3825,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: SQUER
   city: Munich
   careers_url: https://squer.jobs.personio.com/?language=en
@@ -2352,7 +3843,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: deeploi
   city: Munich
   careers_url: https://deeploi.jobs.personio.de/?language=de
@@ -2363,7 +3861,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MIFCOM
   city: Munich
   careers_url: https://mifcom.jobs.personio.de/
@@ -2374,7 +3879,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: gridX
   city: Munich
   careers_url: https://gridx.jobs.personio.de/?language=en
@@ -2385,7 +3897,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: AssetMetrix
   city: Munich
   careers_url: https://assetmetrix-gmbh.jobs.personio.de/?language=de
@@ -2396,7 +3915,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: green flexibility
   city: Munich
   careers_url: https://green-flexibility.jobs.personio.de/?language=de
@@ -2407,7 +3933,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Tangany
   city: Munich
   careers_url: https://join.com/companies/tangany
@@ -2418,7 +3951,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TNG Technology Consulting
   city: Munich
   careers_url: https://tngtech.jobs.personio.de/?language=de
@@ -2429,7 +3969,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: JUNE
   city: Munich
   careers_url: https://june.jobs.personio.de/
@@ -2440,7 +3987,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Peter Park
   city: Munich
   careers_url: https://peter-park.jobs.personio.de/?language=de
@@ -2451,7 +4005,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: remberg
   city: Munich
   careers_url: https://jobs.ashbyhq.com/remberg
@@ -2462,7 +4023,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: KINEXON Industries
   city: Munich
   careers_url: https://kinexon.com/company/careers
@@ -2473,7 +4041,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: KINEXON Sports
   city: Munich
   careers_url: https://kinexon-sports.com/jobs/
@@ -2484,7 +4059,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TeleClinic
   city: Munich
   careers_url: https://zrg.wd3.myworkdayjobs.com/teleclinic-jobs
@@ -2495,7 +4077,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Blackwave
   city: Munich
   careers_url: https://blackwave.jobs.personio.de/
@@ -2506,7 +4095,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: INELTA Sensorsysteme
   city: Munich
   careers_url: https://www.inelta.de/jobs/offene-stellen
@@ -2517,7 +4113,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Jochen Schweizer Arena
   city: Munich
   careers_url: https://jochen-schweizer-arena.onapply.de/
@@ -2528,7 +4131,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Develey
   city: Munich
   careers_url: https://www.develey.com/de/karriere/Stellenangebote
@@ -2539,7 +4149,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Mars Wrigley
   city: Munich
   careers_url: https://careers.mars.com/de/de/unterhaching
@@ -2550,7 +4167,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Vincotech
   city: Munich
   careers_url: https://www.vincotech.com/career/open-positions/
@@ -2561,7 +4185,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Panasonic Industry Europe
   city: Munich
   careers_url: https://industry.panasonic.eu/de/karriere/job-listing
@@ -2572,7 +4203,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TE Connectivity
   city: Munich
   careers_url: https://careers.te.com/
@@ -2583,7 +4221,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: SES
   city: Munich
   careers_url: https://careers.ses.com/go/Munich/4312401/
@@ -2594,7 +4239,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Sportec Solutions
   city: Munich
   careers_url: https://sportec-solutions.jobs.personio.de/
@@ -2605,7 +4257,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: smartvillage
   city: Munich
   careers_url: https://smartvillage.jobs.personio.de/
@@ -2616,7 +4275,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: EMERAM Capital Partners
   city: Munich
   careers_url: https://emeram-capital-partners-gmbh.jobs.personio.de/job/1312230?language=de
@@ -2627,7 +4293,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Crewmeister
   city: Munich
   careers_url: https://crewmeister.com/de/your-career
@@ -2638,7 +4311,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Jochen Schweizer mydays Group
   city: Munich
   careers_url: https://career.jsmd-group.com/en/jobs/
@@ -2649,7 +4329,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Werksviertel-Mitte
   city: Munich
   careers_url: https://www.werksviertel-mitte.de/karriere/
@@ -2660,7 +4347,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Eventfabrik Muenchen
   city: Munich
   careers_url: https://www.eventfabrik-muenchen.de/karriere/
@@ -2671,7 +4365,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Werksviertel Versicherung
   city: Munich
   careers_url: https://www.werksviertel-versicherung.de/de/unternehmen/karriere.php
@@ -2682,7 +4383,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Fortlane Partners
   city: Munich
   careers_url: https://join.fortlane.com/de/
@@ -2693,7 +4401,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: PDV.group
   city: Munich
   careers_url: https://karriere.pdv.group/jobs/jobs.feed.json
@@ -2704,7 +4419,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HTM Group
   city: Munich
   careers_url: https://www.heristo-karriere.de/heristo-gruppe/htm-group
@@ -2715,7 +4437,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ASAMBEAUTY
   city: Munich
   careers_url: https://www.asambeauty.com/de-de/karriere
@@ -2726,7 +4455,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: TPSH Group
   city: Munich
   careers_url: https://tpsh-group.de/home/karriere/
@@ -2737,7 +4473,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Golding Capital Partners
   city: Munich
   careers_url: https://recruiting.goldingcapital.com/
@@ -2748,7 +4491,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BVT Unternehmensgruppe
   city: Munich
   careers_url: https://www.bvt.de/unternehmensgruppe/karriere
@@ -2759,7 +4509,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Berylls Group
   city: Munich
   careers_url: https://berylls-group.com/karriere/
@@ -2770,7 +4527,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Bayerische Versorgungskammer
   city: Munich
   careers_url: https://www.versorgungskammer.de/jobs
@@ -2781,7 +4545,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Omnicare
   city: Munich
   careers_url: https://omnicare.jobs.personio.de/?language=de
@@ -2792,7 +4563,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: revel8
   city: Munich
   careers_url: https://revel8.jobs.personio.de/?language=de
@@ -2803,7 +4581,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ERC System
   city: Munich
   careers_url: https://www.erc-system.com/careers
@@ -2814,7 +4599,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ArianeGroup
   city: Munich
   careers_url: https://www.ariane.group/en/careers/
@@ -2825,7 +4617,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: nebumind
   city: Munich
   careers_url: https://www.nebumind.com/career/
@@ -2836,7 +4635,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: APWORKS
   city: Munich
   careers_url: https://www.apworks.de/de/careers
@@ -2847,7 +4653,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: SelectCode
   city: Munich
   careers_url: https://www.selectcode.de/jobs
@@ -2858,7 +4671,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HY-LINE Group
   city: Munich
   careers_url: https://hylinegroup.recruitee.com/
@@ -2869,7 +4689,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HUBER+SUHNER
   city: Munich
   careers_url: https://recruiting.hubersuhner.com/Jobs/All?lang=de
@@ -2880,7 +4707,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: IC Cash Services
   city: Munich
   careers_url: https://www.iccash.de/karriere/
@@ -2891,7 +4725,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ndF neue deutsche Filmgesellschaft
   city: Munich
   careers_url: https://www.ndf.de/karriere/
@@ -2902,7 +4743,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: ALAIKA Advisory
   city: Munich
   careers_url: https://www.alaika-advisory.com/careers
@@ -2913,7 +4761,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: InsurTech Hub Munich
   city: Munich
   careers_url: https://www.insurtech-munich.com/ueber-uns/career/
@@ -2924,7 +4779,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: WERK1.Bayern
   city: Munich
   careers_url: https://www.werk1.com/das-werk1/karriere/
@@ -2935,7 +4797,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: werkkraft
   city: Munich
   careers_url: https://www.werkkraft.de/
@@ -2946,7 +4815,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: BelForm
   city: Munich
   careers_url: https://belform.de/karriere
@@ -2957,7 +4833,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Vantis
   city: Munich
   careers_url: https://vantis.jobs.personio.de/
@@ -2968,7 +4851,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Kertos
   city: Munich
   careers_url: https://www.kertos.io/en/jobs
@@ -2979,7 +4869,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Luminovo
   city: Munich
   careers_url: https://luminovo.com/careers
@@ -2990,7 +4887,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Tacto
   city: Munich
   careers_url: https://jobs.ashbyhq.com/tacto
@@ -3001,7 +4905,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: VoiceLine
   city: Munich
   careers_url: https://voiceline.ai/de/about
@@ -3012,7 +4923,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HENN
   city: Munich
   careers_url: https://www.henn.com/en/careers
@@ -3023,7 +4941,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Muenchen Klinik
   city: Munich
   careers_url: https://www.muenchen-klinik.de/stellenmarkt/
@@ -3034,7 +4959,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Dr. Lubos Kliniken
   city: Munich
   careers_url: https://www.lubos-kliniken.de/karriere/stellenangebote/
@@ -3045,7 +4977,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Membrain GmbH
   city: Munich
   careers_url: https://membrain.jobs.personio.de/
@@ -3056,7 +4995,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: InoNet Computer GmbH
   city: Munich
   careers_url: https://inonet-computer-gmbh.jobs.personio.de/
@@ -3067,7 +5013,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: RidersDeal
   city: Munich
   careers_url: https://ridersdeal.jobs.personio.com/
@@ -3078,7 +5031,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: appliedAI
   city: Munich
   careers_url: https://appliedai.jobs.personio.de/
@@ -3089,7 +5049,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: StudySmarter
   city: Munich
   careers_url: https://studysmarter.jobs.personio.com/
@@ -3100,7 +5067,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: feld.energy
   city: Munich
   careers_url: https://feld-energy.jobs.personio.com/
@@ -3111,7 +5085,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Capmo
   city: Munich
   careers_url: https://capmo.jobs.personio.de/
@@ -3122,7 +5103,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Flowers-Software GmbH
   city: Munich
   careers_url: https://flowers-software-gmbh.jobs.personio.de/
@@ -3133,7 +5121,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Filics GmbH
   city: Munich
   careers_url: https://filics.jobs.personio.de/
@@ -3144,7 +5139,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: OroraTech GmbH
   city: Munich
   careers_url: https://ororatech.jobs.personio.de/
@@ -3155,7 +5157,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: happybrush GmbH
   city: Munich
   careers_url: https://happybrush.jobs.personio.de/
@@ -3166,7 +5175,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: MaibornWolff
   city: Munich
   careers_url: https://maibornwolff.jobs.personio.de/
@@ -3177,7 +5193,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Alexander Thamm GmbH
   city: Munich
   careers_url: https://alexander-thamm-gmbh.jobs.personio.de/
@@ -3188,7 +5211,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Demodesk
   city: Munich
   careers_url: https://demodesk-gmbh.jobs.personio.de/
@@ -3199,7 +5229,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: yoummday GmbH
   city: Munich
   careers_url: https://yoummday-gmbh.jobs.personio.com/
@@ -3210,7 +5247,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: planqc GmbH
   city: Munich
   careers_url: https://planqc-gmbh.jobs.personio.com/
@@ -3221,7 +5265,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: nuuEnergy
   city: Munich
   careers_url: https://nuuenergy.jobs.personio.com/
@@ -3232,7 +5283,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Leibniz-Rechenzentrum (LRZ)
   city: Munich
   careers_url: https://lrz.jobs.personio.com/
@@ -3243,7 +5301,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: FRAMOS
   city: Munich
   careers_url: https://framos.jobs.personio.de/
@@ -3254,7 +5319,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: iteratec
   city: Munich
   careers_url: https://jobs.iteratec.com/
@@ -3265,7 +5337,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: Retorio GmbH
   city: Munich
   careers_url: https://join.com/companies/retoriocom
@@ -3276,7 +5355,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: HAT.tec
   city: Munich
   careers_url: https://www.hattec.de/career/
@@ -3287,7 +5373,14 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: not_reverified
+  source_origin: original_config
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  - Ottobrunn
+  - Taufkirchen
 - name: STARK Defence
   city: Munich
   careers_url: https://stark-defence.com/en/career
@@ -3304,7 +5397,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Twentyfour Industries
   city: Munich
   careers_url: https://twentyfour-industries.com/careers
@@ -3321,7 +5415,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Hypersonica
   city: Munich
   careers_url: https://jobs.lever.co/hypersonica-prod
@@ -3338,7 +5433,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Cambridge Aerospace
   city: Munich
   careers_url: https://cambridgeaerospace.careers.hibob.com/jobs
@@ -3355,7 +5451,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Infinite Orbits
   city: Munich
   careers_url: https://jobs.infiniteorbits.io/jobs
@@ -3372,7 +5469,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: The Exploration Company
   city: Munich
   careers_url: https://www.exploration.space/careers
@@ -3389,7 +5487,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Constellr
   city: Munich
   careers_url: https://constellr.com/careers
@@ -3406,7 +5505,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: QuantumDiamonds
   city: Munich
   careers_url: https://www.qd-st.com/careers
@@ -3423,7 +5523,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Bayernwerk
   city: Munich
   careers_url: https://jobs.bayernwerk.de/de
@@ -3440,7 +5541,8 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: TransnetBW
   city: Munich
   careers_url: https://www.transnetbw.de/de/karriere/stellenangebote/
@@ -3457,7 +5559,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Amprion
   city: Munich
   careers_url: https://jobs.amprion.net/
@@ -3474,7 +5577,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: 50Hertz
   city: Munich
   careers_url: https://karriere.50hertz.com/
@@ -3491,7 +5595,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Uniper
   city: Munich
   careers_url: https://jobs.uniper.energy/
@@ -3507,7 +5612,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Schneider Electric
   city: Munich
   careers_url: https://careers.se.com/
@@ -3524,7 +5630,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Hitachi Energy
   city: Munich
   careers_url: https://www.hitachienergy.com/de/de/careers/open-jobs
@@ -3541,7 +5648,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Fluence
   city: Munich
   careers_url: https://careers.fluenceenergy.com/
@@ -3558,7 +5666,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: TUV SUD
   city: Munich
   careers_url: https://jobs.tuvsud.com/
@@ -3575,7 +5684,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: CGI Germany
   city: Munich
   careers_url: https://cgi.njoyn.com/
@@ -3592,7 +5702,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 - name: Celonis
   city: Munich
   careers_url: https://careers.celonis.com/jobs
@@ -3609,14 +5720,26 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verified_on: '2026-11-16'
+  verification_status: pending
+  source_origin: expansion_candidate
 scrape_schedule:
   priority_1:
-    frequency: daily
+    weekdays:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
     source_seconds: 90
   priority_2:
-    frequency: twice_weekly
+    weekdays:
+    - 1
+    - 4
     source_seconds: 45
   priority_3:
-    frequency: weekly
+    weekdays:
+    - 6
     source_seconds: 25
+  full_run_source_seconds: 180

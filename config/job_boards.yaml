@@ -1,6 +1,2 @@
-companies:
-- name: Robert Walters Germany
-  city: Munich
-  careers_url: https://www.robertwalters.de/en/information-technology/project-programme-management-jobs.html
-  ats: auto
-  board_token: ''
+# Optional additional boards. Existing repository users: retain your own file.
+companies: []
