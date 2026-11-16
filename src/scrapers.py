@@ -6,6 +6,7 @@ from __future__ import annotations
 # ========================================================================
 """Explicit public-source adapters; no login, stealth or access-control bypass."""
 import json,logging,re,time
+from src.runtime import company_options, page_limit
 from urllib.parse import urljoin,urlparse
 from bs4 import BeautifulSoup
 from src.extraction import walk, plain, location, usable_title, is_vacancy_url, dedupe, resolve_job_url
@@ -62,6 +63,7 @@ def bmw_cards(html,url):
 
 def scrape_amazon(name,url,get,max_pages=100,seconds=150):
     """Public search JSON, Germany-wide; no city/radius cutoff is introduced."""
+    max_pages=page_limit(max_pages)
     jobs=[];seen=set();offset=0;total=None;pages=0;reason='empty_page';began=time.monotonic()
     endpoint='https://www.amazon.jobs/en/search.json'
     while pages<max_pages and time.monotonic()-began<seconds:
@@ -239,6 +241,7 @@ def supplemental_cards(html,url):
 Limits and stopping reasons are recorded; extraction is not a coverage certificate.
 """
 import json,logging,re,time
+from src.runtime import company_options, page_limit
 import requests
 from src.diagnostics import checkpoint, request_timeout, current_budget
 from urllib.parse import urlparse,urljoin,parse_qs,urlencode,urlunparse
@@ -473,6 +476,7 @@ def _tag(jobs,stats):
 
 def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
     """Follow actual public Next links; browser handles JS buttons if needed."""
+    max_pages=page_limit(max_pages)
     started=time.monotonic();current=url;seen=set();jobs=[];cookies={};pages=0;reason='no_next_link_unverified';form_submitted=False;response=None
     while current and pages<max_pages and time.monotonic()-started<seconds:
         if current in seen:reason='repeated_url';break
@@ -571,7 +575,7 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                     return [],{'pages':0,'completion':reason}
                 page.wait_for_timeout(1000)
                 previous=None;stagnant=0
-                while pages<MAX_PAGES and time.monotonic()-started<seconds:
+                while pages<page_limit(MAX_PAGES) and time.monotonic()-started<seconds:
                     try:html=page.content()
                     except Exception:page.wait_for_timeout(300);html=page.content()
                     found=extract_page(html,page.url)
@@ -634,6 +638,7 @@ def scrape_eightfold(name,url,domain,get,max_pages=500,seconds=SOURCE_SECONDS):
     host=urlparse(url)
     if host.scheme!='https' or not host.hostname:raise ValueError('HTTPS career board required')
     endpoint=urlunparse(host._replace(path='/api/apply/v2/jobs',params='',query='',fragment=''))
+    max_pages=page_limit(max_pages)
     start=0;jobs=[];seen=set();pages=0;total=None;reason='empty_page';began=time.monotonic()
     while pages<max_pages and time.monotonic()-began<seconds:
         resp=get(endpoint,params={'domain':domain,'start':start,'num':10})
@@ -870,7 +875,7 @@ def scrape_greenhouse(company_name: str, board_token: str = "") -> list[dict[str
             }
         )
         stamp_date(jobs[-1],raw_date,'first_published')
-    return jobs
+    return SourceResult(jobs,dict(reader='scrape_greenhouse',pages=1,raw_candidates=len(data.get('jobs',[])),advertised_total=len(data.get('jobs',[])),unique_candidates=len(jobs),completion='single_feed_complete'))
 
 
 # --------------------------------------------------------------------------
@@ -878,45 +883,88 @@ def scrape_greenhouse(company_name: str, board_token: str = "") -> list[dict[str
 # --------------------------------------------------------------------------
 
 
-def scrape_recruitee(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
-    """Read Recruitee's public company careers feed."""
-    token=(board_token or "").strip()
-    if not token:return []
-    url=f"https://{token}.recruitee.com/api/offers/"
+class SourceResult(list):
+    """Preserve feed diagnostics even when a source returns zero records."""
+    def __init__(self, jobs=(), pagination=None):
+        super().__init__(jobs)
+        self.pagination=pagination or {}
+        for job in self:job['_pagination']=dict(self.pagination)
+
+def _public_location(item):
+    values=item.get('locations') or item.get('location') or item.get('city') or ''
+    if not isinstance(values,list):values=[values]
+    result=[]
+    for value in values:
+        if isinstance(value,dict):
+            text=value.get('location_str') or ', '.join(str(value.get(k) or '') for k in ('city','region','country') if value.get(k))
+        else:text=str(value or '')
+        if text and text not in result:result.append(text)
+    return '; '.join(result)
+
+def scrape_recruitee(company_name: str, board_token: str = '') -> list[dict[str, Any]]:
+    token=(board_token or '').strip()
+    if not re.fullmatch(r'[\w-]+',token):return []
+    url=f'https://{token}.recruitee.com/api/offers/'
     response=_safe_get(url)
     if response is None:return []
     try:data=response.json()
     except (ValueError,TypeError):return []
-    offers=data.get("offers",[]) if isinstance(data,dict) else []
+    offers=data.get('offers') if isinstance(data,dict) else None
+    if not isinstance(offers,list):return []
     jobs=[]
     for item in offers:
-        title=plain(item.get("title")); target=item.get("careers_url") or item.get("url") or ""
+        if not isinstance(item,dict):continue
+        title=plain(item.get('title'));target=item.get('careers_url') or item.get('url') or ''
         if not usable_title(title) or not target:continue
-        loc=item.get("location") or item.get("city") or ""
-        if isinstance(loc,dict):loc=", ".join(str(loc.get(k,"")) for k in ("city","country") if loc.get(k))
-        jobs.append(dict(title=title,location=str(loc),url=target,description=plain(item.get("description")),posted_date=item.get("published_at") or "",_date_raw=item.get("published_at") or "",_date_field="published_at",_date_kind="publication",_date_source=url,_job_id=str(item.get("id") or ""),_extraction="recruitee_public_api"))
-    stats={"reader":"recruitee_public_api","pages":1,"advertised_total":len(offers),"unique_candidates":len(jobs),"completion":"reported_total_reached"}
-    for j in jobs:j["_pagination"]=stats
-    return dedupe(jobs)
+        target=urljoin(url,target)
+        date=item.get('published_at') or ''
+        jobs.append(dict(title=title,location=_public_location(item),url=target,description=plain(item.get('description')),posted_date=date,_date_raw=date,_date_field='published_at',_date_kind='publication',_date_source=url,_job_id=str(item.get('id') or ''),_extraction='recruitee_public_api'))
+    jobs=dedupe(jobs)
+    stats=dict(reader='recruitee_public_api',pages=1,raw_candidates=len(offers),advertised_total=len(offers),unique_candidates=len(jobs),completion='single_feed_complete')
+    checkpoint(jobs)
+    return SourceResult(jobs,stats)
 
-def scrape_workable(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
-    """Read Workable's public account endpoint without authentication."""
-    token=(board_token or "").strip()
-    if not token:return []
-    url=f"https://apply.workable.com/api/v3/accounts/{token}/jobs"
-    response=_safe_get(url,params={"limit":100})
-    if response is None:return []
-    try:data=response.json()
-    except (ValueError,TypeError):return []
-    items=data.get("results",[]) if isinstance(data,dict) else []
-    jobs=[]
-    for item in items:
-        title=plain(item.get("title")); shortcode=item.get("shortcode")
-        target=item.get("url") or (f"https://apply.workable.com/{token}/j/{shortcode}/" if shortcode else "")
-        loc=item.get("location") or {}
-        if isinstance(loc,dict):loc=", ".join(str(loc.get(k,"")) for k in ("city","region","country") if loc.get(k))
-        if usable_title(title) and target:jobs.append(dict(title=title,location=str(loc),url=target,description=plain(item.get("description")),posted_date=item.get("published") or "",_date_raw=item.get("published") or "",_date_field="published",_date_kind="publication",_date_source=url,_job_id=str(shortcode or target),_extraction="workable_public_api"))
-    return dedupe(jobs)
+def scrape_workable(company_name: str, board_token: str = '') -> list[dict[str, Any]]:
+    """Public careers POST search; nextPage is sent back as token. No credentials."""
+    token=(board_token or '').strip()
+    if not re.fullmatch(r'[\w-]+',token):return []
+    url=f'https://apply.workable.com/api/v3/accounts/{token}/jobs'
+    jobs=[];seen_tokens=set();cursor=None;pages=0;raw=0;total=None;reason='page_limit'
+    for _ in range(page_limit(30)):
+        payload=dict(query='',location=[],department=[],worktype=[],remote=[])
+        if cursor:payload['token']=cursor
+        try:
+            response=requests.post(url,json=payload,headers=HEADERS,timeout=request_timeout(TIMEOUT))
+            if response.status_code>=400:
+                reason='http_'+str(response.status_code);break
+            data=response.json()
+        except (requests.RequestException,ValueError,TypeError) as exc:
+            logger.warning('Workable public search failed for %s: %s',company_name,exc)
+            reason='request_failed';break
+        pages+=1
+        if not isinstance(data,dict) or not isinstance(data.get('results'),list):reason='schema_unrecognized';break
+        items=data['results'];raw+=len(items)
+        if isinstance(data.get('total'),int):total=data['total']
+        before=len(jobs)
+        for item in items:
+            if not isinstance(item,dict):continue
+            title=plain(item.get('title'));shortcode=item.get('shortcode')
+            target=item.get('url') or (f'https://apply.workable.com/{token}/j/{shortcode}/' if shortcode else '')
+            if not usable_title(title) or not target:continue
+            date=item.get('published') or item.get('published_on') or ''
+            job=dict(title=title,location=_public_location(item),url=urljoin(url,target),description=plain(item.get('description')),posted_date=date,_date_raw=date,_date_field='published',_date_kind='publication',_date_source=url,_job_id=str(shortcode or target),_extraction='workable_public_api')
+            if shortcode:job['_detail_api_url']=f'https://apply.workable.com/api/v2/accounts/{token}/jobs/{shortcode}'
+            jobs.append(job)
+        jobs=dedupe(jobs);checkpoint(jobs)
+        next_cursor=data.get('nextPage')
+        if not next_cursor:
+            reason='reported_total_reached' if total is not None and len(jobs)>=total else ('single_feed_complete' if total is None else 'count_mismatch')
+            break
+        if str(next_cursor) in seen_tokens or (items and len(jobs)==before):reason='repeated_page';break
+        seen_tokens.add(str(next_cursor));cursor=next_cursor
+    stats=dict(reader='workable_public_api',pages=pages,raw_candidates=raw,advertised_total=total,unique_candidates=len(jobs),completion=reason)
+    return SourceResult(jobs,stats)
+
 
 def scrape_lever(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
     token = board_token or _slugify(company_name)
@@ -949,7 +997,7 @@ def scrape_lever(company_name: str, board_token: str = "") -> list[dict[str, Any
         )
         stamp_date(jobs[-1],created_ms,'createdAt','creation_unverified')
         jobs[-1]['posted_date']=''
-    return jobs
+    return SourceResult(jobs,dict(reader='scrape_lever',pages=1,raw_candidates=len(data),advertised_total=len(data),unique_candidates=len(jobs),completion='single_feed_complete'))
 
 
 # --------------------------------------------------------------------------
@@ -960,7 +1008,7 @@ def scrape_smartrecruiters(company_name: str, board_token: str = "") -> list[dic
     token = board_token or company_name.replace(" ", "")
     base = f"https://api.smartrecruiters.com/v1/companies/{quote(token, safe='')}/postings"
     jobs, seen, offset = [], set(), 0
-    for _ in range(200):
+    for _ in range(page_limit(200)):
         resp = _safe_get(base, params={"limit": 100, "offset": offset})
         if resp is None:
             logger.warning("SmartRecruiters incomplete pagination at offset %s; retaining %s candidates", offset, len(jobs))
@@ -1067,7 +1115,7 @@ def _parse_personio_xml(resp, token: str, domain: str) -> list[dict[str, Any]]:
         else:
             stamp_date(jobs[-1],created.text.strip() if created else '',created.name if created else 'none','creation_unverified')
             jobs[-1]['posted_date']=''
-    return jobs
+    return SourceResult(jobs,dict(reader='_parse_personio_xml',pages=1,raw_candidates=len(soup.find_all('position')),advertised_total=len(soup.find_all('position')),unique_candidates=len(jobs),completion='single_feed_complete'))
 
 
 def scrape_personio(company_name: str, board_token: str = "", preferred_domain: str = "de") -> list[dict[str, Any]]:
@@ -1176,7 +1224,7 @@ def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
     request_limit=20
     repeated_recovery=False
     source_started=time.monotonic()
-    for _ in range(500):
+    for _ in range(page_limit(500)):
         if time.monotonic()-source_started>=150:
             completion='time_limit';logger.warning('Workday incomplete pagination: time limit; retaining %s candidates',len(jobs));break
         try:
@@ -1419,7 +1467,10 @@ def scrape_ashby(company_name, board_token=''):
     resp = _safe_get('https://api.ashbyhq.com/posting-api/job-board/' + quote(board_token, safe=''))
     if resp is None:
         raise RuntimeError('Ashby public feed unavailable')
-    return ashby_jobs(resp.json())
+    data=resp.json()
+    jobs=ashby_jobs(data)
+    count=len(data.get('jobs',[]))
+    return SourceResult(jobs,dict(reader='ashby_public_api',pages=1,raw_candidates=count,advertised_total=count,unique_candidates=len(jobs),completion='single_feed_complete'))
 
 _PLATFORM_URL_PATTERNS = {
     "ashby": re.compile(r"https?://jobs\.ashbyhq\.com/([\w-]+)"),
@@ -1554,6 +1605,13 @@ _maybe_headless_upgrade = _recover_thin_result
 # Dispatcher
 # --------------------------------------------------------------------------
 def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
+    if company.get('enabled',True) is not True:return []
+    if company.get('detail_fetch_mode','matched_only') not in ('matched_only','all','none'):
+        raise ValueError('detail_fetch_mode must be matched_only, all or none')
+    with company_options(company):
+        return _scrape_company_impl(company)
+
+def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
     """
     Dispatch to the right scraper based on the company's configured ATS.
     Any explicit platform scraper that returns nothing falls back to the
@@ -1623,11 +1681,11 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "recruitee":
             result = scrape_recruitee(name, token)
-            if result:return result
+            if result or isinstance(result,SourceResult):return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "workable":
             result = scrape_workable(name, token)
-            if result:return result
+            if result or isinstance(result,SourceResult):return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "smartrecruiters":
             result = scrape_smartrecruiters(name, token)
@@ -1670,6 +1728,17 @@ def fetch_job_details(url):
     resp = _safe_get(url)
     if resp is None:
         return {}, ''
+    if urlparse(url).hostname=='apply.workable.com' and '/api/v2/accounts/' in urlparse(url).path:
+        try:data=resp.json()
+        except (ValueError,TypeError):return {},''
+        if not isinstance(data,dict):return {},''
+        description=plain(data.get('full_description') or data.get('description'))
+        details=dict(title=plain(data.get('title')),description=description,location=_public_location(data))
+        date=data.get('published') or data.get('published_on')
+        if date:
+            details['posted_date']=date
+            stamp_date(details,date,'published',source=url)
+        return details,description
     if urlparse(url).hostname == 'api.smartrecruiters.com':
         data = resp.json()
         sections = (data.get('jobAd') or {}).get('sections') or {}

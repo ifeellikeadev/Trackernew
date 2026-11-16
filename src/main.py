@@ -7,6 +7,9 @@ from __future__ import annotations
 """Synchronous Munich-region pipeline with auditable filtering and confirmed-location results only."""
 import logging,re,sys,time,os
 from datetime import datetime
+from src.runtime import selected, source_seconds
+from src.review import review_hint, review_candidate, save_review
+from src.source_quality import quality
 from collections import Counter
 from pathlib import Path
 import yaml
@@ -32,20 +35,6 @@ DATE_FIELDS=('_date_raw','_date_field','_date_kind','_date_source','_date_observ
 def load_yaml(path):
     if not path.exists():return {}
     return yaml.safe_load(path.read_text(encoding='utf-8')) or {}
-
-def scheduled(company):
-    if company.get('enabled',True) is False:return False
-    priority=int(company.get('priority',3))
-    mode=os.getenv('SCRAPE_TIER','scheduled').lower()
-    if mode in ('all','full'):return True
-    if mode in ('1','priority_1','daily'):return priority==1
-    if mode in ('2','priority_2'):return priority<=2
-    weekday=datetime.now().weekday()
-    return priority==1 or (priority==2 and weekday in (1,4)) or (priority==3 and weekday==6)
-
-def source_seconds(company):
-    if company.get('source_seconds'):return float(company['source_seconds'])
-    return {1:90,2:45,3:25}.get(int(company.get('priority',3)),25)
 
 def excluded(company):
     name=re.sub('[^a-z0-9]','',company.get('name','').lower());url=company.get('careers_url','').lower()
@@ -74,11 +63,12 @@ def audit_date(row,job,stage):
     if used<limit:row[target].append(example)
     return decision
 
-def scrape_all_any_city(companies,cv_profile):
+def scrape_all_any_city(companies,cv_profile,schedule=None):
+    review_rows=[]
     jobs=[];reports=[];counts={'ok':0,'empty':0,'errored':0,'total':0,'title_matched':0,'location_confirmed':0}
     detail_cache={}
     def cached_details(url,row):
-        if not url:return {},''
+        if not url or company.get('detail_fetch_mode','matched_only')=='none':return {},''
         if url not in detail_cache:
             if budget.remaining()<=0:
                 budget.expired=True;budget.detail_skipped+=1
@@ -89,18 +79,20 @@ def scrape_all_any_city(companies,cv_profile):
                 row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180]);detail_cache[url]=({},'')
         return detail_cache[url]
     for company in companies:
-        if excluded(company) or not scheduled(company):continue
+        if excluded(company) or not selected(company,schedule):continue
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
         row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],title_rejection_details=[])
         try:
-            with source_budget(source_seconds(company)) as budget, observe(row):
+            with source_budget(source_seconds(company,schedule)) as budget, observe(row):
                 extracted=budget.call(scrape_company,company,default=None,phase='listing')
                 if extracted is None:extracted=budget.candidates
                 budget.remember(extracted)
+                row['source_quality']=quality(extracted, expected_locations=company.get('expected_locations'))
+                row['verification_status']=company.get('verification_status','unknown')
                 valid=[j for j in extracted if is_vacancy_url(j.get('url',''))]
                 row['non_job_links_removed']=len(extracted)-len(valid)
                 raw=dedupe(valid);row['duplicate_candidates_removed']=len(valid)-len(raw);row['raw_candidates']=len(raw)
-                row['pagination']=next((j['_pagination'] for j in raw if j.get('_pagination')), {})
+                row['pagination']=getattr(extracted,'pagination',None) or next((j['_pagination'] for j in raw if j.get('_pagination')), {})
                 row['title_recovered']=0;row['title_unresolved']=0;recovery_budget=60
                 for candidate in raw:
                     if usable_title(candidate.get('title','')) and not candidate.get('_needs_title'):continue
@@ -114,6 +106,12 @@ def scrape_all_any_city(companies,cv_profile):
                 row['sample_titles']=[str(j.get('title',''))[:160] for j in raw[:8]]
                 row['unverified_candidates']=sum(str(j.get('_extraction','')).endswith('_unverified') for j in raw)
                 row['methods']=sorted({j.get('_extraction','existing_ats_adapter') for j in raw})
+                if company.get('detail_fetch_mode')=='all':
+                    for item in raw:
+                        if location_decision(item)['status'] not in ('outside','excluded'):
+                            details,body=cached_details(item.get('_detail_api_url') or item.get('url',''),row)
+                            enrich(item,details)
+                            if not item.get('description') and body:item['description']=body
                 recent=[]
                 for job in raw:
                     if audit_date(row,job,'list')['keep']:recent.extend(filter_recent_jobs([job]))
@@ -122,7 +120,7 @@ def scrape_all_any_city(companies,cv_profile):
                 row['extraction_unresolved']=len(recent)-len(readable)
                 titled=[]
                 for job in readable:
-                    if related_role_candidate(job['title'],cv_profile) and location_decision(job)['status'] not in ('outside','excluded') and not job.get('description'):
+                    if (related_role_candidate(job['title'],cv_profile) or review_hint(job,cv_profile)) and location_decision(job)['status'] not in ('outside','excluded') and not job.get('description'):
                         details,body=cached_details(job.get('_detail_api_url') or job.get('url',''),row)
                         enrich(job,details)
                         if not job.get('description') and body:job['description']=body
@@ -133,6 +131,10 @@ def scrape_all_any_city(companies,cv_profile):
                         if decision['match_type']=='Related role':row['related_roles_qualified']=row.get('related_roles_qualified',0)+1
                     if decision['keep']:titled.append(job)
                     else:
+                        review=review_candidate(job,cv_profile,company)
+                        if review:
+                            review_rows.append(review)
+                            row['review_candidates']=row.get('review_candidates',0)+1
                         row['title_rejected']+=1
                         if len(row['title_rejection_details'])<20:row['title_rejection_details'].append({'title':job['title'],'url':job['url'],**decision})
                 row['title_rejected_samples']=[j['title'] for j in row['title_rejection_details'][:8]]
@@ -172,12 +174,17 @@ def scrape_all_any_city(companies,cv_profile):
         time.sleep(.3)
     counts['source_statuses']=dict(Counter(row['status'] for row in reports))
     save_report(reports,HEALTH_FILE)
+    save_review(review_rows,ROOT/'data/review_candidates.csv')
     return jobs,counts,reports
 
 def run():
     profile=load_yaml(CV_PROFILE_FILE);reset_headless_budget()
-    companies=load_yaml(COMPANIES_FILE).get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
-    jobs,counts,reports=scrape_all_any_city(companies,profile)
+    configuration=load_yaml(COMPANIES_FILE)
+    companies=configuration.get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
+    names={n.strip().casefold() for n in os.getenv('SCRAPE_COMPANIES','').split(',') if n.strip()}
+    if names:companies=[c for c in companies if c['name'].casefold() in names]
+    logger.info('Run mode: %s; configured companies: %d',os.getenv('SCRAPE_TIER','all'),len(companies))
+    jobs,counts,reports=scrape_all_any_city(companies,profile,configuration.get('scrape_schedule'))
     if not reports or not any(row.get('raw_candidates',0)>row.get('extraction_unresolved',0) for row in reports) or all(row['status'] in ('ERROR','FAILED_OR_BLOCKED','EMPTY_UNVERIFIED','EXTRACTION_INCOMPLETE') for row in reports):
         raise RuntimeError('No usable source results; existing tracker and webpage retained.')
     summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0),related_roles_enabled=(profile.get('related_roles') or {}).get('enabled') is True)
