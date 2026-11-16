@@ -1,33 +1,3 @@
-# Profile: Project / Programme Manager and Scrum Master | Energy - IT - Aerospace & Defence
-# Updated 2026-11-16 from Master Career Document - Template.docx.
-# Job-matching configuration: original schema, thresholds and related-role gate retained.
-# Assumption: case-insensitive substring title/keyword matching; regex related-role patterns.
-# Multilingual search terms are vacancy-discovery signals, not language-fluency claims.
-# Official title: Project Manager; programme management and Scrum Master duties documented.
-# Keywords describe relevant job contexts, not hands-on software/AI engineering expertise.
-# AI: practical AI-assisted personal tools and an internal Copilot action-prioritisation agent.
-# Object storage and data lakehouse reflect planned platform stages, not completed delivery.
-# Factual guardrails for any downstream CV tailoring:
-# - Mayday 2.0 / RCR Backup Location combined budget: approximately EUR 1.2m, not expenditure.
-# - Selected backup-location maximum approach: EUR 800k within that combined budget.
-# - Backup implementation ongoing, completion targeted June 2027.
-# - OPI: five vendors; about 35 contributors, not direct reports; lifetime budget >EUR 1.5m,
-#   not solely attributable to this tenure; currently SAT, completion targeted Q1 2027.
-# - DMP: five-person team including PM; PoC/data pipelines used for an actual report;
-#   about 10 analysts trained; EUR 150k annual savings estimated, not realised.
-# - DMP full target lakehouse planned Q1-Q2 2027, not delivered.
-# - TAP: nine-person team including PM; usable MVP November 2026; stable version Q1 2027 target.
-# - Training materials covered about 30 operators, not 30 verified certifications.
-# - Crisis training: about 15-16 members and two simulations; framework/room handed over.
-# - About 50 supplier audits coordinated; fleet sustainment proposal, not verified savings.
-# - German B1; French B2; English and Italian fluent. CV output preference: English, max 2 pages,
-#   always include a practical AI section. These comments do not add runtime configuration keys.
-# Removed unsupported specialist/employer bonuses; balanced current energy/IT and aerospace.
-# Broad substring exclusions narrowed to avoid rejecting international/internal PM titles.
-# Related-role regex word boundaries normalized; case-insensitive duplicate keywords removed.
-# Overlapping substring aliases may still accumulate scores in the existing consumer.
-# YAML/schema/regex checks performed; no tracker integration or scoring calibration claimed.
-
 title_must_match:
 - project manager
 - programme manager
@@ -90,6 +60,26 @@ title_must_match:
 - agiler projektmanager
 - senior projektmanager
 - senior projektleiter
+- project delivery lead
+- programme delivery lead
+- program delivery lead
+- project portfolio lead
+- strategic project lead
+- business transformation lead
+- digital transformation manager
+- enterprise transformation manager
+- operational excellence manager
+- project management officer
+- senior project management officer
+- programme management officer
+- program management officer
+- project controls manager
+- project governance manager
+- technical delivery lead
+- projektportfoliomanager
+- projektsteuerungsmanager
+- transformationsmanager
+- programmsteuerer
 title_must_not_match:
 - stadionbau
 - hochbau
@@ -696,3 +686,16 @@ related_roles:
     - workflow automation
     - AI adoption
     - Prozessautomatisierung
+review_candidates:
+  enabled: true
+  min_description_score: 7
+  terms:
+  - project
+  - programme
+  - program
+  - delivery
+  - pmo
+  - transformation
+  - implementation
+  - governance
+  - portfolio

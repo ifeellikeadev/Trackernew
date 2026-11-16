@@ -4,1493 +4,3619 @@ companies:
   careers_url: https://www.bmwgroup.jobs/de/en/jobs.html
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Siemens
   city: Munich
   careers_url: https://jobs.siemens.com/careers
   ats: eightfold
   board_token: siemens.com
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Siemens Energy
   city: Munich
   careers_url: https://jobs.siemens-energy.com/en_US/jobs/SearchJobsGermany
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Siemens Healthineers
   city: Munich
   careers_url: https://www.siemens-healthineers.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Infineon Technologies
   city: Munich
   careers_url: https://jobs.infineon.com/careers
   ats: eightfold
   board_token: infineon.com
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MTU Aero Engines
   city: Munich
   careers_url: https://www.mtu.de/de/karriere/jobboerse/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Linde
   city: Munich
   careers_url: https://www.lindecareers.com/en/search-jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Wacker Chemie
   city: Munich
   careers_url: https://www.wacker.com/cms/en-us/careers/overview.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Osram
   city: Munich
   careers_url: https://careers.ams-osram.com/en/ams-osram-career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Giesecke+Devrient
   city: Munich
   careers_url: https://www.gi-de.com/en/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Brainlab
   city: Munich
   careers_url: https://careers.smartrecruiters.com/brainlab
   ats: smartrecruiters
   board_token: brainlab
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Rohde & Schwarz
   city: Munich
   careers_url: https://jobs.rohde-schwarz.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MAN Truck & Bus
   city: Munich
   careers_url: https://www.man.eu/de/en/career.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Webasto
   city: Munich
   careers_url: https://www.webasto-group.com/en/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BSH Hausgeraete
   city: Munich
   careers_url: https://www.bsh-group.com/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Airbus
   city: Munich
   careers_url: https://www.airbus.com/en/careers
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Hensoldt
   city: Munich
   careers_url: https://jobs.hensoldt.net/go/Germany/9460255/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Diehl Defence
   city: Munich
   careers_url: https://new.diehl.com/career/en/jobs-application/job-offers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: KNDS Deutschland
   city: Munich
   careers_url: https://www.knds.de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: OHB System
   city: Munich
   careers_url: https://www.ohb.de/en/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IABG
   city: Munich
   careers_url: https://jobboerse.iabg.de/engage/jobexchange/searchJobOffersQuick.do?languageChanged=true&j=myjobexchange
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ESG Elektroniksystem- und Logistik
   city: Munich
   careers_url: https://www.esg.de/en/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Allianz
   city: Munich
   careers_url: https://careers.allianz.com/global/en/search-results
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Munich Re
   city: Munich
   careers_url: https://careers.munichre.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HypoVereinsbank UniCredit
   city: Munich
   careers_url: https://www.hypovereinsbank.de/hvb/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BayernLB
   city: Munich
   careers_url: https://jobs.bayernlb.de/?currentPage=1&pageSize=12
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Versicherungskammer Bayern
   city: Munich
   careers_url: https://stellenangebote.vkb.de/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Stadtwerke Muenchen
   city: Munich
   careers_url: https://www.swm.de/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: E.ON
   city: Munich
   careers_url: https://www.eon.com/en/careers.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TenneT
   city: Munich
   careers_url: https://www.tennet.eu/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Google Munich
   city: Munich
   careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=Munich
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Microsoft Germany
   city: Munich
   careers_url: https://careers.microsoft.com/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IBM Germany
   city: Munich
   careers_url: https://www.ibm.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Cisco Munich
   city: Munich
   careers_url: https://jobs.cisco.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Capgemini Germany
   city: Munich
   careers_url: https://www.capgemini.com/de-de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: NTT DATA Germany
   city: Munich
   careers_url: https://de.nttdata.com/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Qualcomm Munich
   city: Munich
   careers_url: https://www.qualcomm.com/company/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ProSiebenSat.1
   city: Munich
   careers_url: https://jobs.prosiebensat1.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Cancom
   city: Munich
   careers_url: https://www.cancom.de/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Nemetschek
   city: Munich
   careers_url: https://careers.nemetschek.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ATOSS Software
   city: Munich
   careers_url: https://www.atoss.com/en/company/career/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Amgen Munich
   city: Munich
   careers_url: https://careers.amgen.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Roche Munich
   city: Munich
   careers_url: https://careers.roche.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: GSK Munich
   city: Munich
   careers_url: https://jobs.gsk.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Immatics
   city: Munich
   careers_url: https://immatics.com/jobs-us/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MorphoSys
   city: Munich
   careers_url: https://www.morphosys.com/en/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sandoz
   city: Munich
   careers_url: https://www.sandoz.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Dermapharm
   city: Munich
   careers_url: https://jobs.dermapharm.com/en/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Telefonica Germany O2
   city: Munich
   careers_url: https://www.telefonica.de/karriere.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: commercetools
   city: Munich
   careers_url: https://job-boards.greenhouse.io/commercetools
   ats: greenhouse
   board_token: commercetools
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Serviceplan Group
   city: Munich
   careers_url: https://www.house-of-communication.com/de/en/career.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Mediaplus
   city: Munich
   careers_url: https://www.house-of-communication.com/de/en/career.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: DB Schenker
   city: Munich
   careers_url: https://www.dbschenker.com/global/about/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: FlixMobility
   city: Munich
   careers_url: https://flix.careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Quantum Systems
   city: Munich
   careers_url: https://career.quantum-systems.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Tytan Technologies
   city: Munich
   careers_url: https://www.tytan-technologies.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Alpine Eagle
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/alpineeagle
   ats: greenhouse
   board_token: alpineeagle
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Reflex Aerospace
   city: Munich
   careers_url: https://reflex-aerospace-gmbh.jobs.personio.de/?language=en
   ats: personio
   board_token: reflex-aerospace-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ARX Robotics
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/arxroboticsgmbh
   ats: greenhouse
   board_token: arxroboticsgmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Isar Aerospace
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/isaraerospace
   ats: greenhouse
   board_token: isaraerospace
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Proxima Fusion
   city: Munich
   careers_url: https://jobs.ashbyhq.com/proxima-fusion
   ats: ashby
   board_token: proxima-fusion
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ITM Isotopen Technologien Muenchen
   city: Munich
   careers_url: https://itm.onlyfy.jobs/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Personio
   city: Munich
   careers_url: https://www.personio.com/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Konux
   city: Munich
   careers_url: https://konux.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: FINN
   city: Munich
   careers_url: https://www.finn.com/en-DE/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Scalable Capital
   city: Munich
   careers_url: https://scalable.capital/en/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Tubulis
   city: Munich
   careers_url: https://tubulis-gmbh.jobs.personio.com/?language=en
   ats: personio
   board_token: tubulis-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Orbem
   city: Munich
   careers_url: https://orbem.ai/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Entrix
   city: Munich
   careers_url: https://entrix.jobs.personio.com/?language=en
   ats: personio
   board_token: entrix
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Egym
   city: Munich
   careers_url: https://egym.com/de/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Contentserv
   city: Munich
   careers_url: https://www.contentserv.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Freeletics
   city: Munich
   careers_url: https://www.freeletics.com/en/corporate/jobs/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: DeepDrive
   city: Munich
   careers_url: https://deepdrive.tech/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Building Radar
   city: Munich
   careers_url: https://building-radar.jobs.personio.de/?language=en
   ats: personio
   board_token: building-radar
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Tado
   city: Munich
   careers_url: https://tado.jobs.personio.de/?language=en
   ats: personio
   board_token: tado
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: CHECK24
   city: Munich
   careers_url: https://www.check24.de/jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Interhyp
   city: Munich
   careers_url: https://jobs.interhyp.de/search
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: NavVis
   city: Munich
   careers_url: https://www.navvis.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Blickfeld
   city: Munich
   careers_url: https://www.blickfeld.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Marvel Fusion
   city: Munich
   careers_url: https://www.marvelfusion.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Ottonova
   city: Munich
   careers_url: https://ottonova.jobs.personio.de/
   ats: personio
   board_token: ottonova
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: SimScale
   city: Munich
   careers_url: https://www.simscale.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Flughafen Muenchen
   city: Munich
   careers_url: https://www.munich-airport.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TUEV SUED
   city: Munich
   careers_url: https://www.tuvsud.com/en/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: EOS Electro Optical Systems
   city: Munich
   careers_url: https://eosgroup.wd3.myworkdayjobs.com/en-US/eos
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MediaMarktSaturn
   city: Munich
   careers_url: https://careers.mediamarktsaturn.com/MediaMarktSaturn/content/letsgo/?locale=de_DE
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Fujitsu Germany
   city: Munich
   careers_url: https://www.fujitsu.com/de/about/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Deutsche Pfandbriefbank
   city: Munich
   careers_url: https://www.pfandbriefbank.com/en/career.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Rodenstock
   city: Munich
   careers_url: https://www.rodenstock.com/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Wacker Neuson
   city: Munich
   careers_url: https://wackerneusongroup.com/en/careers/current-job-openings
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BayWa
   city: Munich
   careers_url: https://www.baywa.com/jobs
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: EY Germany
   city: Munich
   careers_url: https://careers.ey.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Deloitte Germany
   city: Munich
   careers_url: https://www2.deloitte.com/de/de/careers.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: PwC Germany
   city: Munich
   careers_url: https://www.pwc.de/de/karriere.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: KPMG Germany
   city: Munich
   careers_url: https://home.kpmg/de/en/home/careers.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: KraussMaffei
   city: Munich
   careers_url: https://jobs.kraussmaffei.com/?locale=de_DE
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Siltronic
   city: Munich
   careers_url: https://www.siltronic.com/en/career.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BayWa r.e.
   city: Munich
   careers_url: https://bayware.wd3.myworkdayjobs.com/jobsatbayware
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Apple Munich
   city: Munich
   careers_url: https://jobs.apple.com/en-us/search?location=munich-MUN
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Amazon Munich
   city: Munich
   careers_url: https://www.amazon.jobs/en/search?country=DEU
   ats: amazon
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Nvidia Munich
   city: Munich
   careers_url: https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Intel Munich
   city: Munich
   careers_url: https://jobs.intel.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Texas Instruments Munich
   city: Munich
   careers_url: https://careers.ti.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Salesforce Munich
   city: Munich
   careers_url: https://salesforce.wd12.myworkdayjobs.com/External_Career_Site
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: SAP Munich
   city: Munich
   careers_url: https://jobs.sap.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Oracle Munich
   city: Munich
   careers_url: https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Adobe Munich
   city: Munich
   careers_url: https://adobe.wd5.myworkdayjobs.com/external_experienced
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Workday Munich
   city: Munich
   careers_url: https://workday.wd5.myworkdayjobs.com/Workday
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ServiceNow Munich
   city: Munich
   careers_url: https://careers.smartrecruiters.com/servicenow
   ats: smartrecruiters
   board_token: servicenow
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Traton
   city: Munich
   careers_url: https://traton.com/en/career.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Knorr-Bremse
   city: Munich
   careers_url: https://www.knorr-bremse.com/en/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sixt
   city: Munich
   careers_url: https://www.sixt.jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Bertrandt
   city: Munich
   careers_url: https://www.bertrandt.com/en/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: EDAG Group
   city: Munich
   careers_url: https://www.edag.com/en/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IAV
   city: Munich
   careers_url: https://career.iav.com/en
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: FEV Group
   city: Munich
   careers_url: https://www.fev.com/en/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Magna International Munich
   city: Munich
   careers_url: https://www.magna.com/company/careers
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Novartis Munich
   city: Munich
   careers_url: https://www.novartis.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: AstraZeneca Munich
   city: Munich
   careers_url: https://careers.astrazeneca.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sanofi Munich
   city: Munich
   careers_url: https://jobs.sanofi.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Bristol Myers Squibb Munich
   city: Munich
   careers_url: https://careers.bms.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Thermo Fisher Scientific Munich
   city: Munich
   careers_url: https://jobs.thermofisher.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Stryker Munich
   city: Munich
   careers_url: https://careers.stryker.com/
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Zimmer Biomet Munich
   city: Munich
   careers_url: https://www.zimmerbiomet.eu/en/about-us/careers.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Olympus Medical Munich
   city: Munich
   careers_url: https://www.olympus-europa.com/company/en/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Holidu
   city: Munich
   careers_url: https://www.holidu.com/careers/list
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Apaleo
   city: Munich
   careers_url: https://job-boards.greenhouse.io/apaleo
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: DataGuard
   city: Munich
   careers_url: https://www.dataguard.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: QPLIX
   city: Munich
   careers_url: https://www.qplix.com/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Foodji
   city: Munich
   careers_url: https://foodji.recruitee.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: everdrop
   city: Munich
   careers_url: https://www.everdrop.de/en/about-us/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: yfood
   city: Munich
   careers_url: https://yfood.com/en-eu/pages/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IONITY
   city: Munich
   careers_url: https://www.ionity.eu/ionity/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IDnow
   city: Munich
   careers_url: https://idnow.io/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Hoffmann Group
   city: Munich
   careers_url: https://career.hoffmann-group.com/stellenangebote.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Veridos
   city: Munich
   careers_url: https://careers.gi-de.com/Veridos/?locale=de_DE
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Accenture
   city: Munich
   careers_url: https://www.accenture.com/de-de/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Roland Berger
   city: Munich
   careers_url: https://www.rolandberger.com/en/Join/All-Jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Boston Consulting Group
   city: Munich
   careers_url: https://careers.bcg.com/global/en/locations/germany-austria/jobs-in-munich
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BCG Platinion
   city: Munich
   careers_url: https://www.bcgplatinion.com/careers?local=de
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Bain & Company
   city: Munich
   careers_url: https://www.bain.com/de/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: McKinsey & Company
   city: Munich
   careers_url: https://karriere.mckinsey.de/karriere/search-jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Oliver Wyman
   city: Munich
   careers_url: https://www.oliverwyman.com/careers.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BearingPoint
   city: Munich
   careers_url: https://www.bearingpoint.com/de-de/karriere/stellenangebote/?country=DE
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Capco
   city: Munich
   careers_url: https://www.capco.com/Careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: d-fine
   city: Munich
   careers_url: https://www.d-fine.com/karriere/stellenportal/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Scout24
   city: Munich
   careers_url: https://www.scout24.com/karriere/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: AutoScout24
   city: Munich
   careers_url: https://www.autoscout24.com/as24-career-pages/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: zooplus
   city: Munich
   careers_url: https://careers.zooplus.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Westwing
   city: Munich
   careers_url: https://westwing.jobs.personio.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Reply
   city: Munich
   careers_url: https://www.reply.com/de/about/careers/de
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: adesso
   city: Munich
   careers_url: https://jobs.adesso-group.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: msg
   city: Munich
   careers_url: https://www.msg.group/de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sopra Steria
   city: Munich
   careers_url: https://careers.soprasteria.de/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: valantic
   city: Munich
   careers_url: https://www.valantic.com/de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Messe Muenchen
   city: Munich
   careers_url: https://messe-muenchen.de/de/karriere/stellenanzeigen/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: GEMA
   city: Munich
   careers_url: https://jobs.gema.de/jobportal/gema/viewAusschreibungen.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ADAC
   city: Munich
   careers_url: https://karriere.adac.de/jobangebote-stellenanzeigen.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Daiichi Sankyo
   city: Munich
   careers_url: https://careers.daiichisankyo.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Octopus Energy Germany
   city: Munich
   careers_url: https://octopusenergy.de/karriere/offene-stellen
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: The Mobility House
   city: Munich
   careers_url: https://tmh.jobs.personio.de/?language=de
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TWAICE
   city: Munich
   careers_url: https://twaice.jobs.personio.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: VoltStorage
   city: Munich
   careers_url: https://voltstorage.jobs.personio.de/?language=en
   ats: personio
   board_token: voltstorage
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: FTAPI
   city: Munich
   careers_url: https://ftapi.jobs.personio.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Retarus
   city: Munich
   careers_url: https://www.retarus.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: SpaceNet
   city: Munich
   careers_url: https://www.space.net/stellenanzeigen/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Usercentrics
   city: Munich
   careers_url: https://apply.workable.com/usercentrics/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Speexx
   city: Munich
   careers_url: https://www.speexx.com/all-jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Cobrainer
   city: Munich
   careers_url: https://cobrainer.jobs.personio.de/?language=de
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Soley
   city: Munich
   careers_url: https://soley-gmbh.jobs.personio.de/?language=de
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: VEACT
   city: Munich
   careers_url: https://veact.jobs.personio.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Schleich
   city: Munich
   careers_url: https://career.schleich-s.com/stellenangebote.html
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Travian Games
   city: Munich
   careers_url: https://www.traviangames.com/en/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Schweitzer Fachinformationen
   city: Munich
   careers_url: https://www.schweitzer-online.de/info/Jobs-und-Karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: C.H.Beck
   city: Munich
   careers_url: https://karriere.chbeck.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Carl Hanser Verlag
   city: Munich
   careers_url: https://karriere.hanser.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sueddeutsche Zeitung
   city: Munich
   careers_url: https://www.sueddeutsche.de/jobs/stellenanzeigen/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Bayerischer Rundfunk
   city: Munich
   careers_url: https://jobs.br.de/Jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sky Deutschland
   city: Munich
   careers_url: https://karriere.sky.de/de/de/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: DAZN
   city: Munich
   careers_url: https://careers.dazn.com/munich
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Red Bull Germany
   city: Munich
   careers_url: https://jobs.redbull.com/de-de/results?locations=2
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HolidayCheck
   city: Munich
   careers_url: https://holidaycheck.jobs.personio.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: PAYBACK Group
   city: Munich
   careers_url: https://jobs.payback.group/en_US/careers/SearchJobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Loyalty Partner Solutions
   city: Munich
   careers_url: https://lpsolutions.com/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Hubert Burda Media
   city: Munich
   careers_url: https://www.burda.com/de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BurdaForward
   city: Munich
   careers_url: https://www.burda-forward.de/en/career/jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BurdaSolutions
   city: Munich
   careers_url: https://www.burdasolutions.com/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Burda Principal Investments
   city: Munich
   careers_url: https://www.burdaprincipalinvestments.com/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Hawk
   city: Munich
   careers_url: https://jobs.ashbyhq.com/hawk
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Motel One Group
   city: Munich
   careers_url: https://jobs.motel-one.com/en/jobsearch/location/germany/munich/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Generali Deutschland
   city: Munich
   careers_url: https://www.generali.de/karriere/jobboerse
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MEAG
   city: Munich
   careers_url: https://careers.munichre.com/en/meag
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: WWK Versicherungen
   city: Munich
   careers_url: https://wwk-karriere.dvinci-hr.com/de/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: LV 1871
   city: Munich
   careers_url: https://lv1871.softgarden.io/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Muenchener Hypothekenbank
   city: Munich
   careers_url: https://karriere.mhb.de/stellenangebote
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Stadtsparkasse Muenchen
   city: Munich
   careers_url: https://sskm.helixjobs.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Hiscox
   city: Munich
   careers_url: https://www.hiscox.de/ueber-hiscox/karriere/stellenangebote/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: State Street
   city: Munich
   careers_url: https://careers.statestreet.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BNP Paribas
   city: Munich
   careers_url: https://group.bnpparibas/en/careers/all-job-offers/munich
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Ryte
   city: Munich
   careers_url: https://de.ryte.com/jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: casavi
   city: Munich
   careers_url: https://casavi.jobs.personio.de/?language=en
   ats: personio
   board_token: casavi
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Tanso
   city: Munich
   careers_url: https://tanso.jobs.personio.com/?language=de
   ats: personio
   board_token: tanso
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Avelios Medical
   city: Munich
   careers_url: https://avelios.com/de/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Predium
   city: Munich
   careers_url: https://predium.jobs.personio.de/?language=en
   ats: personio
   board_token: predium
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Workpath
   city: Munich
   careers_url: https://workpath.jobs.personio.de/
   ats: personio
   board_token: workpath
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Alasco
   city: Munich
   careers_url: https://www.alasco.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Avi Medical
   city: Munich
   careers_url: https://www.avimedical.com/en/jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Helsing
   city: Munich
   careers_url: https://helsing.ai/jobs
   ats: greenhouse
   board_token: helsing
+  enabled: true
+  priority: 1
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: RobCo
   city: Munich
   careers_url: https://www.rob.co/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Agile Robots
   city: Munich
   careers_url: https://job-boards.eu.greenhouse.io/agilerobotsse
   ats: greenhouse
   board_token: agilerobotsse
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: sewts
   city: Munich
   careers_url: https://sewts.jobs.personio.de/?language=de
   ats: personio
   board_token: sewts
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Certivity
   city: Munich
   careers_url: https://certivity.jobs.personio.de/?language=en
   ats: personio
   board_token: certivity
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IntraFind
   city: Munich
   careers_url: https://intrafind.com/en/career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: SQUER
   city: Munich
   careers_url: https://squer.jobs.personio.com/?language=en
   ats: personio
   board_token: squer
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: deeploi
   city: Munich
   careers_url: https://deeploi.jobs.personio.de/?language=de
   ats: personio
   board_token: deeploi
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MIFCOM
   city: Munich
   careers_url: https://mifcom.jobs.personio.de/
   ats: personio
   board_token: mifcom
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: gridX
   city: Munich
   careers_url: https://gridx.jobs.personio.de/?language=en
   ats: personio
   board_token: gridx
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: AssetMetrix
   city: Munich
   careers_url: https://assetmetrix-gmbh.jobs.personio.de/?language=de
   ats: personio
   board_token: assetmetrix-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: green flexibility
   city: Munich
   careers_url: https://green-flexibility.jobs.personio.de/?language=de
   ats: personio
   board_token: green-flexibility
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Tangany
   city: Munich
   careers_url: https://join.com/companies/tangany
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TNG Technology Consulting
   city: Munich
   careers_url: https://tngtech.jobs.personio.de/?language=de
   ats: personio
   board_token: tngtech
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: JUNE
   city: Munich
   careers_url: https://june.jobs.personio.de/
   ats: personio
   board_token: june
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Peter Park
   city: Munich
   careers_url: https://peter-park.jobs.personio.de/?language=de
   ats: personio
   board_token: peter-park
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: remberg
   city: Munich
   careers_url: https://jobs.ashbyhq.com/remberg
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: KINEXON Industries
   city: Munich
   careers_url: https://kinexon.com/company/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: KINEXON Sports
   city: Munich
   careers_url: https://kinexon-sports.com/jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TeleClinic
   city: Munich
   careers_url: https://zrg.wd3.myworkdayjobs.com/teleclinic-jobs
   ats: workday
   board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Blackwave
   city: Munich
   careers_url: https://blackwave.jobs.personio.de/
   ats: personio
   board_token: blackwave
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: INELTA Sensorsysteme
   city: Munich
   careers_url: https://www.inelta.de/jobs/offene-stellen
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Jochen Schweizer Arena
   city: Munich
   careers_url: https://jochen-schweizer-arena.onapply.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Develey
   city: Munich
   careers_url: https://www.develey.com/de/karriere/Stellenangebote
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Mars Wrigley
   city: Munich
   careers_url: https://careers.mars.com/de/de/unterhaching
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Vincotech
   city: Munich
   careers_url: https://www.vincotech.com/career/open-positions/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Panasonic Industry Europe
   city: Munich
   careers_url: https://industry.panasonic.eu/de/karriere/job-listing
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TE Connectivity
   city: Munich
   careers_url: https://careers.te.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: SES
   city: Munich
   careers_url: https://careers.ses.com/go/Munich/4312401/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Sportec Solutions
   city: Munich
   careers_url: https://sportec-solutions.jobs.personio.de/
   ats: personio
   board_token: sportec-solutions
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: smartvillage
   city: Munich
   careers_url: https://smartvillage.jobs.personio.de/
   ats: personio
   board_token: smartvillage
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: EMERAM Capital Partners
   city: Munich
   careers_url: https://emeram-capital-partners-gmbh.jobs.personio.de/job/1312230?language=de
   ats: personio
   board_token: emeram-capital-partners-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Crewmeister
   city: Munich
   careers_url: https://crewmeister.com/de/your-career
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Jochen Schweizer mydays Group
   city: Munich
   careers_url: https://career.jsmd-group.com/en/jobs/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Werksviertel-Mitte
   city: Munich
   careers_url: https://www.werksviertel-mitte.de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Eventfabrik Muenchen
   city: Munich
   careers_url: https://www.eventfabrik-muenchen.de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Werksviertel Versicherung
   city: Munich
   careers_url: https://www.werksviertel-versicherung.de/de/unternehmen/karriere.php
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Fortlane Partners
   city: Munich
   careers_url: https://join.fortlane.com/de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: PDV.group
   city: Munich
   careers_url: https://karriere.pdv.group/jobs/jobs.feed.json
   ats: jsonld_feed
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HTM Group
   city: Munich
   careers_url: https://www.heristo-karriere.de/heristo-gruppe/htm-group
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ASAMBEAUTY
   city: Munich
   careers_url: https://www.asambeauty.com/de-de/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: TPSH Group
   city: Munich
   careers_url: https://tpsh-group.de/home/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Golding Capital Partners
   city: Munich
   careers_url: https://recruiting.goldingcapital.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BVT Unternehmensgruppe
   city: Munich
   careers_url: https://www.bvt.de/unternehmensgruppe/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Berylls Group
   city: Munich
   careers_url: https://berylls-group.com/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Bayerische Versorgungskammer
   city: Munich
   careers_url: https://www.versorgungskammer.de/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Omnicare
   city: Munich
   careers_url: https://omnicare.jobs.personio.de/?language=de
   ats: personio
   board_token: omnicare
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: revel8
   city: Munich
   careers_url: https://revel8.jobs.personio.de/?language=de
   ats: personio
   board_token: revel8
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ERC System
   city: Munich
   careers_url: https://www.erc-system.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ArianeGroup
   city: Munich
   careers_url: https://www.ariane.group/en/careers/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: nebumind
   city: Munich
   careers_url: https://www.nebumind.com/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: APWORKS
   city: Munich
   careers_url: https://www.apworks.de/de/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: SelectCode
   city: Munich
   careers_url: https://www.selectcode.de/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HY-LINE Group
   city: Munich
   careers_url: https://hylinegroup.recruitee.com/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HUBER+SUHNER
   city: Munich
   careers_url: https://recruiting.hubersuhner.com/Jobs/All?lang=de
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: IC Cash Services
   city: Munich
   careers_url: https://www.iccash.de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ndF neue deutsche Filmgesellschaft
   city: Munich
   careers_url: https://www.ndf.de/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: ALAIKA Advisory
   city: Munich
   careers_url: https://www.alaika-advisory.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: InsurTech Hub Munich
   city: Munich
   careers_url: https://www.insurtech-munich.com/ueber-uns/career/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: WERK1.Bayern
   city: Munich
   careers_url: https://www.werk1.com/das-werk1/karriere/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: werkkraft
   city: Munich
   careers_url: https://www.werkkraft.de/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: BelForm
   city: Munich
   careers_url: https://belform.de/karriere
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Vantis
   city: Munich
   careers_url: https://vantis.jobs.personio.de/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Kertos
   city: Munich
   careers_url: https://www.kertos.io/en/jobs
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Luminovo
   city: Munich
   careers_url: https://luminovo.com/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Tacto
   city: Munich
   careers_url: https://jobs.ashbyhq.com/tacto
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: VoiceLine
   city: Munich
   careers_url: https://voiceline.ai/de/about
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HENN
   city: Munich
   careers_url: https://www.henn.com/en/careers
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Muenchen Klinik
   city: Munich
   careers_url: https://www.muenchen-klinik.de/stellenmarkt/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Dr. Lubos Kliniken
   city: Munich
   careers_url: https://www.lubos-kliniken.de/karriere/stellenangebote/
   ats: auto
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Membrain GmbH
   city: Munich
   careers_url: https://membrain.jobs.personio.de/
   ats: personio
   board_token: membrain
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: InoNet Computer GmbH
   city: Munich
   careers_url: https://inonet-computer-gmbh.jobs.personio.de/
   ats: personio
   board_token: inonet-computer-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: RidersDeal
   city: Munich
   careers_url: https://ridersdeal.jobs.personio.com/
   ats: personio
   board_token: ridersdeal
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: appliedAI
   city: Munich
   careers_url: https://appliedai.jobs.personio.de/
   ats: personio
   board_token: appliedai
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: StudySmarter
   city: Munich
   careers_url: https://studysmarter.jobs.personio.com/
   ats: personio
   board_token: studysmarter
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: feld.energy
   city: Munich
   careers_url: https://feld-energy.jobs.personio.com/
   ats: personio
   board_token: feld-energy
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Capmo
   city: Munich
   careers_url: https://capmo.jobs.personio.de/
   ats: personio
   board_token: capmo
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Flowers-Software GmbH
   city: Munich
   careers_url: https://flowers-software-gmbh.jobs.personio.de/
   ats: personio
   board_token: flowers-software-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Filics GmbH
   city: Munich
   careers_url: https://filics.jobs.personio.de/
   ats: personio
   board_token: filics
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: OroraTech GmbH
   city: Munich
   careers_url: https://ororatech.jobs.personio.de/
   ats: personio
   board_token: ororatech
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: happybrush GmbH
   city: Munich
   careers_url: https://happybrush.jobs.personio.de/
   ats: personio
   board_token: happybrush
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: MaibornWolff
   city: Munich
   careers_url: https://maibornwolff.jobs.personio.de/
   ats: personio
   board_token: maibornwolff
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Alexander Thamm GmbH
   city: Munich
   careers_url: https://alexander-thamm-gmbh.jobs.personio.de/
   ats: personio
   board_token: alexander-thamm-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Demodesk
   city: Munich
   careers_url: https://demodesk-gmbh.jobs.personio.de/
   ats: personio
   board_token: demodesk-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: yoummday GmbH
   city: Munich
   careers_url: https://yoummday-gmbh.jobs.personio.com/
   ats: personio
   board_token: yoummday-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: planqc GmbH
   city: Munich
   careers_url: https://planqc-gmbh.jobs.personio.com/
   ats: personio
   board_token: planqc-gmbh
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: nuuEnergy
   city: Munich
   careers_url: https://nuuenergy.jobs.personio.com/
   ats: personio
   board_token: nuuenergy
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Leibniz-Rechenzentrum (LRZ)
   city: Munich
   careers_url: https://lrz.jobs.personio.com/
   ats: personio
   board_token: lrz
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: FRAMOS
   city: Munich
   careers_url: https://framos.jobs.personio.de/
   ats: personio
   board_token: framos
+  enabled: true
+  priority: 2
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: iteratec
   city: Munich
   careers_url: https://jobs.iteratec.com/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: Retorio GmbH
   city: Munich
   careers_url: https://join.com/companies/retoriocom
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
 - name: HAT.tec
   city: Munich
   careers_url: https://www.hattec.de/career/
   ats: public_board
   board_token: ''
+  enabled: true
+  priority: 3
+  sector:
+  - general
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: STARK Defence
+  city: Munich
+  careers_url: https://stark-defence.com/en/career
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - defence
+  - aerospace
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Twentyfour Industries
+  city: Munich
+  careers_url: https://twentyfour-industries.com/careers
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - defence
+  - drones
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Hypersonica
+  city: Munich
+  careers_url: https://jobs.lever.co/hypersonica-prod
+  ats: lever
+  board_token: hypersonica-prod
+  enabled: true
+  priority: 1
+  sector:
+  - defence
+  - aerospace
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Cambridge Aerospace
+  city: Munich
+  careers_url: https://cambridgeaerospace.careers.hibob.com/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - defence
+  - aerospace
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Infinite Orbits
+  city: Munich
+  careers_url: https://jobs.infiniteorbits.io/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - space
+  - defence
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: The Exploration Company
+  city: Munich
+  careers_url: https://www.exploration.space/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - space
+  - aerospace
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Constellr
+  city: Munich
+  careers_url: https://constellr.com/careers
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - space
+  - technology
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: QuantumDiamonds
+  city: Munich
+  careers_url: https://www.qd-st.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - deeptech
+  - semiconductors
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Bayernwerk
+  city: Munich
+  careers_url: https://jobs.bayernwerk.de/de
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: TransnetBW
+  city: Munich
+  careers_url: https://www.transnetbw.de/de/karriere/stellenangebote/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Amprion
+  city: Munich
+  careers_url: https://jobs.amprion.net/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: 50Hertz
+  city: Munich
+  careers_url: https://karriere.50hertz.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Uniper
+  city: Munich
+  careers_url: https://jobs.uniper.energy/
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Schneider Electric
+  city: Munich
+  careers_url: https://careers.se.com/
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  - technology
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Hitachi Energy
+  city: Munich
+  careers_url: https://www.hitachienergy.com/de/de/careers/open-jobs
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Fluence
+  city: Munich
+  careers_url: https://careers.fluenceenergy.com/
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy
+  - storage
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: TUV SUD
+  city: Munich
+  careers_url: https://jobs.tuvsud.com/
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - technology
+  - critical-infrastructure
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: CGI Germany
+  city: Munich
+  careers_url: https://cgi.njoyn.com/
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - it
+  - consulting
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 15
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+- name: Celonis
+  city: Munich
+  careers_url: https://careers.celonis.com/jobs
+  ats: auto
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - it
+  - transformation
+  expected_locations:
+  - Munich
+  - Muenchen
+  - München
+  max_pages: 30
+  detail_fetch_mode: matched_only
+  verified_on: '2026-11-16'
+scrape_schedule:
+  priority_1:
+    frequency: daily
+    source_seconds: 90
+  priority_2:
+    frequency: twice_weekly
+    source_seconds: 45
+  priority_3:
+    frequency: weekly
+    source_seconds: 25
