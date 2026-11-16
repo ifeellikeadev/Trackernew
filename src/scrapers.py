@@ -876,6 +876,48 @@ def scrape_greenhouse(company_name: str, board_token: str = "") -> list[dict[str
 # --------------------------------------------------------------------------
 # Lever
 # --------------------------------------------------------------------------
+
+
+def scrape_recruitee(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
+    """Read Recruitee's public company careers feed."""
+    token=(board_token or "").strip()
+    if not token:return []
+    url=f"https://{token}.recruitee.com/api/offers/"
+    response=_safe_get(url)
+    if response is None:return []
+    try:data=response.json()
+    except (ValueError,TypeError):return []
+    offers=data.get("offers",[]) if isinstance(data,dict) else []
+    jobs=[]
+    for item in offers:
+        title=plain(item.get("title")); target=item.get("careers_url") or item.get("url") or ""
+        if not usable_title(title) or not target:continue
+        loc=item.get("location") or item.get("city") or ""
+        if isinstance(loc,dict):loc=", ".join(str(loc.get(k,"")) for k in ("city","country") if loc.get(k))
+        jobs.append(dict(title=title,location=str(loc),url=target,description=plain(item.get("description")),posted_date=item.get("published_at") or "",_date_raw=item.get("published_at") or "",_date_field="published_at",_date_kind="publication",_date_source=url,_job_id=str(item.get("id") or ""),_extraction="recruitee_public_api"))
+    stats={"reader":"recruitee_public_api","pages":1,"advertised_total":len(offers),"unique_candidates":len(jobs),"completion":"reported_total_reached"}
+    for j in jobs:j["_pagination"]=stats
+    return dedupe(jobs)
+
+def scrape_workable(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
+    """Read Workable's public account endpoint without authentication."""
+    token=(board_token or "").strip()
+    if not token:return []
+    url=f"https://apply.workable.com/api/v3/accounts/{token}/jobs"
+    response=_safe_get(url,params={"limit":100})
+    if response is None:return []
+    try:data=response.json()
+    except (ValueError,TypeError):return []
+    items=data.get("results",[]) if isinstance(data,dict) else []
+    jobs=[]
+    for item in items:
+        title=plain(item.get("title")); shortcode=item.get("shortcode")
+        target=item.get("url") or (f"https://apply.workable.com/{token}/j/{shortcode}/" if shortcode else "")
+        loc=item.get("location") or {}
+        if isinstance(loc,dict):loc=", ".join(str(loc.get(k,"")) for k in ("city","region","country") if loc.get(k))
+        if usable_title(title) and target:jobs.append(dict(title=title,location=str(loc),url=target,description=plain(item.get("description")),posted_date=item.get("published") or "",_date_raw=item.get("published") or "",_date_field="published",_date_kind="publication",_date_source=url,_job_id=str(shortcode or target),_extraction="workable_public_api"))
+    return dedupe(jobs)
+
 def scrape_lever(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
     token = board_token or _slugify(company_name)
     url = f"https://api.lever.co/v0/postings/{token}?mode=json"
@@ -1383,6 +1425,8 @@ _PLATFORM_URL_PATTERNS = {
     "ashby": re.compile(r"https?://jobs\.ashbyhq\.com/([\w-]+)"),
     "greenhouse": re.compile(r"https?://(?:boards|job-boards)(?:\.eu)?\.greenhouse\.io/((?!embed(?:/|$))[\w-]+)"),
     "lever": re.compile(r"https?://jobs\.lever\.co/([\w-]+)"),
+    "recruitee": re.compile(r"https?://([\w-]+)\.recruitee\.com"),
+    "workable": re.compile(r"https?://apply\.workable\.com/([\w-]+)"),
     "personio": re.compile(r"https?://([\w-]+)\.jobs\.personio\.(?:de|com)"),
     "smartrecruiters": re.compile(r"https?://(?:jobs|careers)\.smartrecruiters\.com/([\w-]+)"),
 }
@@ -1391,6 +1435,8 @@ _PLATFORM_SCRAPERS = {
     "ashby": scrape_ashby,
     "greenhouse": scrape_greenhouse,
     "lever": scrape_lever,
+    "recruitee": scrape_recruitee,
+    "workable": scrape_workable,
     "personio": scrape_personio,
     "smartrecruiters": scrape_smartrecruiters,
 }
@@ -1574,6 +1620,14 @@ def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
             result = scrape_lever(name, token)
             if result:
                 return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
+        if ats == "recruitee":
+            result = scrape_recruitee(name, token)
+            if result:return result
+            return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
+        if ats == "workable":
+            result = scrape_workable(name, token)
+            if result:return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "smartrecruiters":
             result = scrape_smartrecruiters(name, token)

@@ -5,7 +5,8 @@ from __future__ import annotations
 # main: consolidated implementation
 # ========================================================================
 """Synchronous Munich-region pipeline with auditable filtering and confirmed-location results only."""
-import logging,re,sys,time
+import logging,re,sys,time,os
+from datetime import datetime
 from collections import Counter
 from pathlib import Path
 import yaml
@@ -31,6 +32,20 @@ DATE_FIELDS=('_date_raw','_date_field','_date_kind','_date_source','_date_observ
 def load_yaml(path):
     if not path.exists():return {}
     return yaml.safe_load(path.read_text(encoding='utf-8')) or {}
+
+def scheduled(company):
+    if company.get('enabled',True) is False:return False
+    priority=int(company.get('priority',3))
+    mode=os.getenv('SCRAPE_TIER','scheduled').lower()
+    if mode in ('all','full'):return True
+    if mode in ('1','priority_1','daily'):return priority==1
+    if mode in ('2','priority_2'):return priority<=2
+    weekday=datetime.now().weekday()
+    return priority==1 or (priority==2 and weekday in (1,4)) or (priority==3 and weekday==6)
+
+def source_seconds(company):
+    if company.get('source_seconds'):return float(company['source_seconds'])
+    return {1:90,2:45,3:25}.get(int(company.get('priority',3)),25)
 
 def excluded(company):
     name=re.sub('[^a-z0-9]','',company.get('name','').lower());url=company.get('careers_url','').lower()
@@ -74,11 +89,11 @@ def scrape_all_any_city(companies,cv_profile):
                 row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180]);detail_cache[url]=({},'')
         return detail_cache[url]
     for company in companies:
-        if excluded(company):continue
+        if excluded(company) or not scheduled(company):continue
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
         row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],title_rejection_details=[])
         try:
-            with source_budget() as budget, observe(row):
+            with source_budget(source_seconds(company)) as budget, observe(row):
                 extracted=budget.call(scrape_company,company,default=None,phase='listing')
                 if extracted is None:extracted=budget.candidates
                 budget.remember(extracted)
