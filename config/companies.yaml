@@ -271,7 +271,7 @@ companies:
   - Taufkirchen
 - name: Airbus
   city: Munich
-  careers_url: https://www.airbus.com/en/careers
+  careers_url: https://ag.wd3.myworkdayjobs.com/Airbus
   ats: workday
   board_token: ''
   enabled: true
@@ -287,10 +287,18 @@ companies:
   - München
   - Ottobrunn
   - Taufkirchen
+  search_queries:
+  - Taufkirchen
+  - Ottobrunn
+  - Munich
+  - München
+  source_seconds: 240
+  listing_seconds: 120
+  max_pages: 100
 - name: Hensoldt
   city: Munich
   careers_url: https://jobs.hensoldt.net/go/Germany/9460255/
-  ats: auto
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 1
@@ -300,11 +308,12 @@ companies:
   verification_status: not_reverified
   source_origin: original_config
   expected_locations:
-  - Munich
-  - Muenchen
-  - München
-  - Ottobrunn
   - Taufkirchen
+  - Fürstenfeldbruck
+  - Fuerstenfeldbruck
+  - Munich
+  max_pages: 40
+  source_seconds: 240
 - name: Diehl Defence
   city: Munich
   careers_url: https://new.diehl.com/career/en/jobs-application/job-offers/
@@ -974,21 +983,23 @@ companies:
 - name: Quantum Systems
   city: Munich
   careers_url: https://career.quantum-systems.com/
-  ats: auto
+  ats: public_board
   board_token: ''
   enabled: true
-  priority: 3
+  priority: 1
   sector:
   - general
   detail_fetch_mode: matched_only
   verification_status: not_reverified
   source_origin: original_config
   expected_locations:
-  - Munich
-  - Muenchen
+  - Gilching
+  - Wessling
+  - Weßling
   - München
-  - Ottobrunn
-  - Taufkirchen
+  - Munich
+  max_pages: 40
+  source_seconds: 240
 - name: Tytan Technologies
   city: Munich
   careers_url: https://www.tytan-technologies.com/careers

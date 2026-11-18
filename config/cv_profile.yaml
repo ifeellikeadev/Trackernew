@@ -80,6 +80,12 @@ title_must_match:
 - projektsteuerungsmanager
 - transformationsmanager
 - programmsteuerer
+- project leader
+- project leadership
+- project management office
+- teilprojektleiter
+- teilprojektleitung
+- entwicklungsprojektleiter
 title_must_not_match:
 - stadionbau
 - hochbau
@@ -135,7 +141,7 @@ title_must_not_match:
 - projektassistenz
 - bauarchitekt
 - gebäudearchitekt
-main_min_score: 3
+main_min_score: 1
 score_ceiling: 20
 scoring_keywords:
 - term: aerospace
