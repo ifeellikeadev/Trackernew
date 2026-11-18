@@ -1,19 +1,12 @@
-"""Bundled tracker modules. Original module names and commands remain supported.
-
-Each source section below is the unchanged original Python module.
-The standard-library loader exposes these sections as src.<module>.
-No extraction, generated Python files, or third-party bundler is required.
-"""
+"""Bundled tracker modules with focused coverage fixes."""
 import importlib.abc as _abc
 import importlib.util as _util
 import sys as _sys
 from pathlib import Path as _Path
-
 _SOURCES = {}
 
-# =================================================================
-# Original: src/diagnostics.py
-# =================================================================
+
+# Module: src/diagnostics.py
 _SOURCES['diagnostics'] = r'''"""Consolidated diagnostics implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -196,9 +189,7 @@ def append_to_page(rows,path):
     path.write_text(text.replace('</body>',start+section+end+'</body>'),encoding='utf-8')
 '''
 
-# =================================================================
-# Original: src/extraction.py
-# =================================================================
+# Module: src/extraction.py
 _SOURCES['extraction'] = r'''"""Consolidated extraction implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -378,9 +369,7 @@ def ashby_jobs(data):
     return dedupe(jobs)
 '''
 
-# =================================================================
-# Original: src/main.py
-# =================================================================
+# Module: src/main.py
 _SOURCES['main'] = r'''"""Consolidated main implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -526,7 +515,8 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                     loc_before=location_decision(job)
                     # Known outside/excluded locations do not need expensive details.
                     if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or not job.get('description') or not job.get('posted_date')):
-                        details,_=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details)
+                        details,body=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details)
+                        if not job.get('description') and body:job['description']=body
                     decision=audit_date(row,job,'after_detail')
                     if not decision['keep']:row['date_rejected']+=1;continue
                     job=filter_recent_jobs([job])[0]
@@ -537,6 +527,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                         continue
                     if loc['status']=='unconfirmed':
                         row['location_unconfirmed']+=1
+                        review_rows.append(dict(company=company['name'],title=job['title'],location=job.get('location',''),url=job['url'],relevance_score='',review_reason='Matching title; explicit workplace could not be confirmed',location_status='unconfirmed'))
                         continue
                     job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None);confirmed.append(job)
                 counts['location_confirmed']+=len(confirmed);score_jobs(confirmed,cv_profile)
@@ -576,9 +567,7 @@ def run():
 if __name__=='__main__':run()
 '''
 
-# =================================================================
-# Original: src/matching.py
-# =================================================================
+# Module: src/matching.py
 _SOURCES['matching'] = r'''"""Consolidated matching implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -950,9 +939,7 @@ def role_decision(job, profile):
     return dict(keep=keep, reason='related_responsibilities_match' if keep else ('related_description_missing' if not text else 'related_insufficient_evidence'), term='', match_type='Related role' if keep else '', match_reason='Responsibilities: '+', '.join(groups) if keep else '', groups=groups, evidence=evidence)
 '''
 
-# =================================================================
-# Original: src/onboard_company.py
-# =================================================================
+# Module: src/onboard_company.py
 _SOURCES['onboard_company'] = r'''"""Test an employer and optionally promote only after quality acceptance."""
 import argparse
 import json
@@ -1029,9 +1016,7 @@ def main():
 if __name__ == '__main__': main()
 '''
 
-# =================================================================
-# Original: src/reset_tracker.py
-# =================================================================
+# Module: src/reset_tracker.py
 _SOURCES['reset_tracker'] = r'''"""Consolidated reset_tracker implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -1068,9 +1053,7 @@ if __name__ == "__main__":
     run()
 '''
 
-# =================================================================
-# Original: src/review.py
-# =================================================================
+# Module: src/review.py
 _SOURCES['review'] = r'''"""Separate review queue; never bypasses the main tracker's filters."""
 import csv
 import re
@@ -1127,9 +1110,7 @@ def save_review(rows, path):
     temporary.replace(path)
 '''
 
-# =================================================================
-# Original: src/runtime.py
-# =================================================================
+# Module: src/runtime.py
 _SOURCES['runtime'] = r'''"""Validated run policy. Full coverage is the default; tiers are opt-in."""
 import os
 from datetime import datetime
@@ -1194,9 +1175,7 @@ def page_limit(default):
     return value
 '''
 
-# =================================================================
-# Original: src/scrapers.py
-# =================================================================
+# Module: src/scrapers.py
 _SOURCES['scrapers'] = r'''"""Consolidated scrapers implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -1593,7 +1572,7 @@ def next_public_control(context):
     selectors=['a[rel="next"]','button[title*="next" i]','a[title*="next" i]','button[aria-label*="next" i]','a[aria-label*="next" i]','[role="button"][aria-label*="next" i]',
                'button[aria-label*="nächste" i]','a[aria-label*="nächste" i]',
                'button:has-text("Load more")','button:has-text("Show more jobs")','button:has-text("Mehr Stellen")',
-               'button:has-text("Mehr laden")','button:has-text("Next")','a:has-text("Next")',
+               'button:has-text("Show more jobs")','button:has-text("Mehr Jobs anzeigen")','button:has-text("Mehr laden")','button:has-text("Next")','a:has-text("Next")',
                'button:has-text("Weiter")','a:has-text("Weiter")','a:has-text("Nächste")']
     for selector in selectors:
         try:
@@ -1614,10 +1593,55 @@ def coverage_source(name, url):
     if name=='allianz' and host=='careers.allianz.com' and 'search-results' not in urlparse(url).path:return 'https://careers.allianz.com/global/en/search-results'
     return None
 
+
+def employer_cards(html, url):
+    """Read one vacancy card/row at a time. Never infer a workplace from HQ."""
+    host=urlparse(url).hostname or ''
+    success='hensoldt' in host or 'successfactors' in host
+    quantum=host=='career.quantum-systems.com'
+    if not (success or quantum):return []
+    soup=BeautifulSoup(html,'html.parser');out=[]
+    for a in soup.select('a[href]'):
+        target=urljoin(url,a['href']);path=urlparse(target).path
+        if urlparse(target).hostname!=host or not re.search(r'/(?:job|o)/[^/]+',path):continue
+        title=clean_label(a.get_text(' ',strip=True))
+        if not usable_title(title):continue
+        card=None
+        for parent in list(a.parents)[:6]:
+            if parent.name in ('html','body','main','section'):break
+            ids={canonical_job_url(urljoin(url,b['href'])) for b in parent.select('a[href]') if re.search(r'/(?:job|o)/[^/]+',urlparse(urljoin(url,b['href'])).path)}
+            if len(ids)>1:break
+            card=parent
+            if parent.name=='tr':break
+        if card is None:continue
+        loc='';date=''
+        node=card.select_one('[itemprop="jobLocation"],.jobLocation,.job-location,.job-location-label,[data-testid="job-location"],[data-testid="offer-location"],[data-label="Location"],[data-label="Locations"]')
+        if node:loc=clean_label(node.get('content') or node.get_text(' ',strip=True))
+        if card.name=='tr' and not loc:
+            table=card.find_parent('table');heads=[h.get_text(' ',strip=True).casefold() for h in table.select('thead th')] if table else []
+            cells=card.find_all(['td','th'],recursive=False)
+            for i,label in enumerate(heads):
+                if label in ('location','locations','standort','standorte') and i<len(cells):loc=cells[i].get_text(' ',strip=True)
+        node=card.select_one('[itemprop="datePosted"],.jobDate,.job-date,time[datetime]')
+        if node:date=node.get('content') or node.get('datetime') or node.get_text(' ',strip=True)
+        if not date and success:
+            lines=card.get_text('\n',strip=True).splitlines()
+            date=next((x.strip() for x in lines if re.fullmatch(r'[A-Z][a-z]{2} \d{1,2}, \d{4}',x.strip())), '')
+        if not loc:
+            lines=[x.strip() for x in card.get_text('\n',strip=True).splitlines() if x.strip()]
+            for i,label in enumerate(lines[:-1]):
+                if label.casefold().rstrip(':') in ('locations','location','standort','standorte'):loc=lines[i+1];break
+        out.append(dict(title=title,location=loc,url=target,description='',posted_date=date,
+                        _date_raw=date,_date_field='explicit_card_date' if date else 'none',_date_kind='publication',_date_source=url,
+                        _location_source='explicit_employer_card' if loc else '',_extraction='employer_card_unverified'))
+    return dedupe(out)
+
+from src.extraction import canonical_job_url
+
 def extract_page(html,url):
 
 
-    out=structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)+coverage_cards(html,url)
+    out=employer_cards(html,url)+structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)+coverage_cards(html,url)
     soup=BeautifulSoup(html,'html.parser');base=document_base(soup,url)
     for a in soup.find_all('a',href=True):
         target=resolve_job_url(base,a['href']);q=parse_qs(urlparse(target).query)
@@ -1658,6 +1682,9 @@ def extract_page(html,url):
 
 
 def next_link(html,url):
+    numeric=[]
+    raw_offset=parse_qs(urlparse(url).query).get("startrow",["0"])[0]
+    current_offset=int(raw_offset) if raw_offset.isdigit() else 0
     soup=BeautifulSoup(html,'html.parser')
     for a in soup.find_all('a',href=True):
         rel=a.get('rel',[]);label=clean_label(a.get('aria-label') or a.get('title') or a.get_text(' ',strip=True))
@@ -1665,7 +1692,13 @@ def next_link(html,url):
         if 'next' in rel or re.fullmatch(r'(?:(?:(?:go to )?next(?: page)?|nächste(?: seite)?|naechste(?: seite)?|weiter)(?:\s*(?:>>|»|›|→))?|›|»|>)',label,re.I):
             target=urljoin(url,a['href'])
             if urlparse(target).hostname==urlparse(url).hostname and urlparse(target).scheme in ('http','https') and not a['href'].startswith(('#','javascript:')):return target
-    return None
+    for a in soup.select('a[href]'):
+        if a.get('aria-disabled')=='true' or 'disabled' in a.get('class',[]):continue
+        target=urljoin(url,a['href']);parsed=urlparse(target);query=parse_qs(parsed.query)
+        if parsed.hostname!=urlparse(url).hostname or parsed.path!=urlparse(url).path:continue
+        value=query.get('startrow',[''])[0]
+        if value.isdigit() and int(value)>current_offset:numeric.append((int(value),target))
+    return min(numeric)[1] if numeric else None
 
 
 def _tag(jobs,stats):
@@ -2383,107 +2416,57 @@ def _discover_workday_url(careers_url: str) -> str | None:
     return match.group(0) if match else None
 
 
-def scrape_workday(company_name: str, careers_url: str) -> list[dict[str, Any]]:
-    """
-    Workday career sites follow the pattern:
-      https://{tenant}.{dc}.myworkdayjobs.com/{site}
-    with a matching JSON API at:
-      https://{tenant}.{dc}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs
-
-    We try to derive the API URL from the given careers_url. If that
-    doesn't match directly — the common case, since most companies'
-    careers_url in config is their own vanity domain rather than the
-    myworkdayjobs.com one — we fetch that page and try to discover the
-    real Workday URL from it (see _discover_workday_url) before giving
-    up. If discovery also finds nothing, we return an empty list and
-    let the dispatcher fall back to the generic scraper — a genuine
-    signal the company likely isn't actually on Workday, not just a
-    URL-format mismatch.
-
-    Note on dates: Workday's API gives a relative string like "Posted
-    3 Days Ago" (postedOn), not an absolute date. We store that string
-    as-is in posted_date rather than guessing an exact date from it —
-    it's still useful context, just not a precise calendar date.
-    """
-    m = _WORKDAY_URL_RE.match(careers_url)
+def scrape_workday(company_name: str, careers_url: str):
+    from src.runtime import _OPTIONS
+    m=_WORKDAY_URL_RE.match(careers_url)
     if not m:
-        discovered = _discover_workday_url(careers_url)
-        if discovered:
-            m = _WORKDAY_URL_RE.match(discovered)
-        if not m:
-            logger.info("Workday URL pattern not recognized for %s: %s", company_name, careers_url)
-            return []
-    tenant, dc, site = m.groups()
-    api_url = f"https://{tenant}.{dc}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs"
-    jobs, seen, offset = [], set(), 0
-    base = f"https://{tenant}.{dc}.myworkdayjobs.com/{site}"
-    pages = 0
-    advertised_total = None
-    completion = 'safety_limit'
-    request_limit=20
-    repeated_recovery=False
-    source_started=time.monotonic()
-    for _ in range(page_limit(500)):
-        if time.monotonic()-source_started>=150:
-            completion='time_limit';logger.warning('Workday incomplete pagination: time limit; retaining %s candidates',len(jobs));break
-        try:
-            resp = requests.post(api_url, json={"limit": request_limit, "offset": offset, "searchText": "", "appliedFacets": {}}, headers=HEADERS, timeout=request_timeout(TIMEOUT))
-            resp.raise_for_status()
-            data = resp.json()
-            page = data.get("jobPostings", [])
-            if not isinstance(page, list):raise ValueError("Workday jobPostings must be a list")
-        except (requests.RequestException, ValueError, TypeError, AttributeError) as exc:
-            completion = 'request_or_schema_failure'
-            logger.warning("Workday incomplete pagination at offset %s: %s; retaining %s candidates", offset, str(exc)[:200], len(jobs))
-            break
-        pages += 1
-        if data.get('total') is not None:
-            try:advertised_total = int(data['total'])
-            except (ValueError,TypeError):
-                logger.warning('Workday invalid advertised total for %s', company_name)
-        if not page:
-            completion = 'empty_page'
-            if advertised_total is not None and offset < advertised_total:
-                logger.warning("Workday incomplete pagination: retrieved %s of advertised %s", offset, advertised_total)
-            break
-        added = 0
-        for posting in page:
-            path = posting.get("externalPath") or ""
-            if not path or path in seen:continue
-            seen.add(path);added += 1
-            jobs.append({"title": (posting.get("title") or "").strip(), "location": posting.get("locationsText", ""),
-                         "url": base + path, "description": "", "posted_date": normalize_fresh_posted(posting.get("postedOn", "")),
-                         "_extraction": "workday_api"})
-            stamp_date(jobs[-1],posting.get("postedOn", ""),"postedOn")
-        checkpoint(jobs)
-        if not added:
-            if advertised_total is not None and len(jobs) >= advertised_total:
-                completion = 'reported_total_reached'
-            elif not repeated_recovery and offset>0 and len(page)!=request_limit:
-                request_limit=len(page);repeated_recovery=True
-                logger.info('Workday retry with observed page size %s at offset %s',request_limit,offset)
-                continue
-            else:
-                completion = 'repeated_page'
-                logger.warning("Workday incomplete pagination: offset %s repeated a page; retaining %s unique candidates", offset, len(jobs))
-            break
-        offset += len(page)
-        if advertised_total is not None and advertised_total>20 and offset>=advertised_total and len(jobs)<advertised_total:
-            completion='advertised_range_exhausted_with_duplicates'
-            logger.warning('Workday incomplete coverage: advertised range exhausted, %s unique of %s; duplicate gap retained explicitly',len(jobs),advertised_total)
-            break
-        # Stop at a multi-page reported total. Probe a page-sized total once:
-        # some feeds have reported only the first page's size as their total.
-        if advertised_total is not None and advertised_total > 20 and len(jobs) >= advertised_total:
-            completion = 'reported_total_reached'
-            break
-    else:
-        logger.warning("Workday incomplete pagination: safety limit reached; retaining partial results")
-    for job in jobs:
-        job['_pagination'] = {'pages': pages, 'advertised_total': advertised_total, 'unique_candidates': len(jobs), 'completion': completion}
-    logger.info("Workday pagination %s: pages=%s advertised_total=%s unique=%s completion=%s", company_name, pages, advertised_total, len(jobs), completion)
-    return jobs
-
+        found=_discover_workday_url(careers_url)
+        m=_WORKDAY_URL_RE.match(found or '')
+    if not m:return []
+    tenant,dc,site=m.groups()
+    base=f'https://{tenant}.{dc}.myworkdayjobs.com'
+    api=f'{base}/wday/cxs/{tenant}/{site}'
+    options=_OPTIONS.get();queries=list(dict.fromkeys(options.get('search_queries') or ['']))
+    jobs=[];searches=[];started=time.monotonic();blocked=False
+    for query in queries:
+        offset=0;total=None;pages=0;seen=set();reason='page_limit'
+        for _ in range(page_limit(500)):
+            if time.monotonic()-started>=float(options.get('listing_seconds',150)):
+                reason='listing_time_limit';break
+            try:
+                resp=requests.post(api+'/jobs',json={'limit':20,'offset':offset,'searchText':query,'appliedFacets':{}},headers=HEADERS,timeout=request_timeout(TIMEOUT))
+                if resp.status_code in (401,403,429):
+                    _HTTP_STATUS[careers_url]=resp.status_code;reason='http_'+str(resp.status_code);blocked=True
+                    logger.warning('Workday %s: HTTP %s; stopping without retry',company_name,resp.status_code);break
+                resp.raise_for_status();data=resp.json();page=data.get('jobPostings')
+                if not isinstance(page,list):raise ValueError('jobPostings must be a list')
+            except (requests.RequestException,ValueError,TypeError,AttributeError) as exc:
+                reason='request_or_schema_failure';logger.warning('Workday %s: %s',company_name,str(exc)[:200]);break
+            pages+=1
+            if isinstance(data.get('total'),int):total=data['total']
+            if not page:
+                reason='empty_page' if total is None or offset>=total else 'early_empty_page';break
+            added=0
+            for posting in page:
+                path=posting.get('externalPath') or ''
+                if not path or path in seen:continue
+                seen.add(path);added+=1
+                item=dict(title=plain(posting.get('title')),location=posting.get('locationsText') or '',url=base+'/'+site+path,
+                          description='',posted_date=normalize_fresh_posted(posting.get('postedOn','')),
+                          _detail_api_url=api+path,_extraction='workday_api')
+                stamp_date(item,posting.get('postedOn',''),'postedOn');jobs.append(item)
+            jobs=dedupe(jobs);checkpoint(jobs)
+            if not added:reason='repeated_page';break
+            offset+=len(page)
+            if total is not None and offset>=total and not (total==20 and pages==1):reason='reported_total_reached';break
+        searches.append(dict(query=query,pages=pages,advertised_total=total,unique_candidates=len(seen),completion=reason))
+        if blocked or reason=='listing_time_limit':break
+    complete=len(searches)==len(queries) and all(x['completion'] in ('reported_total_reached','empty_page') for x in searches)
+    stats=dict(reader='workday_api',pages=sum(x['pages'] for x in searches),unique_candidates=len(jobs),
+               scope='configured_searches' if queries!=[''] else 'entire_board',searches=searches,
+               completion='all_pages_fetched' if complete else (searches[-1]['completion'] if searches else 'not_started'))
+    if not complete:logger.warning('Workday incomplete coverage %s: %s',company_name,json.dumps(stats))
+    return SourceResult(jobs,stats)
 # --------------------------------------------------------------------------
 # Description enrichment (fetch the job's OWN posting page)
 # --------------------------------------------------------------------------
@@ -2537,6 +2520,8 @@ def scrape_generic(company_name, careers_url):
     resp = _safe_get(careers_url)
     if resp is None:
         return []
+    if next_link(resp.text,resp.url or careers_url):
+        return scrape_html_board(company_name,careers_url,_safe_get)
     return checkpoint(extract_page(resp.text, resp.url or careers_url))
 
 
@@ -2751,7 +2736,7 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
     Only runs any of this if current_result is already thin — a
     healthy result never pays any of these costs.
     """
-    from src.extraction import usable_title
+    from src.extraction import usable_title, dedupe
     usable = sum(usable_title(j.get('title','')) and not j.get('_needs_title') for j in current_result)
     if usable >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return current_result
@@ -2778,7 +2763,7 @@ def _recover_thin_result(company_name: str, careers_url: str, current_result: li
         # correct URL) is trustworthy even if it happens to return
         # fewer raw entries than whatever junk the thin result had.
         if candidate:
-            best_result = candidate
+            best_result = dedupe(best_result + candidate)
 
     if sum(usable_title(j.get('title','')) and not j.get('_needs_title') for j in best_result) >= GENERIC_RESULT_SUSPICIOUSLY_LOW:
         return best_result
@@ -2899,7 +2884,7 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             return scrape_html_board(name,careers_url,_safe_get)
         if ats == "workday":
             result = scrape_workday(name, careers_url)
-            if result:
+            if result or isinstance(result,SourceResult):
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "auto":
@@ -2927,6 +2912,20 @@ def fetch_job_details(url):
     resp = _safe_get(url)
     if resp is None:
         return {}, ''
+    if '.myworkdayjobs.com' in (urlparse(url).hostname or '') and '/wday/cxs/' in urlparse(url).path:
+        try:data=resp.json()
+        except (ValueError,TypeError):return {},''
+        info=data.get('jobPostingInfo') if isinstance(data,dict) else None
+        if not isinstance(info,dict):return {},''
+        locations=[info.get('location','')]
+        for loc in info.get('additionalLocations') or []:
+            locations.append(loc.get('location','') if isinstance(loc,dict) else loc)
+        desc=plain(info.get('jobDescription'))
+        details=dict(title=plain(info.get('title')),description=desc,location='; '.join(dict.fromkeys(x for x in locations if isinstance(x,str) and x)),_location_source='workday_detail_locations')
+        date=info.get('startDate') or info.get('postedOn')
+        if date:
+            details['posted_date']=normalize_fresh_posted(date);stamp_date(details,date,'startDate' if info.get('startDate') else 'postedOn',source=url)
+        return details,desc
     if urlparse(url).hostname=='apply.workable.com' and '/api/v2/accounts/' in urlparse(url).path:
         try:data=resp.json()
         except (ValueError,TypeError):return {},''
@@ -2977,9 +2976,7 @@ def fetch_job_details(url):
     return details, soup.get_text(' ',strip=True)[:10000]
 '''
 
-# =================================================================
-# Original: src/source_quality.py
-# =================================================================
+# Module: src/source_quality.py
 _SOURCES['source_quality'] = r'''"""Conservative extraction acceptance: unknown coverage never passes."""
 from urllib.parse import urlparse
 from src.extraction import usable_title, is_vacancy_url
@@ -3016,9 +3013,7 @@ def quality(jobs, pagination=None, expected_locations=None):
                 passes=not reasons, reasons=reasons)
 '''
 
-# =================================================================
-# Original: src/tracker.py
-# =================================================================
+# Module: src/tracker.py
 _SOURCES['tracker'] = r'''"""Consolidated tracker implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -3302,9 +3297,7 @@ def archive_and_reset(path: Path, archive_dir: Path) -> Path | None:
     return final_path
 '''
 
-# =================================================================
-# Original: src/validate_sources.py
-# =================================================================
+# Module: src/validate_sources.py
 _SOURCES['validate_sources'] = r'''"""Live extraction-quality checks; no configuration mutation by default."""
 import argparse
 import json
@@ -3343,9 +3336,7 @@ def main():
 if __name__ == '__main__': main()
 '''
 
-# =================================================================
-# Original: src/validate_urls.py
-# =================================================================
+# Module: src/validate_urls.py
 _SOURCES['validate_urls'] = r'''"""Consolidated validate_urls implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
@@ -3489,9 +3480,7 @@ if __name__ == "__main__":
     run()
 '''
 
-# =================================================================
-# Original: src/website.py
-# =================================================================
+# Module: src/website.py
 _SOURCES['website'] = r'''"""Consolidated website implementation. See INSTALL.txt for migration details."""
 from __future__ import annotations
 
