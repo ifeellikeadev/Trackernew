@@ -1,10 +1,9 @@
-"""Bundled tracker modules with focused coverage fixes."""
+"""Bundled tracker modules with tested health and runtime fixes."""
 import importlib.abc as _abc
 import importlib.util as _util
 import sys as _sys
 from pathlib import Path as _Path
 _SOURCES = {}
-
 
 # Module: src/diagnostics.py
 _SOURCES['diagnostics'] = r'''"""Consolidated diagnostics implementation. See INSTALL.txt for migration details."""
@@ -123,6 +122,13 @@ def new_row(company):
     return dict(company=company['name'],url=company.get('careers_url',''),status='',requests=0,raw_candidates=0,date_rejected=0,extraction_unresolved=0,title_rejected=0,location_rejected=0,score_rejected=0,eligible=0,unknown_dates=0,detail_fetches=0,methods=[],issues=[],seconds=0)
 
 def finish(row,error=None):
+    stats=row.get('pagination') or {}
+    completion=stats.get('completion','')
+    complete={'reported_total_reached','empty_page','all_pages_fetched','single_feed_complete'}
+    if completion and completion not in complete:
+        row['issues'].append('Incomplete pagination: '+completion)
+    if row.get('funnel_balanced') is False:
+        row['issues'].append('Candidate funnel accounting is unbalanced')
     row['issues']=list(dict.fromkeys(row['issues']))
     if error:row['status']='ERROR';row['issues'].append(str(error)[:300])
     elif row['raw_candidates'] and row.get('title_unresolved',0)>=row['raw_candidates']:row['status']='EXTRACTION_INCOMPLETE'
@@ -131,7 +137,7 @@ def finish(row,error=None):
     elif row.get('title_unresolved',0) or row.get('location_unconfirmed',0):row['status']='PARTIAL_OR_WARNING'
     elif row['eligible']:row['status']='MATCHES_FOUND'
     else:row['status']='NO_MATCHES_IN_EXTRACTED_RESULTS'
-    text=' '.join(row['issues']).lower()
+    text=(' '.join(row['issues'])+' '+str(stats.get('completion',''))).lower()
     if row.get('runtime_budget',{}).get('expired'):category,action='SOURCE_TIME_BUDGET_EXHAUSTED','Source deadline reached. Partial candidates retained; remaining details skipped. Coverage is incomplete.'
     elif row.get('title_unresolved',0):category,action='UNRESOLVED_JOB_TITLES','Some job titles could not be extracted. These are extraction gaps, not rejected job preferences. Review unresolved URL examples.'
     elif row.get('location_unconfirmed',0):category,action='LOCATION_NEEDS_REVIEW','Title/date survivors have unconfirmed locations. Unconfirmed locations are excluded from the board. Counts remain available for diagnostics.'
@@ -452,7 +458,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
         return detail_cache[url]
     for company in companies:
         if excluded(company) or not selected(company,schedule):continue
-        counts['total']+=1;row=new_row(company);start=time.monotonic();error=None
+        counts['total']+=1;row=new_row(company);start=time.monotonic();error=None;budget=None
         row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],title_rejection_details=[])
         try:
             with source_budget(source_seconds(company,schedule)) as budget, observe(row):
@@ -543,12 +549,13 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 jobs.extend(eligible);counts['ok' if raw else 'empty']+=1
         except Exception as exc:
             error=exc;counts['errored']+=1;logger.exception('FAILED %s',company['name'])
-        row['runtime_budget']=budget.diagnostics()
-        if budget.expired:row['issues'].append('Source runtime budget exhausted; coverage incomplete; partial candidates retained and remaining details skipped.')
-        if not budget.enforced:row['issues'].append('Source deadline enforcement unavailable in this runtime; cooperative checks only.')
-        row['seconds']=round(time.monotonic()-start,2);finish(row,error);reports.append(row)
+        row['runtime_budget']=budget.diagnostics() if budget else {}
+        if budget and budget.expired:row['issues'].append('Source runtime budget exhausted; coverage incomplete; partial candidates retained and remaining details skipped.')
+        if budget and not budget.enforced:row['issues'].append('Source deadline enforcement unavailable in this runtime; cooperative checks only.')
+        row['seconds']=round(time.monotonic()-start,2)
         row['funnel_accounted']=sum(row.get(k,0) for k in ('date_rejected','extraction_unresolved','title_rejected','location_rejected','location_unconfirmed','score_rejected','eligible'))
         row['funnel_balanced']=row['funnel_accounted']==row['raw_candidates']
+        finish(row,error);reports.append(row)
         logger.info('HEALTH %s | %s | raw=%d date=%d unresolved=%d title=%d outside=%d location_review=%d score=%d eligible=%d',company['name'],row['status'],row['raw_candidates'],row['date_rejected'],row['extraction_unresolved'],row['title_rejected'],row['location_rejected'],row['location_unconfirmed'],row['score_rejected'],row['eligible'])
         time.sleep(.3)
     counts['source_statuses']=dict(Counter(row['status'] for row in reports))
@@ -1304,6 +1311,7 @@ def scrape_amazon(name,url,get,max_pages=100,seconds=150):
             raw=item.get('posted_date') or ''
             jobs.append(dict(title=plain(item.get('title')),location=loc if isinstance(loc,str) else '',url=target,description=plain(item.get('description')),posted_date=raw,_date_raw=raw,_date_field='posted_date',_date_kind='publication',_date_source=endpoint,_job_id=ident,_extraction='amazon_public_search'))
         if not added:reason='repeated_or_unreadable_page';break
+        checkpoint(jobs)
         offset+=len(page)
         if total is not None and len(jobs)>=total:reason='reported_total_reached';break
     if pages>=max_pages:reason='page_limit'
@@ -1617,7 +1625,10 @@ def next_public_control(context):
             found=context.locator(selector)
             for i in range(min(found.count(),12)):
                 item=found.nth(i)
-                if item.is_visible() and item.is_enabled() and item.get_attribute('aria-disabled')!='true' and not item.get_attribute('disabled'):
+                if ':has-text(' in selector:
+                    label=clean_label(item.inner_text())
+                    if not re.fullmatch(r'(?:Load more|Show more jobs|Mehr Stellen|Mehr Jobs anzeigen|Mehr laden|Next(?: page)?|Weiter|Nächste(?: Seite)?)(?:\s*[>»›→]+)?',label,re.I):continue
+                if item.is_visible() and item.is_enabled() and item.get_attribute('aria-disabled')!='true' and item.get_attribute('disabled') is None:
                     return item
         except Exception:continue
     return None
@@ -1815,7 +1826,7 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
         jobs=dedupe(jobs+rendered);stats['browser']=render_stats;stats['unique_candidates']=len(jobs)
     if reason!='no_next_link_unverified':logger.warning('Board pagination %s: %s; retained %s candidates',name,reason,len(jobs))
     logger.warning('Board coverage unverified for %s: %s',name,json.dumps(stats))
-    return _tag(jobs,stats)
+    return SourceResult(jobs,stats)
 
 
 def browse_public_board(name,url,seconds=BROWSER_SECONDS):
@@ -1893,7 +1904,7 @@ def browse_public_board(name,url,seconds=BROWSER_SECONDS):
                         except Exception:continue
                         if tuple(j['url'] for j in advanced)!=signature:break
                 if time.monotonic()-started>=seconds:reason='time_limit'
-                elif pages>=MAX_PAGES:reason='page_limit'
+                elif pages>=page_limit(MAX_PAGES):reason='page_limit'
             finally:browser.close()
     except Exception as exc:
         reason='browser_error';logger.warning('Public-board browser failed for %s: %s',name,str(exc)[:250])
@@ -1940,7 +1951,7 @@ def scrape_eightfold(name,url,domain,get,max_pages=500,seconds=SOURCE_SECONDS):
         browser_stats=next((j.get('_pagination') for j in rendered if j.get('_pagination')), {})
         jobs=dedupe(jobs+rendered);checkpoint(jobs)
         stats['fallback']=browser_stats;stats['unique_candidates']=len(jobs)
-    return _tag(jobs,stats)
+    return SourceResult(jobs,stats)
 
 
 # ========================================================================
@@ -2560,7 +2571,10 @@ def scrape_generic(company_name, careers_url):
         return []
     if next_link(resp.text,resp.url or careers_url):
         return scrape_html_board(company_name,careers_url,_safe_get)
-    return checkpoint(extract_page(resp.text, resp.url or careers_url))
+    jobs=checkpoint(extract_page(resp.text, resp.url or careers_url))
+    stats=dict(reader='generic_html',pages=1,unique_candidates=len(jobs),completion='single_page_unverified')
+    logger.warning('Generic HTML coverage unverified for %s: pagination not certified',company_name)
+    return SourceResult(jobs,stats)
 
 
 # --------------------------------------------------------------------------
@@ -2893,12 +2907,12 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             return scrape_ashby(name, token or (match.group(1) if match else ""))
         if ats == "greenhouse":
             result = scrape_greenhouse(name, token)
-            if result:
+            if result or isinstance(result,SourceResult):
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "lever":
             result = scrape_lever(name, token)
-            if result:
+            if result or isinstance(result,SourceResult):
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "recruitee":
@@ -2911,7 +2925,7 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "smartrecruiters":
             result = scrape_smartrecruiters(name, token)
-            if result:
+            if result or isinstance(result,SourceResult):
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         if ats == "personio":
@@ -2930,12 +2944,12 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
                 found_url, found_platform, found_token = platform_from_url(careers_url)
                 if found_platform == platform:
                     result = _PLATFORM_SCRAPERS[platform](name, token or found_token)
-                    if result:
+                    if result or isinstance(result,SourceResult):
                         return result
                     return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
             if _WORKDAY_URL_RE.match(careers_url):
                 result = scrape_workday(name, careers_url)
-                if result:
+                if result or isinstance(result,SourceResult):
                     return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
         # unknown value in companies.yaml -> fall back to generic
@@ -2960,9 +2974,9 @@ def fetch_job_details(url):
             locations.append(loc.get('location','') if isinstance(loc,dict) else loc)
         desc=plain(info.get('jobDescription'))
         details=dict(title=plain(info.get('title')),description=desc,location='; '.join(dict.fromkeys(x for x in locations if isinstance(x,str) and x)),_location_source='workday_detail_locations')
-        date=info.get('startDate') or info.get('postedOn')
+        date=info.get('postedOn')
         if date:
-            details['posted_date']=normalize_fresh_posted(date);stamp_date(details,date,'startDate' if info.get('startDate') else 'postedOn',source=url)
+            details['posted_date']=normalize_fresh_posted(date);stamp_date(details,date,'postedOn',source=url)
         return details,desc
     if urlparse(url).hostname=='apply.workable.com' and '/api/v2/accounts/' in urlparse(url).path:
         try:data=resp.json()
@@ -3664,7 +3678,6 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
 
 if __name__=='__main__':generate()
 '''
-
 class _BundledLoader(_abc.SourceLoader):
     def __init__(self, fullname):
         self.fullname = fullname
