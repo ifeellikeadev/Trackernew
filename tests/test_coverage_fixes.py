@@ -61,7 +61,7 @@ class CoverageFixTests(unittest.TestCase):
         company={'name':'Test','city':'Munich','careers_url':'https://example.org','priority':1}
         with tempfile.TemporaryDirectory() as tmp,patch.object(main,'scrape_company',return_value=[job]),patch.object(main,'fetch_job_details',return_value=({},'budget management')),patch.object(main,'HEALTH_FILE',Path(tmp)/'health.json'),patch.object(main,'ROOT',Path(tmp)),patch.object(main.time,'sleep'):
             jobs,_,_=main.scrape_all_any_city([company],profile)
-        self.assertEqual(len(jobs),1);self.assertEqual(jobs[0]['relevance_score'],10)
+        self.assertEqual(len(jobs),1);self.assertNotIn('relevance_score',jobs[0])
     def test_unknown_location_goes_to_review(self):
         profile={'title_must_match':['project manager'],'main_min_score':1}
         job={'title':'Project Manager','location':'','url':'https://example.org/job/123','description':'','posted_date':''}
