@@ -1,4 +1,5 @@
 """Offline fixtures only. No real job listings or network requests."""
+import copy
 import tempfile
 import unittest
 from pathlib import Path
@@ -11,6 +12,15 @@ PROFILE=yaml.safe_load((ROOT/'config/cv_profile.yaml').read_text())
 def job(**kw):
     return dict(dict(title='Project Manager',location='Munich',city='Munich',company='Example',url='https://example.org/job/123',description='',posted_date=''),**kw)
 class ManualReviewTests(unittest.TestCase):
+    def setUp(self):
+        global PROFILE
+        self.original_profile=PROFILE
+        PROFILE=copy.deepcopy(PROFILE)
+        PROFILE['related_roles']['enabled']=True
+    def tearDown(self):
+        global PROFILE
+        PROFILE=self.original_profile
+
     def test_direct_no_description(self):self.assertTrue(matching.role_decision(job(),PROFILE)['keep'])
     def test_related_no_description(self):self.assertTrue(matching.role_decision(job(title='Product Owner'),PROFILE)['keep'])
     def test_related_one_group(self):self.assertTrue(matching.role_decision(job(title='Consultant',description='project delivery'),PROFILE)['keep'])
@@ -41,7 +51,8 @@ class ManualReviewTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'tracker.xlsx';out=Path(d)/'index.html'
             tracker.update_tracker(p,[job(match_type='Related role',relevance_score=1)])
-            with patch.object(website,'CV_PROFILE_FILE',ROOT/'config/cv_profile.yaml'):website.generate(p,out)
+            cv=Path(d)/'profile.yaml';cv.write_text(yaml.safe_dump(PROFILE))
+            with patch.object(website,'CV_PROFILE_FILE',cv):website.generate(p,out)
             text=out.read_text();self.assertIn('Project Manager',text);self.assertIn('Why included',text);self.assertNotIn('/10</span>',text)
     def test_pipeline_no_score_even_stale_config(self):
         with tempfile.TemporaryDirectory() as d:

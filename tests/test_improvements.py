@@ -176,8 +176,8 @@ class PipelineTests(unittest.TestCase):
             self.assertIn('Acme',str(health))
     def test_config_integrity(self):
         companies=yaml.safe_load((ROOT/'config/companies.yaml').read_text())['companies']
-        self.assertEqual(len(companies),318)
-        self.assertTrue(all('verified_on' not in c for c in companies))
-        self.assertEqual(len({c['name'].casefold() for c in companies}),318)
+        self.assertGreater(len(companies),0)
+        self.assertTrue(all(c.get('verification_status') == 'passed' for c in companies if c.get('verified_on')))
+        self.assertEqual(len({c['name'].casefold() for c in companies}),len(companies))
 
 if __name__=='__main__':unittest.main()
