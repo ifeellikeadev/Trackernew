@@ -142,7 +142,7 @@ title_must_not_match:
 - bauarchitekt
 - gebäudearchitekt
 related_roles:
-  enabled: true
+  enabled: false
   min_responsibility_groups: 2
   required_any_group:
   - delivery
