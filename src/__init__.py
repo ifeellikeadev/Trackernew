@@ -388,7 +388,7 @@ import yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from src.scrapers import scrape_company, fetch_job_details, reset_headless_budget
 from src.diagnostics import source_budget
-from src.matching import title_decision, location_decision, score_jobs, related_role_candidate, role_decision
+from src.matching import title_decision, location_decision, score_jobs, related_role_candidate, role_decision, background_decision
 from src.matching import filter_recent_jobs, parse_posted, date_decision
 from src.extraction import usable_title, dedupe, is_vacancy_url
 from src.tracker import update_tracker
@@ -517,6 +517,11 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                     if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or not job.get('description') or not job.get('posted_date')):
                         details,body=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details)
                         if not job.get('description') and body:job['description']=body
+                    mismatch=background_decision(job,cv_profile)
+                    if not mismatch['keep']:
+                        row['title_rejected']+=1
+                        row['title_rejection_details'].append({'title':job['title'],'url':job['url'],**mismatch})
+                        continue
                     decision=audit_date(row,job,'after_detail')
                     if not decision['keep']:row['date_rejected']+=1;continue
                     job=filter_recent_jobs([job])[0]
@@ -530,10 +535,10 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                         review_rows.append(dict(company=company['name'],title=job['title'],location=job.get('location',''),url=job['url'],relevance_score='',review_reason='Matching title; explicit workplace could not be confirmed',location_status='unconfirmed'))
                         continue
                     job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None);confirmed.append(job)
-                counts['location_confirmed']+=len(confirmed);score_jobs(confirmed,cv_profile)
-                floor=cv_profile.get('main_min_score',0);eligible=[j for j in confirmed if j.get('relevance_score',0)>=max(floor,7 if j.get('match_type')=='Related role' else 0)]
-                row['score_rejected']=len(confirmed)-len(eligible);row['eligible']=len(eligible)
-                row['score_rejected_samples']=[{'title':j['title'],'url':j['url'],'score':j.get('relevance_score',0),'floor':max(floor,7 if j.get('match_type')=='Related role' else 0)} for j in confirmed if j not in eligible][:20]
+                counts['location_confirmed']+=len(confirmed)
+                eligible=confirmed
+                row['score_rejected']=0;row['eligible']=len(eligible)
+                row['score_rejected_samples']=[]
                 row['unknown_dates']=sum(parse_posted(j.get('posted_date')) is None for j in eligible)
                 jobs.extend(eligible);counts['ok' if raw else 'empty']+=1
         except Exception as exc:
@@ -561,7 +566,7 @@ def run():
     jobs,counts,reports=scrape_all_any_city(companies,profile,configuration.get('scrape_schedule'))
     if not reports or not any(row.get('raw_candidates',0)>row.get('extraction_unresolved',0) for row in reports) or all(row['status'] in ('ERROR','FAILED_OR_BLOCKED','EMPTY_UNVERIFIED','EXTRACTION_INCOMPLETE') for row in reports):
         raise RuntimeError('No usable source results; existing tracker and webpage retained.')
-    summary=update_tracker(TRACKER_FILE,jobs,min_score=profile.get('main_min_score',0),related_roles_enabled=(profile.get('related_roles') or {}).get('enabled') is True)
+    summary=update_tracker(TRACKER_FILE,jobs,min_score=0,related_roles_enabled=(profile.get('related_roles') or {}).get('enabled') is True)
     generate_html();append_to_page(reports,ROOT/'docs/index.html')
     logger.info('Run counts: %s | Tracker: %s',counts,summary)
 if __name__=='__main__':run()
@@ -609,7 +614,7 @@ def area_priority(location):
 
 def sort_key(location,score):
     rank,_=area_priority(location)
-    return rank,-(score if isinstance(score,(int,float)) else 0)
+    return (rank,)
 
 
 # ========================================================================
@@ -922,6 +927,9 @@ def related_role_candidate(title, profile):
     return any(re.search(pattern, text, re.I) for pattern in settings.get('candidate_title_patterns', []))
 
 def role_decision(job, profile):
+    mismatch = background_decision(job, profile)
+    if not mismatch['keep']:
+        return dict(mismatch, match_type='', match_reason='', groups=[])
     direct = title_decision(job.get('title',''), profile.get('title_must_match', []), profile.get('title_must_not_match', []))
     if direct['keep']:
         return dict(direct, match_type='Direct role', match_reason='Title: '+direct['term'], groups=[])
@@ -935,8 +943,45 @@ def role_decision(job, profile):
         if hits:
             groups.append(group); evidence[group] = hits
     required = settings.get('required_any_group', [])
-    keep = len(groups) >= max(2, int(settings.get('min_responsibility_groups', 2))) and (not required or any(g in groups for g in required))
-    return dict(keep=keep, reason='related_responsibilities_match' if keep else ('related_description_missing' if not text else 'related_insufficient_evidence'), term='', match_type='Related role' if keep else '', match_reason='Responsibilities: '+', '.join(groups) if keep else '', groups=groups, evidence=evidence)
+    # Missing keywords or descriptions are uncertainty, not a rejection.
+    return dict(keep=True, reason='related_role_manual_review', term='',
+                match_type='Related role',
+                match_reason=('CV responsibility overlap: '+', '.join(groups) if groups else
+                              'Related title; responsibilities need manual review'),
+                groups=groups, evidence=evidence)
+
+
+def background_decision(job, profile):
+    """Reject explicit mismatches only; never reject on missing CV keywords.
+
+    Title domains are explicit. Description exclusions require a requirement
+    clause, not employer/industry boilerplate. This is a conservative heuristic,
+    not a semantic guarantee; ambiguous requirements remain for manual review.
+    """
+    cfg = profile.get('background_filter') or {}
+    title = _responsibility_text(job.get('title', ''))
+    domains = cfg.get('excluded_specialist_domains', ['hospitality', 'hotel management', 'hotellerie', 'gastronomie'])
+    for term in domains:
+        if re.search(r'(?<!\w)' + re.escape(_responsibility_text(term)) + r'(?!\w)', title):
+            return dict(keep=False, reason='explicit_background_mismatch', term=term)
+    description = _responsibility_text(job.get('description', ''))
+    clauses = re.split(r'[.!?;\n]+', description)
+    for clause in clauses:
+        if re.search(r'\b(?:preferred|desirable|advantage|nice to have|optional|ideally|wuenschenswert|von vorteil)\b', clause):
+            continue
+        if re.search(r'\b(?:not required|not mandatory|no .{0,60} required|nicht erforderlich|keine .{0,60} erforderlich)\b', clause):
+            continue
+        for term in domains:
+            domain = re.escape(_responsibility_text(term))
+            # Require experience + domain together and an explicit obligation.
+            experience = r'(?:experience|background|erfahrung|berufserfahrung)'
+            obligation = r'(?:required|mandatory|essential|must have|must bring|must possess|erforderlich|zwingend|voraussetzung)'
+            patterns = [experience+r'[^.!?;]{0,55}'+domain+r'[^.!?;]{0,35}'+obligation,
+                        obligation+r'[^.!?;]{0,35}'+experience+r'[^.!?;]{0,55}'+domain,
+                        domain+r'[^.!?;]{0,20}'+experience+r'[^.!?;]{0,35}'+obligation]
+            if any(re.search(p, clause) for p in patterns):
+                return dict(keep=False, reason='explicit_background_mismatch', term=term)
+    return dict(keep=True, reason='no_explicit_background_mismatch', term='')
 '''
 
 # Module: src/onboard_company.py
@@ -1059,7 +1104,7 @@ import csv
 import re
 from pathlib import Path
 from src.extraction import usable_title, is_vacancy_url
-from src.matching import title_decision, location_decision, date_decision, score_jobs, excluded_seniority
+from src.matching import title_decision, location_decision, date_decision, score_jobs, excluded_seniority, background_decision
 
 FIELDS = ['company', 'title', 'location', 'url', 'relevance_score', 'review_reason', 'location_status']
 
@@ -1077,21 +1122,14 @@ def review_hint(job, profile):
 def review_candidate(job, profile, company):
     if not review_hint(job, profile) or not usable_title(job.get('title')) or not is_vacancy_url(job.get('url', '')):
         return None
-    if not job.get('description') or not date_decision(job)['keep']:
+    if not background_decision(job, profile)['keep'] or not date_decision(job)['keep']:
         return None
     loc = location_decision(job)
     if loc['status'] in ('outside', 'excluded'):
         return None
-    # Description-only scoring prevents an unusual title from creating a false high score.
-    description_job = dict(job, title='')
-    score_jobs([description_job], profile)
-    score = description_job['relevance_score']
-    if score < int((profile.get('review_candidates') or {}).get('min_description_score', 7)):
-        return None
     return dict(company=company['name'], title=job['title'], location=job.get('location', ''),
-                url=job['url'], relevance_score=score, location_status=loc['status'],
-                review_reason='Strong description evidence; title not accepted by main filter')
-
+                url=job['url'], relevance_score='', location_status=loc['status'],
+                review_reason='Possible CV-related responsibilities; manual review, no score threshold')
 def save_review(rows, path):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -3041,13 +3079,12 @@ COLUMNS = [
     "Company",
     "City",
     "Job Title",
-    "Relevance Score (1-10)",
     "Location",
     "URL",
     "Match Type",
     "Match Reason",
 ]
-COLUMN_WIDTHS = [14, 22, 9, 40, 12, 30, 60, 18, 65]
+COLUMN_WIDTHS = [14, 22, 9, 40, 30, 60, 18, 65]
 
 
 HEADER_ALIASES = {
@@ -3147,27 +3184,12 @@ def _existing_urls(ws: Worksheet, columns: list[str]) -> set[str]:
     }
 
 
-def _prune_below_score(ws: Worksheet, columns: list[str], min_score: int) -> int:
-    if not min_score:
-        return 0
-    score_col = columns.index("Relevance Score (1-10)") + 1
-    rows_to_delete = [
-        row
-        for row in range(2, ws.max_row + 1)
-        if not (
-            isinstance(ws.cell(row=row, column=score_col).value, (int, float))
-            and ws.cell(row=row, column=score_col).value >= min_score
-        )
-    ]
-    for row in reversed(rows_to_delete):
-        ws.delete_rows(row)
-    return len(rows_to_delete)
-
-
+def _prune_below_score(ws, columns, min_score):
+    """Compatibility shim: numeric relevance never removes jobs."""
+    return 0
 def _sort_by_relevance(
     ws: Worksheet, columns: list[str], fill: PatternFill, newly_added_urls: set[str]
 ) -> None:
-    score_col = columns.index("Relevance Score (1-10)")
     url_col = columns.index("URL")
 
     rows = []
@@ -3175,7 +3197,7 @@ def _sort_by_relevance(
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         rows.append(values)
 
-    rows.sort(key=lambda v: sort_key(v[columns.index('Location')], v[score_col]))
+    rows.sort(key=lambda v: (sort_key(v[columns.index('Location')], 0), str(v[columns.index('Company')] or '').casefold(), str(v[columns.index('Job Title')] or '').casefold()))
 
     for row in range(2, ws.max_row + 1):
         for col in range(1, len(columns) + 1):
@@ -3237,7 +3259,6 @@ def _build_jobs_row(job: dict[str, Any], url: str) -> list:
         job.get("company", ""),
         job.get("city", ""),
         job.get("title", ""),
-        job.get("relevance_score", 1),
         job.get("location", ""),
         url,
         job.get("match_type", ""),
@@ -3253,17 +3274,8 @@ def update_tracker(path: Path, new_jobs: list[dict[str, Any]], min_score: int = 
         for row in range(ws.max_row, 1, -1):
             if ws.cell(row, match_col).value == "Related role":ws.delete_rows(row)
         new_jobs = [j for j in new_jobs if j.get("match_type") != "Related role"]
-    # Related-role floor applies to new candidates and saved trial rows.
-    new_jobs = [j for j in new_jobs if j.get("match_type") != "Related role" or (isinstance(j.get("relevance_score"), (int, float)) and 7 <= j["relevance_score"] <= 10)]
-    ws = wb["Jobs"]
-    match_col = COLUMNS.index("Match Type") + 1
-    score_col = COLUMNS.index("Relevance Score (1-10)") + 1
+    # No numeric relevance gates, including for saved related-role rows.
     related_pruned = 0
-    for row in range(ws.max_row, 1, -1):
-        score = ws.cell(row, score_col).value
-        if ws.cell(row, match_col).value == "Related role" and not (isinstance(score, (int, float)) and 7 <= score <= 10):
-            ws.delete_rows(row)
-            related_pruned += 1
     summary = _update_sheet(wb, "Jobs", COLUMNS, NEW_ROW_FILL, new_jobs, _build_jobs_row, min_score=min_score)
     summary["pruned"] += related_pruned
     summary["related_score_pruned"] = related_pruned
@@ -3540,7 +3552,7 @@ def _render_table(
     title_col = columns.index("Job Title")
 
     rows_html_parts = []
-    ordered_rows = sorted(range(2, ws.max_row + 1), key=lambda row: sort_key(ws.cell(row, columns.index('Location') + 1).value, ws.cell(row, columns.index('Relevance Score (1-10)') + 1).value))
+    ordered_rows = sorted(range(2, ws.max_row + 1), key=lambda row: sort_key(ws.cell(row, columns.index('Location') + 1).value, 0))
     for row in ordered_rows:
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         if all(v is None for v in values):
@@ -3604,12 +3616,11 @@ def _records(ws):
         if record.get('Match Type')=='Related role' and not related_enabled:continue
         raw=record.get('Job Posted');posted=parse_posted(raw)
         score=record.get('Relevance Score (1-10)');score=score if isinstance(score,(int,float)) else 0
-        if record.get('Match Type')=='Related role' and not 7 <= score <= 10:continue
         rank,area=area_priority(record.get('Location'))
         url=str(record.get('URL') or '')
         if urlparse(url).scheme not in ('http','https') or not urlparse(url).netloc:url=''
         records.append(dict(match_type=str(record.get('Match Type') or ''),match_reason=str(record.get('Match Reason') or ''),title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
-    return sorted(records,key=lambda r:(not r['new'],r['rank'],-r['score']))
+    return sorted(records,key=lambda r:(not r['new'],r['rank'],r['company'].casefold(),r['title'].casefold()))
 
 STYLE = r"""
 :root{--bg:#f4f6f8;--ink:#172b36;--muted:#596d79;--line:#dce5e9;--accent:#086c65;--soft:#e7f4f0;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.5}a{color:var(--accent)}button,input,select{font:inherit}button,select{cursor:pointer}button,a,input,select,summary{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #c36b14;outline-offset:4px}[hidden]{display:none!important}.skip{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:5}.skip:focus{top:12px}.topbar{background:#fff;border-bottom:1px solid var(--line)}.nav{max-width:1200px;margin:auto;padding:19px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:-.4px}.mark{width:34px;height:34px;border-radius:11px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:18px}.nav small{color:var(--muted)}.nav a{font-size:13px;text-decoration:none}.shell{max-width:1200px;margin:auto;padding:42px 28px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:750;color:var(--accent);text-transform:uppercase}h1{font-size:clamp(30px,4vw,44px);letter-spacing:-1.6px;line-height:1.15;margin:10px 0 14px}h2{letter-spacing:-.5px}.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:32px}.hero p{color:var(--muted);max-width:650px;margin:0 0 16px}.stamp{font-size:12px;color:var(--muted);padding:12px 15px;border:1px solid var(--line);border-radius:12px;background:white;white-space:nowrap}.stamp strong{display:block;color:var(--ink);font-weight:600}.scope{display:flex;flex-wrap:wrap;gap:8px}.scope span,.pill{display:inline-block;padding:5px 10px;border:1px solid var(--line);border-radius:30px;font-size:11px;background:white;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:30px 0}.metric{background:white;border:1px solid var(--line);border-radius:16px;padding:19px 22px}.metric strong{display:block;font-size:29px;line-height:1.25;letter-spacing:-1px}.metric span{font-size:12px;color:var(--muted)}.workspace{display:grid;grid-template-columns:235px minmax(0,1fr);gap:26px;align-items:start}.filters{background:white;border:1px solid var(--line);border-radius:18px;padding:21px;position:sticky;top:20px}.filters h2{font-size:16px;margin:0 0 20px}.filters label{display:block;font-size:12px;font-weight:650;margin:18px 0 7px}.filters select,.filters input[type=search]{width:100%;border:1px solid #c9d7dc;border-radius:9px;background:#fff;color:var(--ink);padding:10px;min-height:43px}.filters .check{display:flex;align-items:center;gap:9px;font-weight:400;margin:18px 0}.filters input[type=checkbox]{accent-color:var(--accent);width:17px;height:17px}.hint{font-size:11px;color:var(--muted);line-height:1.6}.reset{border:0;background:transparent;color:var(--accent);padding:10px 0;font-size:12px;text-decoration:underline}.results-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 16px}.results-head h2{font-size:19px;margin:0}.results-head p{font-size:12px;color:var(--muted);margin:3px 0}.results-head select{border:1px solid var(--line);background:white;padding:9px;border-radius:9px;font-size:12px;max-width:210px}.jobs{display:grid;gap:13px}.job-card{border:1px solid var(--line);border-radius:17px;background:white;padding:22px 24px;transition:border-color .15s,box-shadow .15s}.job-card:hover{border-color:#9bbdb7;box-shadow:0 6px 18px #172b3608}.job-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.employer{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:650;color:var(--muted)}.avatar{display:grid;place-items:center;width:30px;height:30px;background:#f0f4f6;border:1px solid #e6ecef;border-radius:9px;font-size:10px;color:#526773}.job-card h3{font-size:19px;letter-spacing:-.35px;line-height:1.4;margin:12px 0 8px;overflow-wrap:anywhere}.job-card h3 a{color:var(--ink);text-decoration:none}.job-card h3 a:hover{text-decoration:underline}.score{background:var(--soft);border-radius:10px;padding:7px 11px;font-size:12px;white-space:nowrap;color:#075b55}.score b{font-size:17px}.location{font-size:12px;color:var(--muted);margin:0}.job-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding-top:15px;border-top:1px solid #edf1f3}.badges{display:flex;align-items:center;flex-wrap:wrap;gap:7px}.pill{background:#f8fafb;border-color:#e3eaed}.pill.preferred{color:#075b55;background:#edf7f3;border-color:#cce6dc}.pill.new{color:#895207;background:#fff7e5;border-color:#f0dfb4}.apply{font-size:12px;text-decoration:none;font-weight:700;white-space:nowrap}.empty{background:white;border:1px dashed #b6c9ce;border-radius:16px;padding:40px;text-align:center;color:var(--muted)}.empty strong{display:block;color:var(--ink);margin-bottom:6px}.board-footer{font-size:11px;color:var(--muted);margin-top:22px}.health-panel{max-width:1144px;margin:0 auto 36px;border:1px solid var(--line);border-radius:18px;background:white;overflow:hidden}.health-panel>summary{padding:22px 24px;cursor:pointer;font-size:15px;font-weight:650}.health-panel>summary span{font-weight:400;color:var(--muted);font-size:12px;margin-left:10px}.health-content{padding:0 24px 24px}.health-content>p{font-size:12px;color:var(--muted)}.health-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}.health-stats span{font-size:11px;padding:6px 10px;background:#f3f6f8;border-radius:8px}.scroll-wrap{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:11px}th,td{text-align:left;vertical-align:top;padding:11px;border-bottom:1px solid var(--line)}th{background:#edf3f4;position:sticky;top:0;z-index:1;white-space:nowrap}td{min-width:100px}td:last-child{min-width:290px;max-width:550px;overflow-wrap:anywhere}.health-content details{font-size:11px}.health-content details summary{cursor:pointer;color:var(--accent)}.health-content details div{padding-top:10px}.noscript{padding:12px;background:#fff4da;font-size:12px}.demo-banner{background:#fff2d7;padding:10px 28px;font-size:12px;text-align:center}@media(max-width:800px){.shell{padding:28px 18px}.nav{padding:15px 18px}.hero{display:block}.stamp{display:inline-block;margin-top:18px}.metrics{grid-template-columns:repeat(2,1fr);gap:10px}.workspace{grid-template-columns:1fr}.filters{position:static}.filters h2{margin-bottom:12px}.filters label{margin-top:12px}.health-panel{margin:0 18px 28px}.results-head{align-items:flex-start}.job-card{padding:18px}.job-card h3{font-size:17px}.job-foot{align-items:flex-start}.nav small{display:none}.health-panel>summary span{display:block;margin:5px 0 0}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -3624,15 +3635,15 @@ def _card(r,index):
     related="<span class='related-flag'>Related</span>" if r.get('match_type')=='Related role' else ''
     date='Posted '+r['posted'] if r['posted'] else 'Date unknown'
     cls='job-row is-new' if r['new'] else 'job-row'
-    return f"""<article class='{cls}'><div class='role'><div class='title-line'>{badge}<h2>{title_link}</h2>{related}</div><p class='employer'>{e(r['company'])}</p></div><div class='workplace'>{e(r['location'])}</div><div class='score-cell'><span class='score' title='Keyword relevance, not hiring probability'><b>{r['score']:g}</b>/10</span></div><div class='posted'>{e(date)}</div></article>"""
+    return f"""<article class='{cls}'><div class='role'><div class='title-line'>{badge}<h2>{title_link}</h2>{related}</div><p class='employer'>{e(r['company'])}</p></div><div class='workplace'>{e(r['location'])}</div><div class='match-note'>{e(r.get('match_reason') or 'Manual review')}</div><div class='posted'>{e(date)}</div></article>"""
 
 LIST_STYLE=r"""
 .shell{max-width:1340px;padding:25px 28px}.nav{max-width:1340px;padding:16px 28px}.list-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}.list-heading h1{font-size:27px;letter-spacing:-.8px;margin:0 0 5px}.list-heading p{margin:0;color:var(--muted);font-size:12px}.list-heading .stamp{font-size:11px;padding:9px 12px}.job-list{border:1px solid var(--line);border-radius:16px;background:white;overflow:hidden}.list-columns,.job-row{display:grid;grid-template-columns:minmax(0,2.6fr) minmax(0,1.3fr) 130px 150px 115px;gap:22px;align-items:center;padding:20px 24px}.list-columns{background:#edf3f4;padding-top:12px;padding-bottom:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.job-row{border-top:1px solid #e8eef1}.job-row:hover{background:#f7fbfa}.job-row h2{font-size:17px;line-height:1.45;letter-spacing:-.2px;margin:0 0 6px;overflow-wrap:anywhere}.job-row h2 a{color:var(--ink);text-decoration:none}.job-row h2 a:hover{text-decoration:underline}.job-row .employer{font-size:12px;margin:0 0 5px;font-weight:400}.workplace,.posted{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.area-label{display:block;font-size:10px;color:var(--accent);margin-top:5px}.action{text-align:right}.mobile-label{display:none}.health-panel{max-width:1284px}.score{display:inline-block}.scope-note{font-size:11px;color:var(--muted);margin-top:14px}.empty{border:0}.job-row .pill.new{font-size:10px;padding:2px 8px}@media(max-width:1050px){.list-columns,.job-row{grid-template-columns:minmax(0,2fr) minmax(0,1fr) 100px 125px;gap:15px}.list-columns span:last-child{display:none}.action{grid-column:1/-1;text-align:left}}@media(max-width:700px){.shell{padding:22px 16px}.nav{padding:14px 16px}.list-heading{display:block}.list-heading .stamp{display:inline-block;margin-top:12px}.list-columns{display:none}.job-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:20px 18px;gap:15px}.role{grid-column:1/-1}.job-row h2{font-size:18px}.mobile-label{display:block;font-size:10px;margin-bottom:6px;color:var(--muted)}.posted{grid-column:1/-1}.action{grid-column:1/-1}.health-panel{margin:0 16px 25px}.nav small{display:none}}
 """
 
 SCAN_STYLE=r"""
-.shell{max-width:1500px;padding:12px 20px}.nav{max-width:1500px;padding:10px 20px}.list-heading{margin-bottom:10px;align-items:center}.list-heading h1{font-size:21px;margin:0 0 3px}.list-heading .stamp{font-size:10px;padding:5px 9px}.list-heading .stamp strong{font-size:11px}.job-list{border-radius:8px}.list-columns,.job-row{grid-template-columns:minmax(0,3fr) minmax(0,1.5fr) 85px 145px;gap:14px;padding:10px 15px}.list-columns{font-size:11px;padding-top:8px;padding-bottom:8px}.job-row{border-left:4px solid transparent;align-items:start}.job-row.is-new{background:#effaf5;border-left-color:#087f5b}.job-row h2{font-size:15px;line-height:1.35;margin:0}.title-line{display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}.title-line h2{min-width:0;overflow-wrap:anywhere}.employer{font-size:12px!important;margin:3px 0 0!important;color:#334155!important;font-weight:600}.workplace,.posted{font-size:12px;line-height:1.5}.score{padding:3px 7px;font-size:11px}.score b{font-size:15px}.new-flag{font-size:10px;font-weight:800;color:#fff;background:#087f5b;border-radius:3px;padding:2px 5px;letter-spacing:.4px}.related-flag{font-size:10px;color:#6b4d10;background:#fff2d4;padding:2px 5px;border-radius:3px}.scope-note{font-size:10px;margin-top:9px}.batch-title{padding:8px 15px;background:#e5f4ed;color:#14533e;font-size:12px;font-weight:800;border-top:1px solid #d6e6de}.batch-title.existing{background:#f1f5f9;color:#475569}.scan-summary{font-size:12px;color:#475569}.scan-summary strong{color:#087f5b}
-@media(max-width:800px){.shell{padding:10px}.nav{padding:10px}.list-heading{align-items:flex-start}.list-heading .stamp{max-width:145px}.list-columns{display:none}.job-row{display:grid;grid-template-columns:minmax(0,1fr) 65px;gap:4px 10px;padding:10px}.role{grid-column:1}.score-cell{grid-column:2;grid-row:1;text-align:right}.workplace{grid-column:1;grid-row:2}.posted{grid-column:1;grid-row:3;font-size:11px}.title-line h2{font-size:14px}.topbar small{display:none}.brand{font-size:14px}.list-heading h1{font-size:19px}}
+.shell{max-width:1500px;padding:12px 20px}.nav{max-width:1500px;padding:10px 20px}.list-heading{margin-bottom:10px;align-items:center}.list-heading h1{font-size:21px;margin:0 0 3px}.list-heading .stamp{font-size:10px;padding:5px 9px}.list-heading .stamp strong{font-size:11px}.job-list{border-radius:8px}.list-columns,.job-row{grid-template-columns:minmax(0,3fr) minmax(0,1.5fr) minmax(120px,1.3fr) 145px;gap:14px;padding:10px 15px}.list-columns{font-size:11px;padding-top:8px;padding-bottom:8px}.job-row{border-left:4px solid transparent;align-items:start}.job-row.is-new{background:#effaf5;border-left-color:#087f5b}.job-row h2{font-size:15px;line-height:1.35;margin:0}.title-line{display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}.title-line h2{min-width:0;overflow-wrap:anywhere}.employer{font-size:12px!important;margin:3px 0 0!important;color:#334155!important;font-weight:600}.workplace,.posted{font-size:12px;line-height:1.5}.score{padding:3px 7px;font-size:11px}.score b{font-size:15px}.new-flag{font-size:10px;font-weight:800;color:#fff;background:#087f5b;border-radius:3px;padding:2px 5px;letter-spacing:.4px}.related-flag{font-size:10px;color:#6b4d10;background:#fff2d4;padding:2px 5px;border-radius:3px}.scope-note{font-size:10px;margin-top:9px}.batch-title{padding:8px 15px;background:#e5f4ed;color:#14533e;font-size:12px;font-weight:800;border-top:1px solid #d6e6de}.batch-title.existing{background:#f1f5f9;color:#475569}.scan-summary{font-size:12px;color:#475569}.scan-summary strong{color:#087f5b}
+@media(max-width:800px){.shell{padding:10px}.nav{padding:10px}.list-heading{align-items:flex-start}.list-heading .stamp{max-width:145px}.list-columns{display:none}.job-row{display:grid;grid-template-columns:minmax(0,1fr) 65px;gap:4px 10px;padding:10px}.role{grid-column:1}.match-note{grid-column:1/-1;font-size:11px;color:var(--muted)}.workplace{grid-column:1;grid-row:2}.posted{grid-column:1;grid-row:3;font-size:11px}.title-line h2{font-size:14px}.topbar small{display:none}.brand{font-size:14px}.list-heading h1{font-size:19px}}
 @media(prefers-color-scheme:dark){.job-row.is-new{background:#142e26}.employer{color:#d2dedb!important}.workplace,.posted,.scan-summary{color:#c3cecb}.batch-title{background:#18382c;color:#c4f2da}.batch-title.existing{background:#26323b;color:#d9e3ec}.related-flag{background:#4a3a17;color:#ffe3a0}.scan-summary strong{color:#76d8c4}}
 """
 
@@ -3648,7 +3659,7 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
     stamp=dt.datetime.now(dt.timezone.utc).strftime('%d %b %Y, %H:%M UTC')
     new_count=sum(bool(r['new']) for r in records)
     cards=''.join(("<div class='batch-title'>New this update</div>" if i==0 and r['new'] else "<div class='batch-title existing'>Already tracked</div>" if (i==0 or records[i-1]['new']) and not r['new'] else '')+_card(r,i) for i,r in enumerate(records)) or "<div class='empty'><strong>No tracked jobs to display</strong>Results appear after a successful tracker update.</div>"
-    html=f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Munich Job Tracker</title><style>{STYLE}{LIST_STYLE}{SCAN_STYLE}</style></head><body><a class='skip' href='#jobs'>Skip to jobs</a><header class='topbar'><div class='nav'><div class='brand'><span class='mark' aria-hidden='true'>m.</span>Munich Job Tracker</div><small>New first · Munich region</small><a href='#scraper-health'>Source health &#8595;</a></div></header><main class='shell'><section aria-labelledby='jobs-title'><div class='list-heading'><div><h1 id='jobs-title'>Your opportunities</h1><p class='scan-summary'><strong>{new_count} new this update</strong> · {len(records)} total · all jobs shown</p></div><div class='stamp'>Page generated<strong>{stamp}</strong>Not a guarantee of source freshness</div></div><div class='job-list' id='jobs'><div class='list-columns' aria-hidden='true'><span>Role &amp; employer</span><span>Workplace</span><span>Keyword relevance</span><span>Posting date</span></div>{cards}</div><p class='scope-note'>Munich metropolitan region · 21-day rule plus undated jobs · no commute cutoff. “New this update” means added in the latest tracker update, not newly posted or unread. Within each group: preferred areas, then relevance. Keyword scores reflect existing rules, not hiring probability.</p></section></main></body></html>"""
+    html=f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Munich Job Tracker</title><style>{STYLE}{LIST_STYLE}{SCAN_STYLE}</style></head><body><a class='skip' href='#jobs'>Skip to jobs</a><header class='topbar'><div class='nav'><div class='brand'><span class='mark' aria-hidden='true'>m.</span>Munich Job Tracker</div><small>New first · Munich region</small><a href='#scraper-health'>Source health &#8595;</a></div></header><main class='shell'><section aria-labelledby='jobs-title'><div class='list-heading'><div><h1 id='jobs-title'>Your opportunities</h1><p class='scan-summary'><strong>{new_count} new this update</strong> · {len(records)} total · all jobs shown</p></div><div class='stamp'>Page generated<strong>{stamp}</strong>Not a guarantee of source freshness</div></div><div class='job-list' id='jobs'><div class='list-columns' aria-hidden='true'><span>Role &amp; employer</span><span>Workplace</span><span>Why included</span><span>Posting date</span></div>{cards}</div><p class='scope-note'>Munich metropolitan region · 21-day rule plus undated jobs · no commute cutoff. “New this update” means added in the latest tracker update, not newly posted or unread. Within each group: preferred areas, then employer and title. No relevance scores or score cutoffs. CV-related titles are included broadly for your manual review.</p></section></main></body></html>"""
     output_path.write_text(html,encoding='utf-8')
 
 if __name__=='__main__':generate()
