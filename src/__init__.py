@@ -382,7 +382,7 @@ from __future__ import annotations
 # ========================================================================
 # main: consolidated implementation
 # ========================================================================
-"""Synchronous Munich-region pipeline with auditable filtering and confirmed-location results only."""
+"""Synchronous Munich and UAE pipeline with auditable filtering and confirmed-location results only."""
 import logging,re,sys,time,os
 from datetime import datetime
 from src.runtime import selected, source_seconds
@@ -416,11 +416,11 @@ def load_yaml(path):
 
 def excluded(company):
     name=re.sub('[^a-z0-9]','',company.get('name','').lower());url=company.get('careers_url','').lower()
-    return any(v in name or v in url for v in ('randstad','michaelpage','michalpage')) or company.get('city','Munich')!='Munich'
+    return any(v in name or v in url for v in ('randstad','michaelpage','michalpage')) or company.get('city','Munich') not in ('Munich', 'UAE')
 
-def enrich(job,details):
+def enrich(job,details,source_city="Munich"):
     for field in ('location','description'):
-        if details.get(field) and (not job.get(field) or (field=='location' and location_decision(job)['status']=='unconfirmed')):
+        if details.get(field) and (not job.get(field) or (field=='location' and location_decision(job, source_city)['status']=='unconfirmed')):
             job[field]=details[field]
             if field=='location':job['_location_source']=details.get('_location_source','detail_explicit_location')
     if details.get('posted_date') and (not job.get('posted_date') or job.get('_date_kind')=='creation_unverified'):
@@ -458,6 +458,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
         return detail_cache[url]
     for company in companies:
         if excluded(company) or not selected(company,schedule):continue
+        source_city=company.get('city', 'Munich')
         counts['total']+=1;row=new_row(company);start=time.monotonic();error=None;budget=None
         row.update(location_unconfirmed=0,non_job_links_removed=0,duplicate_candidates_removed=0,date_decisions={},date_rejected_samples=[],date_kept_samples=[],location_rejected_samples=[],title_rejection_details=[])
         try:
@@ -467,6 +468,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 budget.remember(extracted)
                 row['source_quality']=quality(extracted, expected_locations=company.get('expected_locations'))
                 row['verification_status']=company.get('verification_status','unknown')
+                row['source_region']=source_city
                 valid=[j for j in extracted if is_vacancy_url(j.get('url',''))]
                 row['non_job_links_removed']=len(extracted)-len(valid)
                 raw=dedupe(valid);row['duplicate_candidates_removed']=len(valid)-len(raw);row['raw_candidates']=len(raw)
@@ -478,7 +480,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                     recovery_budget-=1
                     details,_=cached_details(candidate.get('_detail_api_url') or candidate.get('url',''),row)
                     if usable_title(details.get('title','')):
-                        candidate['title']=details['title'];enrich(candidate,details);candidate.pop('_needs_title',None);row['title_recovered']+=1
+                        candidate['title']=details['title'];enrich(candidate,details,source_city);candidate.pop('_needs_title',None);row['title_recovered']+=1
                     else:row['title_unresolved']+=1
                 row['unresolved_samples']=[{'url':j.get('url',''),'label':j.get('title','')} for j in raw if j.get('_needs_title') or not usable_title(j.get('title',''))][:8]
                 row['sample_titles']=[str(j.get('title',''))[:160] for j in raw[:8]]
@@ -486,9 +488,9 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 row['methods']=sorted({j.get('_extraction','existing_ats_adapter') for j in raw})
                 if company.get('detail_fetch_mode')=='all':
                     for item in raw:
-                        if location_decision(item)['status'] not in ('outside','excluded'):
+                        if location_decision(item, source_city)['status'] not in ('outside','excluded'):
                             details,body=cached_details(item.get('_detail_api_url') or item.get('url',''),row)
-                            enrich(item,details)
+                            enrich(item,details,source_city)
                             if not item.get('description') and body:item['description']=body
                 recent=[]
                 for job in raw:
@@ -498,9 +500,9 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 row['extraction_unresolved']=len(recent)-len(readable)
                 titled=[]
                 for job in readable:
-                    if (related_role_candidate(job['title'],cv_profile) or review_hint(job,cv_profile)) and location_decision(job)['status'] not in ('outside','excluded') and not job.get('description'):
+                    if (related_role_candidate(job['title'],cv_profile) or review_hint(job,cv_profile)) and location_decision(job, source_city)['status'] not in ('outside','excluded') and not job.get('description'):
                         details,body=cached_details(job.get('_detail_api_url') or job.get('url',''),row)
-                        enrich(job,details)
+                        enrich(job,details,source_city)
                         if not job.get('description') and body:job['description']=body
                         row['related_detail_fetch_attempts']=row.get('related_detail_fetch_attempts',0)+1
                     decision=role_decision(job,cv_profile)
@@ -518,10 +520,10 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 row['title_rejected_samples']=[j['title'] for j in row['title_rejection_details'][:8]]
                 counts['title_matched']+=len(titled);confirmed=[]
                 for job in titled:
-                    loc_before=location_decision(job)
+                    loc_before=location_decision(job, source_city)
                     # Known outside/excluded locations do not need expensive details.
                     if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or not job.get('description') or not job.get('posted_date')):
-                        details,body=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details)
+                        details,body=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details,source_city)
                         if not job.get('description') and body:job['description']=body
                     mismatch=background_decision(job,cv_profile)
                     if not mismatch['keep']:
@@ -531,7 +533,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                     decision=audit_date(row,job,'after_detail')
                     if not decision['keep']:row['date_rejected']+=1;continue
                     job=filter_recent_jobs([job])[0]
-                    loc=location_decision(job)
+                    loc=location_decision(job, source_city)
                     if loc['status'] in ('outside','excluded'):
                         row['location_rejected']+=1
                         if len(row['location_rejected_samples'])<20:row['location_rejected_samples'].append({'title':job['title'],'url':job['url'],**loc})
@@ -540,7 +542,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                         row['location_unconfirmed']+=1
                         review_rows.append(dict(company=company['name'],title=job['title'],location=job.get('location',''),url=job['url'],relevance_score='',review_reason='Matching title; explicit workplace could not be confirmed',location_status='unconfirmed'))
                         continue
-                    job['company']=company['name'];job['city']='Munich';job.pop('matched_city',None);confirmed.append(job)
+                    job['company']=company['name'];job['city']=loc.get('city') or 'Munich';job.pop('matched_city',None);confirmed.append(job)
                 counts['location_confirmed']+=len(confirmed)
                 eligible=confirmed
                 row['score_rejected']=0;row['eligible']=len(eligible)
@@ -637,8 +639,34 @@ def excluded_agency(name='', url=''):
     return any(x in compact for x in ('randstad','michaelpage','michalpage')) or any(x in host for x in ('randstad','michaelpage'))
 def excluded_source(entry):
     return excluded_agency(entry.get('name',''), entry.get('careers_url','')) or bool(SCOPE_EXCLUDED_LOCATION.search(' '.join(str(entry.get(k,'')) for k in ('city','country','name'))))
+UAE_CITIES = ('Dubai', 'Abu Dhabi', 'Dubai / Abu Dhabi')
+UAE_LOCATION_LABELS = {
+    'Dubai': ('dubai', 'dubayy', 'jebel ali', 'jabal ali', 'دبي', 'جبل علي', 'dxb', 'dwc'),
+    'Abu Dhabi': ('abu dhabi', 'abu dhaby', 'abudhabi', 'أبو ظبي', 'أبوظبي', 'ابوظبي', 'ابو ظبي', 'mussafah', 'musaffah', 'masdar city', 'khalifa city', 'mbz city'),
+}
+def uae_job_city(location):
+    text = re.sub(r'[\s\-\u2010-\u2015]+', ' ', str(location or ''))
+    parts = re.split(r'[;•|/\n]+', text)
+    city_matches = set()
+    for part in parts:
+        # Al Ain and Ruwais are separate workplaces, not Abu Dhabi city.
+        if any(contains(part, term) for term in ('al ain', 'al-ain', 'alayn', 'ruwais', 'العين', 'الرويس')):
+            continue
+        # An emirate-only label is not proof of an Abu Dhabi city workplace.
+        part = re.sub(r'\babu dhabi emirate\b', '', part, flags=re.I)
+        city_matches.update(city for city, labels in UAE_LOCATION_LABELS.items()
+                            if any(contains(part, label) for label in labels))
+    if len(city_matches) == 2:
+        return 'Dubai / Abu Dhabi'
+    return next(iter(city_matches), None)
+
 def allowed_job(job):
-    return job.get('city') == 'Munich' and not excluded_agency(job.get('company',''),job.get('url','')) and not SCOPE_EXCLUDED_LOCATION.search(str(job.get('location','')))
+    if excluded_agency(job.get('company',''), job.get('url','')):
+        return False
+    city, workplace = job.get('city'), str(job.get('location') or '')
+    if city in UAE_CITIES:
+        return city == uae_job_city(workplace)
+    return city == 'Munich' and not SCOPE_EXCLUDED_LOCATION.search(workplace)
 
 
 # ========================================================================
@@ -795,9 +823,21 @@ def title_matches(title,must_match,must_not_match=None):
 
 OUTSIDE_LOCATION=re.compile(r'\b(?:berlin|hamburg|frankfurt|stuttgart|dresden|leipzig|bremen|hannover|cologne|köln|koeln|düsseldorf|duesseldorf|nürnberg|nuernberg|nuremberg|karlsruhe|mannheim|london|paris|vienna|wien|graz|amsterdam|warsaw|prague|poland|czech|united states|united kingdom|india|china|singapore|canada|australia)\b',re.I)
 
-def location_decision(job):
+def location_decision(job, source_city="Munich"):
     # Only explicit vacancy location fields, never corporate/footer/body mentions.
     evidence=str(job.get('location') or '').strip()
+    if source_city == 'UAE':
+        city = uae_job_city(evidence)
+        if city:
+            status, reason = 'confirmed', 'explicit_uae_city_match'
+        elif OUTSIDE_LOCATION.search(evidence) or any(contains(evidence, term) for term in
+                ('al ain', 'al-ain', 'ruwais', 'sharjah', 'ajman', 'fujairah', 'ras al khaimah', 'umm al quwain',
+                 'riyadh', 'saudi arabia', 'qatar', 'doha', 'oman', 'bahrain', 'kuwait', 'pakistan', 'jordan')):
+            status, reason = 'outside', 'explicit_outside_uae_city_scope'
+        else:
+            status, reason = 'unconfirmed', 'uae_city_not_confirmed'
+        return dict(status=status, reason=reason, evidence=evidence, city=city,
+                    source=job.get('_location_source', 'vacancy_location') if evidence else 'none')
     if EXCLUDED_LOCATION.search(evidence):return {'status':'excluded','reason':'excluded_swiss_location','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
     if find_matching_city(evidence):return {'status':'confirmed','reason':'explicit_region_match','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
     if not evidence:return {'status':'unconfirmed','reason':'missing_location','evidence':'','source':'none'}
@@ -1131,7 +1171,7 @@ def review_candidate(job, profile, company):
         return None
     if not background_decision(job, profile)['keep'] or not date_decision(job)['keep']:
         return None
-    loc = location_decision(job)
+    loc = location_decision(job, company.get('city', 'Munich'))
     if loc['status'] in ('outside', 'excluded'):
         return None
     return dict(company=company['name'], title=job['title'], location=job.get('location', ''),
@@ -1285,12 +1325,15 @@ def bmw_cards(html,url):
 
 
 def scrape_amazon(name,url,get,max_pages=100,seconds=150):
-    """Public search JSON, Germany-wide; no city/radius cutoff is introduced."""
+    """Public search JSON, scoped to the configured country; defaults to Germany."""
     max_pages=page_limit(max_pages)
     jobs=[];seen=set();offset=0;total=None;pages=0;reason='empty_page';began=time.monotonic()
+    country = parse_qs(urlparse(url).query).get('country', ['DEU'])[0].upper()
+    if not re.fullmatch(r'[A-Z]{3}', country):
+        raise ValueError('Amazon country query parameter must be a three-letter code')
     endpoint='https://www.amazon.jobs/en/search.json'
     while pages<max_pages and time.monotonic()-began<seconds:
-        response=get(endpoint,params={'country':'DEU','result_limit':100,'offset':offset,'sort':'recent'})
+        response=get(endpoint,params={'country':country,'result_limit':100,'offset':offset,'sort':'recent'})
         if response is None:reason='request_failed';break
         try:data=response.json()
         except (ValueError,TypeError):reason='invalid_json';break
@@ -3098,7 +3141,7 @@ COLUMNS = [
     "Match Type",
     "Match Reason",
 ]
-COLUMN_WIDTHS = [14, 22, 9, 40, 30, 60, 18, 65]
+COLUMN_WIDTHS = [14, 22, 21, 40, 30, 60, 18, 65]
 
 
 HEADER_ALIASES = {
@@ -3177,11 +3220,12 @@ def load_or_create(path: Path) -> Workbook:
 
     wb = load_workbook(path)
     _ensure_sheet(wb, "Jobs", COLUMNS, COLUMN_WIDTHS, 0)
-    # Active workbook is Munich-only; historical archives are not modified.
+    # Historical Swiss sheets are excluded; Munich and UAE jobs share the Jobs sheet.
     for name in list(wb.sheetnames):
         if any(term in name.lower() for term in ('swiss', 'zurich', 'zuerich', 'zürich', 'switzerland')):
             wb.remove(wb[name])
     ws = wb['Jobs']
+    ws.column_dimensions['C'].width = max(ws.column_dimensions['C'].width, 21)
     for row in range(ws.max_row, 1, -1):
         record = {col: ws.cell(row, i + 1).value for i, col in enumerate(COLUMNS)}
         if excluded_seniority(record.get('Job Title')) or not allowed_job({'city':record.get('City'), 'company':record.get('Company'), 'url':record.get('URL'), 'location':record.get('Location')}):
@@ -3633,7 +3677,7 @@ def _records(ws):
         rank,area=area_priority(record.get('Location'))
         url=str(record.get('URL') or '')
         if urlparse(url).scheme not in ('http','https') or not urlparse(url).netloc:url=''
-        records.append(dict(match_type=str(record.get('Match Type') or ''),match_reason=str(record.get('Match Reason') or ''),title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
+        records.append(dict(city=record.get('City'),match_type=str(record.get('Match Type') or ''),match_reason=str(record.get('Match Reason') or ''),title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
     return sorted(records,key=lambda r:(not r['new'],r['rank'],r['company'].casefold(),r['title'].casefold()))
 
 STYLE = r"""
@@ -3671,9 +3715,23 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
     finally:
         if wb:wb.close()
     stamp=dt.datetime.now(dt.timezone.utc).strftime('%d %b %Y, %H:%M UTC')
-    new_count=sum(bool(r['new']) for r in records)
-    cards=''.join(("<div class='batch-title'>New this update</div>" if i==0 and r['new'] else "<div class='batch-title existing'>Already tracked</div>" if (i==0 or records[i-1]['new']) and not r['new'] else '')+_card(r,i) for i,r in enumerate(records)) or "<div class='empty'><strong>No tracked jobs to display</strong>Results appear after a successful tracker update.</div>"
-    html=f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Munich Job Tracker</title><style>{STYLE}{LIST_STYLE}{SCAN_STYLE}</style></head><body><a class='skip' href='#jobs'>Skip to jobs</a><header class='topbar'><div class='nav'><div class='brand'><span class='mark' aria-hidden='true'>m.</span>Munich Job Tracker</div><small>New first · Munich region</small><a href='#scraper-health'>Source health &#8595;</a></div></header><main class='shell'><section aria-labelledby='jobs-title'><div class='list-heading'><div><h1 id='jobs-title'>Your opportunities</h1><p class='scan-summary'><strong>{new_count} new this update</strong> · {len(records)} total · all jobs shown</p></div><div class='stamp'>Page generated<strong>{stamp}</strong>Not a guarantee of source freshness</div></div><div class='job-list' id='jobs'><div class='list-columns' aria-hidden='true'><span>Role &amp; employer</span><span>Workplace</span><span>Why included</span><span>Posting date</span></div>{cards}</div><p class='scope-note'>Munich metropolitan region · 21-day rule plus undated jobs · no commute cutoff. “New this update” means added in the latest tracker update, not newly posted or unread. Within each group: preferred areas, then employer and title. No relevance scores or score cutoffs. CV-related titles are included broadly for your manual review.</p></section></main></body></html>"""
+    def section(items, anchor, heading, empty):
+        records = items
+        new_count = sum(bool(r['new']) for r in records)
+        cards=''.join(("<div class='batch-title'>New this update</div>" if i==0 and r['new'] else "<div class='batch-title existing'>Already tracked</div>" if (i==0 or records[i-1]['new']) and not r['new'] else '')+_card(r,i) for i,r in enumerate(records))
+        if not cards:
+            cards = f"<div class='empty'><strong>{_escape(empty)}</strong>Check source health for coverage details.</div>"
+        return f"""<section id='{anchor}' aria-labelledby='{anchor}-title' style='margin:0 0 26px;scroll-margin-top:16px'>
+<div class='list-heading'><div><h1 id='{anchor}-title'>{_escape(heading)}</h1><p class='scan-summary'><strong>{new_count} new this update</strong> · {len(records)} tracked</p></div></div>
+<div class='job-list'><div class='list-columns' aria-hidden='true'><span>Role &amp; employer</span><span>Workplace</span><span>Why included</span><span>Posting date</span></div>{cards}</div></section>"""
+    munich = [r for r in records if r['city'] == 'Munich']
+    uae = [r for r in records if r['city'] in ('Dubai', 'Abu Dhabi', 'Dubai / Abu Dhabi')]
+    html=f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Job Tracker | Munich and UAE</title><style>{STYLE}{LIST_STYLE}{SCAN_STYLE}</style></head><body>
+<a class='skip' href='#jobs'>Skip to jobs</a><header class='topbar'><div class='nav'><div class='brand'><span class='mark' aria-hidden='true'>jt</span>Job Tracker</div><nav aria-label='Jump to section' style='display:flex;gap:12px;flex-wrap:wrap'><a href='#munich'>Munich</a><a href='#uae'>Dubai / Abu Dhabi</a><a href='#scraper-health'>Source health</a></nav></div></header>
+<main class='shell' id='jobs'><p class='scope-note'>Page generated: {_escape(stamp)}. Not a guarantee of source freshness.</p>
+{section(munich, 'munich', 'Munich region', 'No Munich jobs tracked')}
+{section(uae, 'uae', 'United Arab Emirates: Dubai / Abu Dhabi', 'No Dubai or Abu Dhabi jobs tracked')}
+<p class='scope-note'>21-day rule plus undated jobs. New this update means added in the latest tracker update, not newly posted or unread. No relevance score cutoff. UAE listings require an explicit Dubai or Abu Dhabi workplace; a country-only label does not qualify.</p></main></body></html>"""
     output_path.write_text(html,encoding='utf-8')
 
 if __name__=='__main__':generate()
