@@ -1,2 +1,5300 @@
-# Optional additional boards. Existing repository users: retain your own file.
-companies: []
+# UAE employers. All enabled boards are scheduled daily. See UAE_BOARD_REVIEW.csv for review status.
+companies:
+- name: Careem
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/careem
+  ats: greenhouse
+  board_token: careem
+  enabled: true
+  priority: 1
+  sector:
+  - technology
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: Emirates Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.emiratesgroupcareers.com/search-and-apply/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - aviation
+  - technology
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: Masdar
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/masdar
+  ats: smartrecruiters
+  board_token: masdar
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - renewables
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: ADNOC Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.adnoc.ae/us/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: G42
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.g42.ai/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - technology
+  - transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: Etihad Airways
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/EtihadAirways5
+  ats: smartrecruiters
+  board_token: EtihadAirways5
+  enabled: true
+  priority: 1
+  sector:
+  - aviation
+  - technology
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: Hitachi Energy UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.hitachienergy.com/me/en/careers/open-jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: Siemens Energy UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.siemens-energy.com/en_US/jobs/Jobs/uae?listFilterMode=1&folderRecordsPerPage=20
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - grid
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion
+- name: AECOM
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/AECOM2?search=United%20Arab%20Emirates
+  ats: smartrecruiters
+  board_token: AECOM2
+  enabled: true
+  priority: 1
+  sector:
+  - infrastructure
+  - programme delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 60
+  source_seconds: 80
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Turner & Townsend
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/TurnerTownsend?search=United%20Arab%20Emirates
+  ats: smartrecruiters
+  board_token: TurnerTownsend
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 45
+  source_seconds: 45
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Egis Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/EgisGroup?search=United%20Arab%20Emirates
+  ats: smartrecruiters
+  board_token: EgisGroup
+  enabled: true
+  priority: 1
+  sector:
+  - infrastructure
+  - utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 45
+  source_seconds: 45
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Archirodon Group N.V
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/ArchirodonGroup/?location=Abu%20Dhabi%20%2C%20AE
+  ats: smartrecruiters
+  board_token: ArchirodonGroup
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - infrastructure
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: BESIX
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/BESIX
+  ats: smartrecruiters
+  board_token: BESIX
+  enabled: true
+  priority: 1
+  sector:
+  - infrastructure
+  - engineering
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Aldar Properties PJSC
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/aldar
+  ats: lever
+  board_token: aldar
+  enabled: true
+  priority: 1
+  sector:
+  - pmo
+  - transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Institute of Foundation Models
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/ifm-us
+  ats: lever
+  board_token: ifm-us
+  enabled: true
+  priority: 1
+  sector:
+  - technology
+  - product delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Laminar Projects
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/laminarprojects
+  ats: lever
+  board_token: laminarprojects
+  enabled: true
+  priority: 1
+  sector:
+  - project controls
+  - data centres
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: DP World
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://ehpv.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs?location=United%20Arab%20Emirates&locationId=300000000273649&locationLevel=country
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - logistics
+  - transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: talabat
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.deliveryhero.com/jobs?options=252,837&page=1
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - technology
+  - operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: Emirates Nuclear Energy Company (ENEC)
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.enec.ae/go/Career-at-ENEC/4168722/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy
+  - utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 65
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_2
+- name: IFS
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/IFS1
+  ats: smartrecruiters
+  board_token: IFS1
+  enabled: true
+  priority: 1
+  sector:
+  - enterprise software
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 40
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Devoteam UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/Devoteam
+  ats: smartrecruiters
+  board_token: Devoteam
+  enabled: true
+  priority: 1
+  sector:
+  - digital transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 40
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Veolia Environnement SA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/VeoliaEnvironnementSA
+  ats: smartrecruiters
+  board_token: VeoliaEnvironnementSA
+  enabled: true
+  priority: 1
+  sector:
+  - energy and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 40
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Decima International
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/decimainternational
+  ats: greenhouse
+  board_token: decimainternational
+  enabled: true
+  priority: 1
+  sector:
+  - data centres and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Canonical UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/canonicaljobs
+  ats: greenhouse
+  board_token: canonicaljobs
+  enabled: true
+  priority: 1
+  sector:
+  - technology delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Loft Orbital Solutions / Orbitworks
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/loftorbital
+  ats: lever
+  board_token: loftorbital
+  enabled: true
+  priority: 1
+  sector:
+  - aerospace programme delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: 500 Global
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/500
+  ats: lever
+  board_token: '500'
+  enabled: true
+  priority: 2
+  sector:
+  - innovation programme delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Binance UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/binance
+  ats: lever
+  board_token: binance
+  enabled: true
+  priority: 2
+  sector:
+  - digital operations and programme delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 40
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: WSP Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://emit.fa.ca3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/jobs?location=United+Arab+Emirates&locationId=300000000314742&locationLevel=country&mode=location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - infrastructure and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: AD Ports Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://fa-ewzx-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - infrastructure and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Etihad Rail
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://etihadrail-iaalbv.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - transport infrastructure
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: du
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://fa-ewnx-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/jobs?location=United+Arab+Emirates&locationId=300000000455992&locationLevel=country&mode=location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - telecom and technology delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Oracle UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.oracle.com/en/sites/jobsearch/jobs?location=United+Arab+Emirates&locationId=300000000106641&locationLevel=country&mode=location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - technology and implementation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Abu Dhabi Islamic Bank
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://hciq.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs?TermStoreId=db7d743d-57f9-4d6e-a826-f1d46f88a366&TermSetId=f190d12c-bff9-43af-9845-60e094d9617b&TermId=10adce63-966c-495b-9fc4-7d552be2b387
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - banking technology and PMO
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Mashreq
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://hcld.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs?lastSelectedFacet=LOCATIONS&location=United+Arab+Emirates&locationId=300000000281786&locationLevel=country&mode=job-location&selectedLocationsFacet=300000000281786
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - banking transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Emirates NBD
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://fa-evlo-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs?lastSelectedFacet=LOCATIONS&selectedLocationsFacet=300000000471433
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - banking technology and governance
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: ENGIE Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://engiemiddleeast.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy and water
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Emirates Global Aluminium
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.ega.ae/go/All-EGA-jobs/9475601/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - industrial transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Digital DEWA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://digital.dewa.gov.ae/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - utility digital transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Worley UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://worleyparsons.taleo.net/careersection/ext/jobsearch.ftl?lang=en&iniurl.src=indeed
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy and capital programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: KBR UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.kbr.com/location-middle-east.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy and infrastructure delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Mace Consult UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.macegroup.com/gb/en/middle-east-and-north-africa
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - programme management and advisory
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Parsons UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.parsons.com/career-search
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - infrastructure programme delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: AtkinsRéalis UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.atkinsrealis.com/en/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy and infrastructure delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Baker Hughes UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.bakerhughes.com/global/en/search-results/home
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - energy technology delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Schneider Electric UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.se.com/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - energy management and automation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: SAP UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.sap.com/go/United-Arab-Emirates/8807601/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - ERP and transformation delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: PwC Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.pwc.com/m1/en/careers/experienced-jobs.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - transformation and advisory
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: Mubadala Investment Company
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.mubadala.com/en/careers/professional
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - portfolio and digital transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 55
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_3
+- name: TAQA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.taqa.com/vacancies/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ACWA Power
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.acwapower.com/viewalljobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: GE Vernova
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.gevernova.com/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dubai Electricity and Water Authority
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.dewa.gov.ae/en/about-us/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: EWEC
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.ewec.ae/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: AMEA Power
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.ameapower.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Yellow Door Energy
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.yellowdoorenergy.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Tabreed
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.tabreed.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Emirates District Cooling
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.emicool.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: TotalEnergies
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.totalenergies.com/en_US/careers/SearchJobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Shell
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.shell.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: bp
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.bp.com/en/global/corporate/careers/search-and-apply.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: SLB
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.slb.com/job-listing
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Halliburton
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.halliburton.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Weatherford
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.weatherford.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Honeywell
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.honeywell.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Emerson
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.emerson.com/en-us/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ABB
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.abb/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Siemens
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.siemens.com/en_US/externaljobs/SearchJobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Eaton
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.eaton.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Vertiv
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.vertiv.com/en-us/about/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Johnson Controls
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.johnsoncontrols.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Carrier
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.carrier.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Trane Technologies
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.tranetechnologies.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Yokogawa
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.yokogawa.com/about/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Schweitzer Engineering Laboratories
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://selinc.com/company/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Lucy Electric
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.lucyelectric.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Aggreko
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.aggreko.com/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Cummins
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://cummins.jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Vestas
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.vestas.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Enerflex
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.enerflex.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: NOV
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.nov.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Petrofac
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.petrofac.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Technip Energies
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.ten.com/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: TechnipFMC
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.technipfmc.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Saipem
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.saipem.com/en/people/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Energy, grids and utilities
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Wood
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://ehif.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/jobs?location=United+Arab+Emirates&locationId=300000000273649&locationLevel=country&mode=location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: McDermott
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://edsv.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/requisitions?location=Dubai%2C+United+Arab+Emirates&locationId=300001106277134&locationLevel=state&mode=job-location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: NMDC Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://fa-evft-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/jobs?location=United+Arab+Emirates&locationId=300000000466965&locationLevel=country&mode=location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: SEGULA Technologies
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/SegulaTechnologies/?location=Abu%20Dhabi%2C%20AE
+  ats: smartrecruiters
+  board_token: SegulaTechnologies
+  enabled: true
+  priority: 1
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 40
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: SGS
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/SGS?location=Abu%20Dhabi%2C%20AE
+  ats: smartrecruiters
+  board_token: SGS
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Bureau Veritas
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.bureauveritas.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: CORE Emirates / GCV Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/global-cxm
+  ats: lever
+  board_token: global-cxm
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Jacobs
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.jacobs.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Bechtel
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.bechtel.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Fluor
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.fluor.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Stantec
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://stantec.jobs/jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Ramboll
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.ramboll.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: SYSTRA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.systra.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Mott MacDonald
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.mottmac.com/en/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Arup
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.arup.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Buro Happold
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.burohappold.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Cundall
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.cundall.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Zutari
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.zutari.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: KEO International Consultants
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers-keoic.icims.com/jobs/search
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Hill International
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.hillintl.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Currie & Brown
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.curriebrown.com/en/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Gleeds
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.gleeds.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: JLL
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jll.wd1.myworkdayjobs.com/jllcareers
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: CBRE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.cbre.com/en_US/careers/SearchJobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Cushman & Wakefield
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.cushmanwakefield.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ALEC
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.alec.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ASGC
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.asgcgroup.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Trojan Construction Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://trojanconstruction.group/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dutco
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.dutco.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Al-Futtaim Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.afuturewithus.com/search/?q=&locationsearch=
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dubai Holding
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://esbe.fa.em8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/jobs?location=United+Arab+Emirates&locationId=300000000394937&locationLevel=country&mode=location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Azizi Developments
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.azizidevelopments.com/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: DNV
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.dnv.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: TÜV Rheinland
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.tuv.com/world/en/career.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: TÜV SÜD
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.tuvsud.com/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Intertek
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.intertek.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Alstom
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobsearch.alstom.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Hitachi Rail
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.hitachi.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Boskalis
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/Boskalis
+  ats: smartrecruiters
+  board_token: Boskalis
+  enabled: true
+  priority: 2
+  sector:
+  - Infrastructure, engineering and project controls
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Amazon UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.amazon.jobs/en/search?country=ARE&loc_query=United+Arab+Emirates
+  ats: amazon
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Microsoft UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.microsoft.com/v2/global/en/locations/dubai.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Google UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.google.com/about/careers/applications/jobs/results/?location=United%20Arab%20Emirates
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Anaplan
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/anaplan
+  ats: greenhouse
+  board_token: anaplan
+  enabled: true
+  priority: 1
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: OpenAI
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.ashbyhq.com/openai
+  ats: ashby
+  board_token: openai
+  enabled: true
+  priority: 1
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: IBM UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.ibm.com/careers/search
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Cisco UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.cisco.com/jobs/SearchJobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: NVIDIA UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dell Technologies
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.dell.com/en/search-jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Hewlett Packard Enterprise
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.hpe.com/us/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: HP Inc.
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://apply.hp.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Lenovo
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lenovo.com/en_US/careers/SearchJobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Red Hat
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://redhat.wd5.myworkdayjobs.com/Jobs
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Salesforce UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.salesforce.com/en/jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ServiceNow UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/ServiceNow
+  ats: smartrecruiters
+  board_token: ServiceNow
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Workday UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://workday.wd5.myworkdayjobs.com/Workday
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Databricks
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.databricks.com/company/careers/open-positions
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Snowflake
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.snowflake.com/us/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: MongoDB
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.mongodb.com/company/careers/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Elastic
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.elastic.co/careers/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Cloudflare
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.cloudflare.com/careers/jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Palo Alto Networks
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.paloaltonetworks.com/en/jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Fortinet
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.fortinet.com/corporate/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: CrowdStrike
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Trend Micro
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.trendmicro.com/en_us/about/careers.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: F5
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://ffive.wd5.myworkdayjobs.com/f5jobs
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Nutanix
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.nutanix.com/company/careers/open-positions
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Informatica
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.informatica.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Celonis UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.celonis.com/careers/jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: UiPath
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.uipath.com/careers/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Temenos
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.temenos.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Finastra
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.finastra.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: FIS
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.fisglobal.com/us/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Fenergo
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.fenergo.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: AVEVA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.aveva.com/en/about/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Bentley Systems
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.bentley.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Autodesk
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://autodesk.wd1.myworkdayjobs.com/Ext
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Hexagon
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://hexagon.com/company/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Trimble
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://trimble.wd1.myworkdayjobs.com/TrimbleCareers
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Equinix
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.equinix.com/jobs/search
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Technology Innovation Institute
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.tii.ae/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: e&
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.eand.com/en/careers.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Nokia
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.nokia.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Ericsson
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.ericsson.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Huawei
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://career.huawei.com/reccampportal/portal5/index.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Ingram Micro
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.ingrammicro.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: NTT DATA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.nttdata.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: MDS System Integration Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.mdssigroup.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Raqmiyat
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.raqmiyat.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Alpha Data
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.alpha.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Cloud, enterprise technology and digital delivery
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ION Group / Lab49
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.lever.co/ion
+  ats: lever
+  board_token: ion
+  enabled: true
+  priority: 1
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Capco UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/capco
+  ats: greenhouse
+  board_token: capco
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Sia
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/Sia
+  ats: smartrecruiters
+  board_token: Sia
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Talan
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/Talan
+  ats: smartrecruiters
+  board_token: Talan
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Accenture UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.accenture.com/ae-en/careers/jobsearch
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Capgemini UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.capgemini.com/careers/join-capgemini/job-search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Deloitte Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.deloitte.com/middle-east/en/careers.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: EY Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.ey.com/ey/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: KPMG Lower Gulf
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://kpmg.com/ae/en/careers.html
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Boston Consulting Group UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.bcg.com/global/en/locations/middle-east
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Bain Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.bain.com/careers/find-a-role/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: McKinsey Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.mckinsey.com/careers/search-jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Oliver Wyman UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.marshmclennan.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Roland Berger UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.rolandberger.com/en/Join/All-Jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Kearney
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.kearney.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Arthur D. Little
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.adlittle.com/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Alvarez & Marsal
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.alvarezandmarsal.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: FTI Consulting
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://fticonsulting.referrals.selectminds.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Cognizant
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.cognizant.com/global-en/jobs/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Wipro
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.wipro.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Infosys
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.infosys.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Tata Consultancy Services
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.tcs.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: HCLTech
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.hcltech.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Tech Mahindra
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.techmahindra.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: EPAM
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.epam.com/careers/job-listings
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Endava
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.endava.com/careers/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Publicis Sapient UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/PublicisGroupe
+  ats: smartrecruiters
+  board_token: PublicisGroupe
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: BTS
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://bts.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Consulting, PMO and transformation
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: First Abu Dhabi Bank
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://ehjd.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/fabCareers/jobs?location=United+Arab+Emirates&locationId=300000000273649&locationLevel=country
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Abu Dhabi Commercial Bank
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://adcbcareers.com/job-search?locale=en_US
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dubai Islamic Bank
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.dib.ae/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Commercial Bank of Dubai
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.cbd.ae/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Wio Bank
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://wio.io/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ADQ
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.adq.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: ADIA
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.adia.ae/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Abu Dhabi Global Market
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.adgm.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: DIFC
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.difc.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: HSBC UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.hsbc.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Standard Chartered
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.standardchartered.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Citi UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.citi.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: JPMorganChase UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.jpmorgan.com/global/en/home
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Visa UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.smartrecruiters.com/Visa
+  ats: smartrecruiters
+  board_token: Visa
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Mastercard UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.mastercard.com/us/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Network International
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.network.ae/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Checkout.com
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.checkout.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Adyen UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.adyen.com/vacancies
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Rapyd
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.rapyd.net/company/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Tabby
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://tabby.ai/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Tamara
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://tamara.co/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Lean Technologies
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.leantech.me/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: PayTabs
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://paytabs.com/en/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Lunate
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.lunate.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Allianz UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.allianz.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Zurich Middle East
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.zurich.ae/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Majid Al Futtaim
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.majidalfuttaim.com/global/en/search-results?p=ChIJvRKrsd9IXj4RpwoIwFYv0zM&location=United%20Arab%20Emirates
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Finance, payments and corporate programmes
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dubai Airports
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.dubaiairports.ae/en/search-and-apply/?jobFunction=All&location
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Abu Dhabi Airports
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.adairports.ae/en/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: flydubai
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.flydubai.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dubai Aerospace Enterprise
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://dubaiaerospace.com/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Sanad
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.sanad.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Space42
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://fa-euca-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/Space42Careers/?sortBy=POSTING_DATES_DESC
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 48
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: EDGE Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://edgegroup.ae/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Archer
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/archer56
+  ats: greenhouse
+  board_token: archer56
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Anduril Industries
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://job-boards.greenhouse.io/andurilindustries
+  ats: greenhouse
+  board_token: andurilindustries
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Airbus UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://ag.wd3.myworkdayjobs.com/Airbus
+  ats: workday
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 20
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Boeing UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.boeing.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: GE Aerospace
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.geaerospace.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: RTX UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.rtx.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Thales UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.thalesgroup.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Safran UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.safran-group.com/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: CAE UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.cae.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Aramex
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.aramex.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: DHL UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.dhl.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Maersk UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.maersk.com/careers/vacancies
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: DSV UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.dsv.com/search/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Kuehne+Nagel UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.kuehne-nagel.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: GAC Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.gac.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: FedEx UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.fedex.com/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Deliveroo UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.deliveroo.co.uk/join-the-team/?locations=united-arab-emirates
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 12
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Dubai Roads and Transport Authority
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.rta.ae/wps/portal/rta/ae/home/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Al Naboodah Group
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.alnaboodah.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Siemens Healthineers UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.siemens-healthineers.com/careers
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: GE HealthCare UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.gehealthcare.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Philips UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.careers.philips.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Sanofi UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.sanofi.com/en/search-jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: AstraZeneca UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.astrazeneca.com/search-jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Roche UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://careers.roche.com/global/en/search-results
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: Novartis UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://www.novartis.com/careers/career-search
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: GSK UAE
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://jobs.gsk.com/en-gb/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: M42
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://m42.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
+- name: PureHealth
+  city: UAE
+  country: United Arab Emirates
+  careers_url: https://purehealth.ae/careers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 2
+  sector:
+  - Transport, aviation, aerospace and industrial operations
+  expected_locations:
+  - Dubai
+  - Dubayy
+  - Abu Dhabi
+  - Abu-Dhabi
+  max_pages: 16
+  source_seconds: 37
+  detail_fetch_mode: matched_only
+  verification_status: pending
+  source_origin: uae_expansion_round_4
