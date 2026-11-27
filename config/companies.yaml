@@ -55,15 +55,15 @@ companies:
   - Taufkirchen
 - name: Siemens Healthineers
   city: Munich
-  careers_url: https://www.siemens-healthineers.com/careers
-  ats: auto
+  careers_url: https://careers.siemens-healthineers.com/de/de/search-results
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -163,15 +163,15 @@ companies:
   - Taufkirchen
 - name: Giesecke+Devrient
   city: Munich
-  careers_url: https://www.gi-de.com/en/careers
-  ats: auto
+  careers_url: https://www.gi-de.com/de/karriere/jobs
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -604,15 +604,15 @@ companies:
   - Taufkirchen
 - name: Cisco Munich
   city: Munich
-  careers_url: https://jobs.cisco.com/
-  ats: auto
+  careers_url: https://careers.cisco.com/global/en/search-results
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -874,15 +874,15 @@ companies:
   - Taufkirchen
 - name: Telefonica Germany O2
   city: Munich
-  careers_url: https://www.telefonica.de/karriere.html
-  ats: auto
+  careers_url: https://jobs.telefonica.com/TelefonicaGermany/go/Jobs/9327101/
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -964,15 +964,15 @@ companies:
   - Taufkirchen
 - name: FlixMobility
   city: Munich
-  careers_url: https://flix.careers/
-  ats: auto
+  careers_url: https://flix.careers/jobs
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1992,15 +1992,15 @@ companies:
   - Taufkirchen
 - name: Knorr-Bremse
   city: Munich
-  careers_url: https://www.knorr-bremse.com/en/careers/
-  ats: auto
+  careers_url: https://careers.knorr-bremse.com/search/
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2118,15 +2118,15 @@ companies:
   - Taufkirchen
 - name: Novartis Munich
   city: Munich
-  careers_url: https://www.novartis.com/careers
-  ats: auto
+  careers_url: https://www.novartis.com/de-de/careers/career-search/tag/LOC_DE
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2281,14 +2281,14 @@ companies:
 - name: Apaleo
   city: Munich
   careers_url: https://job-boards.greenhouse.io/apaleo
-  ats: auto
-  board_token: ''
+  ats: greenhouse
+  board_token: apaleo
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2335,14 +2335,14 @@ companies:
 - name: Foodji
   city: Munich
   careers_url: https://foodji.recruitee.com/
-  ats: auto
-  board_token: ''
+  ats: recruitee
+  board_token: foodji
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2695,14 +2695,14 @@ companies:
 - name: Westwing
   city: Munich
   careers_url: https://westwing.jobs.personio.com/
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: westwing
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2893,14 +2893,14 @@ companies:
 - name: The Mobility House
   city: Munich
   careers_url: https://tmh.jobs.personio.de/?language=de
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: tmh
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2911,14 +2911,14 @@ companies:
 - name: TWAICE
   city: Munich
   careers_url: https://twaice.jobs.personio.com/
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: twaice
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2928,7 +2928,7 @@ companies:
   - Taufkirchen
 - name: VoltStorage
   city: Munich
-  careers_url: https://voltstorage.jobs.personio.de/?language=en
+  careers_url: https://voltstorage.jobs.personio.de/
   ats: personio
   board_token: voltstorage
   enabled: true
@@ -2936,7 +2936,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2947,14 +2947,14 @@ companies:
 - name: FTAPI
   city: Munich
   careers_url: https://ftapi.jobs.personio.de/
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: ftapi
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3001,14 +3001,14 @@ companies:
 - name: Usercentrics
   city: Munich
   careers_url: https://apply.workable.com/usercentrics/
-  ats: auto
-  board_token: ''
+  ats: workable
+  board_token: usercentrics
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3037,14 +3037,14 @@ companies:
 - name: Cobrainer
   city: Munich
   careers_url: https://cobrainer.jobs.personio.de/?language=de
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: cobrainer
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3055,14 +3055,14 @@ companies:
 - name: Soley
   city: Munich
   careers_url: https://soley-gmbh.jobs.personio.de/?language=de
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: soley-gmbh
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3073,14 +3073,14 @@ companies:
 - name: VEACT
   city: Munich
   careers_url: https://veact.jobs.personio.de/
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: veact
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3271,14 +3271,14 @@ companies:
 - name: HolidayCheck
   city: Munich
   careers_url: https://holidaycheck.jobs.personio.de/
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: holidaycheck
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3397,14 +3397,14 @@ companies:
 - name: Hawk
   city: Munich
   careers_url: https://jobs.ashbyhq.com/hawk
-  ats: auto
-  board_token: ''
+  ats: ashby
+  board_token: hawk
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4027,14 +4027,14 @@ companies:
 - name: remberg
   city: Munich
   careers_url: https://jobs.ashbyhq.com/remberg
-  ats: auto
-  board_token: ''
+  ats: ashby
+  board_token: remberg
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4296,7 +4296,7 @@ companies:
   - Taufkirchen
 - name: EMERAM Capital Partners
   city: Munich
-  careers_url: https://emeram-capital-partners-gmbh.jobs.personio.de/job/1312230?language=de
+  careers_url: https://emeram-capital-partners-gmbh.jobs.personio.de/?language=de
   ats: personio
   board_token: emeram-capital-partners-gmbh
   enabled: true
@@ -4304,7 +4304,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4693,14 +4693,14 @@ companies:
 - name: HY-LINE Group
   city: Munich
   careers_url: https://hylinegroup.recruitee.com/
-  ats: auto
-  board_token: ''
+  ats: recruitee
+  board_token: hylinegroup
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4855,14 +4855,14 @@ companies:
 - name: Vantis
   city: Munich
   careers_url: https://vantis.jobs.personio.de/
-  ats: auto
-  board_token: ''
+  ats: personio
+  board_token: vantis
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4909,14 +4909,14 @@ companies:
 - name: Tacto
   city: Munich
   careers_url: https://jobs.ashbyhq.com/tacto
-  ats: auto
-  board_token: ''
+  ats: ashby
+  board_token: tacto
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4926,15 +4926,15 @@ companies:
   - Taufkirchen
 - name: VoiceLine
   city: Munich
-  careers_url: https://voiceline.ai/de/about
-  ats: auto
-  board_token: ''
+  careers_url: https://voiceline.jobs.personio.de/?language=en
+  ats: personio
+  board_token: voiceline
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5124,7 +5124,7 @@ companies:
   - Taufkirchen
 - name: Flowers-Software GmbH
   city: Munich
-  careers_url: https://flowers-software-gmbh.jobs.personio.de/
+  careers_url: https://flowers-software-gmbh.jobs.personio.de/?language=de
   ats: personio
   board_token: flowers-software-gmbh
   enabled: true
@@ -5132,7 +5132,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
