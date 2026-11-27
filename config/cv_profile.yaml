@@ -86,6 +86,16 @@ title_must_match:
 - teilprojektleiter
 - teilprojektleitung
 - entwicklungsprojektleiter
+- projektentwicklungsleiter
+- head of program management
+- head of programme management
+- project implementation manager
+- project development manager
+- projektmanagement energiewende
+- sustainability project lead
+- energy transition project lead
+- decarbonisation project lead
+- decarbonization project lead
 title_must_not_match:
 - stadionbau
 - hochbau
@@ -141,6 +151,11 @@ title_must_not_match:
 - projektassistenz
 - bauarchitekt
 - gebäudearchitekt
+- initiativbewerbung
+- unsolicited applicant
+- unsolicited application
+- talent pool
+- open application
 related_roles:
   enabled: false
   min_responsibility_groups: 2
@@ -297,3 +312,229 @@ background_filter:
   - hotel management
   - hotellerie
   - gastronomie
+relevance:
+  core_titles:
+  - project manager
+  - project lead
+  - project director
+  - program manager
+  - programme manager
+  - program lead
+  - programme lead
+  - projektmanager
+  - projektmanagerin
+  - projektleiter
+  - projektleiterin
+  - projektleitung
+  - programmmanager
+  - programmleitung
+  - programmleiter
+  - projektsteuerer
+  - pmo manager
+  - delivery manager
+  - delivery lead
+  groups:
+  - label: Delivery and planning
+    weight: 20
+    concepts:
+      project delivery:
+      - end to end delivery
+      - project delivery
+      - project implementation
+      - projektabwicklung
+      - projektumsetzung
+      - projektleitung
+      - delivery processes
+      planning:
+      - project planning
+      - milestone planning
+      - schedule management
+      - project scheduling
+      - terminplanung
+      - projektplanung
+      - meilensteine
+      - delivery dates
+      agile:
+      - scrum
+      - scrumban
+      - backlog management
+      - agile delivery
+      acceptance and handover:
+      - acceptance testing
+      - user acceptance testing
+      - handover
+      - projektübergabe
+      - abnahmetests
+      - commissioning
+      - inbetriebnahme
+  - label: Governance and controls
+    weight: 15
+    concepts:
+      governance:
+      - project governance
+      - steering committee
+      - lenkungsausschuss
+      - projektgovernance
+      - pmo
+      - project portfolio
+      - portfolio governance
+      risk and dependencies:
+      - risk management
+      - risikomanagement
+      - dependency management
+      - risk register
+      - risikoregister
+      - dependencies
+      - abhängigkeiten
+      budget:
+      - budget management
+      - budget responsibility
+      - budget planning
+      - budgetverantwortung
+      - kostenkontrolle
+      - project controlling
+      - projektcontrolling
+      - budget
+      executive reporting:
+      - management reporting
+      - executive reporting
+      - board reporting
+      - entscheidungsvorlagen
+      - managementberichterstattung
+      - decision support
+  - label: Stakeholders and suppliers
+    weight: 15
+    concepts:
+      cross functional:
+      - cross functional
+      - interdisciplinary teams
+      - interdisziplinäre teams
+      - bereichsübergreifend
+      - bereichsübergreifende zusammenarbeit
+      - stakeholder management
+      - stakeholdermanagement
+      - stakeholder coordination
+      - stakeholder alignment
+      supplier delivery:
+      - supplier management
+      - supplier coordination
+      - vendor management
+      - vendor coordination
+      - subcontractors
+      - lieferantenmanagement
+      - lieferantenkoordination
+      supply chain:
+      - supply chain
+      - obsolescence management
+      - last time buy
+      - supplier audit
+      - lieferantenaudit
+      - repair turnaround
+      - inventory planning
+      - lieferkette
+      procurement:
+      - procurement
+      - beschaffung
+      - tender management
+      - contract management
+      - vertragsmanagement
+  - label: Transformation and resilience
+    weight: 10
+    concepts:
+      digital delivery:
+      - digital transformation
+      - software delivery
+      - platform implementation
+      - plattformimplementierung
+      - digitalisierung
+      - data platform
+      - datenplattform
+      - workflow automation
+      - process automation
+      - prozessautomatisierung
+      improvement:
+      - process improvement
+      - continuous improvement
+      - process optimization
+      - process optimisation
+      - prozessoptimierung
+      - standardisierung
+      - change management
+      - veränderungsmanagement
+      continuity:
+      - business continuity
+      - disaster recovery
+      - operational resilience
+      - crisis management
+      - krisenmanagement
+      - wiederanlauf
+      - notfallmanagement
+  domains:
+  - label: energy / grid
+    terms:
+    - power grid
+    - grid operators
+    - transmission system operator
+    - energy sector
+    - energy industry
+    - electricity market
+    - redispatch
+    - grid security
+    - stromnetz
+    - energiewirtschaft
+    - netzbetreiber
+    - übertragungsnetzbetreiber
+    - regional coordination centre
+  - label: aerospace / industrial supply chain
+    terms:
+    - aerospace
+    - luftfahrt
+    - aeronautical
+    - industrial supply chain
+    - defence
+    - defense
+  check_requirements:
+    'German requirement: verify against B1':
+    - german b2
+    - german c1
+    - german c2
+    - b2 german
+    - c1 german
+    - c2 german
+    - fluent german
+    - fluent in german
+    - business fluent german
+    - german speaking
+    - sehr gute deutschkenntnisse
+    - verhandlungssichere deutschkenntnisse
+    - fließende deutschkenntnisse
+    - deutsch b2
+    - deutsch c1
+    - deutsch c2
+    - deutschkenntnisse auf c1
+    - deutschkenntnisse auf b2
+    Check hands-on solar, storage or electrical requirements:
+    - solar pv
+    - bess
+    - battery storage
+    - pv systems
+    - photovoltaik
+    - batteriespeicher
+    - eplan
+    - powerfactory
+    - electrical design
+    Check carbon / ESG specialist requirements:
+    - carbon accounting
+    - life cycle assessment
+    - ghg protocol
+    - esrs
+    - csrd
+    - scope 3
+    - co2 bilanzierung
+    - ökobilanz
+    Check specialist technical requirements:
+    - hands on software engineering
+    - production grade software
+    - microsoft fabric
+    - embedded software
+    - high voltage design

@@ -496,15 +496,15 @@ companies:
   - Taufkirchen
 - name: Stadtwerke Muenchen
   city: Munich
-  careers_url: https://www.swm.de/karriere
-  ats: auto
+  careers_url: https://www.swm.de/karriere/jobboerse
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -514,15 +514,15 @@ companies:
   - Taufkirchen
 - name: E.ON
   city: Munich
-  careers_url: https://www.eon.com/en/careers.html
-  ats: auto
+  careers_url: https://careers.eon.com/
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 1
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -802,15 +802,15 @@ companies:
   - Taufkirchen
 - name: Immatics
   city: Munich
-  careers_url: https://immatics.com/jobs-us/
-  ats: auto
+  careers_url: https://immatics.wd3.myworkdayjobs.com/Immatics_External
+  ats: workday
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5412,9 +5412,9 @@ companies:
   source_origin: expansion_candidate
 - name: Twentyfour Industries
   city: Munich
-  careers_url: https://twentyfour-industries.com/careers
-  ats: auto
-  board_token: ''
+  careers_url: https://twentyfour-industries.jobs.personio.com/
+  ats: personio
+  board_token: twentyfour-industries
   enabled: true
   priority: 1
   sector:
@@ -5426,7 +5426,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: Hypersonica
   city: Munich
@@ -5520,9 +5520,9 @@ companies:
   source_origin: expansion_candidate
 - name: QuantumDiamonds
   city: Munich
-  careers_url: https://www.qd-st.com/careers
-  ats: public_board
-  board_token: ''
+  careers_url: https://jobs.ashbyhq.com/quantumdiamonds
+  ats: ashby
+  board_token: quantumdiamonds
   enabled: true
   priority: 1
   sector:
@@ -5534,7 +5534,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: Bayernwerk
   city: Munich
@@ -5733,6 +5733,405 @@ companies:
   detail_fetch_mode: matched_only
   verification_status: pending
   source_origin: expansion_candidate
+- name: MaxSolar
+  city: Munich
+  careers_url: https://maxsolar.jobs.personio.de/
+  ats: personio
+  board_token: maxsolar
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - renewables
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Sungrow Europe
+  city: Munich
+  careers_url: https://sungrow-emea.jobs.personio.de/
+  ats: personio
+  board_token: sungrow-emea
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - solar and storage
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: STABL Energy
+  city: Munich
+  careers_url: https://stabl-energy-gmbh.jobs.personio.de/
+  ats: personio
+  board_token: stabl-energy-gmbh
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - battery storage
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Flexa
+  city: Munich
+  careers_url: https://flexa.jobs.personio.de/
+  ats: personio
+  board_token: flexa
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - virtual power plants
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: reev
+  city: Munich
+  careers_url: https://reev.jobs.personio.de/
+  ats: personio
+  board_token: reev
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - EV charging
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: tozero
+  city: Munich
+  careers_url: https://tozero.jobs.personio.com/
+  ats: personio
+  board_token: tozero
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - battery recycling
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Carbmee
+  city: Munich
+  careers_url: https://carbmee.jobs.personio.com/
+  ats: personio
+  board_token: carbmee
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - carbon software
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Memodo
+  city: Munich
+  careers_url: https://memodo-gmbh.jobs.personio.de/
+  ats: personio
+  board_token: memodo-gmbh
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - solar and storage
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: ClimatePartner
+  city: Munich
+  careers_url: https://climatepartner-gmbh.jobs.personio.de/
+  ats: personio
+  board_token: climatepartner-gmbh
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - carbon software and advisory
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Reverion
+  city: Munich
+  careers_url: https://reverion.jobs.personio.de/
+  ats: personio
+  board_token: reverion
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - renewable energy and fuel cells
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Polarstern
+  city: Munich
+  careers_url: https://polarstern-gmbh.jobs.personio.de/
+  ats: personio
+  board_token: polarstern-gmbh
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - renewable utility
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: enmacc
+  city: Munich
+  careers_url: https://job-boards.eu.greenhouse.io/enmacc
+  ats: greenhouse
+  board_token: enmacc
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - energy trading software
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Pacifico Energy Partners
+  city: Munich
+  careers_url: https://pacifico.recruitee.com/
+  ats: recruitee
+  board_token: pacifico
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - renewables
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Kraftanlagen Gruppe
+  city: Munich
+  careers_url: https://kraftanlagen.softgarden.io/de/vacancies
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - energy infrastructure
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Luxera Energy
+  city: Munich
+  careers_url: https://join.com/companies/luxera-energy
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - battery storage
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Encavis
+  city: Munich
+  careers_url: https://encavis.dvinci-easy.com/de/p/kununu_GrR5b/jobs
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - renewables
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Phlair
+  city: Munich
+  careers_url: https://jobs.ashbyhq.com/Phlair
+  ats: ashby
+  board_token: phlair
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - carbon removal
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: Munich Electrification
+  city: Munich
+  careers_url: https://www.munichelectrification.com/career
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - electrification
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
+- name: FutureCamp
+  city: Munich
+  careers_url: https://www.future-camp.de/en/about-us/job-offers/
+  ats: public_board
+  board_token: ''
+  enabled: true
+  priority: 1
+  sector:
+  - sustainability
+  - climate and sustainability advisory
+  detail_fetch_mode: matched_only
+  verification_status: board_identified_github_pending
+  source_origin: sustainability_expansion
+  expected_locations:
+  - Munich
+  - München
+  - Muenchen
+  - Karlsfeld
+  - Eresing
+  - Neubiberg
+  - Oberschleißheim
 scrape_schedule:
   priority_1:
     weekdays:
