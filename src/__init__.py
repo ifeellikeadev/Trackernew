@@ -382,7 +382,7 @@ from __future__ import annotations
 # ========================================================================
 # main: consolidated implementation
 # ========================================================================
-"""Synchronous Munich and UAE pipeline with auditable filtering and confirmed-location results only."""
+"""Synchronous Munich-region pipeline with auditable filtering and confirmed-location results only."""
 import logging,re,sys,time,os
 from datetime import datetime
 from src.runtime import selected, source_seconds
@@ -416,11 +416,12 @@ def load_yaml(path):
 
 def excluded(company):
     name=re.sub('[^a-z0-9]','',company.get('name','').lower());url=company.get('careers_url','').lower()
-    return any(v in name or v in url for v in ('randstad','michaelpage','michalpage')) or company.get('city','Munich') not in ('Munich', 'UAE')
+    from src.matching import excluded_source
+    return excluded_source(company) or company.get('city') != 'Munich'
 
 def enrich(job,details,source_city="Munich"):
     for field in ('location','description'):
-        if details.get(field) and (not job.get(field) or (field=='location' and location_decision(job, source_city)['status']=='unconfirmed')):
+        if details.get(field) and (not job.get(field) or (field=='description' and len(details[field]) > len(job.get(field) or '')) or (field=='location' and location_decision(job, source_city)['status']=='unconfirmed')):
             job[field]=details[field]
             if field=='location':job['_location_source']=details.get('_location_source','detail_explicit_location')
     if details.get('posted_date') and (not job.get('posted_date') or job.get('_date_kind')=='creation_unverified'):
@@ -491,7 +492,6 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                         if location_decision(item, source_city)['status'] not in ('outside','excluded'):
                             details,body=cached_details(item.get('_detail_api_url') or item.get('url',''),row)
                             enrich(item,details,source_city)
-                            if not item.get('description') and body:item['description']=body
                 recent=[]
                 for job in raw:
                     if audit_date(row,job,'list')['keep']:recent.extend(filter_recent_jobs([job]))
@@ -503,7 +503,6 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                     if (related_role_candidate(job['title'],cv_profile) or review_hint(job,cv_profile)) and location_decision(job, source_city)['status'] not in ('outside','excluded') and not job.get('description'):
                         details,body=cached_details(job.get('_detail_api_url') or job.get('url',''),row)
                         enrich(job,details,source_city)
-                        if not job.get('description') and body:job['description']=body
                         row['related_detail_fetch_attempts']=row.get('related_detail_fetch_attempts',0)+1
                     decision=role_decision(job,cv_profile)
                     if decision['keep']:
@@ -522,9 +521,8 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 for job in titled:
                     loc_before=location_decision(job, source_city)
                     # Known outside/excluded locations do not need expensive details.
-                    if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or not job.get('description') or not job.get('posted_date')):
+                    if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or len(job.get('description') or '') < 120 or not job.get('posted_date')):
                         details,body=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details,source_city)
-                        if not job.get('description') and body:job['description']=body
                     mismatch=background_decision(job,cv_profile)
                     if not mismatch['keep']:
                         row['title_rejected']+=1
@@ -544,7 +542,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                         continue
                     job['company']=company['name'];job['city']=loc.get('city') or 'Munich';job.pop('matched_city',None);confirmed.append(job)
                 counts['location_confirmed']+=len(confirmed)
-                eligible=confirmed
+                eligible=score_jobs(confirmed,cv_profile)
                 row['score_rejected']=0;row['eligible']=len(eligible)
                 row['score_rejected_samples']=[]
                 row['unknown_dates']=sum(parse_posted(j.get('posted_date')) is None for j in eligible)
@@ -568,7 +566,7 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
 def run():
     profile=load_yaml(CV_PROFILE_FILE);reset_headless_budget()
     configuration=load_yaml(COMPANIES_FILE)
-    companies=configuration.get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[])
+    companies=[c for c in configuration.get('companies',[])+load_yaml(JOB_BOARDS_FILE).get('companies',[]) if not excluded(c)]
     names={n.strip().casefold() for n in os.getenv('SCRAPE_COMPANIES','').split(',') if n.strip()}
     if names:companies=[c for c in companies if c['name'].casefold() in names]
     logger.info('Run mode: %s; configured companies: %d',os.getenv('SCRAPE_TIER','all'),len(companies))
@@ -637,36 +635,14 @@ def excluded_agency(name='', url=''):
     compact = re.sub(r'[^a-z0-9]', '', str(name).lower())
     host = urlparse(str(url)).netloc.lower()
     return any(x in compact for x in ('randstad','michaelpage','michalpage')) or any(x in host for x in ('randstad','michaelpage'))
+UAE_EXCLUSION = re.compile(r'\b(?:uae|united arab emirates|dubai|abu[\s-]*dhabi|sharjah|ajman|ras al khaimah|fujairah|umm al quwain|al ain)\b|الإمارات|دبي|أبو ظبي', re.I)
 def excluded_source(entry):
-    return excluded_agency(entry.get('name',''), entry.get('careers_url','')) or bool(SCOPE_EXCLUDED_LOCATION.search(' '.join(str(entry.get(k,'')) for k in ('city','country','name'))))
-UAE_CITIES = ('Dubai', 'Abu Dhabi', 'Dubai / Abu Dhabi')
-UAE_LOCATION_LABELS = {
-    'Dubai': ('dubai', 'dubayy', 'jebel ali', 'jabal ali', 'دبي', 'جبل علي', 'dxb', 'dwc'),
-    'Abu Dhabi': ('abu dhabi', 'abu dhaby', 'abudhabi', 'أبو ظبي', 'أبوظبي', 'ابوظبي', 'ابو ظبي', 'mussafah', 'musaffah', 'masdar city', 'khalifa city', 'mbz city'),
-}
-def uae_job_city(location):
-    text = re.sub(r'[\s\-\u2010-\u2015]+', ' ', str(location or ''))
-    parts = re.split(r'[;•|/\n]+', text)
-    city_matches = set()
-    for part in parts:
-        # Al Ain and Ruwais are separate workplaces, not Abu Dhabi city.
-        if any(contains(part, term) for term in ('al ain', 'al-ain', 'alayn', 'ruwais', 'العين', 'الرويس')):
-            continue
-        # An emirate-only label is not proof of an Abu Dhabi city workplace.
-        part = re.sub(r'\babu dhabi emirate\b', '', part, flags=re.I)
-        city_matches.update(city for city, labels in UAE_LOCATION_LABELS.items()
-                            if any(contains(part, label) for label in labels))
-    if len(city_matches) == 2:
-        return 'Dubai / Abu Dhabi'
-    return next(iter(city_matches), None)
-
+    return excluded_agency(entry.get('name',''), entry.get('careers_url','')) or any(rx.search(' '.join(str(entry.get(k,'')) for k in ('city','country','name','region','source_region'))) for rx in (SCOPE_EXCLUDED_LOCATION,UAE_EXCLUSION))
 def allowed_job(job):
     if excluded_agency(job.get('company',''), job.get('url','')):
         return False
     city, workplace = job.get('city'), str(job.get('location') or '')
-    if city in UAE_CITIES:
-        return city == uae_job_city(workplace)
-    return city == 'Munich' and not SCOPE_EXCLUDED_LOCATION.search(workplace)
+    return city == 'Munich' and location_decision({'location': workplace})['status'] == 'confirmed'
 
 
 # ========================================================================
@@ -790,7 +766,7 @@ DEFAULT_SCORE_CEILING = 15
 
 CITY_KEYWORDS = {'Munich': ['munich', 'münchen', 'muenchen', 'ottobrunn', 'taufkirchen', 'unterhaching', 'neubiberg', 'haar', 'putzbrunn', 'vaterstetten', 'parsdorf', 'poing', 'aschheim', 'kirchheim', 'feldkirchen', 'ismaning', 'unterföhring', 'unterfoehring', 'garching', 'freising', 'erding', 'hallbergmoos', 'fürstenfeldbruck', 'fuerstenfeldbruck', 'dachau', 'unterschleißheim', 'unterschleissheim', 'oberschleißheim', 'oberschleissheim', 'gilching', 'oberpfaffenhofen', 'weßling', 'wessling', 'germering', 'gräfelfing', 'graefelfing', 'planegg', 'martinsried', 'krailling', 'puchheim', 'starnberg', 'holzkirchen', 'grünwald', 'gruenwald', 'pullach', 'baierbrunn', 'höhenkirchen', 'hoehenkirchen', 'siegertsbrunn', 'brunnthal', 'sauerlach', 'hohenbrunn', 'bogenhausen', 'werksviertel', 'lehel', 'altstadt', 'haidhausen', 'berg am laim', 'obersendling', 'trudering', 'riem', 'schwabing']}
 
-CITY_KEYWORDS['Munich'] = list(dict.fromkeys(CITY_KEYWORDS['Munich'] + REGIONAL_LABELS + MUNICH_LABELS))
+CITY_KEYWORDS['Munich'] = list(dict.fromkeys(CITY_KEYWORDS['Munich'] + REGIONAL_LABELS + MUNICH_LABELS + ['karlsfeld','eresing','unterhaching','neufahrn bei freising','grasbrunn','oberding','oberhaching','neuried','brunnthal','puchheim','olching','germering','haag an der amper']))
 
 def normalized_title(value):
     import unicodedata
@@ -826,18 +802,10 @@ OUTSIDE_LOCATION=re.compile(r'\b(?:berlin|hamburg|frankfurt|stuttgart|dresden|le
 def location_decision(job, source_city="Munich"):
     # Only explicit vacancy location fields, never corporate/footer/body mentions.
     evidence=str(job.get('location') or '').strip()
-    if source_city == 'UAE':
-        city = uae_job_city(evidence)
-        if city:
-            status, reason = 'confirmed', 'explicit_uae_city_match'
-        elif OUTSIDE_LOCATION.search(evidence) or any(contains(evidence, term) for term in
-                ('al ain', 'al-ain', 'ruwais', 'sharjah', 'ajman', 'fujairah', 'ras al khaimah', 'umm al quwain',
-                 'riyadh', 'saudi arabia', 'qatar', 'doha', 'oman', 'bahrain', 'kuwait', 'pakistan', 'jordan')):
-            status, reason = 'outside', 'explicit_outside_uae_city_scope'
-        else:
-            status, reason = 'unconfirmed', 'uae_city_not_confirmed'
-        return dict(status=status, reason=reason, evidence=evidence, city=city,
-                    source=job.get('_location_source', 'vacancy_location') if evidence else 'none')
+    if source_city != 'Munich':
+        return dict(status='outside', reason='source_outside_munich', evidence=evidence, source='vacancy_location')
+    if UAE_EXCLUSION.search(evidence) and not find_matching_city(evidence):
+        return dict(status='outside', reason='explicit_outside_location', evidence=evidence, source='vacancy_location')
     if EXCLUDED_LOCATION.search(evidence):return {'status':'excluded','reason':'excluded_swiss_location','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
     if find_matching_city(evidence):return {'status':'confirmed','reason':'explicit_region_match','evidence':evidence,'source':job.get('_location_source','vacancy_location')}
     if not evidence:return {'status':'unconfirmed','reason':'missing_location','evidence':'','source':'none'}
@@ -930,28 +898,35 @@ def filter_by_title_and_any_city(
     return kept, stats
 
 
-def _raw_score(description: str, title: str, keywords: list[dict[str, Any]]) -> int:
-    text = f"{title} {description}".lower()
-    score = 0
-    for kw in keywords:
-        if kw["term"].lower() in text:
-            score += int(kw["weight"])
-    return score
-
-
-def score_job_1_to_10(description: str, title: str, keywords: list[dict[str, Any]], ceiling: int) -> int:
-    raw = _raw_score(description, title, keywords)
-    scaled = round((raw / ceiling) * 10) if ceiling else 0
-    return max(1, min(10, scaled))
-
-
 def score_jobs(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[dict[str, Any]]:
-    keywords = cv_profile.get("scoring_keywords", [])
-    ceiling = cv_profile.get("score_ceiling", DEFAULT_SCORE_CEILING)
+    """Evidence-based CV overlap, not a screening or eligibility decision."""
+    conf = cv_profile.get('relevance') or {}
+    groups = conf.get('groups') or []
+    domain = conf.get('domains') or []
     for job in jobs:
-        job["relevance_score"] = score_job_1_to_10(
-            job.get("description", ""), job.get("title", ""), keywords, ceiling
-        )
+        title = ' '.join(normalize(job.get('title')).replace('-', ' ').split())
+        text = ' '.join(normalize(_responsibility_text(job.get('description') or '')).replace('-', ' ').split())
+        if len(text) < 120 or len(text.split()) < 20:
+            job.update(relevance_score=None, relevance_evidence='', relevance_notes='Job description unavailable or too short')
+            continue
+        points = 25 if any(contains(title, t) for t in conf.get('core_titles', [])) else 12
+        evidence = []
+        for group in groups:
+            hits = [label for label, terms in group['concepts'].items() if any(contains(text, t) for t in terms)]
+            if hits:
+                points += group['weight'] * min(len(hits), 2) / 2
+                evidence.append(group['label'] + ': ' + ', '.join(hits[:3]))
+        industry = [g['label'] for g in domain if any(contains(text, t) for t in g['terms'])]
+        if industry:
+            points += 10
+            evidence.append('Industry overlap: ' + ', '.join(industry))
+        if contains(text, 'pmp') or contains(text, 'project management professional'):
+            points += 5
+            evidence.append('PMP')
+        checks = [label for label, terms in (conf.get('check_requirements') or {}).items() if any(contains(text, t) for t in terms)]
+        job.update(relevance_score=max(1, min(10, int(points / 10 + .5))),
+                   relevance_evidence='; '.join(evidence) or 'Title match; little CV evidence in description',
+                   relevance_notes='; '.join(checks))
     return jobs
 
 
@@ -2168,9 +2143,10 @@ def _iso(dt_obj: datetime) -> str:
 # --------------------------------------------------------------------------
 # Greenhouse
 # --------------------------------------------------------------------------
-def scrape_greenhouse(company_name: str, board_token: str = "") -> list[dict[str, Any]]:
+def scrape_greenhouse(company_name: str, board_token: str = "", eu=False) -> list[dict[str, Any]]:
     token = board_token or _slugify(company_name)
-    url = f"https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true"
+    host = "boards-api.eu.greenhouse.io" if eu else "boards-api.greenhouse.io"
+    url = f"https://{host}/v1/boards/{token}/jobs?content=true"
     resp = _safe_get(url)
     if resp is None:
         return []
@@ -2949,7 +2925,7 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             match = _PLATFORM_URL_PATTERNS["ashby"].search(careers_url)
             return scrape_ashby(name, token or (match.group(1) if match else ""))
         if ats == "greenhouse":
-            result = scrape_greenhouse(name, token)
+            result = scrape_greenhouse(name, token, eu=".eu.greenhouse.io" in host)
             if result or isinstance(result,SourceResult):
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
@@ -3140,8 +3116,11 @@ COLUMNS = [
     "URL",
     "Match Type",
     "Match Reason",
+    "Relevance Score (1-10)",
+    "Relevance Evidence",
+    "Requirements to Check",
 ]
-COLUMN_WIDTHS = [14, 22, 21, 40, 30, 60, 18, 65]
+COLUMN_WIDTHS = [14, 22, 21, 40, 30, 60, 18, 65, 20, 85, 55]
 
 
 HEADER_ALIASES = {
@@ -3220,9 +3199,10 @@ def load_or_create(path: Path) -> Workbook:
 
     wb = load_workbook(path)
     _ensure_sheet(wb, "Jobs", COLUMNS, COLUMN_WIDTHS, 0)
-    # Historical Swiss sheets are excluded; Munich and UAE jobs share the Jobs sheet.
+    # Remove legacy tracking sheets outside the requested scope.
+    from src.matching import UAE_EXCLUSION
     for name in list(wb.sheetnames):
-        if any(term in name.lower() for term in ('swiss', 'zurich', 'zuerich', 'zürich', 'switzerland')):
+        if UAE_EXCLUSION.search(name.replace('_',' ')) or any(term in name.lower() for term in ('swiss', 'zurich', 'zuerich', 'zürich', 'switzerland')):
             wb.remove(wb[name])
     ws = wb['Jobs']
     ws.column_dimensions['C'].width = max(ws.column_dimensions['C'].width, 21)
@@ -3255,7 +3235,7 @@ def _sort_by_relevance(
         values = [ws.cell(row=row, column=c).value for c in range(1, len(columns) + 1)]
         rows.append(values)
 
-    rows.sort(key=lambda v: (sort_key(v[columns.index('Location')], 0), str(v[columns.index('Company')] or '').casefold(), str(v[columns.index('Job Title')] or '').casefold()))
+    rows.sort(key=lambda v: (-(v[columns.index('Relevance Score (1-10)')] if isinstance(v[columns.index('Relevance Score (1-10)')], (int,float)) else 0), sort_key(v[columns.index('Location')], 0), str(v[columns.index('Company')] or '').casefold(), str(v[columns.index('Job Title')] or '').casefold()))
 
     for row in range(2, ws.max_row + 1):
         for col in range(1, len(columns) + 1):
@@ -3297,8 +3277,8 @@ def _update_sheet(
             url_col = columns.index("URL") + 1
             for existing_row in range(2, ws.max_row + 1):
                 if ws.cell(existing_row, url_col).value == url:
-                    for key, label in (("match_type", "Match Type"), ("match_reason", "Match Reason")):
-                        if label in columns and job.get(key):ws.cell(existing_row, columns.index(label)+1).value = job[key]
+                    for key, label in (("match_type", "Match Type"), ("match_reason", "Match Reason"), ("relevance_score", "Relevance Score (1-10)"), ("relevance_evidence", "Relevance Evidence"), ("relevance_notes", "Requirements to Check")):
+                        if label in columns and key in job:ws.cell(existing_row, columns.index(label)+1).value = job[key]
                     break
             continue
         ws.append(row_builder(job, url))
@@ -3321,6 +3301,9 @@ def _build_jobs_row(job: dict[str, Any], url: str) -> list:
         url,
         job.get("match_type", ""),
         job.get("match_reason", ""),
+        job.get("relevance_score"),
+        job.get("relevance_evidence", ""),
+        job.get("relevance_notes", ""),
     ]
 
 
@@ -3379,7 +3362,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--company', action='append', help='Exact company name; repeat to select several')
     ap.add_argument('--pending', action='store_true')
-    ap.add_argument('--expansion', action='store_true', help='Only the 19 newly added candidate employers')
+    ap.add_argument('--expansion', action='store_true', help='Only newly added sustainability employers')
     ap.add_argument('--promote', action='store_true')
     ap.add_argument('--seconds', type=int, default=90)
     ap.add_argument('--config', type=Path, default=ROOT/'config/companies.yaml')
@@ -3388,7 +3371,8 @@ def main():
     if not 1 <= args.seconds <= 600: ap.error('--seconds must be between 1 and 600')
     companies = (yaml.safe_load(args.config.read_text(encoding='utf-8')) or {}).get('companies', [])
     names = {n.casefold() for n in args.company or []}
-    selected = [c for c in companies if (not names or c['name'].casefold() in names) and (not args.pending or c.get('verification_status') != 'passed') and (not args.expansion or c.get('source_origin')=='expansion_candidate')]
+    from src.matching import excluded_source
+    selected = [c for c in companies if c.get('city')=='Munich' and not excluded_source(c) and (not names or c['name'].casefold() in names) and (not args.pending or c.get('verification_status') != 'passed') and (not args.expansion or (c.get('source_origin')=='sustainability_expansion' or c.get('verification_status')=='replacement_route_github_pending'))]
     if not selected: ap.error('No companies match the selection')
     results = []
     for company in selected:
@@ -3494,7 +3478,7 @@ def check_one(company: dict) -> dict:
 
 def run() -> None:
     companies = load_yaml(COMPANIES_FILE) + load_yaml(JOB_BOARDS_FILE)
-    companies = [c for c in companies if not excluded_source(c)]
+    companies = [c for c in companies if c.get('city')=='Munich' and not excluded_source(c)]
     print(f"Checking {len(companies)} companies...\n")
 
     results = []
@@ -3677,8 +3661,8 @@ def _records(ws):
         rank,area=area_priority(record.get('Location'))
         url=str(record.get('URL') or '')
         if urlparse(url).scheme not in ('http','https') or not urlparse(url).netloc:url=''
-        records.append(dict(city=record.get('City'),match_type=str(record.get('Match Type') or ''),match_reason=str(record.get('Match Reason') or ''),title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
-    return sorted(records,key=lambda r:(not r['new'],r['rank'],r['company'].casefold(),r['title'].casefold()))
+        records.append(dict(city=record.get('City'),match_type=str(record.get('Match Type') or ''),match_reason=str(record.get('Match Reason') or ''),title=str(record.get('Job Title') or 'Untitled vacancy'),company=str(record.get('Company') or 'Employer unspecified'),location=str(record.get('Location') or 'Location not recorded'),score=score,evidence=str(record.get('Relevance Evidence') or ''),checks=str(record.get('Requirements to Check') or ''),rank=rank,area=area,url=url,posted=posted.isoformat() if posted else '',raw_date=str(raw or ''),new=_rgb_matches(ws.cell(row,1),NEW_ROW_FILL)))
+    return sorted(records,key=lambda r:(not r['new'],-r['score'],r['rank'],r['company'].casefold(),r['title'].casefold()))
 
 STYLE = r"""
 :root{--bg:#f4f6f8;--ink:#172b36;--muted:#596d79;--line:#dce5e9;--accent:#086c65;--soft:#e7f4f0;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.5}a{color:var(--accent)}button,input,select{font:inherit}button,select{cursor:pointer}button,a,input,select,summary{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #c36b14;outline-offset:4px}[hidden]{display:none!important}.skip{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:5}.skip:focus{top:12px}.topbar{background:#fff;border-bottom:1px solid var(--line)}.nav{max-width:1200px;margin:auto;padding:19px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:-.4px}.mark{width:34px;height:34px;border-radius:11px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:18px}.nav small{color:var(--muted)}.nav a{font-size:13px;text-decoration:none}.shell{max-width:1200px;margin:auto;padding:42px 28px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:750;color:var(--accent);text-transform:uppercase}h1{font-size:clamp(30px,4vw,44px);letter-spacing:-1.6px;line-height:1.15;margin:10px 0 14px}h2{letter-spacing:-.5px}.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:32px}.hero p{color:var(--muted);max-width:650px;margin:0 0 16px}.stamp{font-size:12px;color:var(--muted);padding:12px 15px;border:1px solid var(--line);border-radius:12px;background:white;white-space:nowrap}.stamp strong{display:block;color:var(--ink);font-weight:600}.scope{display:flex;flex-wrap:wrap;gap:8px}.scope span,.pill{display:inline-block;padding:5px 10px;border:1px solid var(--line);border-radius:30px;font-size:11px;background:white;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:30px 0}.metric{background:white;border:1px solid var(--line);border-radius:16px;padding:19px 22px}.metric strong{display:block;font-size:29px;line-height:1.25;letter-spacing:-1px}.metric span{font-size:12px;color:var(--muted)}.workspace{display:grid;grid-template-columns:235px minmax(0,1fr);gap:26px;align-items:start}.filters{background:white;border:1px solid var(--line);border-radius:18px;padding:21px;position:sticky;top:20px}.filters h2{font-size:16px;margin:0 0 20px}.filters label{display:block;font-size:12px;font-weight:650;margin:18px 0 7px}.filters select,.filters input[type=search]{width:100%;border:1px solid #c9d7dc;border-radius:9px;background:#fff;color:var(--ink);padding:10px;min-height:43px}.filters .check{display:flex;align-items:center;gap:9px;font-weight:400;margin:18px 0}.filters input[type=checkbox]{accent-color:var(--accent);width:17px;height:17px}.hint{font-size:11px;color:var(--muted);line-height:1.6}.reset{border:0;background:transparent;color:var(--accent);padding:10px 0;font-size:12px;text-decoration:underline}.results-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 16px}.results-head h2{font-size:19px;margin:0}.results-head p{font-size:12px;color:var(--muted);margin:3px 0}.results-head select{border:1px solid var(--line);background:white;padding:9px;border-radius:9px;font-size:12px;max-width:210px}.jobs{display:grid;gap:13px}.job-card{border:1px solid var(--line);border-radius:17px;background:white;padding:22px 24px;transition:border-color .15s,box-shadow .15s}.job-card:hover{border-color:#9bbdb7;box-shadow:0 6px 18px #172b3608}.job-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.employer{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:650;color:var(--muted)}.avatar{display:grid;place-items:center;width:30px;height:30px;background:#f0f4f6;border:1px solid #e6ecef;border-radius:9px;font-size:10px;color:#526773}.job-card h3{font-size:19px;letter-spacing:-.35px;line-height:1.4;margin:12px 0 8px;overflow-wrap:anywhere}.job-card h3 a{color:var(--ink);text-decoration:none}.job-card h3 a:hover{text-decoration:underline}.score{background:var(--soft);border-radius:10px;padding:7px 11px;font-size:12px;white-space:nowrap;color:#075b55}.score b{font-size:17px}.location{font-size:12px;color:var(--muted);margin:0}.job-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding-top:15px;border-top:1px solid #edf1f3}.badges{display:flex;align-items:center;flex-wrap:wrap;gap:7px}.pill{background:#f8fafb;border-color:#e3eaed}.pill.preferred{color:#075b55;background:#edf7f3;border-color:#cce6dc}.pill.new{color:#895207;background:#fff7e5;border-color:#f0dfb4}.apply{font-size:12px;text-decoration:none;font-weight:700;white-space:nowrap}.empty{background:white;border:1px dashed #b6c9ce;border-radius:16px;padding:40px;text-align:center;color:var(--muted)}.empty strong{display:block;color:var(--ink);margin-bottom:6px}.board-footer{font-size:11px;color:var(--muted);margin-top:22px}.health-panel{max-width:1144px;margin:0 auto 36px;border:1px solid var(--line);border-radius:18px;background:white;overflow:hidden}.health-panel>summary{padding:22px 24px;cursor:pointer;font-size:15px;font-weight:650}.health-panel>summary span{font-weight:400;color:var(--muted);font-size:12px;margin-left:10px}.health-content{padding:0 24px 24px}.health-content>p{font-size:12px;color:var(--muted)}.health-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}.health-stats span{font-size:11px;padding:6px 10px;background:#f3f6f8;border-radius:8px}.scroll-wrap{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:11px}th,td{text-align:left;vertical-align:top;padding:11px;border-bottom:1px solid var(--line)}th{background:#edf3f4;position:sticky;top:0;z-index:1;white-space:nowrap}td{min-width:100px}td:last-child{min-width:290px;max-width:550px;overflow-wrap:anywhere}.health-content details{font-size:11px}.health-content details summary{cursor:pointer;color:var(--accent)}.health-content details div{padding-top:10px}.noscript{padding:12px;background:#fff4da;font-size:12px}.demo-banner{background:#fff2d7;padding:10px 28px;font-size:12px;text-align:center}@media(max-width:800px){.shell{padding:28px 18px}.nav{padding:15px 18px}.hero{display:block}.stamp{display:inline-block;margin-top:18px}.metrics{grid-template-columns:repeat(2,1fr);gap:10px}.workspace{grid-template-columns:1fr}.filters{position:static}.filters h2{margin-bottom:12px}.filters label{margin-top:12px}.health-panel{margin:0 18px 28px}.results-head{align-items:flex-start}.job-card{padding:18px}.job-card h3{font-size:17px}.job-foot{align-items:flex-start}.nav small{display:none}.health-panel>summary span{display:block;margin:5px 0 0}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -3692,8 +3676,11 @@ def _card(r,index):
     badge="<span class='new-flag'>NEW</span>" if r['new'] else ''
     related="<span class='related-flag'>Related</span>" if r.get('match_type')=='Related role' else ''
     date='Posted '+r['posted'] if r['posted'] else 'Date unknown'
+    score=str(r['score'])+'/10' if r['score'] else 'Not scored'
+    evidence=e(r['evidence'])
+    checks='<small>Check: '+e(r['checks'])+'</small>' if r['checks'] else ''
     cls='job-row is-new' if r['new'] else 'job-row'
-    return f"""<article class='{cls}'><div class='role'><div class='title-line'>{badge}<h2>{title_link}</h2>{related}</div><p class='employer'>{e(r['company'])}</p></div><div class='workplace'>{e(r['location'])}</div><div class='match-note'>{e(r.get('match_reason') or 'Manual review')}</div><div class='posted'>{e(date)}</div></article>"""
+    return f"""<article class='{cls}'><div class='role'><div class='title-line'>{badge}<h2>{title_link}</h2>{related}</div><p class='employer'>{e(r['company'])}</p></div><div class='workplace'>{e(r['location'])}</div><div class='match-note'><span class='score'>{e(score)}</span><small>{evidence}</small>{checks}</div><div class='posted'>{e(date)}</div></article>"""
 
 LIST_STYLE=r"""
 .shell{max-width:1340px;padding:25px 28px}.nav{max-width:1340px;padding:16px 28px}.list-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}.list-heading h1{font-size:27px;letter-spacing:-.8px;margin:0 0 5px}.list-heading p{margin:0;color:var(--muted);font-size:12px}.list-heading .stamp{font-size:11px;padding:9px 12px}.job-list{border:1px solid var(--line);border-radius:16px;background:white;overflow:hidden}.list-columns,.job-row{display:grid;grid-template-columns:minmax(0,2.6fr) minmax(0,1.3fr) 130px 150px 115px;gap:22px;align-items:center;padding:20px 24px}.list-columns{background:#edf3f4;padding-top:12px;padding-bottom:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.job-row{border-top:1px solid #e8eef1}.job-row:hover{background:#f7fbfa}.job-row h2{font-size:17px;line-height:1.45;letter-spacing:-.2px;margin:0 0 6px;overflow-wrap:anywhere}.job-row h2 a{color:var(--ink);text-decoration:none}.job-row h2 a:hover{text-decoration:underline}.job-row .employer{font-size:12px;margin:0 0 5px;font-weight:400}.workplace,.posted{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.area-label{display:block;font-size:10px;color:var(--accent);margin-top:5px}.action{text-align:right}.mobile-label{display:none}.health-panel{max-width:1284px}.score{display:inline-block}.scope-note{font-size:11px;color:var(--muted);margin-top:14px}.empty{border:0}.job-row .pill.new{font-size:10px;padding:2px 8px}@media(max-width:1050px){.list-columns,.job-row{grid-template-columns:minmax(0,2fr) minmax(0,1fr) 100px 125px;gap:15px}.list-columns span:last-child{display:none}.action{grid-column:1/-1;text-align:left}}@media(max-width:700px){.shell{padding:22px 16px}.nav{padding:14px 16px}.list-heading{display:block}.list-heading .stamp{display:inline-block;margin-top:12px}.list-columns{display:none}.job-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:20px 18px;gap:15px}.role{grid-column:1/-1}.job-row h2{font-size:18px}.mobile-label{display:block;font-size:10px;margin-bottom:6px;color:var(--muted)}.posted{grid-column:1/-1}.action{grid-column:1/-1}.health-panel{margin:0 16px 25px}.nav small{display:none}}
@@ -3723,15 +3710,13 @@ def generate(tracker_path: Path = TRACKER_FILE, output_path: Path = OUTPUT_FILE)
             cards = f"<div class='empty'><strong>{_escape(empty)}</strong>Check source health for coverage details.</div>"
         return f"""<section id='{anchor}' aria-labelledby='{anchor}-title' style='margin:0 0 26px;scroll-margin-top:16px'>
 <div class='list-heading'><div><h1 id='{anchor}-title'>{_escape(heading)}</h1><p class='scan-summary'><strong>{new_count} new this update</strong> · {len(records)} tracked</p></div></div>
-<div class='job-list'><div class='list-columns' aria-hidden='true'><span>Role &amp; employer</span><span>Workplace</span><span>Why included</span><span>Posting date</span></div>{cards}</div></section>"""
+<div class='job-list'><div class='list-columns' aria-hidden='true'><span>Role &amp; employer</span><span>Workplace</span><span>CV relevance</span><span>Posting date</span></div>{cards}</div></section>"""
     munich = [r for r in records if r['city'] == 'Munich']
-    uae = [r for r in records if r['city'] in ('Dubai', 'Abu Dhabi', 'Dubai / Abu Dhabi')]
-    html=f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Job Tracker | Munich and UAE</title><style>{STYLE}{LIST_STYLE}{SCAN_STYLE}</style></head><body>
-<a class='skip' href='#jobs'>Skip to jobs</a><header class='topbar'><div class='nav'><div class='brand'><span class='mark' aria-hidden='true'>jt</span>Job Tracker</div><nav aria-label='Jump to section' style='display:flex;gap:12px;flex-wrap:wrap'><a href='#munich'>Munich</a><a href='#uae'>Dubai / Abu Dhabi</a><a href='#scraper-health'>Source health</a></nav></div></header>
+    html=f"""<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Job Tracker | Munich region</title><style>{STYLE}{LIST_STYLE}{SCAN_STYLE}.match-note small{{display:block;font-size:11px;margin-top:3px;overflow-wrap:anywhere}}</style></head><body>
+<a class='skip' href='#jobs'>Skip to jobs</a><header class='topbar'><div class='nav'><div class='brand'><span class='mark' aria-hidden='true'>jt</span>Job Tracker</div><nav aria-label='Jump to section' style='display:flex;gap:12px;flex-wrap:wrap'><a href='#munich'>Munich</a><a href='#scraper-health'>Source health</a></nav></div></header>
 <main class='shell' id='jobs'><p class='scope-note'>Page generated: {_escape(stamp)}. Not a guarantee of source freshness.</p>
 {section(munich, 'munich', 'Munich region', 'No Munich jobs tracked')}
-{section(uae, 'uae', 'United Arab Emirates: Dubai / Abu Dhabi', 'No Dubai or Abu Dhabi jobs tracked')}
-<p class='scope-note'>21-day rule plus undated jobs. New this update means added in the latest tracker update, not newly posted or unread. No relevance score cutoff. UAE listings require an explicit Dubai or Abu Dhabi workplace; a country-only label does not qualify.</p></main></body></html>"""
+<p class='scope-note'>21-day rule plus undated jobs. New this update means added in the latest tracker update, not newly posted or unread. No relevance score cutoff. Scores reflect evidence in the job description, not eligibility. Unscored means no usable description or not yet refreshed.</p></main></body></html>"""
     output_path.write_text(html,encoding='utf-8')
 
 if __name__=='__main__':generate()
