@@ -127,15 +127,15 @@ companies:
   - Taufkirchen
 - name: Wacker Chemie
   city: Munich
-  careers_url: https://www.wacker.com/cms/en-us/careers/overview.html
-  ats: auto
+  careers_url: https://jobs.wacker.com/go/Global-Jobs/4151601/
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -217,15 +217,15 @@ companies:
   - Taufkirchen
 - name: MAN Truck & Bus
   city: Munich
-  careers_url: https://www.man.eu/de/en/career.html
-  ats: auto
+  careers_url: https://jobs.man.eu/?locale=de_DE
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -235,15 +235,15 @@ companies:
   - Taufkirchen
 - name: Webasto
   city: Munich
-  careers_url: https://www.webasto-group.com/en/career/
-  ats: auto
+  careers_url: https://jobs.webasto.com/
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -253,15 +253,15 @@ companies:
   - Taufkirchen
 - name: BSH Hausgeraete
   city: Munich
-  careers_url: https://www.bsh-group.com/career
-  ats: auto
+  careers_url: https://jobs.bsh-group.de/index/de?lang=en&persist_lang=en
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -334,15 +334,15 @@ companies:
   - Taufkirchen
 - name: KNDS Deutschland
   city: Munich
-  careers_url: https://www.knds.de/karriere/
-  ats: auto
+  careers_url: https://jobs.knds.de/search/
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 1
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -352,15 +352,15 @@ companies:
   - Taufkirchen
 - name: OHB System
   city: Munich
-  careers_url: https://www.ohb.de/en/career
-  ats: auto
+  careers_url: https://career-ohb.csod.com/ux/ats/careersite/4/home?c=career-ohb&lang=de-DE
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 1
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1542,7 +1542,7 @@ companies:
   - Taufkirchen
 - name: MediaMarktSaturn
   city: Munich
-  careers_url: https://careers.mediamarktsaturn.com/MediaMarktSaturn/content/letsgo/?locale=de_DE
+  careers_url: https://careers.mediamarktsaturn.com/search/?locale=de_DE
   ats: public_board
   board_token: ''
   enabled: true
@@ -1550,7 +1550,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5484,9 +5484,9 @@ companies:
   source_origin: expansion_candidate
 - name: The Exploration Company
   city: Munich
-  careers_url: https://www.exploration.space/careers
-  ats: public_board
-  board_token: ''
+  careers_url: https://jobs.ashbyhq.com/the-exploration-company
+  ats: ashby
+  board_token: the-exploration-company
   enabled: true
   priority: 1
   sector:
@@ -5498,7 +5498,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: Constellr
   city: Munich
