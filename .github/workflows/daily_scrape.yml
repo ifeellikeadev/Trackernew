@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       audit_munich_sources_only:
-        description: "Test extraction for new Munich sustainability boards and repaired sources without updating the tracker or deploying"
+        description: "Test extraction for new and repaired Munich sources without updating the tracker or deploying"
         type: boolean
         default: false
 
@@ -57,7 +57,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p diagnostics
-          rm -f docs/scraper_health.json
+          rm -f docs/scraper_health.json data/review_candidates.csv
           python -m src.main 2>&1 | tee diagnostics/scrape.log
       - name: Save diagnostic report even after failure
         if: always()
@@ -68,6 +68,15 @@ jobs:
             diagnostics/scrape.log
             docs/scraper_health.json
           if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload manual-review candidates
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-review-${{ github.run_id }}
+          path: data/review_candidates.csv
+          if-no-files-found: ignore
           retention-days: 14
 
       - name: Commit updated tracker
