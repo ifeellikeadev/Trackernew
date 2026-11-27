@@ -146,6 +146,7 @@ def finish(row,error=None):
     elif 'name_not_resolved' in text or 'nameresolutionerror' in text:category,action='DNS_ERROR','Verify domain; a single run cannot prove a permanent outage.'
     elif '404' in text:category,action='URL_OR_BOARD_NOT_FOUND','Verify careers URL or board token against the employer site.'
     elif '403' in text or '405' in text or '406' in text:category,action='HTTP_ACCESS_ERROR','Check supported public careers source; do not assume no vacancies.'
+    elif 'toomanyredirects' in text or 'too_many_redirects' in text or ('exceeded' in text and 'redirects' in text):category,action='REDIRECT_LOOP','Replace the stale route with the official vacancy listing.'
     elif 'pagination' in text:category,action='INCOMPLETE_PAGINATION','Some pages may be missing. Review pagination response and totals.'
     elif 'coverage unverified' in text:category,action='COVERAGE_UNVERIFIED','Candidates may be partial. Review page counts and stop reasons; empty is not proof of no vacancies.'
     elif 'budget exhausted' in text:category,action='BROWSER_BUDGET_EXHAUSTED','Browser fallback was skipped; extraction coverage unverified.'
@@ -160,7 +161,9 @@ def finish(row,error=None):
 
 def save_report(rows,path):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps({'generated_at':datetime.now(timezone.utc).isoformat(),'scope':'This reports extracted candidates, not proof that every vacancy was retrieved. Empty is not a certified no-vacancy result. Eligible is before tracker deduplication.','companies':rows},indent=2),encoding='utf-8')
+    from collections import Counter
+    summary = dict(source_statuses=dict(Counter(r['status'] for r in rows)), regions=dict(Counter(r.get('source_region', 'unknown') for r in rows)), eligible=sum(r.get('eligible', 0) for r in rows), location_review=sum(r.get('location_unconfirmed', 0) for r in rows))
+    path.write_text(json.dumps({'summary':summary,'generated_at':datetime.now(timezone.utc).isoformat(),'scope':'This reports extracted candidates, not proof that every vacancy was retrieved. Empty is not a certified no-vacancy result. Eligible is before tracker deduplication.','companies':rows},indent=2),encoding='utf-8')
 
 def append_to_page(rows,path):
     path=Path(path)
@@ -1656,7 +1659,7 @@ def coverage_source(name, url):
     """Verified public listing routes; no guessed API tokens or workplace claims."""
     host=urlparse(url).hostname or '';name=name.casefold().strip()
     if name=='siemens' and host=='jobs.siemens.com':return 'https://jobs.siemens.com/de_DE/externaljobs/SearchJobs'
-    if name=='yoummday' and (host.endswith('.personio.de') or host.endswith('.personio.com') or host in ('www.yoummday.com','yoummday.com')):return 'https://www.yoummday.com/de/jobs/'
+    if name in ('yoummday', 'yoummday gmbh') and (host.endswith('.personio.de') or host.endswith('.personio.com') or host in ('www.yoummday.com','yoummday.com')):return 'https://www.yoummday.com/de/jobs/'
     if name=='allianz' and host=='careers.allianz.com' and 'search-results' not in urlparse(url).path:return 'https://careers.allianz.com/global/en/search-results'
     return None
 
@@ -1703,7 +1706,7 @@ def employer_cards(html, url):
                         _location_source='explicit_employer_card' if loc else '',_extraction='employer_card_unverified'))
     return dedupe(out)
 
-from src.extraction import canonical_job_url
+from src.extraction import canonical_job_url, anchor_label
 
 def extract_page(html,url):
 
@@ -1728,6 +1731,21 @@ def extract_page(html,url):
             target=urlunparse(parsed._replace(path=path,params='',query=urlencode({'jobOfferId':q['jobOfferId'][0]})))
         out.append(dict(title=title,location=card_location(a),url=target,description='',posted_date='',_extraction='public_board_card_unverified'))
 
+    host = urlparse(url).hostname or ''
+    if host in ('job-boards.eu.greenhouse.io', 'boards.eu.greenhouse.io'):
+        board = urlparse(url).path.strip('/').split('/')[0]
+        for anchor in soup.select('a[href]'):
+            target = urljoin(url, anchor['href']); parsed = urlparse(target)
+            if parsed.hostname != host or not re.fullmatch(r'/' + re.escape(board) + r'/jobs/\d+/?', parsed.path):
+                continue
+            heading = anchor.select_one('.body--medium, [data-testid="job-title"]')
+            title = clean_label(heading.get_text(' ', strip=True) if heading else anchor_label(anchor))
+            location = anchor.select_one('.body--metadata, [data-testid="job-location"]')
+            if location and not heading:
+                title = title.removesuffix(clean_label(location.get_text(' ', strip=True))).strip()
+            if usable_title(title):
+                out.append(dict(title=title, location=clean_label(location.get_text(' ', strip=True)) if location else '',
+                                url=target, description='', posted_date='', _extraction='greenhouse_eu_card_unverified'))
     combined=dedupe(out+html_jobs(html,url)+supplemental_cards(html,url))
     for job in combined:
         parsed=urlparse(job['url']);query=parse_qs(parsed.query)
@@ -1838,7 +1856,7 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
     # Browser gets a separate bounded allowance, not the exhausted global fallback budget.
     # No login, stealth, certificate disabling or CAPTCHA handling is attempted.
     blocked_status=getattr(get,'last_status',lambda u:None)(url)
-    if reason in ('no_next_link_unverified','request_failed') and blocked_status not in (401,403,429):
+    if reason in ('no_next_link_unverified','request_failed') and blocked_status not in (401,403,404,410,429):
         remaining=current_budget().remaining() if current_budget() else BROWSER_SECONDS
         rendered,render_stats=browse_public_board(name,page_url if pages else url,seconds=min(BROWSER_SECONDS,remaining))
         jobs=dedupe(jobs+rendered);stats['browser']=render_stats;stats['unique_candidates']=len(jobs)
@@ -2077,6 +2095,11 @@ _TRAILING_WORDS_TO_STRIP = [
 
 _GET_CACHE = {}
 _HTTP_STATUS = {}
+_PAUSED_WORKDAY_HOSTS = {}
+
+def _paused_workday_status(url):
+    return _PAUSED_WORKDAY_HOSTS.get(urlparse(url).hostname)
+
 
 def _safe_get(url: str, **kwargs) -> requests.Response | None:
     """Cache within this run; retry one transient GET failure within the source budget.
@@ -2145,8 +2168,12 @@ def _iso(dt_obj: datetime) -> str:
 # --------------------------------------------------------------------------
 def scrape_greenhouse(company_name: str, board_token: str = "", eu=False) -> list[dict[str, Any]]:
     token = board_token or _slugify(company_name)
-    host = "boards-api.eu.greenhouse.io" if eu else "boards-api.greenhouse.io"
-    url = f"https://{host}/v1/boards/{token}/jobs?content=true"
+    if eu:
+        # Use the known public EU board; the old guessed API hostname failed DNS.
+        if not re.fullmatch(r"[\w-]+", token):
+            return SourceResult([], dict(reader='greenhouse_eu_public', completion='invalid_board_token'))
+        return scrape_html_board(company_name, f"https://job-boards.eu.greenhouse.io/{token}", _safe_get)
+    url = f"https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true"
     resp = _safe_get(url)
     if resp is None:
         return []
@@ -2155,7 +2182,12 @@ def scrape_greenhouse(company_name: str, board_token: str = "", eu=False) -> lis
     except ValueError:
         return []
     jobs = []
-    for job in data.get("jobs", []):
+    if not isinstance(data, dict) or not isinstance(data.get('jobs'), list):
+        logger.warning('Invalid Greenhouse jobs feed for %s', company_name)
+        return []
+    for job in data['jobs']:
+        if not isinstance(job, dict) or not job.get('absolute_url') or job.get('internal_job_id', True) is None:
+            continue
         desc_html = job.get("content", "") or ""
         desc_text = BeautifulSoup(desc_html, "html.parser").get_text(" ", strip=True)
         posted = ""
@@ -2494,6 +2526,11 @@ def scrape_workday(company_name: str, careers_url: str):
     tenant,dc,site=m.groups()
     base=f'https://{tenant}.{dc}.myworkdayjobs.com'
     api=f'{base}/wday/cxs/{tenant}/{site}'
+    prior_status = _paused_workday_status(base)
+    if prior_status:
+        logger.warning('Workday %s: HTTP %s, tenant already paused this run', company_name, prior_status)
+        _HTTP_STATUS[careers_url] = prior_status
+        return SourceResult([], dict(reader='workday_api', pages=0, unique_candidates=0, completion=f'http_{prior_status}_tenant_paused'))
     options=_OPTIONS.get();queries=list(dict.fromkeys(options.get('search_queries') or ['']))
     jobs=[];searches=[];started=time.monotonic();blocked=False
     for query in queries:
@@ -2505,6 +2542,7 @@ def scrape_workday(company_name: str, careers_url: str):
                 resp=requests.post(api+'/jobs',json={'limit':20,'offset':offset,'searchText':query,'appliedFacets':{}},headers=HEADERS,timeout=request_timeout(TIMEOUT))
                 if resp.status_code in (401,403,429):
                     _HTTP_STATUS[careers_url]=resp.status_code;reason='http_'+str(resp.status_code);blocked=True
+                    _PAUSED_WORKDAY_HOSTS[urlparse(base).hostname] = resp.status_code
                     logger.warning('Workday %s: HTTP %s; stopping without retry',company_name,resp.status_code);break
                 resp.raise_for_status();data=resp.json();page=data.get('jobPostings')
                 if not isinstance(page,list):raise ValueError('jobPostings must be a list')
@@ -2635,6 +2673,7 @@ def reset_headless_budget() -> None:
     _headless_time_used = 0.0
     _GET_CACHE.clear()
     _HTTP_STATUS.clear()
+    _PAUSED_WORKDAY_HOSTS.clear()
 
 
 def headless_budget_remaining() -> float:
@@ -2859,6 +2898,41 @@ _maybe_headless_upgrade = _recover_thin_result
 # --------------------------------------------------------------------------
 # Dispatcher
 # --------------------------------------------------------------------------
+def scrape_celonis(company_name, careers_url):
+    # The employer advertises this feed and jobId link prefix on its careers page.
+    endpoint = 'https://dxp-api.celonis.com/v1/jobs'
+    resp = _safe_get(endpoint)
+    status = _HTTP_STATUS.get(endpoint)
+    if resp is None:
+        if status:
+            _HTTP_STATUS[careers_url] = status
+        return SourceResult([], dict(reader='celonis_jobs_feed', completion=f'http_{status}' if status else 'request_failed'))
+    try:
+        payload = resp.json()
+        rows = payload['jobs']
+        if not isinstance(rows, list):
+            raise ValueError('jobs must be a list')
+    except (ValueError, KeyError, TypeError):
+        return SourceResult([], dict(reader='celonis_jobs_feed', completion='invalid_feed'))
+    jobs = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        job_id = str(row.get('jobId', ''))
+        title = row.get('title')
+        if not re.fullmatch(r'[0-9]+', job_id) or not isinstance(title, str) or not title.strip():
+            continue
+        location = row.get('groupedLocation')
+        jobs[job_id] = dict(title=title.strip(), location=location.strip() if isinstance(location, str) else '',
+                            url='https://careers.celonis.com/join-us/open-positions/job-detail?jobId=' + job_id,
+                            description='', posted_date='', _extraction='celonis_jobs_feed')
+    total = payload.get('total')
+    # An edit timestamp is not an original posting date. Leave posted_date for detail lookup.
+    complete = type(total) is int and total == len(jobs) == len(rows)
+    return SourceResult(jobs.values(), dict(reader='celonis_jobs_feed', pages=1, unique_candidates=len(jobs),
+                                             reported_total=total, completion='reported_total_reached' if complete else 'feed_coverage_unverified'))
+
+
 def scrape_company(company: dict[str, Any]) -> list[dict[str, Any]]:
     if company.get('enabled',True) is not True:return []
     if company.get('detail_fetch_mode','matched_only') not in ('matched_only','all','none'):
@@ -2915,6 +2989,8 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
                 logger.warning('Allianz listing empty; trying verified Munich keyword listing. This is targeted, not complete metropolitan coverage.')
                 return scrape_html_board(name,'https://careers.allianz.com/de/de/search-results?keywords=M%C3%BCnchen',_safe_get)
             return result
+        if ats == "celonis_feed":
+            return scrape_celonis(name, careers_url)
         if ats == "public_board":
 
             return scrape_html_board(name, careers_url, _safe_get)
@@ -2925,7 +3001,8 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             match = _PLATFORM_URL_PATTERNS["ashby"].search(careers_url)
             return scrape_ashby(name, token or (match.group(1) if match else ""))
         if ats == "greenhouse":
-            result = scrape_greenhouse(name, token, eu=".eu.greenhouse.io" in host)
+            _, _, discovered_token = platform_from_url(careers_url)
+            result = scrape_greenhouse(name, token or discovered_token, eu=".eu.greenhouse.io" in host)
             if result or isinstance(result,SourceResult):
                 return result
             return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
@@ -2962,7 +3039,10 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             for platform, pattern in _PLATFORM_URL_PATTERNS.items():
                 found_url, found_platform, found_token = platform_from_url(careers_url)
                 if found_platform == platform:
-                    result = _PLATFORM_SCRAPERS[platform](name, token or found_token)
+                    if platform == 'greenhouse':
+                        result = scrape_greenhouse(name, token or found_token, eu=host.endswith('.eu.greenhouse.io'))
+                    else:
+                        result = _PLATFORM_SCRAPERS[platform](name, token or found_token)
                     if result or isinstance(result,SourceResult):
                         return result
                     return _maybe_headless_upgrade(name, careers_url, scrape_generic(name, careers_url))
@@ -2980,7 +3060,13 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
 
 def fetch_job_details(url):
     from src.extraction import structured_jobs, plain, detail_title
+    if _paused_workday_status(url):
+        return {}, ''
     resp = _safe_get(url)
+    status = _HTTP_STATUS.get(url)
+    host = urlparse(url).hostname or ''
+    if host.endswith('.myworkdayjobs.com') and status in (401, 403, 429):
+        _PAUSED_WORKDAY_HOSTS[host] = status
     if resp is None:
         return {}, ''
     if '.myworkdayjobs.com' in (urlparse(url).hostname or '') and '/wday/cxs/' in urlparse(url).path:
