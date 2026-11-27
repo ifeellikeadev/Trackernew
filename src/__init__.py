@@ -1709,7 +1709,7 @@ def coverage_source(name, url):
 def employer_cards(html, url):
     """Read one vacancy card/row at a time. Never infer a workplace from HQ."""
     host=urlparse(url).hostname or ''
-    success='hensoldt' in host or 'successfactors' in host or host in ('jobs.knds.de','careers.mediamarktsaturn.com','jobs.webasto.com','jobs.wacker.com','jobs.man.eu')
+    success='hensoldt' in host or 'successfactors' in host or host in ('jobs.knds.de','careers.mediamarktsaturn.com','jobs.webasto.com','jobs.wacker.com','jobs.man.eu','jobs.telefonica.com','careers.knorr-bremse.com')
     quantum=host=='career.quantum-systems.com'
     if not (success or quantum):return []
     soup=BeautifulSoup(html,'html.parser');out=[]
