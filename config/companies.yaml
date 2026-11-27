@@ -55,15 +55,15 @@ companies:
   - Taufkirchen
 - name: Siemens Healthineers
   city: Munich
-  careers_url: https://careers.siemens-healthineers.com/de/de/search-results
-  ats: public_board
-  board_token: ''
+  careers_url: https://jobs.siemens-healthineers.com/careers
+  ats: eightfold
+  board_token: siemens-healthineers.com
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -99,7 +99,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -107,6 +107,8 @@ companies:
   - München
   - Ottobrunn
   - Taufkirchen
+  source_seconds: 240
+  max_pages: 40
 - name: Linde
   city: Munich
   careers_url: https://linde.csod.com/ux/ats/careersite/20/home?c=linde&country=de
@@ -163,7 +165,7 @@ companies:
   - Taufkirchen
 - name: Giesecke+Devrient
   city: Munich
-  careers_url: https://www.gi-de.com/de/karriere/jobs
+  careers_url: https://careers.gi-de.com/GieseckeDevrient/?locale=de_DE
   ats: public_board
   board_token: ''
   enabled: true
@@ -171,7 +173,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -694,7 +696,7 @@ companies:
   - Taufkirchen
 - name: Cancom
   city: Munich
-  careers_url: https://www.cancom.de/karriere
+  careers_url: https://career.cancom.com/jobs/
   ats: auto
   board_token: ''
   enabled: true
@@ -702,7 +704,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1668,7 +1670,7 @@ companies:
   - Taufkirchen
 - name: Deloitte Germany
   city: Munich
-  careers_url: https://www2.deloitte.com/de/de/careers.html
+  careers_url: https://job.deloitte.com/jobs-in-muenchen-_c12
   ats: auto
   board_token: ''
   enabled: true
@@ -1676,7 +1678,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2028,7 +2030,7 @@ companies:
   - Taufkirchen
 - name: Bertrandt
   city: Munich
-  careers_url: https://www.bertrandt.com/en/career
+  careers_url: https://bertrandt.jobs.hr.cloud.sap/?locale=en_US
   ats: auto
   board_token: ''
   enabled: true
@@ -2036,7 +2038,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2604,15 +2606,15 @@ companies:
   - Taufkirchen
 - name: Capco
   city: Munich
-  careers_url: https://www.capco.com/Careers
-  ats: auto
-  board_token: ''
+  careers_url: https://job-boards.greenhouse.io/capco
+  ats: greenhouse
+  board_token: capco
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5610,7 +5612,7 @@ companies:
   source_origin: expansion_candidate
 - name: Uniper
   city: Munich
-  careers_url: https://jobs.uniper.energy/
+  careers_url: https://jobs.uniper.energy/go/Professional/4451701/
   ats: auto
   board_token: ''
   enabled: true
@@ -5623,11 +5625,11 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: expansion_candidate
 - name: Schneider Electric
   city: Munich
-  careers_url: https://careers.se.com/
+  careers_url: https://careers.se.com/jobs?location=Munich
   ats: auto
   board_token: ''
   enabled: true
@@ -5641,7 +5643,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: ai_suggested_unverified_2026-11-27
   source_origin: expansion_candidate
 - name: Hitachi Energy
   city: Munich
