@@ -19,15 +19,15 @@ companies:
   - Taufkirchen
 - name: Siemens
   city: Munich
-  careers_url: https://jobs.siemens.com/careers
-  ats: eightfold
+  careers_url: https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?42414=%5B812132%5D&42414_format=17570&listFilterMode=1&folderRecordsPerPage=6&
+  ats: auto
   board_token: siemens.com
   enabled: true
   priority: 2
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -37,7 +37,7 @@ companies:
   - Taufkirchen
 - name: Siemens Energy
   city: Munich
-  careers_url: https://jobs.siemens-energy.com/en_US/jobs/SearchJobsGermany
+  careers_url: https://www.omterra.com/global/en/home/careers/early-career-programs.html
   ats: auto
   board_token: ''
   enabled: true
@@ -45,8 +45,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -63,7 +63,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -74,14 +74,14 @@ companies:
 - name: Infineon Technologies
   city: Munich
   careers_url: https://jobs.infineon.com/careers
-  ats: eightfold
+  ats: auto
   board_token: infineon.com
   enabled: true
   priority: 2
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -92,14 +92,14 @@ companies:
 - name: MTU Aero Engines
   city: Munich
   careers_url: https://www.mtu.de/de/karriere/jobboerse/
-  ats: public_board
+  ats: auto
   board_token: ''
   enabled: true
   priority: 1
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -135,7 +135,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -145,7 +145,7 @@ companies:
   - Taufkirchen
 - name: Osram
   city: Munich
-  careers_url: https://careers.ams-osram.com/en/ams-osram-career/
+  careers_url: https://jobs.ams-osram.com/en?utm_source=careerpage
   ats: auto
   board_token: ''
   enabled: true
@@ -153,7 +153,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -171,7 +171,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -189,7 +189,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -207,7 +207,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -225,7 +225,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -235,7 +235,7 @@ companies:
   - Taufkirchen
 - name: Webasto
   city: Munich
-  careers_url: https://jobs.webasto.com/
+  careers_url: https://jobs.webasto.com/job/New-Hudson-General-Applications-NY/34077-en_US/
   ats: public_board
   board_token: ''
   enabled: true
@@ -243,8 +243,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -261,7 +261,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -279,7 +279,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -305,7 +305,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Taufkirchen
@@ -324,7 +324,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -342,7 +342,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -378,7 +378,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -388,7 +388,7 @@ companies:
   - Taufkirchen
 - name: ESG Elektroniksystem- und Logistik
   city: Munich
-  careers_url: https://www.esg.de/en/career/
+  careers_url: https://jobs.hensoldt.net/search/?optionsFacetsDD_country=DE&optionsFacetsDD_customfield1=Professionals&locale=en_US
   ats: auto
   board_token: ''
   enabled: true
@@ -396,7 +396,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -424,7 +424,7 @@ companies:
   - Taufkirchen
 - name: Munich Re
   city: Munich
-  careers_url: https://careers.munichre.com/
+  careers_url: https://careers.munichre.com/en/search-jobs
   ats: auto
   board_token: ''
   enabled: true
@@ -432,7 +432,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -442,7 +442,7 @@ companies:
   - Taufkirchen
 - name: HypoVereinsbank UniCredit
   city: Munich
-  careers_url: https://www.hypovereinsbank.de/hvb/karriere
+  careers_url: https://careers.unicredit.eu/de_DE/jobsuche/SearchJobs/?jobRecordsPerPage=15&listFilterMode=1&429_format=9020&429=%5B271%5D
   ats: auto
   board_token: ''
   enabled: true
@@ -450,8 +450,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -468,7 +468,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -478,7 +478,7 @@ companies:
   - Taufkirchen
 - name: Versicherungskammer Bayern
   city: Munich
-  careers_url: https://stellenangebote.vkb.de/
+  careers_url: https://stellenangebote.vkb.de/offene-stellen/werkstudent-d-w-m-servicemanagement-im-maklervertrieb/f04beb06-33ee-4931-9e50-d715f220134f
   ats: public_board
   board_token: ''
   enabled: true
@@ -486,8 +486,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -496,7 +496,7 @@ companies:
   - Taufkirchen
 - name: Stadtwerke Muenchen
   city: Munich
-  careers_url: https://www.swm.de/karriere/jobboerse
+  careers_url: https://www.swm.de/karriere/jobboerse?id=32219&stellenanzeige=Senior-Referent*in-Koordination-Arbeitssicherheit-(m/w/d)-befristet-fuer-1-Jahr
   ats: public_board
   board_token: ''
   enabled: true
@@ -504,8 +504,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -514,7 +514,7 @@ companies:
   - Taufkirchen
 - name: E.ON
   city: Munich
-  careers_url: https://careers.eon.com/
+  careers_url: https://careers.eon.com/search/?createNewAlert=false&q=&locationsearch=&optionsFacetsDD_country=&optionsFacetsDD_city=&optionsFacetsDD_customfield2=&optionsFacetsDD_customfield3=
   ats: public_board
   board_token: ''
   enabled: true
@@ -540,7 +540,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -558,7 +558,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -568,7 +568,7 @@ companies:
   - Taufkirchen
 - name: Microsoft Germany
   city: Munich
-  careers_url: https://careers.microsoft.com/
+  careers_url: https://apply.careers.microsoft.com/careers?query=&location=Germany%2C%20Bavaria%2C%20Munich&start=0
   ats: public_board
   board_token: ''
   enabled: true
@@ -576,7 +576,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -594,7 +594,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -612,7 +612,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -630,7 +630,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -648,7 +648,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -684,7 +684,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -702,7 +702,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -720,7 +720,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -738,7 +738,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -756,7 +756,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -766,16 +766,16 @@ companies:
   - Taufkirchen
 - name: Roche Munich
   city: Munich
-  careers_url: https://careers.roche.com/
-  ats: auto
+  careers_url: https://roche.wd3.myworkdayjobs.com/roche-ext
+  ats: workday
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -810,7 +810,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -820,16 +820,16 @@ companies:
   - Taufkirchen
 - name: MorphoSys
   city: Munich
-  careers_url: https://www.morphosys.com/en/career
-  ats: auto
+  careers_url: https://novartis.wd3.myworkdayjobs.com/Internal_Careers_for_Acquired_Entities
+  ats: workday
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -856,7 +856,7 @@ companies:
   - Taufkirchen
 - name: Dermapharm
   city: Munich
-  careers_url: https://jobs.dermapharm.com/en/
+  careers_url: https://jobs.dermapharm.com/de/job-liste/
   ats: auto
   board_token: ''
   enabled: true
@@ -864,8 +864,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -882,7 +882,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -900,7 +900,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -918,7 +918,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -936,7 +936,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -946,7 +946,7 @@ companies:
   - Taufkirchen
 - name: DB Schenker
   city: Munich
-  careers_url: https://www.dbschenker.com/global/about/careers
+  careers_url: https://www.dsv.com/en/careers/job-areas/it
   ats: auto
   board_token: ''
   enabled: true
@@ -954,8 +954,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -972,7 +972,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -990,7 +990,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Gilching
@@ -1010,7 +1010,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1028,7 +1028,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1046,7 +1046,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1064,7 +1064,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1082,7 +1082,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1100,7 +1100,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1118,7 +1118,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1154,7 +1154,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1172,7 +1172,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1190,7 +1190,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1208,7 +1208,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1226,7 +1226,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1244,7 +1244,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1262,7 +1262,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1280,7 +1280,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1316,7 +1316,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1334,7 +1334,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1352,7 +1352,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1362,7 +1362,7 @@ companies:
   - Taufkirchen
 - name: CHECK24
   city: Munich
-  careers_url: https://www.check24.de/jobs/
+  careers_url: https://jobs.check24.de/en/jobs/
   ats: auto
   board_token: ''
   enabled: true
@@ -1370,8 +1370,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -1388,7 +1388,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1406,7 +1406,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1424,7 +1424,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1442,7 +1442,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1460,7 +1460,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1478,7 +1478,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1488,7 +1488,7 @@ companies:
   - Taufkirchen
 - name: Flughafen Muenchen
   city: Munich
-  careers_url: https://www.munich-airport.com/careers
+  careers_url: https://www.munich-airport.de/karriere-86365
   ats: auto
   board_token: ''
   enabled: true
@@ -1496,8 +1496,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -1532,7 +1532,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1550,7 +1550,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1586,7 +1586,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1604,7 +1604,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1614,7 +1614,7 @@ companies:
   - Taufkirchen
 - name: Wacker Neuson
   city: Munich
-  careers_url: https://wackerneusongroup.com/en/careers/current-job-openings
+  careers_url: https://wackerneusongroup.com/karriere/wacker-neuson-als-arbeitgeber
   ats: public_board
   board_token: ''
   enabled: true
@@ -1622,8 +1622,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -1640,7 +1640,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1658,7 +1658,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1676,7 +1676,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1712,7 +1712,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1722,7 +1722,7 @@ companies:
   - Taufkirchen
 - name: KraussMaffei
   city: Munich
-  careers_url: https://jobs.kraussmaffei.com/?locale=de_DE
+  careers_url: https://jobs.kraussmaffei.com/search/?createNewAlert=false&q&optionsFacetsDD_customfield1&optionsFacetsDD_customfield2&optionsFacetsDD_country&locationsearch&locale=de_DE
   ats: public_board
   board_token: ''
   enabled: true
@@ -1730,8 +1730,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -1748,7 +1748,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1766,7 +1766,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1784,7 +1784,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1802,7 +1802,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1820,7 +1820,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1874,7 +1874,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1928,7 +1928,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1946,7 +1946,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1964,7 +1964,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1974,7 +1974,7 @@ companies:
   - Taufkirchen
 - name: Traton
   city: Munich
-  careers_url: https://traton.com/en/career.html
+  careers_url: https://traton.com/de/karriere
   ats: auto
   board_token: ''
   enabled: true
@@ -1982,8 +1982,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2000,7 +2000,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2018,7 +2018,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2036,7 +2036,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2046,16 +2046,16 @@ companies:
   - Taufkirchen
 - name: EDAG Group
   city: Munich
-  careers_url: https://www.edag.com/en/career
-  ats: auto
-  board_token: ''
+  careers_url: https://www.edag.com/de/karriere/stellenanzeigen
+  ats: workable
+  board_token: edag-uk
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2072,7 +2072,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2090,7 +2090,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2108,7 +2108,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2118,16 +2118,16 @@ companies:
   - Taufkirchen
 - name: Novartis Munich
   city: Munich
-  careers_url: https://www.novartis.com/de-de/careers/career-search/tag/LOC_DE
-  ats: public_board
+  careers_url: https://novartis.wd3.myworkdayjobs.com/Internal_Careers_for_Acquired_Entities
+  ats: workday
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2144,7 +2144,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2154,7 +2154,7 @@ companies:
   - Taufkirchen
 - name: Sanofi Munich
   city: Munich
-  careers_url: https://jobs.sanofi.com/
+  careers_url: https://jobs.sanofi.com/en/search-jobs
   ats: workday
   board_token: ''
   enabled: true
@@ -2162,8 +2162,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2180,7 +2180,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2190,7 +2190,7 @@ companies:
   - Taufkirchen
 - name: Thermo Fisher Scientific Munich
   city: Munich
-  careers_url: https://jobs.thermofisher.com/
+  careers_url: https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers
   ats: workday
   board_token: ''
   enabled: true
@@ -2198,8 +2198,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2216,7 +2216,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2234,7 +2234,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2252,7 +2252,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2270,7 +2270,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2288,7 +2288,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2306,7 +2306,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2324,7 +2324,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2342,7 +2342,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2360,7 +2360,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2378,7 +2378,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2396,7 +2396,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2414,7 +2414,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2432,7 +2432,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2450,7 +2450,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2468,7 +2468,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2486,7 +2486,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2504,7 +2504,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2522,7 +2522,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2540,7 +2540,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2576,7 +2576,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2594,7 +2594,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2612,7 +2612,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2630,7 +2630,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2648,7 +2648,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2666,7 +2666,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2684,7 +2684,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2702,7 +2702,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2720,7 +2720,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2738,7 +2738,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2748,7 +2748,7 @@ companies:
   - Taufkirchen
 - name: msg
   city: Munich
-  careers_url: https://www.msg.group/de/karriere/
+  careers_url: https://www.msg.group/de/karriere/bewerbungsprozess/
   ats: auto
   board_token: ''
   enabled: true
@@ -2756,8 +2756,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2774,7 +2774,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2784,7 +2784,7 @@ companies:
   - Taufkirchen
 - name: valantic
   city: Munich
-  careers_url: https://www.valantic.com/de/karriere/
+  careers_url: https://www.valantic.com/en/cx/career/
   ats: auto
   board_token: ''
   enabled: true
@@ -2792,8 +2792,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2802,16 +2802,16 @@ companies:
   - Taufkirchen
 - name: Messe Muenchen
   city: Munich
-  careers_url: https://messe-muenchen.de/de/karriere/stellenanzeigen/
-  ats: auto
+  careers_url: https://messemuenchen.wd103.myworkdayjobs.com/messe
+  ats: workday
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2820,7 +2820,7 @@ companies:
   - Taufkirchen
 - name: GEMA
   city: Munich
-  careers_url: https://jobs.gema.de/jobportal/gema/viewAusschreibungen.html
+  careers_url: https://jobs.gema.de/jobportal/gema/viewAusschreibung/2026-054.html
   ats: auto
   board_token: ''
   enabled: true
@@ -2828,8 +2828,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -2846,7 +2846,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2864,7 +2864,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2882,7 +2882,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2900,7 +2900,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2918,7 +2918,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2936,7 +2936,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2954,7 +2954,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2972,7 +2972,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -2990,7 +2990,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3008,7 +3008,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3026,7 +3026,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3044,7 +3044,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3062,7 +3062,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3080,7 +3080,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3098,7 +3098,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3116,7 +3116,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3134,7 +3134,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3152,7 +3152,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3188,7 +3188,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3206,7 +3206,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3242,7 +3242,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3260,7 +3260,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3278,7 +3278,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3288,7 +3288,7 @@ companies:
   - Taufkirchen
 - name: PAYBACK Group
   city: Munich
-  careers_url: https://jobs.payback.group/en_US/careers/SearchJobs
+  careers_url: https://www.payback.group/de/karriere/bewerbung
   ats: auto
   board_token: ''
   enabled: true
@@ -3296,8 +3296,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -3314,7 +3314,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3332,7 +3332,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3350,7 +3350,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3368,7 +3368,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3386,7 +3386,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3404,7 +3404,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3422,7 +3422,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3440,7 +3440,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3458,7 +3458,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3494,7 +3494,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3512,7 +3512,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3522,7 +3522,7 @@ companies:
   - Taufkirchen
 - name: Stadtsparkasse Muenchen
   city: Munich
-  careers_url: https://sskm.helixjobs.com/
+  careers_url: https://sskm.helixjobs.com/_/jobad?prj=100059P14
   ats: auto
   board_token: ''
   enabled: true
@@ -3530,8 +3530,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -3548,7 +3548,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3566,7 +3566,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3602,7 +3602,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3620,7 +3620,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3638,7 +3638,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3656,7 +3656,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3674,7 +3674,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3692,7 +3692,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3710,7 +3710,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3746,7 +3746,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3764,7 +3764,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3782,7 +3782,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3800,7 +3800,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3818,7 +3818,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3836,7 +3836,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3854,7 +3854,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3872,7 +3872,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3890,7 +3890,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3908,7 +3908,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3926,7 +3926,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3944,7 +3944,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3954,7 +3954,7 @@ companies:
   - Taufkirchen
 - name: Tangany
   city: Munich
-  careers_url: https://join.com/companies/tangany
+  careers_url: https://join.com/en/features/paid-job-advertising
   ats: public_board
   board_token: ''
   enabled: true
@@ -3962,8 +3962,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -3980,7 +3980,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3998,7 +3998,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4016,7 +4016,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4034,7 +4034,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4052,7 +4052,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4070,7 +4070,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4088,7 +4088,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4106,7 +4106,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4124,7 +4124,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4142,7 +4142,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4160,7 +4160,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4178,7 +4178,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4196,7 +4196,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4214,7 +4214,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4232,7 +4232,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4250,7 +4250,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4268,7 +4268,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4286,7 +4286,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4304,7 +4304,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4322,7 +4322,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4340,7 +4340,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4358,7 +4358,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4376,7 +4376,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4394,7 +4394,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4412,7 +4412,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4430,7 +4430,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4440,7 +4440,7 @@ companies:
   - Taufkirchen
 - name: HTM Group
   city: Munich
-  careers_url: https://www.heristo-karriere.de/heristo-gruppe/htm-group
+  careers_url: https://www.heristo-karriere.de/stellenmarkt/system-engineer-systemadministrator-datacenter-cloud-mwd
   ats: auto
   board_token: ''
   enabled: true
@@ -4448,8 +4448,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -4466,7 +4466,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4484,7 +4484,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4494,7 +4494,7 @@ companies:
   - Taufkirchen
 - name: Golding Capital Partners
   city: Munich
-  careers_url: https://recruiting.goldingcapital.com/
+  careers_url: https://recruiting.goldingcapital.com/Werkstudent-Praktikant-Fund-Intelligence-mwd-de-j664.html
   ats: auto
   board_token: ''
   enabled: true
@@ -4502,8 +4502,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -4520,7 +4520,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4538,7 +4538,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4556,7 +4556,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4574,7 +4574,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4592,7 +4592,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4610,7 +4610,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4628,7 +4628,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4646,7 +4646,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4664,7 +4664,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4682,7 +4682,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4700,7 +4700,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4718,7 +4718,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4736,7 +4736,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4754,7 +4754,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4772,7 +4772,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4790,7 +4790,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4808,7 +4808,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4826,7 +4826,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4844,7 +4844,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4862,7 +4862,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4880,7 +4880,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4898,7 +4898,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4916,7 +4916,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4934,7 +4934,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4952,7 +4952,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4970,7 +4970,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -4988,7 +4988,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5006,7 +5006,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5024,7 +5024,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5042,7 +5042,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5060,7 +5060,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5078,7 +5078,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5096,7 +5096,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5114,7 +5114,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5132,7 +5132,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5150,7 +5150,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5168,7 +5168,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5186,7 +5186,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5204,7 +5204,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5222,7 +5222,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5240,7 +5240,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5258,7 +5258,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5276,7 +5276,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5294,7 +5294,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5312,7 +5312,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5330,7 +5330,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5348,7 +5348,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5358,7 +5358,7 @@ companies:
   - Taufkirchen
 - name: Retorio GmbH
   city: Munich
-  careers_url: https://join.com/companies/retoriocom
+  careers_url: https://join.com/en/features/paid-job-advertising
   ats: public_board
   board_token: ''
   enabled: true
@@ -5366,8 +5366,8 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
-  source_origin: original_config
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - Muenchen
@@ -5384,7 +5384,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: link_verified_2026-11-27
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5408,7 +5408,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: Twentyfour Industries
   city: Munich
@@ -5426,7 +5426,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: Hypersonica
   city: Munich
@@ -5444,7 +5444,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: Cambridge Aerospace
   city: Munich
@@ -5480,7 +5480,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: The Exploration Company
   city: Munich
@@ -5498,7 +5498,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: Constellr
   city: Munich
@@ -5516,7 +5516,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: QuantumDiamonds
   city: Munich
@@ -5534,7 +5534,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: Bayernwerk
   city: Munich
@@ -5552,7 +5552,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: TransnetBW
   city: Munich
@@ -5570,11 +5570,11 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: expansion_candidate
 - name: Amprion
   city: Munich
-  careers_url: https://jobs.amprion.net/
+  careers_url: https://jobs.amprion.net/it
   ats: public_board
   board_token: ''
   enabled: true
@@ -5588,8 +5588,8 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
-  source_origin: expansion_candidate
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
 - name: 50Hertz
   city: Munich
   careers_url: https://karriere.50hertz.com/
@@ -5606,7 +5606,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: expansion_candidate
 - name: Uniper
   city: Munich
@@ -5623,7 +5623,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: expansion_candidate
 - name: Schneider Electric
   city: Munich
@@ -5641,7 +5641,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: expansion_candidate
 - name: Hitachi Energy
   city: Munich
@@ -5659,7 +5659,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: Fluence
   city: Munich
@@ -5677,7 +5677,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: expansion_candidate
 - name: TUV SUD
   city: Munich
@@ -5695,7 +5695,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: expansion_candidate
 - name: CGI Germany
   city: Munich
@@ -5713,7 +5713,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: expansion_candidate
 - name: Celonis
   city: Munich
@@ -5744,7 +5744,7 @@ companies:
   - sustainability
   - renewables
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5765,7 +5765,7 @@ companies:
   - sustainability
   - solar and storage
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5786,7 +5786,7 @@ companies:
   - sustainability
   - battery storage
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5807,7 +5807,7 @@ companies:
   - sustainability
   - virtual power plants
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5828,7 +5828,7 @@ companies:
   - sustainability
   - EV charging
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5849,7 +5849,7 @@ companies:
   - sustainability
   - battery recycling
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5870,7 +5870,7 @@ companies:
   - sustainability
   - carbon software
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5891,7 +5891,7 @@ companies:
   - sustainability
   - solar and storage
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5912,7 +5912,7 @@ companies:
   - sustainability
   - carbon software and advisory
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5933,7 +5933,7 @@ companies:
   - sustainability
   - renewable energy and fuel cells
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5954,7 +5954,7 @@ companies:
   - sustainability
   - renewable utility
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5975,7 +5975,7 @@ companies:
   - sustainability
   - energy trading software
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -5996,7 +5996,7 @@ companies:
   - sustainability
   - renewables
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -6017,7 +6017,7 @@ companies:
   - sustainability
   - energy infrastructure
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -6029,7 +6029,7 @@ companies:
   - Oberschleißheim
 - name: Luxera Energy
   city: Munich
-  careers_url: https://join.com/companies/luxera-energy
+  careers_url: https://join.com/en/features/paid-job-advertising
   ats: public_board
   board_token: ''
   enabled: true
@@ -6038,8 +6038,8 @@ companies:
   - sustainability
   - battery storage
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
-  source_origin: sustainability_expansion
+  verification_status: link_fixed_2026-11-27
+  source_origin: verify_careers_autofix
   expected_locations:
   - Munich
   - München
@@ -6059,7 +6059,7 @@ companies:
   - sustainability
   - renewables
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -6080,7 +6080,7 @@ companies:
   - sustainability
   - carbon removal
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -6101,7 +6101,7 @@ companies:
   - sustainability
   - electrification
   detail_fetch_mode: matched_only
-  verification_status: replacement_route_github_pending
+  verification_status: link_verified_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -6122,7 +6122,7 @@ companies:
   - sustainability
   - climate and sustainability advisory
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: link_needs_manual_review_2026-11-27
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
