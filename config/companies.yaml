@@ -109,15 +109,15 @@ companies:
   - Taufkirchen
 - name: Linde
   city: Munich
-  careers_url: https://www.lindecareers.com/en/search-jobs
-  ats: auto
+  careers_url: https://linde.csod.com/ux/ats/careersite/20/home?c=linde&country=de
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 3
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -532,15 +532,15 @@ companies:
   - Taufkirchen
 - name: TenneT
   city: Munich
-  careers_url: https://www.tennet.eu/careers
-  ats: auto
+  careers_url: https://careers.tennet.eu/en_US/careers/SearchJobs
+  ats: public_board
   board_token: ''
   enabled: true
   priority: 1
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1028,7 +1028,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1064,7 +1064,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1082,7 +1082,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -3782,7 +3782,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5250,15 +5250,15 @@ companies:
   - Taufkirchen
 - name: yoummday GmbH
   city: Munich
-  careers_url: https://yoummday-gmbh.jobs.personio.com/
-  ats: personio
-  board_token: yoummday-gmbh
+  careers_url: https://www.yoummday.com/de/jobs/
+  ats: public_board
+  board_token: ''
   enabled: true
   priority: 2
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: not_reverified
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5502,9 +5502,9 @@ companies:
   source_origin: expansion_candidate
 - name: Constellr
   city: Munich
-  careers_url: https://constellr.com/careers
-  ats: auto
-  board_token: ''
+  careers_url: https://job-boards.eu.greenhouse.io/constellrgmbh
+  ats: greenhouse
+  board_token: constellrgmbh
   enabled: true
   priority: 1
   sector:
@@ -5516,7 +5516,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: QuantumDiamonds
   city: Munich
@@ -5663,8 +5663,8 @@ companies:
   source_origin: expansion_candidate
 - name: Fluence
   city: Munich
-  careers_url: https://careers.fluenceenergy.com/
-  ats: auto
+  careers_url: https://fluenceenergy.wd12.myworkdayjobs.com/en-US/fluenceenergy-jobs
+  ats: workday
   board_token: ''
   enabled: true
   priority: 2
@@ -5677,7 +5677,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: TUV SUD
   city: Munich
@@ -5717,8 +5717,8 @@ companies:
   source_origin: expansion_candidate
 - name: Celonis
   city: Munich
-  careers_url: https://careers.celonis.com/jobs
-  ats: auto
+  careers_url: https://careers.celonis.com/join-us/open-positions
+  ats: celonis_feed
   board_token: ''
   enabled: true
   priority: 1
@@ -5731,7 +5731,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: pending
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: MaxSolar
   city: Munich
@@ -5975,7 +5975,7 @@ companies:
   - sustainability
   - energy trading software
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: replacement_route_github_pending
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
@@ -6092,16 +6092,16 @@ companies:
   - Oberschleißheim
 - name: Munich Electrification
   city: Munich
-  careers_url: https://www.munichelectrification.com/career
-  ats: public_board
-  board_token: ''
+  careers_url: https://jobs.ashbyhq.com/munich-electrification
+  ats: ashby
+  board_token: munich-electrification
   enabled: true
   priority: 1
   sector:
   - sustainability
   - electrification
   detail_fetch_mode: matched_only
-  verification_status: board_identified_github_pending
+  verification_status: replacement_route_github_pending
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
