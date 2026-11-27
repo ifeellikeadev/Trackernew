@@ -542,7 +542,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_needs_manual_review_2026-11-27
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -1066,7 +1066,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_verified_2026-11-27
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5260,7 +5260,7 @@ companies:
   sector:
   - general
   detail_fetch_mode: matched_only
-  verification_status: link_verified_2026-11-27
+  verification_status: replacement_route_github_pending
   source_origin: original_config
   expected_locations:
   - Munich
@@ -5518,7 +5518,7 @@ companies:
   - München
   max_pages: 30
   detail_fetch_mode: matched_only
-  verification_status: link_verified_2026-11-27
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: QuantumDiamonds
   city: Munich
@@ -5679,7 +5679,7 @@ companies:
   - München
   max_pages: 15
   detail_fetch_mode: matched_only
-  verification_status: link_verified_2026-11-27
+  verification_status: replacement_route_github_pending
   source_origin: expansion_candidate
 - name: TUV SUD
   city: Munich
@@ -6103,7 +6103,7 @@ companies:
   - sustainability
   - electrification
   detail_fetch_mode: matched_only
-  verification_status: link_verified_2026-11-27
+  verification_status: replacement_route_github_pending
   source_origin: sustainability_expansion
   expected_locations:
   - Munich
