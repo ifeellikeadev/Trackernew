@@ -119,7 +119,7 @@ def observe(row):
     finally:logger.removeHandler(handler)
 
 def new_row(company):
-    return dict(company=company['name'],url=company.get('careers_url',''),status='',requests=0,raw_candidates=0,date_rejected=0,extraction_unresolved=0,title_rejected=0,location_rejected=0,score_rejected=0,eligible=0,unknown_dates=0,detail_fetches=0,methods=[],issues=[],seconds=0)
+    return dict(company=company['name'],url=company.get('careers_url',''),status='',requests=0,raw_candidates=0,date_rejected=0,extraction_unresolved=0,title_rejected=0,location_rejected=0,score_rejected=0,eligible=0,unknown_dates=0,unscored=0,missing_both=0,detail_fetches=0,methods=[],issues=[],seconds=0)
 
 def finish(row,error=None):
     stats=row.get('pagination') or {}
@@ -162,13 +162,13 @@ def finish(row,error=None):
 def save_report(rows,path):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     from collections import Counter
-    summary = dict(source_statuses=dict(Counter(r['status'] for r in rows)), regions=dict(Counter(r.get('source_region', 'unknown') for r in rows)), eligible=sum(r.get('eligible', 0) for r in rows), location_review=sum(r.get('location_unconfirmed', 0) for r in rows))
+    summary = dict(source_statuses=dict(Counter(r['status'] for r in rows)), regions=dict(Counter(r.get('source_region', 'unknown') for r in rows)), eligible=sum(r.get('eligible', 0) for r in rows), location_review=sum(r.get('location_unconfirmed', 0) for r in rows), **{k:sum(r.get(k,0) for r in rows) for k in ('unknown_dates','unscored','missing_both')})
     path.write_text(json.dumps({'summary':summary,'generated_at':datetime.now(timezone.utc).isoformat(),'scope':'This reports extracted candidates, not proof that every vacancy was retrieved. Empty is not a certified no-vacancy result. Eligible is before tracker deduplication.','companies':rows},indent=2),encoding='utf-8')
 
 def append_to_page(rows,path):
     path=Path(path)
     if not path.exists():return
-    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','extraction_unresolved','title_rejected','location_rejected','location_unconfirmed','score_rejected','eligible','unknown_dates','detail_fetches','requests','seconds']
+    cols=['company','status','diagnosis','title_recovered','title_unresolved','raw_candidates','date_rejected','extraction_unresolved','title_rejected','location_rejected','location_unconfirmed','score_rejected','eligible','unknown_dates','unscored','missing_both','detail_fetches','requests','seconds']
     headers=''.join('<th>'+html.escape(c.replace('_',' ').title())+'</th>' for c in cols)
     body=[]
     for row in rows:
@@ -307,8 +307,12 @@ def dedupe(jobs):
         item=seen[key]
         if usable_title(original.get('title','')) and (not usable_title(item.get('title','')) or item.get('_needs_title')):
             item['title']=original['title'];item.pop('_needs_title',None)
-        for field in ('location','description','posted_date','_detail_api_url','_pagination','_date_raw','_date_field','_date_kind','_date_source','_date_observed_on'):
+        for field in ('location','description','_detail_api_url','_pagination'):
             if not item.get(field) and original.get(field):item[field]=original[field]
+        if original.get('posted_date') and (not item.get('posted_date') or original.get('_extraction')=='jsonld' and item.get('_extraction')!='jsonld'):
+            for field in ('posted_date','_date_raw','_date_field','_date_kind','_date_source','_date_observed_on'):
+                item.pop(field,None)
+                if field in original:item[field]=original[field]
         if original.get('_extraction') in ('jsonld','public_embedded_jobs'):
             item['_extraction']=original['_extraction']
     return result
@@ -395,10 +399,10 @@ from collections import Counter
 from pathlib import Path
 import yaml
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
-from src.scrapers import scrape_company, fetch_job_details, reset_headless_budget
+from src.scrapers import scrape_company, fetch_job_details, reset_headless_budget, detail_access_blocked
 from src.diagnostics import source_budget
 from src.matching import title_decision, location_decision, score_jobs, related_role_candidate, role_decision, background_decision
-from src.matching import filter_recent_jobs, parse_posted, date_decision
+from src.matching import filter_recent_jobs, parse_posted, date_decision, publication_date, usable_description
 from src.extraction import usable_title, dedupe, is_vacancy_url
 from src.tracker import update_tracker
 from src.website import generate as generate_html
@@ -424,10 +428,10 @@ def excluded(company):
 
 def enrich(job,details,source_city="Munich"):
     for field in ('location','description'):
-        if details.get(field) and (not job.get(field) or (field=='description' and len(details[field]) > len(job.get(field) or '')) or (field=='location' and location_decision(job, source_city)['status']=='unconfirmed')):
+        if details.get(field) and (not job.get(field) or (field=='description' and usable_description(details[field]) and (not usable_description(job.get(field)) or len(details[field]) > len(job.get(field) or ''))) or (field=='location' and location_decision(job, source_city)['status']=='unconfirmed')):
             job[field]=details[field]
             if field=='location':job['_location_source']=details.get('_location_source','detail_explicit_location')
-    if details.get('posted_date') and (not job.get('posted_date') or job.get('_date_kind')=='creation_unverified'):
+    if publication_date(details) and not publication_date(job):
         job['posted_date']=details['posted_date']
         for field in DATE_FIELDS:
             job.pop(field,None)
@@ -460,6 +464,17 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
             except Exception as exc:
                 row['issues'].append('Detail extraction failed: '+str(url)+' | '+str(exc)[:180]);detail_cache[url]=({},'')
         return detail_cache[url]
+    def enrich_candidate(job, row, source_city):
+        api = job.get('_detail_api_url')
+        url = job.get('url')
+        details, _ = cached_details(api or url, row)
+        enrich(job, details, source_city)
+        if api and url and api != url and not detail_access_blocked(api) and (
+            not publication_date(job) or not usable_description(job.get('description')) or
+            location_decision(job, source_city)['status'] == 'unconfirmed'
+        ):
+            details, _ = cached_details(url, row)
+            enrich(job, details, source_city)
     for company in companies:
         if excluded(company) or not selected(company,schedule):continue
         source_city=company.get('city', 'Munich')
@@ -524,8 +539,8 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 for job in titled:
                     loc_before=location_decision(job, source_city)
                     # Known outside/excluded locations do not need expensive details.
-                    if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or len(job.get('description') or '') < 120 or not job.get('posted_date')):
-                        details,body=cached_details(job.get('_detail_api_url') or job['url'],row);enrich(job,details,source_city)
+                    if loc_before['status'] not in ('outside','excluded') and job.get('url') and (loc_before['status']=='unconfirmed' or not usable_description(job.get('description')) or not publication_date(job)):
+                        enrich_candidate(job,row,source_city)
                     mismatch=background_decision(job,cv_profile)
                     if not mismatch['keep']:
                         row['title_rejected']+=1
@@ -548,7 +563,9 @@ def scrape_all_any_city(companies,cv_profile,schedule=None):
                 eligible=score_jobs(confirmed,cv_profile)
                 row['score_rejected']=0;row['eligible']=len(eligible)
                 row['score_rejected_samples']=[]
-                row['unknown_dates']=sum(parse_posted(j.get('posted_date')) is None for j in eligible)
+                row['unknown_dates']=sum(publication_date(j) is None for j in eligible)
+                row['unscored']=sum(j.get('relevance_score') is None for j in eligible)
+                row['missing_both']=sum(publication_date(j) is None and j.get('relevance_score') is None for j in eligible)
                 jobs.extend(eligible);counts['ok' if raw else 'empty']+=1
         except Exception as exc:
             error=exc;counts['errored']+=1;logger.exception('FAILED %s',company['name'])
@@ -704,6 +721,18 @@ def parse_posted(value, *, today=None, allow_relative=False):
         return today - timedelta(days=n * 7 if m.group(2).startswith("woch") else n)
     return None
 
+def publication_date(job, *, today=None):
+    today = today or today_local()
+    if job.get('_date_kind') not in (None, '', 'publication', 'publication_unspecified'):
+        return None
+    observed = parse_posted(job.get('_date_observed_on'), today=today) or today
+    value = parse_posted(job.get('posted_date'), today=observed, allow_relative=True)
+    return value if value and value <= today else None
+
+def usable_description(text):
+    text = _responsibility_text(text)
+    return len(text) >= 120 and len(text.split()) >= 20
+
 def keep_posted(value, *, today=None, allow_relative=False):
     today = today or today_local()
     posted = parse_posted(value, today=today, allow_relative=allow_relative)
@@ -720,7 +749,8 @@ def date_decision(job, *, today=None):
     # Prefer an absolute date already anchored at retrieval. Relative text is
     # parsed against this run only; it is never refreshed in saved workbook rows.
     value=job.get('posted_date','')
-    posted=parse_posted(value,today=today,allow_relative=True)
+    anchor=parse_posted(observed,today=today) or today
+    posted=parse_posted(value,today=anchor,allow_relative=True)
     if posted is None:reason='missing_date' if not str(value or '').strip() else 'unparseable_date'
     elif posted>today:reason='future_date_needs_review'
     elif (today-posted).days>MAX_JOB_AGE_DAYS:reason='older_than_21_days'
@@ -733,7 +763,7 @@ def filter_recent_jobs(jobs, *, today=None):
         decision=date_decision(job,today=today)
         if not decision['keep']:continue
         item=dict(job);item['_date_audit']=decision
-        if decision['reason']=='not_a_verified_publication_date':item['posted_date']=''
+        if decision['reason'] in ('not_a_verified_publication_date','future_date_needs_review','unparseable_date'):item['posted_date']=''
         elif decision['parsed'] and decision['reason']!='future_date_needs_review':item['posted_date']=decision['parsed']
         kept.append(item)
     return kept
@@ -909,7 +939,7 @@ def score_jobs(jobs: list[dict[str, Any]], cv_profile: dict[str, Any]) -> list[d
     for job in jobs:
         title = ' '.join(normalize(job.get('title')).replace('-', ' ').split())
         text = ' '.join(normalize(_responsibility_text(job.get('description') or '')).replace('-', ' ').split())
-        if len(text) < 120 or len(text.split()) < 20:
+        if not usable_description(text):
             job.update(relevance_score=None, relevance_evidence='', relevance_notes='Job description unavailable or too short')
             continue
         points = 25 if any(contains(title, t) for t in conf.get('core_titles', [])) else 12
@@ -1408,6 +1438,18 @@ def priority_cards(html,url):
                          _job_id=ident,_extraction='priority_card_unverified',**({'_needs_title':True} if not title else {})))
     return dedupe(jobs)
 
+def sap_search_form(html,url):
+    host=urlparse(url).hostname
+    if host not in ('jobs.man.eu','jobs.webasto.com','jobs.wacker.com'):
+        return None
+    for form in BeautifulSoup(html,'html.parser').select('form[action]'):
+        action=urljoin(url,form['action']); parsed=urlparse(action)
+        if parsed.scheme!='https' or parsed.hostname!=host or parsed.path.rstrip('/')!='/search':continue
+        if form.get('method','get').casefold()!='get' or form.select('input[type="password"],input[type="file"]'):continue
+        fields=[(n['name'], n.get('value','')) for n in form.select('input[name]') if n['name'].lower() in ('q','locale','locationsearch')]
+        if any(name.lower()=='q' for name,_ in fields):return action,'get',fields
+    return None
+
 def public_search_form(html,url):
     """Only an explicit same-host IABG search form; never login/application forms."""
     if urlparse(url).hostname!='jobboerse.iabg.de':return None
@@ -1667,7 +1709,7 @@ def coverage_source(name, url):
 def employer_cards(html, url):
     """Read one vacancy card/row at a time. Never infer a workplace from HQ."""
     host=urlparse(url).hostname or ''
-    success='hensoldt' in host or 'successfactors' in host
+    success='hensoldt' in host or 'successfactors' in host or host in ('jobs.knds.de','careers.mediamarktsaturn.com','jobs.webasto.com','jobs.wacker.com','jobs.man.eu')
     quantum=host=='career.quantum-systems.com'
     if not (success or quantum):return []
     soup=BeautifulSoup(html,'html.parser');out=[]
@@ -1692,7 +1734,7 @@ def employer_cards(html, url):
             cells=card.find_all(['td','th'],recursive=False)
             for i,label in enumerate(heads):
                 if label in ('location','locations','standort','standorte') and i<len(cells):loc=cells[i].get_text(' ',strip=True)
-        node=card.select_one('[itemprop="datePosted"],.jobDate,.job-date,time[datetime]')
+        node=card.select_one('[itemprop="datePosted"],.jobDate,.job-date')
         if node:date=node.get('content') or node.get('datetime') or node.get_text(' ',strip=True)
         if not date and success:
             lines=card.get_text('\n',strip=True).splitlines()
@@ -1708,10 +1750,34 @@ def employer_cards(html, url):
 
 from src.extraction import canonical_job_url, anchor_label
 
+def bsh_cards(html,url):
+    if urlparse(url).hostname != 'jobs.bsh-group.de':return []
+    out=[]
+    for table in BeautifulSoup(html,'html.parser').select('table'):
+        head=table.find('tr')
+        if not head:continue
+        labels=[x.get_text(' ',strip=True).casefold() for x in head.find_all(['td','th'],recursive=False)]
+        columns=[]
+        for choices in (('title','titel'),('locations','location','standorte','standort'),('publication date','veröffentlichung','veröffentlichungsdatum')):
+            columns.append(next((i for i,label in enumerate(labels) if label in choices),None))
+        if None in columns:continue
+        ti,li,di=columns
+        for row in table.select('tr'):
+            cells=row.find_all('td',recursive=False)
+            if len(cells)<=max(columns):continue
+            for anchor in cells[ti].select('a[href]'):
+                target=urljoin(url,anchor['href']); route=urlparse(target)
+                if route.hostname!='jobs.bsh-group.de' or not re.fullmatch(r'/\d+-[^/]+/(?:en|de)/job\.html',route.path):continue
+                title=anchor.get_text(' ',strip=True)
+                if not usable_title(title):continue
+                raw=cells[di].get_text(' ',strip=True)
+                job=dict(title=title,url=target,location=cells[li].get_text(' ',strip=True),description='',posted_date=raw,_extraction='bsh_public_vacancy_table')
+                out.append(stamp_date(job,raw,'Publication date column',source=url))
+                break
+    return dedupe(out)
+
 def extract_page(html,url):
-
-
-    out=employer_cards(html,url)+structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)+coverage_cards(html,url)
+    out=bsh_cards(html,url)+employer_cards(html,url)+structured_jobs(html,url)+embedded_jobs(html,url)+bmw_cards(html,url)+priority_cards(html,url)+coverage_cards(html,url)
     soup=BeautifulSoup(html,'html.parser');base=document_base(soup,url)
     for a in soup.find_all('a',href=True):
         target=resolve_job_url(base,a['href']);q=parse_qs(urlparse(target).query)
@@ -1810,7 +1876,7 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
         current=next_link(response.text,page_url)
         if not page_jobs and not current and not form_submitted:
 
-            form=public_search_form(response.text,page_url)
+            form=public_search_form(response.text,page_url) or sap_search_form(response.text,page_url)
             if form:
                 action,method,fields=form;form_submitted=True
                 if method=='get':
@@ -1856,7 +1922,7 @@ def scrape_html_board(name,url,get,max_pages=MAX_PAGES,seconds=SOURCE_SECONDS):
     # Browser gets a separate bounded allowance, not the exhausted global fallback budget.
     # No login, stealth, certificate disabling or CAPTCHA handling is attempted.
     blocked_status=getattr(get,'last_status',lambda u:None)(url)
-    if reason in ('no_next_link_unverified','request_failed') and blocked_status not in (401,403,404,410,429):
+    if reason in ('no_next_link_unverified','request_failed') and blocked_status not in (401,403,404,410,429) and getattr(get,'last_status',lambda u:None)(current or url) not in (401,403,404,410,429):
         remaining=current_budget().remaining() if current_budget() else BROWSER_SECONDS
         rendered,render_stats=browse_public_board(name,page_url if pages else url,seconds=min(BROWSER_SECONDS,remaining))
         jobs=dedupe(jobs+rendered);stats['browser']=render_stats;stats['unique_candidates']=len(jobs)
@@ -2189,7 +2255,7 @@ def scrape_greenhouse(company_name: str, board_token: str = "", eu=False) -> lis
         if not isinstance(job, dict) or not job.get('absolute_url') or job.get('internal_job_id', True) is None:
             continue
         desc_html = job.get("content", "") or ""
-        desc_text = BeautifulSoup(desc_html, "html.parser").get_text(" ", strip=True)
+        desc_text = plain(html_lib.unescape(desc_html))
         posted = ""
         raw_date = job.get("first_published") or ""
         if raw_date:
@@ -2999,7 +3065,16 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
             return scrape_eightfold(name, careers_url, token, _safe_get)
         if ats == "ashby":
             match = _PLATFORM_URL_PATTERNS["ashby"].search(careers_url)
-            return scrape_ashby(name, token or (match.group(1) if match else ""))
+            try:
+                return scrape_ashby(name, token or (match.group(1) if match else ""))
+            except (ValueError, RuntimeError) as exc:
+                from urllib.parse import quote
+                board = token or (match.group(1) if match else '')
+                api = 'https://api.ashbyhq.com/posting-api/job-board/' + quote(board,safe='')
+                if detail_access_blocked(api):
+                    return SourceResult([],dict(reader='ashby_public_api',completion='http_'+str(_HTTP_STATUS[api])))
+                logger.warning('Ashby feed unavailable for %s: %s; trying the configured public board',name,exc)
+                return scrape_html_board(name,careers_url,_safe_get)
         if ats == "greenhouse":
             _, _, discovered_token = platform_from_url(careers_url)
             result = scrape_greenhouse(name, token or discovered_token, eu=".eu.greenhouse.io" in host)
@@ -3041,6 +3116,8 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
                 if found_platform == platform:
                     if platform == 'greenhouse':
                         result = scrape_greenhouse(name, token or found_token, eu=host.endswith('.eu.greenhouse.io'))
+                    elif platform == 'personio':
+                        result = scrape_personio(name,token or found_token,'com' if host.endswith('.com') else 'de')
                     else:
                         result = _PLATFORM_SCRAPERS[platform](name, token or found_token)
                     if result or isinstance(result,SourceResult):
@@ -3057,6 +3134,67 @@ def _scrape_company_impl(company: dict[str, Any]) -> list[dict[str, Any]]:
         logger.error("Unhandled error scraping %s: %s", name, exc)
         raise
 
+
+def detail_access_blocked(url):
+    return bool(_paused_workday_status(url) or _HTTP_STATUS.get(url) in (401,403,429))
+
+def _same_posting(left, right):
+    def identity(url):
+        parsed = urlparse(canonical_job_url(url))
+        return parsed.hostname, parsed.path.rstrip('/'), parsed.query
+    return bool(left and right and identity(left) == identity(right))
+
+def _job_page_evidence(soup, source):
+    from src.matching import publication_date, usable_description
+    from html import unescape
+    selectors = ('[itemprop="description"], .job-description, .jobDescription, .job-description-content, '
+                 '.job-details-description, .jobad-description, .posting-description, '
+                 '[data-testid="job-description"], [data-ph-at-id="job-description"], '
+                 '[data-testid="job-description-content"], #job-description')
+    descriptions = [plain(unescape(node.get('content') or node.decode_contents())) for node in soup.select(selectors)
+                    if not node.find_parent(['nav','aside','footer','header'])]
+    label = r'(?:date posted|posting date|published(?: on)?|posted(?: on)?|veröffentlicht(?: am)?|veröffentlichungsdatum|startdatum der ausschreibung|ausschreibungsbeginn)'
+    description = max((value for value in descriptions if usable_description(value)), key=len, default='')
+    if not description:
+        # A visible, explicitly labelled role section may exist without schema markup.
+        headings = soup.select('main h2,main h3,article h2,article h3')
+        parts = []
+        for heading in headings:
+            if not re.fullmatch(r'(?:your (?:tasks|responsibilities|profile|qualifications)|responsibilities|requirements|qualifications|what you(?: will|.ll) do|deine aufgaben|ihre aufgaben|dein profil|ihr profil|was du mitbringst|was sie mitbringen)', heading.get_text(' ',strip=True), re.I):continue
+            for node in heading.next_siblings:
+                if getattr(node,'name',None) in ('h1','h2','h3','footer','nav'):break
+                if getattr(node,'name',None) in ('p','ul','ol','dl'):
+                    line=node.get_text(' ',strip=True)
+                    if re.match(label+r'\s*:',line,re.I):break
+                    parts.append(line)
+        candidate = ' '.join(parts)
+        if usable_description(candidate):description=candidate
+    dates=[]
+    for node in soup.select('[itemprop="datePosted"],meta[property="job:published_time"],meta[name="datePosted"]'):
+        if not node.find_parent(['nav','aside','footer','header']):
+            dates.append((node.get('content') or node.get('datetime') or node.get_text(' ',strip=True),'datePosted metadata'))
+    for scope in soup.select('main,article') or [soup]:
+        for node in scope.select('dt,th,label,strong,p,time,span'):
+            if node.find_parent(['nav','aside','footer','header']):continue
+            line = node.get_text(' ',strip=True)
+            if len(line)>95:continue
+            match = re.fullmatch(label+r'\s*:\s*(.+)',line,re.I)
+            if match:dates.append((match[1],'explicit posting label'))
+            elif re.fullmatch(label+r'\s*:?',line,re.I):
+                sibling = node.find_next_sibling(['dd','td','span','time','p'])
+                if sibling:dates.append((sibling.get('datetime') or sibling.get_text(' ',strip=True),'explicit posting label'))
+    evidence = {'description':description} if description else {}
+    valid = {}
+    for value, field in dates:
+        if field=='explicit posting label' and re.fullmatch(r'\d{1,2}\.\d{1,2}\.\d{2}',value or ''):
+            day,month,year=value.split('.');value=f'{day.zfill(2)}.{month.zfill(2)}.20{year}'
+        date=publication_date({'posted_date':value})
+        if date:valid[date]=(value,field)
+    if len(valid)==1:
+        date,(value,field)=next(iter(valid.items()))
+        evidence['posted_date']=date.isoformat()
+        stamp_date(evidence,value,field,source=source)
+    return evidence
 
 def fetch_job_details(url):
     from src.extraction import structured_jobs, plain, detail_title
@@ -3100,13 +3238,22 @@ def fetch_job_details(url):
         desc = ' '.join(plain(section.get('text','')) for section in sections.values() if isinstance(section,dict))
         loc = data.get('location') or {}
         return {'description': desc, 'location': ', '.join(str(loc[k]) for k in ('city','country') if loc.get(k)), 'posted_date': normalize_fresh_posted(data.get('releasedDate','')),'_date_raw':data.get('releasedDate',''),'_date_field':'releasedDate','_date_kind':'publication','_date_source':url}, desc
-    jobs = structured_jobs(resp.text, resp.url or url)
-    # Only trust one identifiable vacancy, not a board containing many jobs.
-    details = jobs[0] if len(jobs) == 1 else {}
-    if not jobs:
-        recovered = detail_title(resp.text)
-        if recovered:details = {'title': recovered}
+    final_url = resp.url or url
     soup = BeautifulSoup(resp.text, 'html.parser')
+    jobs = [job for job in structured_jobs(resp.text, final_url) if
+            _same_posting(job.get('url'), url) or _same_posting(job.get('url'), final_url)]
+    details = jobs[0].copy() if len(jobs) == 1 else {}
+    recovered = detail_title(resp.text)
+    if not details and recovered:
+        details['title'] = recovered
+    if not details:
+        return {}, ''
+    from src.matching import publication_date, usable_description
+    evidence = _job_page_evidence(soup,final_url)
+    if not usable_description(details.get('description')) and evidence.get('description'):
+        details['description']=evidence['description']
+    if not publication_date(details) and evidence.get('posted_date'):
+        details.update({k:v for k,v in evidence.items() if k != 'description'})
     if not details.get('location'):
         explicit=explicit_detail_locations(resp.text)
         if explicit:details['location']=explicit;details['_location_source']='detail_explicit_locations'
@@ -3124,11 +3271,6 @@ def fetch_job_details(url):
 
         explicit=priority_detail_location(resp.text,resp.url or url)
         if explicit:details['location']=explicit;details['_location_source']='detail_explicit_location'
-    if not details.get('posted_date'):
-        posted = soup.select_one('[itemprop="datePosted"]')
-        if posted:
-            details['posted_date'] = posted.get('content') or posted.get('datetime') or posted.get_text(' ',strip=True)
-            stamp_date(details,details['posted_date'],'datePosted',source=url)
     for tag in soup(['script','style','nav','footer','header']):tag.decompose()
     return details, soup.get_text(' ',strip=True)[:10000]
 '''
@@ -3187,7 +3329,8 @@ from typing import Any, Callable
 from src.matching import allowed_job
 from src.matching import excluded_seniority
 from src.matching import sort_key
-from src.matching import filter_recent_jobs, prune_old_rows
+from src.matching import filter_recent_jobs, prune_old_rows, publication_date, parse_posted, today_local
+from src.extraction import canonical_job_url
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill
 from openpyxl.utils import get_column_letter
@@ -3349,37 +3492,50 @@ def _update_sheet(
     ws = wb[sheet_name]
     new_jobs = [j for j in filter_recent_jobs(new_jobs) if allowed_job(j) and not excluded_seniority(j.get('title'))]
     age_pruned = prune_old_rows(ws, columns)
-    existing_urls = _existing_urls(ws, columns)
-
-    added = 0
-    already_tracked = 0
+    lookup = {name: columns.index(name) + 1 for name in columns}
+    def key(company, url):
+        return str(company or '').strip().casefold(), canonical_job_url(url)
+    existing = {key(ws.cell(row, lookup['Company']).value, ws.cell(row, lookup['URL']).value):row
+                for row in range(2, ws.max_row + 1) if ws.cell(row, lookup['URL']).value}
+    added = already_tracked = dates_backfilled = scores_backfilled = 0
     newly_added_urls = set()
     for job in new_jobs:
-        url = job.get("url", "")
+        url = job.get('url', '')
         if not url:
             continue
-        if url in existing_urls:
+        identity = key(job.get('company'), url)
+        if identity in existing:
             already_tracked += 1
-            url_col = columns.index("URL") + 1
-            for existing_row in range(2, ws.max_row + 1):
-                if ws.cell(existing_row, url_col).value == url:
-                    for key, label in (("match_type", "Match Type"), ("match_reason", "Match Reason"), ("relevance_score", "Relevance Score (1-10)"), ("relevance_evidence", "Relevance Evidence"), ("relevance_notes", "Requirements to Check")):
-                        if label in columns and key in job:ws.cell(existing_row, columns.index(label)+1).value = job[key]
-                    break
+            row = existing[identity]
+            date_cell = ws.cell(row, lookup['Job Posted'])
+            old = parse_posted(date_cell.value)
+            fresh = publication_date(job)
+            if fresh and (not old or old > today_local()):
+                date_cell.value = fresh.isoformat()
+                dates_backfilled += 1
+            for field, column in (('match_type','Match Type'),('match_reason','Match Reason')):
+                if job.get(field):
+                    ws.cell(row, lookup[column]).value = job[field]
+            score_cell = ws.cell(row, lookup['Relevance Score (1-10)'])
+            current = job.get('relevance_score')
+            if type(current) is int and 1 <= current <= 10:
+                scores_backfilled += int(not isinstance(score_cell.value, (int,float)) or not 1 <= score_cell.value <= 10)
+                score_cell.value = current
+                ws.cell(row, lookup['Relevance Evidence']).value = job.get('relevance_evidence') or ''
+                ws.cell(row, lookup['Requirements to Check']).value = job.get('relevance_notes') or ''
             continue
         ws.append(row_builder(job, url))
+        existing[identity] = ws.max_row
         newly_added_urls.add(url)
-        existing_urls.add(url)
         added += 1
-
     pruned = age_pruned + _prune_below_score(ws, columns, min_score)
     _sort_by_relevance(ws, columns, fill, newly_added_urls)
-    return {"added": added, "already_tracked": already_tracked, "pruned": pruned, "total_rows": ws.max_row - 1}
+    return {"added": added, "already_tracked": already_tracked, "pruned": pruned, "dates_backfilled": dates_backfilled, "scores_backfilled": scores_backfilled, "total_rows": ws.max_row - 1}
 
 
 def _build_jobs_row(job: dict[str, Any], url: str) -> list:
     return [
-        job.get("posted_date", ""),
+        publication_date(job).isoformat() if publication_date(job) else "",
         job.get("company", ""),
         job.get("city", ""),
         job.get("title", ""),
